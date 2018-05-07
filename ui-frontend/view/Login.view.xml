@@ -152,8 +152,6 @@
                     <ToolbarSpacer/>
                     <core:HTML
                         content="{i18n>foter.copirate}"/>
-                    <!--для отсупа справа(класс не добавляется почему то)-->
-                    <Text></Text>
                 </content>
             </Toolbar>
         </footer>
