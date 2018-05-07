@@ -21,7 +21,7 @@ sap.ui.define([
         REQUEST_DONE_COLOR: "green",
         REQUEST_PENDING_COLOR: "#f4d742",
         // язык приложения
-        LANG: "en_US"
+        LANG: "ru_RU"
     };
 
     return oModule;
