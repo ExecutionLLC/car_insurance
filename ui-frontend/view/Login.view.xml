@@ -42,18 +42,6 @@
                                             span="L8 M8 S8"/>
                                 </layoutData>
                         </MaskInput>
-
-                        <!--todo потом переделать
-                        <Input
-                                id="loginInput"
-                                placeholder="{i18n>placeholder.mail}"
-                                type = "Text"
-                                submit = "onButtonOk">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L8 M8 S8"/>
-                            </layoutData>
-                        </Input>-->
                     </form:FormElement>
                     <form:FormElement>
                         <Input
