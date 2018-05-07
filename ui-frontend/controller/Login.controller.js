@@ -36,16 +36,26 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: JSON.stringify(authData)
-            }).done(function (result) {
-                oComponent.initModels(result.snils);
-                oLoginInput.setValue("");
-                oPasswordInput.setValue("");
-                oRouter.navTo("menuPage");
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                MessageBox.error(sErrorPassOrLog);
+            // FIXME: temporary test changes, restore at merge >>>
+            // }).done(function (result) {
+            //     oComponent.initModels(result.snils);
+            //     oLoginInput.setValue("");
+            //     oPasswordInput.setValue("");
+            //     oRouter.navTo("menuPage");
+            // }).fail(function (jqXHR, textStatus, errorThrown) {
+            //     MessageBox.error(sErrorPassOrLog);
+            // FIXME: <<<
             }).always(function () {
-                oLoginInput.setEnabled(true);
-                oPasswordInput.setEnabled(true);
+                // FIXME: temporary test changes, restore at merge >>>
+                // oLoginInput.setEnabled(true);
+                // oPasswordInput.setEnabled(true);
+                // FIXME: <<<
+              // FIXME: temporary test changes, remove at merge >>>
+              oComponent.initModels('result.snils');
+              oLoginInput.setValue("");
+              oPasswordInput.setValue("");
+              oRouter.navTo("menuPage");
+              // FIXME: <<<
             });
         }
     });
