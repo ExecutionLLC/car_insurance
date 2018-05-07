@@ -1,6 +1,5 @@
 .form-margin {
-	margin-left: 35%;
-	margin-top: 10%;
+  margin: 30px auto;
 }
 .label-position {
 	font-size: x-large;
@@ -98,4 +97,8 @@
 
 .sapMPageHeader::before {
 	border-top-width: 0rem;
+}
+
+.sapMShell {
+  padding: 20px;
 }
