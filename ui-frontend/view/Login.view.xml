@@ -1,15 +1,15 @@
 <mvc:View
-    controllerName="personal.account.controller.Login"
-    xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:layout="sap.ui.layout"
-    xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
-    displayBlock="true">
+        controllerName="personal.account.controller.Login"
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:layout="sap.ui.layout"
+        xmlns:core="sap.ui.core"
+        xmlns:form="sap.ui.layout.form"
+        displayBlock="true">
     <Page
-        showHeader="false">
+            showHeader="false">
         <form:Form
-                width = "40%"
+                width="40%"
                 editable="true"
                 class="form-margin">
             <form:formContainers>
@@ -32,10 +32,10 @@
                     </form:FormElement>
                     <form:FormElement>
                         <Input
-                            id="loginInput"
-                            type="Email"
-                            placeholder="{i18n>placeholder.mail}"
-                            submit="onEnter">
+                                id="loginInput"
+                                type="Email"
+                                placeholder="{i18n>placeholder.mail}"
+                                submit="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L8 M8 S8"/>
@@ -46,8 +46,8 @@
                         <Input
                                 id="passwordInput"
                                 placeholder="{i18n>placeholder.password}"
-                                type = "Password"
-                                submit = "onEnter">
+                                type="Password"
+                                submit="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L8 M8 S8"/>
@@ -60,7 +60,7 @@
                         <Button
                                 text="{i18n>button.enter}"
                                 type="Emphasized"
-                                press = "onEnter">
+                                press="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L6 M6 S4"/>
@@ -84,7 +84,7 @@
             </form:layout>
         </form:Form>
         <form:Form
-                width = "40%"
+                width="40%"
                 editable="true"
                 class="form-margin">
             <form:formContainers>
