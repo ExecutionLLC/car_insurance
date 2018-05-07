@@ -55,19 +55,6 @@
         <mvc:XMLView id="NPF" viewName="personal.account.view.TabBarViews.NPF"></mvc:XMLView>
 
     </NavContainer>
-    <footer>
-        <Toolbar>
-            <content>
-                <Image
-                        class="image-pointer sapUiSmallMarginBegin"
-                        height="4rem"
-                        src="./image/sap.png"/>
-                <ToolbarSpacer/>
-                <core:HTML
-                        content="{i18n>foter.copirate}"/>
-            </content>
-        </Toolbar>
-    </footer>
 </Page>
 
 
