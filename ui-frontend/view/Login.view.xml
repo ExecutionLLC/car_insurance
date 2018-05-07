@@ -23,25 +23,24 @@
                         <Label
                                 text="{i18n>label.enter}"/>
                         <HBox>
-                            <Link
+                            <Text
                                     text="{i18n>link.login}"
                                     class="sapUiSmallMarginEnd"/>
-                            <Text
-                                    class="visited"
+                            <Link
                                     text="{i18n>link.snils}"/>
                         </HBox>
                     </form:FormElement>
                     <form:FormElement>
-                        <MaskInput
-                                id="loginInput"
-                                mask = "999-999-999 99"
-                                placeholderSymbol = "_"
-                                placeholder = "{i18n>placeholder.snils}">
-                                <layoutData>
-                                    <layout:GridData
-                                            span="L8 M8 S8"/>
-                                </layoutData>
-                        </MaskInput>
+                        <Input
+                            id="loginInput"
+                            type="Email"
+                            placeholder="{i18n>placeholder.mail}"
+                            submit="onEnter">
+                            <layoutData>
+                                <layout:GridData
+                                        span="L8 M8 S8"/>
+                            </layoutData>
+                        </Input>
                     </form:FormElement>
                     <form:FormElement>
                         <Input
@@ -55,7 +54,6 @@
                             </layoutData>
                         </Input>
                         <Link
-                                emphasized="true"
                                 text="{i18n>link.forgotPassword}"/>
                     </form:FormElement>
                     <form:FormElement>
@@ -69,7 +67,6 @@
                             </layoutData>
                         </Button>
                         <Link
-                                emphasized="true"
                                 text="{i18n>link.reg}">
                             <layoutData>
                                 <layout:GridData
