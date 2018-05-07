@@ -1,0 +1,162 @@
+<mvc:View
+    controllerName="personal.account.controller.Login"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    displayBlock="true">
+    <Page
+        showHeader="false">
+        <form:Form
+                width = "40%"
+                editable="true"
+                class="form-margin">
+            <form:formContainers>
+                <form:FormContainer>
+                    <form:FormElement>
+                        <Label
+                                class="label-position"
+                                text="{i18n>login.login}"/>
+                    </form:FormElement>
+                    <form:FormElement>
+                        <Label
+                                text="{i18n>label.enter}"/>
+                        <HBox>
+                            <Link
+                                    text="{i18n>link.login}"
+                                    class="sapUiSmallMarginEnd"/>
+                            <Text
+                                    class="visited"
+                                    text="{i18n>link.snils}"/>
+                        </HBox>
+                    </form:FormElement>
+                    <form:FormElement>
+                        <MaskInput
+                                id="loginInput"
+                                mask = "999-999-999 99"
+                                placeholderSymbol = "_"
+                                placeholder = "{i18n>placeholder.snils}">
+                                <layoutData>
+                                    <layout:GridData
+                                            span="L8 M8 S8"/>
+                                </layoutData>
+                        </MaskInput>
+
+                        <!--todo потом переделать
+                        <Input
+                                id="loginInput"
+                                placeholder="{i18n>placeholder.mail}"
+                                type = "Text"
+                                submit = "onButtonOk">
+                            <layoutData>
+                                <layout:GridData
+                                        span="L8 M8 S8"/>
+                            </layoutData>
+                        </Input>-->
+                    </form:FormElement>
+                    <form:FormElement>
+                        <Input
+                                id="passwordInput"
+                                placeholder="{i18n>placeholder.password}"
+                                type = "Password"
+                                submit = "onEnter">
+                            <layoutData>
+                                <layout:GridData
+                                        span="L8 M8 S8"/>
+                            </layoutData>
+                        </Input>
+                        <Link
+                                emphasized="true"
+                                text="{i18n>link.forgotPassword}"/>
+                    </form:FormElement>
+                    <form:FormElement>
+                        <Button
+                                text="{i18n>button.enter}"
+                                type="Emphasized"
+                                press = "onEnter">
+                            <layoutData>
+                                <layout:GridData
+                                        span="L6 M6 S4"/>
+                            </layoutData>
+                        </Button>
+                        <Link
+                                emphasized="true"
+                                text="{i18n>link.reg}">
+                            <layoutData>
+                                <layout:GridData
+                                        span="L2 M2 S4"/>
+                            </layoutData>
+                        </Link>
+                    </form:FormElement>
+                </form:FormContainer>
+            </form:formContainers>
+            <form:layout>
+                <form:ResponsiveGridLayout
+                        columnsL="1"
+                        columnsM="1"
+                        columnsS="1"/>
+            </form:layout>
+        </form:Form>
+        <form:Form
+                width = "40%"
+                editable="true"
+                class="form-margin">
+            <form:formContainers>
+                <form:FormContainer>
+                    <form:FormElement>
+                        <Label
+                                text="{i18n>label.enterWith}"/>
+                    </form:FormElement>
+                    <form:FormElement>
+                        <VBox>
+                            <Link
+                                    text="{i18n>gosuslugi}"/>
+                            <Link
+                                    text="{i18n>signature}"/>
+                        </VBox>
+                    </form:FormElement>
+                    <form:FormElement>
+                        <Label
+                                class="sapUiSmallMarginTop"
+                                text="{i18n>label.enterBySocial}"/>
+                        <HBox>
+                            <Image
+                                    class="sapUiSmallMarginEnd image-pointer"
+                                    src="./image/vk.jpg"/>
+                            <Image
+                                    class="sapUiSmallMarginEnd image-pointer"
+                                    src="./image/facebook.jpg"/>
+                            <Image
+                                    class="image-pointer
+"
+                                    src="./image/twitter.jpg"/>
+                        </HBox>
+                    </form:FormElement>
+                </form:FormContainer>
+            </form:formContainers>
+            <form:layout>
+                <form:ResponsiveGridLayout
+                        columnsL="1"
+                        columnsM="1"
+                        columnsS="1"/>
+            </form:layout>
+        </form:Form>
+        <footer>
+            <Toolbar>
+                <content>
+                    <Image
+                            class="image-pointer sapUiSmallMarginBegin"
+                            height="4rem"
+                            src="./image/sap.png"/>
+                    <ToolbarSpacer/>
+                    <core:HTML
+                        content="{i18n>foter.copirate}"/>
+                    <!--для отсупа справа(класс не добавляется почему то)-->
+                    <Text></Text>
+                </content>
+            </Toolbar>
+        </footer>
+    </Page>
+
+</mvc:View>

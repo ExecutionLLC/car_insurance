@@ -1,0 +1,93 @@
+.form-margin {
+	margin-left: 35%;
+	margin-top: 10%;
+}
+.label-position {
+	font-size: x-large;
+	margin-bottom: 10%;
+}
+.toolBarSeparator-bigger {
+	height: 7rem;
+	width: 0.1rem;
+	background-color: darkgray;
+}
+.label-margin-top{
+	margin-top: 1rem;
+}
+
+.coloredText {
+	color : #346187;
+	font-size : 2rem;
+	font-weight: bold;
+}
+
+.H1 {
+	font-size : 2rem;
+	font-weight: bold;
+}
+.H2 {
+	font-size : 1rem;
+}
+
+.link {
+	text-decoration: underline;
+	color : #346187;
+}
+
+.right-border {
+	border-right: 0.5px groove;
+	border-color : black;
+}
+
+.green {
+	color : green;
+}
+
+.red {
+	color : red;
+}
+
+.label-font_style {
+	font-weight: bold;
+	font-size: large;
+}
+.text-bold{
+	font-weight: bold;
+}
+
+/*todo: Правки косяков стандарной библиотеки стилей SAPUI5*/
+/*Правим заезжание наверх содержимого заголовка*/
+.cstMITHNoBBorder.sapMITH{
+	border-bottom: none;
+}
+
+.button-color{
+	border: none;
+	background-color: transparent;
+}
+.logout-color{
+	color: gray;
+}
+
+.visited{
+	color: black;
+	font-weight: bold;
+}
+
+.sapMPanelExpandableIcon.sapUiIcon{
+	right: 10%;
+}
+
+.tableReport .sapMPanelExpandableIcon.sapUiIcon{
+	right: 4%;
+}
+
+.image-pointer{
+	cursor: pointer;
+}
+.verticalLayout-margin_left{
+	margin-left: 2rem;
+}
+.verticalLayout_tariff_npf-margin_left{
+	margin-left: 6.5rem;
+}

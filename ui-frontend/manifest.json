@@ -1,0 +1,92 @@
+{
+  "_version": "1.1.0",
+  "sap.app": {
+    "_version": "1.1.0",
+    "id": "personal.account",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "_version": "1.1.0",
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_belize"
+    ]
+  },
+  "sap.ui5": {
+    "_version": "1.1.0",
+    "rootView": "personal.account.view.App",
+    "dependencies": {
+      "minUI5Version": "1.30",
+      "libs": {
+        "sap.m": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "personal.account.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing":{
+      "config":{
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "personal.account.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": "notFound"
+        }
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "loginPage",
+          "target": "loginPage"
+        },
+        {
+          "pattern": "account:?query:",
+          "name": "menuPage",
+          "target": "menuPage"
+        },
+        {
+          "pattern": "npf",
+          "name": "changeNpf",
+          "target": "npf"
+        }
+      ],
+      "targets": {
+        "loginPage": {
+          "viewName": "Login"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "transition": "show"
+        },
+        "menuPage": {
+          "viewName": "Menu"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+/*
+ External
+ */
+@import "../../node_modules/bootstrap/less/bootstrap.less";
+@import "variables.less";
+
+body {
+  padding-top: @nav-with-header-height;
+}
+
+body.hide-header {
+  padding-top: @nav-height;
+}
+
+body.hide-header .hideable-header {
+  display: none;
+}
+
+.rotating {
+  animation: rotating 2s infinite linear;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+body a.anchor {
+  position: relative;
+  top: -@nav-with-header-height;
+}
+
+body a.anchor:before {
+  content: ""; // for jumping to offsetted #anchor it need to be the content in it
+}
+
+body.hide-header a.anchor {
+  top: -@nav-height;
+}
+
+.tab-content {
+  border: @nav-tabs-border-color 1px solid;
+  border-top: none;
+  padding-top: @panel-body-padding;
+}
