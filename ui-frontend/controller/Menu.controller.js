@@ -1,6 +1,7 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function (Controller) {
+    "sap/ui/core/mvc/Controller",
+    "personal/account/util/Utils"
+], function (Controller, Utils) {
     "use strict";
     var _aValidTabKeys = ["Profile","InsuranceHistory","MyAutos","MyPolicies"];
     return Controller.extend("personal.account.controller.Menu", {
@@ -18,29 +19,17 @@ sap.ui.define([
                 oComponent.getModel("techModel").setProperty("/tech/selectedKey", oQuery.tab);
                 oNavCon.to(this.getView().byId(oQuery.tab),"show");
             }else {
-                this.oRouter.navTo("menuPage", {
-                    query: {
-                        tab: _aValidTabKeys[0]
-                    }
-                }, true /*no history*/);
+                Utils.navigateToMenuPageTab(this.oRouter, _aValidTabKeys[0]);
             }
         },
 
         onSelectTab: function (oEvent) {
-            this.oRouter.navTo("menuPage", {
-                query: {
-                    tab: oEvent.getParameter("selectedKey")
-                }
-            }, true);
+            Utils.navigateToMenuPageTab(this.oRouter, oEvent.getParameter("selectedKey"));
         },
 
         onHomePress: function () {
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("menuPage", {
-                query: {
-                    tab: "Profile"
-                }
-            }, true);
+            Utils.navigateToMenuPageTab(oRouter, "Profile");
         }
     });
 });
