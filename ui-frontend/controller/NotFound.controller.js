@@ -12,7 +12,7 @@ sap.ui.define([
             var oHistory, sPreviousHash;
             oHistory = History.getInstance();
             sPreviousHash = oHistory.getPreviousHash();
-            if (sPreviousHash !== null) {
+            if (sPreviousHash) {
                 window.history.go(-1);
             } else {
                 Utils.navigateToMenuPageTab(this.getRouter());
