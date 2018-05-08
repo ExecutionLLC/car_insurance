@@ -25,14 +25,14 @@
                         text="{i18n>toolbarIcon.profile}"
                         key="Profile"/>
                 <IconTabFilter
-                        text="{i18n>toolbarIcon.report}"
-                        key="Report"/>
+                        text="{i18n>toolbarIcon.insuranceHistory}"
+                        key="InsuranceHistory"/>
                 <IconTabFilter
-                        text="{i18n>toolbarIcon.rate}"
-                        key="Rate"/>
+                        text="{i18n>toolbarIcon.myAutos}"
+                        key="MyAutos"/>
                 <IconTabFilter
-                        text="{i18n>toolbarIcon.NPF}"
-                        key="NPF"/>
+                        text="{i18n>toolbarIcon.myPolicies}"
+                        key="MyPolicies"/>
             </items>
         </IconTabHeader>
         <ToolbarSpacer/>
@@ -48,9 +48,9 @@
             width="100%"
             height="calc(100% - 3rem - 1px)">
         <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"></mvc:XMLView>
-        <mvc:XMLView id="Report" viewName="personal.account.view.TabBarViews.Report"></mvc:XMLView>
-        <mvc:XMLView id="Rate" viewName="personal.account.view.TabBarViews.ChangeTariff"></mvc:XMLView>
-        <mvc:XMLView id="NPF" viewName="personal.account.view.TabBarViews.NPF"></mvc:XMLView>
+        <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.Report"></mvc:XMLView>
+        <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"></mvc:XMLView>
+        <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.NPF"></mvc:XMLView>
 
     </NavContainer>
 </Page>

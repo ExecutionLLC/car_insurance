@@ -2,7 +2,7 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller"
 ], function (Controller) {
     "use strict";
-    var _aValidTabKeys = ["Profile","Report","Rate","NPF"];
+    var _aValidTabKeys = ["Profile","InsuranceHistory","MyAutos","MyPolicies"];
     return Controller.extend("personal.account.controller.Menu", {
         onInit: function () {
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
