@@ -35,11 +35,6 @@ sap.ui.define([
             this.oTechModel.setProperty("/tech/profileTab/diagramData", diagramData);
         },
 
-        onNavigateToNPF: function () {
-            var router = sap.ui.core.UIComponent.getRouterFor(this);
-            Utils.navigateToMenuPageTab(router, "MyAutos"); // TODO sample code, make real one
-        },
-
         onNavigateChangeTariff: function () {
             var router = sap.ui.core.UIComponent.getRouterFor(this);
             Utils.navigateToMenuPageTab(router, "MyPolicies"); // TODO sample code, make real one
