@@ -60,14 +60,6 @@
 	border-bottom: none;
 }
 
-.button-color{
-	border: none;
-	background-color: transparent;
-}
-.logout-color{
-	color: gray;
-}
-
 .sapMPanelExpandableIcon.sapUiIcon{
 	right: 10%;
 }
