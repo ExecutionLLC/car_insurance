@@ -8,10 +8,8 @@
 <Page
         showHeader="false">
     <tnt:ToolHeader>
-        <core:Icon
-                src="sap-icon://home"
-                size="2rem"
-                class="sapUiMediumMarginBeginEnd"
+        <Text
+                text=""
                 press="onHomePress"/>
         <IconTabHeader class="cstMITHNoBBorder"
                        showOverflowSelectList="true"
