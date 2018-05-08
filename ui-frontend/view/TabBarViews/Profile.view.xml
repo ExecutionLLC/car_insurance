@@ -32,7 +32,7 @@
                                     justifyContent = "SpaceAround"
                                     class = "sapUiSmallMarginEnd">
                                     <Text
-                                        text ="{i18n>myNPF}"
+                                        text ="{i18n>myInsuranceCompany}"
                                         class = "H2"  />
                                     <core:Icon
                                         src="sap-icon://edit-outside"
