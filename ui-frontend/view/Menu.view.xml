@@ -8,7 +8,7 @@
     <Page
             showHeader="false">
         <tnt:ToolHeader>
-            <Text
+            <Button
                     text=""
                     press="onHomePress"/>
             <IconTabHeader class="cstMITHNoBBorder"
