@@ -5,7 +5,7 @@ sap.ui.define([
     "use strict";
     return Controller.extend("personal.account.controller.Menu", {
         onInit: function () {
-            this.getRouter().getRoute("menuPage").attachMatched(this._onRouteMatched,this);
+            this.getRouter().getRoute("menuPage").attachMatched(this._onRouteMatched, this);
         },
 
         getRouter() {
@@ -18,10 +18,10 @@ sap.ui.define([
             var oArgs = oEvent.getParameter("arguments");
             var oQuery = oArgs["?query"];
             var tab;
-            if (oQuery){
+            if (oQuery) {
                 tab = oQuery.tab;
                 oComponent.getModel("techModel").setProperty("/tech/selectedKey", tab);
-                oNavCon.to(this.getView().byId(tab),"show");
+                oNavCon.to(this.getView().byId(tab), "show");
             } else {
                 Utils.navigateToMenuPageTab(this.getRouter(), "Profile");
             }
