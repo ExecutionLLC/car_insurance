@@ -2,61 +2,51 @@
         controllerName="personal.account.controller.Menu"
         xmlns:mvc="sap.ui.core.mvc"
         xmlns="sap.m"
-        xmlns:layout="sap.ui.layout"
-        xmlns:core="sap.ui.core"
         xmlns:tnt="sap.tnt">
-<Page
-        showHeader="false">
-    <tnt:ToolHeader>
-        <core:Icon
-                src="sap-icon://home"
-                size="2rem"
-                class="sapUiMediumMarginBeginEnd"
-                press="onHomePress"/>
-        <IconTabHeader class="cstMITHNoBBorder"
-                       showOverflowSelectList="true"
-                       backgroundDesign="Transparent"
-                       select="onSelectTab"
-                       selectedKey="{techModel>/tech/selectedKey}">
-            <layoutData>
-                <OverflowToolbarLayoutData
-                        shrinkable="true"/>
-            </layoutData>
-            <items>
-                <IconTabFilter
-                        text="{i18n>toolbarIcon.profile}"
-                        key="Profile"/>
-                <IconTabFilter
-                        text="{i18n>toolbarIcon.report}"
-                        key="Report"/>
-                <IconTabFilter
-                        text="{i18n>toolbarIcon.rate}"
-                        key="Rate"/>
-                <IconTabFilter
-                        text="{i18n>toolbarIcon.NPF}"
-                        key="NPF"/>
-            </items>
-        </IconTabHeader>
-        <ToolbarSpacer/>
-        <Button
-                type="Transparent"
-                text="{i18n>toolbarIcon.logout}"
-                press="onLogout"/>
-    </tnt:ToolHeader>
+    <Page
+            showHeader="false">
+        <tnt:ToolHeader>
+            <Button
+                    text=""
+                    press="onHomePress"/>
+            <IconTabHeader class="cstMITHNoBBorder"
+                           showOverflowSelectList="true"
+                           backgroundDesign="Transparent"
+                           select="onSelectTab"
+                           selectedKey="{techModel>/tech/selectedKey}">
+                <layoutData>
+                    <OverflowToolbarLayoutData
+                            shrinkable="true"/>
+                </layoutData>
+                <items>
+                    <IconTabFilter
+                            text="{i18n>toolbarIcon.profile}"
+                            key="Profile"/>
+                    <IconTabFilter
+                            text="{i18n>toolbarIcon.insuranceHistory}"
+                            key="InsuranceHistory"/>
+                    <IconTabFilter
+                            text="{i18n>toolbarIcon.myAutos}"
+                            key="MyAutos"/>
+                    <IconTabFilter
+                            text="{i18n>toolbarIcon.myPolicies}"
+                            key="MyPolicies"/>
+                </items>
+            </IconTabHeader>
+        </tnt:ToolHeader>
 
 
-    <NavContainer
-            id="navCon"
-            width="100%"
-            height="calc(100% - 3rem - 1px)">
-        <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"></mvc:XMLView>
-        <mvc:XMLView id="Report" viewName="personal.account.view.TabBarViews.Report"></mvc:XMLView>
-        <mvc:XMLView id="Rate" viewName="personal.account.view.TabBarViews.ChangeTariff"></mvc:XMLView>
-        <mvc:XMLView id="NPF" viewName="personal.account.view.TabBarViews.NPF"></mvc:XMLView>
+        <NavContainer
+                id="navCon"
+                width="100%"
+                height="calc(100% - 3rem - 1px)">
+            <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"/>
+            <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.Report"/>
+            <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"/>
+            <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.NPF"/>
 
-    </NavContainer>
-</Page>
-
+        </NavContainer>
+    </Page>
 
 
 </mvc:View>

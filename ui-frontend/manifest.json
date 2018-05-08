@@ -68,11 +68,6 @@
           "pattern": "account:?query:",
           "name": "menuPage",
           "target": "menuPage"
-        },
-        {
-          "pattern": "npf",
-          "name": "changeNpf",
-          "target": "npf"
         }
       ],
       "targets": {

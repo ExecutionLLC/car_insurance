@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/routing/History"
-], function (Controller, History) {
+    "sap/ui/core/routing/History",
+    "personal/account/util/Utils"
+], function (Controller, History, Utils) {
     "use strict";
     return Controller.extend("personal.account.controller.NotFound", {
         getRouter : function () {
@@ -14,7 +15,7 @@ sap.ui.define([
             if (sPreviousHash !== null) {
                 window.history.go(-1);
             } else {
-                this.getRouter().navTo("menuPage", {}, true /*no history*/);
+                Utils.navigateToMenuPageTab(this.getRouter());
             }
         }
     });

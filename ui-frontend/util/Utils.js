@@ -189,12 +189,16 @@ sap.ui.define([
                 MessageBox.error(sErrorText);
             });
         },
-        onNavigateToTab: function (router, tabName) {
-            router.navTo("menuPage", {
-                query: {
-                    tab: tabName
-                }
-            }, true);
+        navigateToMenuPageTab: function (router, tabName) {
+            var navToOptions =
+                tabName ?
+                    {
+                        query: {
+                            tab: tabName
+                        }
+                    } :
+                    {};
+            router.navTo("menuPage", navToOptions, true);
         },
         getLoginUrl: function () {
             var url = Const.LOGIN_URL;

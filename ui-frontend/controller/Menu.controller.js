@@ -1,12 +1,15 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], function (Controller) {
+    "sap/ui/core/mvc/Controller",
+    "personal/account/util/Utils"
+], function (Controller, Utils) {
     "use strict";
-    var _aValidTabKeys = ["Profile","Report","Rate","NPF"];
     return Controller.extend("personal.account.controller.Menu", {
         onInit: function () {
-            this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            this.oRouter.getRoute("menuPage").attachMatched(this._onRouteMatched,this);
+            this.getRouter().getRoute("menuPage").attachMatched(this._onRouteMatched,this);
+        },
+
+        getRouter() {
+            return sap.ui.core.UIComponent.getRouterFor(this);
         },
 
         _onRouteMatched: function (oEvent) {
@@ -14,37 +17,22 @@ sap.ui.define([
             var oComponent = this.getOwnerComponent();
             var oArgs = oEvent.getParameter("arguments");
             var oQuery = oArgs["?query"];
-            if (oQuery && _aValidTabKeys.indexOf(oQuery.tab) > -1){
-                oComponent.getModel("techModel").setProperty("/tech/selectedKey", oQuery.tab);
-                oNavCon.to(this.getView().byId(oQuery.tab),"show");
-            }else {
-                this.oRouter.navTo("menuPage", {
-                    query: {
-                        tab: _aValidTabKeys[0]
-                    }
-                }, true /*no history*/);
+            var tab;
+            if (oQuery){
+                tab = oQuery.tab;
+                oComponent.getModel("techModel").setProperty("/tech/selectedKey", tab);
+                oNavCon.to(this.getView().byId(tab),"show");
+            } else {
+                Utils.navigateToMenuPageTab(this.getRouter(), "Profile");
             }
         },
 
         onSelectTab: function (oEvent) {
-            this.oRouter.navTo("menuPage", {
-                query: {
-                    tab: oEvent.getParameter("selectedKey")
-                }
-            }, true);
-        },
-
-        onLogout: function () {
-            this.oRouter.navTo("loginPage");
+            Utils.navigateToMenuPageTab(this.getRouter(), oEvent.getParameter("selectedKey"));
         },
 
         onHomePress: function () {
-            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            oRouter.navTo("menuPage", {
-                query: {
-                    tab: "Profile"
-                }
-            }, true);
+            Utils.navigateToMenuPageTab(this.getRouter(), "Profile");
         }
     });
 });

@@ -41,7 +41,7 @@ sap.ui.define([
             //     oComponent.initModels(result.snils);
             //     oLoginInput.setValue("");
             //     oPasswordInput.setValue("");
-            //     oRouter.navTo("menuPage");
+            //     Utils.navigateToMenuPageTab(oRouter);
             // }).fail(function (jqXHR, textStatus, errorThrown) {
             //     MessageBox.error(sErrorPassOrLog);
             // FIXME: <<<
@@ -54,7 +54,7 @@ sap.ui.define([
               oComponent.initModels('result.snils');
               oLoginInput.setValue("");
               oPasswordInput.setValue("");
-              oRouter.navTo("menuPage");
+              Utils.navigateToMenuPageTab(oRouter);
               // FIXME: <<<
             });
         }
