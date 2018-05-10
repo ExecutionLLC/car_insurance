@@ -26,6 +26,18 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование адреса страховой компании в имя
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} - имя
+         */
+        formatICAddressToName: function (icAddress) {
+            var oComponent = this.getOwnerComponent();
+            var oModel = oComponent.getModel("npfModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+            return item ? item.name : "?";
+        },
+
+        /**
          * @description Форматирование адреса НПФ в имя
          * @param {string} npfAddress - адрес нпф
          * @return {string} - имя
@@ -36,6 +48,18 @@ sap.ui.define([
             var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
 
             return item ? item.name : "?";
+        },
+        /**
+         * @description Форматирование адреса с.к. в рейтинг надежности
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} надежность
+         */
+        formatICAddressToReliability: function (icAddress) {
+            var oComponent = this.getOwnerComponent();
+            var oModel = oComponent.getModel("npfModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+
+            return item ? item.ratingOfReliability : "?";
         },
         /**
          * @description Форматирование адреса НПФ в рейтинг надежности
@@ -97,6 +121,17 @@ sap.ui.define([
             var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
             var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
             return oNpfRating.symbol;
+        },
+
+        /**
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
+         */
+        formatICRatingToImage: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return oICRating.imageSrc;
         },
 
         /**

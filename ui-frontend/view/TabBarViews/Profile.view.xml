@@ -36,7 +36,7 @@
                                     <Text
                                             text ="{
                                                 path:'mainModel>/npf',
-                                                formatter:'.formatter.formatNpfAddressToName'}"
+                                                formatter:'.formatter.formatICAddressToName'}"
                                             class="H1" />
                                 </HBox>
                             </VBox>
@@ -51,7 +51,7 @@
                                     <Image
                                         src="{
                                             path:'mainModel>/npf',
-                                            formatter:'.formatter.formatNpfRatingToImage'}"
+                                            formatter:'.formatter.formatICRatingToImage'}"
                                         width = '4rem'
                                         height = "4rem"
                                         />

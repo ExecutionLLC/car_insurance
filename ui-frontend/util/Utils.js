@@ -92,6 +92,19 @@ sap.ui.define([
 
             return result;
         },
+        getInsuranceObjectByAddress: function (address, model) {
+            if (!address || !model) {
+                return null;
+            }
+            var modelData = model.getData();
+            if (!modelData || !modelData.find) {
+                return null;
+            }
+            var adressUpperCase = address.toUpperCase();
+            return modelData.find(function (item) {
+                return item.address.toUpperCase() === adressUpperCase;
+            });
+        },
         getNpfObjectByAddress: function(address, model) {
             if (!address || !model) {
                 return null;
@@ -105,6 +118,10 @@ sap.ui.define([
             return modelData.find(function(item) {
                 return item.address.toUpperCase() === adressUpperCase;
             });
+        },
+
+        conversionICRating: function (int) {
+            return this.conversionNpfRating(int);
         },
 
         conversionNpfRating: function (int) {
