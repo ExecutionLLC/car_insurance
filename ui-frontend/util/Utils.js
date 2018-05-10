@@ -275,8 +275,7 @@ sap.ui.define([
             router.navTo("menuPage", navToOptions, true);
         },
         getLoginUrl: function () {
-            var url = Const.LOGIN_URL;
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/login";
         },
         getPersonInfoUrl: function (snils) {
             var url = Const.BASE_URL + "/person/" + snils;

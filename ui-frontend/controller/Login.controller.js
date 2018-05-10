@@ -5,52 +5,6 @@ sap.ui.define([
 ], function (Controller, MessageBox, Utils) {
     "use strict";
 
-    var $ = {
-        ajax: function(opts) {
-            console.log('Login ajax', opts);
-            var doneF = function() {};
-            var failF = function() {};
-            var alwaysF = function() {};
-            var res = {
-                done: function(f) {
-                    doneF = f;
-                    return res;
-                },
-                fail: function(f) {
-                    failF = f;
-                    return res;
-                },
-                always: function(f) {
-                    alwaysF = f;
-                    return res;
-                }
-            };
-
-            setTimeout(
-                function() {
-                    var loginData = JSON.parse(opts.data);
-                    var isValid = loginData.login === loginData.password;
-                    if (isValid) {
-                        doneF({
-                            "firstName": "Иван",
-                            "middleName": "Иванович",
-                            "lastName": "Иванов",
-                            "birthDate": 536544000000,
-                            "email": "ivan@example.com",
-                            "snils": "00000000101"
-                        });
-                    } else {
-                        failF();
-                    }
-                    alwaysF();
-                },
-                1000
-            );
-
-            return res;
-        }
-    };
-
     return Controller.extend("personal.account.controller.Login", {
         onInit: function () {
             var oLoginInput = this.byId("loginInput");
@@ -71,7 +25,7 @@ sap.ui.define([
             var oPasswordInput = this.getView().byId("passwordInput");
 
             var authData = {
-                login: oLoginInput.getValue().replace(/[- ]/g, ""),
+                email: oLoginInput.getValue(),
                 password: oPasswordInput.getValue()
             };
             oLoginInput.setEnabled(false);
@@ -88,7 +42,7 @@ sap.ui.define([
                 oLoginInput.setValue("");
                 oPasswordInput.setValue("");
                 Utils.navigateToMenuPageTab(oRouter);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
+            }).fail(function () {
                 MessageBox.error(sErrorPassOrLog);
             }).always(function () {
                 oLoginInput.setEnabled(true);
