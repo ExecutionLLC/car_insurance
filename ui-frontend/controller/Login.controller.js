@@ -7,6 +7,7 @@ sap.ui.define([
 
     var $ = {
         ajax: function(opts) {
+            console.log('Login ajax', opts);
             var doneF = function() {};
             var failF = function() {};
             var alwaysF = function() {};
