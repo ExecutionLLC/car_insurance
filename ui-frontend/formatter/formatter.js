@@ -32,7 +32,7 @@ sap.ui.define([
          */
         formatICAddressToName: function (icAddress) {
             var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
+            var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
             return item ? item.name : "?";
         },
@@ -56,7 +56,7 @@ sap.ui.define([
          */
         formatICAddressToReliability: function (icAddress) {
             var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
+            var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
 
             return item ? item.ratingOfReliability : "?";

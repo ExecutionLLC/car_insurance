@@ -149,6 +149,8 @@ sap.ui.define([
             this.setModel(oTechModel, "techModel");
             var oListNpfModel = new JSONModel();
             this.setModel(oListNpfModel, "npfModel");
+            var oListICModel = new JSONModel();
+            this.setModel(oListICModel, "icModel");
 
             this.setLanguages();
 
@@ -172,6 +174,7 @@ sap.ui.define([
             var oMainModel = this.getModel("mainModel");
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
+            var oICModel = this.getModel("icModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
@@ -184,6 +187,7 @@ sap.ui.define([
                     dataType: "json"
                 }).done(function (npfsResult) {
                     oNpfModel.setData(npfsResult);
+                    oICModel.setData(npfsResult);
                     oMainModel.setData(personInfoResult);
                     oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
