@@ -6,6 +6,39 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils) {
     "use strict";
 
+    var $ = {
+        ajax: function(opts) {
+            console.log('NPF ajax', opts);
+            var doneF = function() {};
+            var failF = function() {};
+            var alwaysF = function() {};
+            var res = {
+                done: function(f) {
+                    doneF = f;
+                    return res;
+                },
+                fail: function(f) {
+                    failF = f;
+                    return res;
+                },
+                always: function(f) {
+                    alwaysF = f;
+                    return res;
+                }
+            };
+
+            setTimeout(
+                function() {
+                    doneF({ "transactionHash": '' + Math.random() });
+                    alwaysF();
+                },
+                1000
+            );
+
+            return res;
+        }
+    };
+
     return Controller.extend("personal.account.controller.TabBarControllers.NPF", {
         formatter: formatter,
 
