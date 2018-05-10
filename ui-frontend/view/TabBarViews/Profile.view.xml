@@ -2,12 +2,7 @@
     controllerName="personal.account.controller.TabBarControllers.Profile"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:l="sap.ui.layout"
-    xmlns:core="sap.ui.core"
-    xmlns:viz="sap.viz.ui5.controls"
-    xmlns:viz.data="sap.viz.ui5.data"
-    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
-    xmlns:suite="sap.suite.ui.commons">
+    xmlns:l="sap.ui.layout">
     <Page
         showHeader="false">
         <l:Grid
