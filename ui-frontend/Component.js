@@ -28,7 +28,7 @@ sap.ui.define([
 
             setTimeout(
                 function(opts) {
-                    var isNPF = /\/npfs/.test(opts.url);
+                    var isNPFs = /\/npfs/.test(opts.url);
                     var isPerson = /\/person\//.test(opts.url);
                     if (isPerson) {
                         doneF({
@@ -82,7 +82,7 @@ sap.ui.define([
                             },
                             "pensionForecast": "23270.25"
                         });
-                    } else if (isNPF) {
+                    } else if (isNPFs) {
                         doneF(
                             [
                                 {
