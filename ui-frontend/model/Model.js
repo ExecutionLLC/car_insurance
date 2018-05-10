@@ -13,13 +13,6 @@ sap.ui.define([
             //техническая модель приложения
             tech:{
                 selectedKey: "",
-                profileTab: {
-                    diagramData: []
-                },
-                keysOfSelectInChart:{
-                    allTime: Const.SELECTED_ALL_TIME,
-                    lastYear: Const.SELECTED_LAST_YEAR
-                },
                 getReportTab: {
                     isShowHideButtonPressed: false,
                     isShowHideButtonEnabled: false,
@@ -51,35 +44,6 @@ sap.ui.define([
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
                     npfTableData: []
-                }
-            },
-            // Настройки диаграммы
-            diagrammProperties:{
-                // Ось Х
-                valueAxis:{
-                    title:{
-                        // Видимость заголовка оси Х
-                        visible:false
-                    },
-                    axisLine:{
-                        // Видимость левой полосы
-                        visible:false
-                    }
-                },
-                // Ось Y
-                categoryAxis:{
-                    // Видимость заголовка оси Y
-                    title:{
-                        visible:false
-                    },
-                    // Видимость рисок
-                    axisTick:{
-                        visible:false
-                    }
-                },
-                // Видимость основного заголовка диаграммы
-                title: {
-                    visible: false
                 }
             }
         }
