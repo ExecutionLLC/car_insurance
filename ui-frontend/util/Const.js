@@ -14,9 +14,6 @@ sap.ui.define([
         // время следующей смены НПФ
         TIME_NEXT_CHANGE_NPF: 120*1000,
         DEFAULT_NUMBER_OF_CONFORMATIONS: 7,
-        // значения ключей селекта диаграммы
-        SELECTED_LAST_YEAR : "last-year",
-        SELECTED_ALL_TIME : "all-time",
         //цвета состояния выполнения запроса
         REQUEST_DONE_COLOR: "green",
         REQUEST_PENDING_COLOR: "#f4d742",

@@ -16,10 +16,6 @@ sap.ui.define([
                 this.oMainModel, "/", this.oMainModel.getContext("/")
             );
             mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
-
-            var oPopOver = this.getView().byId("idPopOver");
-            var oVizFrame = this.getView().byId("idVizFrame");
-            oPopOver.connect(oVizFrame.getVizUid());
         },
 
         onMainModelChanges: function() {
@@ -38,21 +34,6 @@ sap.ui.define([
         onNavigateChangeTariff: function () {
             var router = sap.ui.core.UIComponent.getRouterFor(this);
             Utils.navigateToMenuPageTab(router, "MyPolicies"); // TODO sample code, make real one
-        },
-
-        onChangeSelect: function (oEvent) {
-            var oSelect = oEvent.getSource();
-            var oItem = oSelect.getSelectedItem();
-            var sSelectedKey = oItem.getKey();
-
-            var oBinding = this.getView().byId("idVizFrame").getDataset().getBinding("data");
-            if(sSelectedKey === Const.SELECTED_LAST_YEAR) {
-                var oneYearBeforeNow = new Date().setFullYear(new Date().getFullYear() - 1);
-                var filter = new sap.ui.model.Filter("timestamp", sap.ui.model.FilterOperator.GE, oneYearBeforeNow);
-                oBinding.filter([filter]);
-            } else {
-                oBinding.filter(null);
-            }
         }
     });
 });

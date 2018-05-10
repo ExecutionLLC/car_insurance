@@ -144,12 +144,9 @@
                 </CustomListItem>
                 <CustomListItem>
                     <content>
-                        <viz:Popover
-                                id="idPopOver">
-                        </viz:Popover>
                         <suite:ChartContainer
                             autoAdjustHeight="false"
-                            title="{i18n>chartTitle}"
+                            title="{i18n>myCarsTitle}"
                             showLegend="false"
                             showZoom="false"
                             showLegendButton="false">
