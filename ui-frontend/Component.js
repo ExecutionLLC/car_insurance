@@ -27,7 +27,7 @@ sap.ui.define([
             };
 
             setTimeout(
-                function(opts) {
+                function() {
                     var isNPFs = /\/npfs/.test(opts.url);
                     var isPerson = /\/person\//.test(opts.url);
                     if (isPerson) {
