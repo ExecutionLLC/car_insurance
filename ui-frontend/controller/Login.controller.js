@@ -4,6 +4,53 @@ sap.ui.define([
     "personal/account/util/Utils"
 ], function (Controller, MessageBox, Utils) {
     "use strict";
+
+    var $ = {
+        ajax: function(opts) {
+            console.log('Login ajax', opts);
+            var doneF = function() {};
+            var failF = function() {};
+            var alwaysF = function() {};
+            var res = {
+                done: function(f) {
+                    doneF = f;
+                    return res;
+                },
+                fail: function(f) {
+                    failF = f;
+                    return res;
+                },
+                always: function(f) {
+                    alwaysF = f;
+                    return res;
+                }
+            };
+
+            setTimeout(
+                function() {
+                    var loginData = JSON.parse(opts.data);
+                    var isValid = loginData.login === loginData.password;
+                    if (isValid) {
+                        doneF({
+                            "firstName": "Иван",
+                            "middleName": "Иванович",
+                            "lastName": "Иванов",
+                            "birthDate": 536544000000,
+                            "email": "ivan@example.com",
+                            "snils": "00000000101"
+                        });
+                    } else {
+                        failF();
+                    }
+                    alwaysF();
+                },
+                1000
+            );
+
+            return res;
+        }
+    };
+
     return Controller.extend("personal.account.controller.Login", {
         onInit: function () {
             var oLoginInput = this.byId("loginInput");
@@ -36,26 +83,16 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: JSON.stringify(authData)
-            // FIXME: temporary test changes, restore at merge >>>
-            // }).done(function (result) {
-            //     oComponent.initModels(result.snils);
-            //     oLoginInput.setValue("");
-            //     oPasswordInput.setValue("");
-            //     Utils.navigateToMenuPageTab(oRouter);
-            // }).fail(function (jqXHR, textStatus, errorThrown) {
-            //     MessageBox.error(sErrorPassOrLog);
-            // FIXME: <<<
+            }).done(function (result) {
+                oComponent.initModels(result.snils);
+                oLoginInput.setValue("");
+                oPasswordInput.setValue("");
+                Utils.navigateToMenuPageTab(oRouter);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                MessageBox.error(sErrorPassOrLog);
             }).always(function () {
-                // FIXME: temporary test changes, restore at merge >>>
-                // oLoginInput.setEnabled(true);
-                // oPasswordInput.setEnabled(true);
-                // FIXME: <<<
-              // FIXME: temporary test changes, remove at merge >>>
-              oComponent.initModels('result.snils');
-              oLoginInput.setValue("");
-              oPasswordInput.setValue("");
-              Utils.navigateToMenuPageTab(oRouter);
-              // FIXME: <<<
+                oLoginInput.setEnabled(true);
+                oPasswordInput.setEnabled(true);
             });
         }
     });
