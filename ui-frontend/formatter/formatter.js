@@ -51,16 +51,6 @@ sap.ui.define([
         },
 
         /**
-         * @description Форматирование входящего чисела миллисекнд в дату для использования в диаграмме
-         * @param {number} timestamp - число в миллисекундах
-         * @return {string} - строка в формате "мм.гггг"
-         */
-        formatDate: function (timestamp) {
-            var result = Utils.timestampToString(timestamp);
-            return result.split(".").slice(1).join(".");
-        },
-
-        /**
          * @description Форматирование входящих чисел в дату для использования в таблице
          * @param {number} timestamp - число в миллисекундах
          * @return {string} дата в формате "дд.мм.гггг"

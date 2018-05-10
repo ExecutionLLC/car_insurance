@@ -13,9 +13,6 @@ sap.ui.define([
             //техническая модель приложения
             tech:{
                 selectedKey: "",
-                profileTab: {
-                    diagramData: []
-                },
                 getReportTab: {
                     isShowHideButtonPressed: false,
                     isShowHideButtonEnabled: false,
