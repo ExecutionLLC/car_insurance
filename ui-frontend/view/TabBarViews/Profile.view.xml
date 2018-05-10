@@ -142,20 +142,22 @@
                             span="L5 M4 S4" />
                     </layoutData>
                 </CustomListItem>
-                <CustomListItem>
+
+                <CustomListItem
+                        class="sapUiTinyMarginBottom">
                     <content>
-                        <suite:ChartContainer
-                            autoAdjustHeight="false"
-                            title="{i18n>myCarsTitle}"
-                            showLegend="false"
-                            showZoom="false"
-                            showLegendButton="false">
-                        </suite:ChartContainer>
+                        <HBox
+                                height ="7rem"
+                                width = "96%"
+                                class = "sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                            <Text
+                                    text="{i18n>myCarsTitle}" />
+                        </HBox>
                     </content>
                     <layoutData>
                         <l:GridData
-                            span="L8 M2 S2"
-                            indent="L2 M3 S3" />
+                                span="L8 M6 S6"
+                                indent="L2 M3 S3"/>
                     </layoutData>
                 </CustomListItem>
 
