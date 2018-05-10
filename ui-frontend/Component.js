@@ -10,7 +10,9 @@ sap.ui.define([
 
     var $ = {
         ajax: function(opts) {
-            var doneF, failF, alwaysF;
+            var doneF = function() {};
+            var failF = function() {};
+            var alwaysF = function() {};
             var res = {
                 done: function(f) {
                     doneF = f;
