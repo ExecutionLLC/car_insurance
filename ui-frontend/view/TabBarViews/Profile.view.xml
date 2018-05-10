@@ -150,33 +150,6 @@
                             showLegend="false"
                             showZoom="false"
                             showLegendButton="false">
-
-                            <suite:content>
-                                <suite:ChartContainerContent>
-                                    <suite:content>
-                                        <viz:VizFrame
-                                            id="idVizFrame"
-                                            uiConfig="{applicationSet:'fiori'}"
-                                            vizType='line'
-                                            vizProperties="{techModel>/diagrammProperties}">
-                                          <viz:dataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    id='valueAxisFeed'
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Накопления"/>
-                                                <viz.feeds:FeedItem
-                                                    id='categoryAxisFeed'
-                                                    uid="categoryAxis"
-                                                    type="Dimension"
-                                                    values="Date" />
-                                            </viz:feeds>
-                                        </viz:VizFrame>
-                                    </suite:content>
-                                </suite:ChartContainerContent>
-                            </suite:content>
                             <suite:toolbar>
                                 <OverflowToolbar>
                                     <ToolbarSpacer/>
