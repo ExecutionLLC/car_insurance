@@ -138,9 +138,9 @@ sap.ui.define([
             return isFinished ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
         },
 
-        formatCurrencyByMonth: function (pensionForecast,currencyByMonth) {
-            var formatPensionForecastthis = this.formatter.oCurrencyFormat.format(pensionForecast);
-            return formatPensionForecastthis + " " + currencyByMonth
+        formatCurrency: function (value, currencyStr) {
+            var formattedValue = this.formatter.oCurrencyFormat.format(value);
+            return formattedValue + " " + currencyStr;
         }
     }
 

@@ -120,7 +120,7 @@
                             justifyContent = "SpaceAround"
                             class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
                             <Text
-                                text ="{i18n>pension}"
+                                text ="{i18n>baseInsuranceCost}"
                                 class = "H2"
                                 textAlign = "Begin"
                                 width = "100%"/>
@@ -128,28 +128,13 @@
                                 text ="{
                                     parts:[
                                         {path:'mainModel>/pensionForecast'},
-                                        {path:'i18n>currencyByMonth'}
+                                        {path:'i18n>currency'}
                                     ],
-                                    formatter: '.formatter.formatCurrencyByMonth'
+                                    formatter: '.formatter.formatCurrency'
                                 }"
                                 textAlign = "Center"
                                 width = "100%"
                                 class = "H1"/>
-                            <HBox
-                                width = "100%"
-                                justifyContent = "End" >
-                                <core:Icon
-                                    src="sap-icon://edit-outside"
-                                    color = "#346187"
-                                    width = "2rem"
-                                    height = "1rem"
-                                    size= "1rem"/>
-                                <Link
-                                    text ="{i18n>getMore}"
-                                    textAlign = "End"
-                                    width = "100%"
-                                    class ="link"/>
-                            </HBox>
                         </VBox>
                     </content>
                     <layoutData>

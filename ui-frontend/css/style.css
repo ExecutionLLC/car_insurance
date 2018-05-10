@@ -28,11 +28,6 @@
 	font-size : 1rem;
 }
 
-.link {
-	text-decoration: underline;
-	color : #346187;
-}
-
 .right-border {
 	border-right: 0.5px groove;
 	border-color : black;
