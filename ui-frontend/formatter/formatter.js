@@ -26,6 +26,18 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование адреса страховой компании в имя
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} - имя
+         */
+        formatICAddressToName: function (icAddress) {
+            var oComponent = this.getOwnerComponent();
+            var oModel = oComponent.getModel("icModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+            return item ? item.name : "?";
+        },
+
+        /**
          * @description Форматирование адреса НПФ в имя
          * @param {string} npfAddress - адрес нпф
          * @return {string} - имя
@@ -38,6 +50,18 @@ sap.ui.define([
             return item ? item.name : "?";
         },
         /**
+         * @description Форматирование адреса с.к. в рейтинг надежности
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} надежность
+         */
+        formatICAddressToReliability: function (icAddress) {
+            var oComponent = this.getOwnerComponent();
+            var oModel = oComponent.getModel("icModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+
+            return item ? item.ratingOfReliability : "?";
+        },
+        /**
          * @description Форматирование адреса НПФ в рейтинг надежности
          * @param {string} npfAddress - адрес НПФ
          * @return {string} - надежность
@@ -48,29 +72,6 @@ sap.ui.define([
             var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
 
             return item ? item.ratingOfReliability : "?";
-        },
-
-        /**
-         * @description Форматирование НПФ адреса в рейтинг доходности
-         * @param {string} npfAddress - НПФ адрес
-         * @return {string} - рейтинг доходности
-         */
-        formatNpfAddressToIncomeRate: function (npfAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.ratingOfIncomeRate : "?";
-        },
-
-        /**
-         * @description Форматирование входящего чисела миллисекнд в дату для использования в диаграмме
-         * @param {number} timestamp - число в миллисекундах
-         * @return {string} - строка в формате "мм.гггг"
-         */
-        formatDate: function (timestamp) {
-            var result = Utils.timestampToString(timestamp);
-            return result.split(".").slice(1).join(".");
         },
 
         /**
@@ -123,6 +124,17 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
+         */
+        formatICRatingToImage: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return oICRating.imageSrc;
+        },
+
+        /**
          * @description Форматирование НПФ рейтинга в соответствующую картинку
          * @param {string} npfAddress - адрес НПФ
          * @return {string} oNpfRating.imageSrc - картинка
@@ -131,16 +143,6 @@ sap.ui.define([
             var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
             var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
             return oNpfRating.imageSrc;
-        },
-
-        /**
-         * @description Форматирование ставки(тарифа) НПФ в картинку
-         * @param {string} npfAddress - фдресс НПФ
-         * @return {string} - картинка
-         */
-        formatNPFIncomeRateToImage: function (npfAddress) {
-            var incomeRate = this.formatter.formatNpfAddressToIncomeRate.call(this,npfAddress);
-            return Utils.conversionNpfIncomeRateToImage(incomeRate);
         },
 
         /**
@@ -161,9 +163,9 @@ sap.ui.define([
             return isFinished ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
         },
 
-        formatCurrencyByMonth: function (pensionForecast,currencyByMonth) {
-            var formatPensionForecastthis = this.formatter.oCurrencyFormat.format(pensionForecast);
-            return formatPensionForecastthis + " " + currencyByMonth
+        formatCurrency: function (value, currencyStr) {
+            var formattedValue = this.formatter.oCurrencyFormat.format(value);
+            return formattedValue + " " + currencyStr;
         }
     }
 

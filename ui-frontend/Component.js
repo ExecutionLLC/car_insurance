@@ -36,6 +36,7 @@ sap.ui.define([
                     if (isPerson) {
                         doneF({
                             "npf": "0xfC9e006d9488F15EA251DFBD8522EAd5ad01ADCd",
+                            "ic": "0x2e1FF243484C3b4887b6416cdb29b06cf788065A",
                             "tariff": 6,
                             "balance": 78650,
                             "operationsHistory": [
@@ -148,6 +149,8 @@ sap.ui.define([
             this.setModel(oTechModel, "techModel");
             var oListNpfModel = new JSONModel();
             this.setModel(oListNpfModel, "npfModel");
+            var oListICModel = new JSONModel();
+            this.setModel(oListICModel, "icModel");
 
             this.setLanguages();
 
@@ -171,6 +174,7 @@ sap.ui.define([
             var oMainModel = this.getModel("mainModel");
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
+            var oICModel = this.getModel("icModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
@@ -183,6 +187,7 @@ sap.ui.define([
                     dataType: "json"
                 }).done(function (npfsResult) {
                     oNpfModel.setData(npfsResult);
+                    oICModel.setData(npfsResult);
                     oMainModel.setData(personInfoResult);
                     oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 

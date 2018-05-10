@@ -2,12 +2,7 @@
     controllerName="personal.account.controller.TabBarControllers.Profile"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:l="sap.ui.layout"
-    xmlns:core="sap.ui.core"
-    xmlns:viz="sap.viz.ui5.controls"
-    xmlns:viz.data="sap.viz.ui5.data"
-    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
-    xmlns:suite="sap.suite.ui.commons">
+    xmlns:l="sap.ui.layout">
     <Page
         showHeader="false">
         <l:Grid
@@ -23,83 +18,45 @@
                             <VBox
                                 height = "7rem"
                                 alignItems ="Center"
-                                width = "40%"
+                                width = "65%"
                                 class="right-border">
                                 <HBox
-                                    width = "100%"
-                                    height = "2rem"
-                                    alignItems = "Center"
-                                    justifyContent = "SpaceAround"
-                                    class = "sapUiSmallMarginEnd">
+                                        width = "100%"
+                                        height = "2rem">
                                     <Text
-                                        text ="{i18n>myNPF}"
+                                        text ="{i18n>myInsuranceCompany}"
                                         class = "H2"  />
-                                    <core:Icon
-                                        src="sap-icon://edit-outside"
-                                        color = "#346187"
-                                        width = "2rem"
-                                        height = "2rem"
-                                        size= "2rem"
-                                        press="onNavigateToNPF"/>
                                 </HBox>
-                                <Text
-                                    text ="{
-                                        path:'mainModel>/npf',
-                                        formatter:'.formatter.formatNpfAddressToName'}"
-                                    class = "coloredText sapUiTinyMarginTop"/>
+                                <HBox
+                                        width = "100%"
+                                        height = "2rem">
+                                    <Text
+                                            text=""
+                                            class = "coloredText"/>
+                                    <Text
+                                            text ="{
+                                                path:'mainModel>/ic',
+                                                formatter:'.formatter.formatICAddressToName'}"
+                                            class="H1" />
+                                </HBox>
                             </VBox>
 
                             <VBox
                                 height ="7rem"
-                                width = "35%"
-                                class = "right-border" >
-                                <!--<Text
-                                    text = "{
-                                        path:'mainModel>/npf',
-                                        formatter:'.formatter.formatNpfAddressToReliability'}"
-                                    textAlign = "End"
-                                    width="90%"
-                                    class="green H2"/>-->
+                                width = "35%">
                                 <HBox
                                     class="sapUiSmallMarginTop"
                                     alignItems = "Center"
                                     justifyContent = "SpaceAround">
                                     <Image
                                         src="{
-                                            path:'mainModel>/npf',
-                                            formatter:'.formatter.formatNpfRatingToImage'}"
+                                            path:'mainModel>/ic',
+                                            formatter:'.formatter.formatICRatingToImage'}"
                                         width = '4rem'
                                         height = "4rem"
                                         />
                                     <Text
                                         text = "{i18n>ratingOfReliability}"
-                                        class="H2"/>
-                                </HBox>
-                            </VBox>
-
-                            <VBox
-                                height ="7rem"
-                                width = "25%">
-                                <!--<Text
-                                        text = "{
-                                        path:'mainModel>/npf',
-                                        formatter:'.formatter.formatNpfAddressToIncomeRate'}"
-                                    textAlign = "End"
-                                    width="100%"
-                                    class="red H2"/>-->
-                                <HBox
-                                    class="sapUiSmallMarginTop"
-                                    alignItems = "Center"
-                                    justifyContent = "SpaceAround">
-                                    <Image
-                                            src="{
-                                            path:'mainModel>/npf',
-                                            formatter:'.formatter.formatNPFIncomeRateToImage'}"
-                                        width = '4rem'
-                                        height = "4rem"
-                                        class = "sapUiSmallMarginBeginEnd"/>
-                                    <Text
-                                        text = "{i18n>revenue}"
                                         class="H2"/>
                                 </HBox>
                             </VBox>
@@ -127,19 +84,12 @@
                                 justifyContent = "SpaceAround"
                                 class = "sapUiSmallMarginEnd">
                                 <Text
-                                    text ="{i18n>myTariff}"
+                                    text ="{i18n>myBonusMalus}"
                                     class = "H2"  />
-                                <core:Icon
-                                    press="onNavigateChangeTariff"
-                                    src="sap-icon://edit-outside"
-                                    color = "#346187"
-                                    width = "2rem"
-                                    height = "2rem"
-                                    size= "2rem"/>
                             </HBox>
                             <Text
-                                text ="{= ${mainModel>/tariff} + '%'}"
-                                class = "coloredText sapUiTinyMarginTop"/>
+                                text ="{= ${mainModel>/tariff} }"
+                                class = "sapUiTinyMarginTop H1"/>
                         </VBox>
                     </content>
                     <layoutData>
@@ -158,7 +108,7 @@
                             justifyContent = "SpaceAround"
                             class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
                             <Text
-                                text ="{i18n>pension}"
+                                text ="{i18n>baseInsuranceCost}"
                                 class = "H2"
                                 textAlign = "Begin"
                                 width = "100%"/>
@@ -166,28 +116,13 @@
                                 text ="{
                                     parts:[
                                         {path:'mainModel>/pensionForecast'},
-                                        {path:'i18n>currencyByMonth'}
+                                        {path:'i18n>currency'}
                                     ],
-                                    formatter: '.formatter.formatCurrencyByMonth'
+                                    formatter: '.formatter.formatCurrency'
                                 }"
                                 textAlign = "Center"
                                 width = "100%"
                                 class = "H1"/>
-                            <HBox
-                                width = "100%"
-                                justifyContent = "End" >
-                                <core:Icon
-                                    src="sap-icon://edit-outside"
-                                    color = "#346187"
-                                    width = "2rem"
-                                    height = "1rem"
-                                    size= "1rem"/>
-                                <Link
-                                    text ="{i18n>getMore}"
-                                    textAlign = "End"
-                                    width = "100%"
-                                    class ="link"/>
-                            </HBox>
                         </VBox>
                     </content>
                     <layoutData>
@@ -195,82 +130,22 @@
                             span="L5 M4 S4" />
                     </layoutData>
                 </CustomListItem>
-                <CustomListItem>
-                    <content>
-                        <viz:Popover
-                                id="idPopOver">
-                        </viz:Popover>
-                        <suite:ChartContainer
-                            autoAdjustHeight="false"
-                            title="{i18n>chartTitle}"
-                            showLegend="false"
-                            showZoom="false"
-                            showLegendButton="false">
 
-                            <suite:content>
-                                <suite:ChartContainerContent>
-                                    <suite:content>
-                                        <viz:VizFrame
-                                            id="idVizFrame"
-                                            uiConfig="{applicationSet:'fiori'}"
-                                            vizType='line'
-                                            vizProperties="{techModel>/diagrammProperties}">
-                                          <viz:dataset>
-                                                <viz.data:FlattenedDataset
-                                                    data="{
-                                                        path:'techModel>/tech/profileTab/diagramData'
-                                                    }">
-                                                    <viz.data:dimensions>
-                                                        <viz.data:DimensionDefinition
-                                                            name="Date"
-                                                            value="{
-                                                                path:'techModel>timestamp',
-                                                                formatter:'.formatter.formatDate'
-                                                                }"/>
-                                                    </viz.data:dimensions>
-                                                    <viz.data:measures>
-                                                        <viz.data:MeasureDefinition
-                                                            name="Накопления"
-                                                            value="{techModel>amount}" />
-                                                    </viz.data:measures>
-                                                </viz.data:FlattenedDataset>
-                                            </viz:dataset>
-                                            <viz:feeds>
-                                                <viz.feeds:FeedItem
-                                                    id='valueAxisFeed'
-                                                    uid="valueAxis"
-                                                    type="Measure"
-                                                    values="Накопления"/>
-                                                <viz.feeds:FeedItem
-                                                    id='categoryAxisFeed'
-                                                    uid="categoryAxis"
-                                                    type="Dimension"
-                                                    values="Date" />
-                                            </viz:feeds>
-                                        </viz:VizFrame>
-                                    </suite:content>
-                                </suite:ChartContainerContent>
-                            </suite:content>
-                            <suite:toolbar>
-                                <OverflowToolbar>
-                                    <ToolbarSpacer/>
-                                    <Select
-                                        change="onChangeSelect"
-                                        selectedKey="all-time">
-                                        <items>
-                                            <core:Item key="{techModel>/tech/keysOfSelectInChart/allTime}" text="{i18n>allTime}"/>
-                                            <core:Item key="{techModel>/tech/keysOfSelectInChart/lastYear}" text="{i18n>lastYear}"/>
-                                        </items>
-                                    </Select>
-                                    <suite:ChartContainerToolbarPlaceholder></suite:ChartContainerToolbarPlaceholder>
-                                </OverflowToolbar>
-                            </suite:toolbar>
-                        </suite:ChartContainer>
+                <CustomListItem
+                        class="sapUiTinyMarginBottom">
+                    <content>
+                        <HBox
+                                height ="7rem"
+                                width = "96%"
+                                class = "sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                            <Text
+                                    text="{i18n>myCarsTitle}" />
+                        </HBox>
                     </content>
                     <layoutData>
                         <l:GridData
-                            span="L8 M2 S2"
-                            indent="L2 M3 S3" />
+                                span="L8 M6 S6"
+                                indent="L2 M3 S3"/>
                     </layoutData>
                 </CustomListItem>
 
