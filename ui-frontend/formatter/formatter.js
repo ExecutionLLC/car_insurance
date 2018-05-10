@@ -51,19 +51,6 @@ sap.ui.define([
         },
 
         /**
-         * @description Форматирование НПФ адреса в рейтинг доходности
-         * @param {string} npfAddress - НПФ адрес
-         * @return {string} - рейтинг доходности
-         */
-        formatNpfAddressToIncomeRate: function (npfAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.ratingOfIncomeRate : "?";
-        },
-
-        /**
          * @description Форматирование входящего чисела миллисекнд в дату для использования в диаграмме
          * @param {number} timestamp - число в миллисекундах
          * @return {string} - строка в формате "мм.гггг"
@@ -131,16 +118,6 @@ sap.ui.define([
             var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
             var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
             return oNpfRating.imageSrc;
-        },
-
-        /**
-         * @description Форматирование ставки(тарифа) НПФ в картинку
-         * @param {string} npfAddress - фдресс НПФ
-         * @return {string} - картинка
-         */
-        formatNPFIncomeRateToImage: function (npfAddress) {
-            var incomeRate = this.formatter.formatNpfAddressToIncomeRate.call(this,npfAddress);
-            return Utils.conversionNpfIncomeRateToImage(incomeRate);
         },
 
         /**

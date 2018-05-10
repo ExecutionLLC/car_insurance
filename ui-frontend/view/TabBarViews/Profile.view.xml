@@ -23,7 +23,7 @@
                             <VBox
                                 height = "7rem"
                                 alignItems ="Center"
-                                width = "40%"
+                                width = "65%"
                                 class="right-border">
                                 <HBox
                                         width = "100%"
@@ -48,8 +48,7 @@
 
                             <VBox
                                 height ="7rem"
-                                width = "35%"
-                                class = "right-border" >
+                                width = "35%">
                                 <!--<Text
                                     text = "{
                                         path:'mainModel>/npf',
@@ -70,33 +69,6 @@
                                         />
                                     <Text
                                         text = "{i18n>ratingOfReliability}"
-                                        class="H2"/>
-                                </HBox>
-                            </VBox>
-
-                            <VBox
-                                height ="7rem"
-                                width = "25%">
-                                <!--<Text
-                                        text = "{
-                                        path:'mainModel>/npf',
-                                        formatter:'.formatter.formatNpfAddressToIncomeRate'}"
-                                    textAlign = "End"
-                                    width="100%"
-                                    class="red H2"/>-->
-                                <HBox
-                                    class="sapUiSmallMarginTop"
-                                    alignItems = "Center"
-                                    justifyContent = "SpaceAround">
-                                    <Image
-                                            src="{
-                                            path:'mainModel>/npf',
-                                            formatter:'.formatter.formatNPFIncomeRateToImage'}"
-                                        width = '4rem'
-                                        height = "4rem"
-                                        class = "sapUiSmallMarginBeginEnd"/>
-                                    <Text
-                                        text = "{i18n>revenue}"
                                         class="H2"/>
                                 </HBox>
                             </VBox>
