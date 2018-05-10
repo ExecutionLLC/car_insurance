@@ -44,13 +44,6 @@
                             <VBox
                                 height ="7rem"
                                 width = "35%">
-                                <!--<Text
-                                    text = "{
-                                        path:'mainModel>/npf',
-                                        formatter:'.formatter.formatNpfAddressToReliability'}"
-                                    textAlign = "End"
-                                    width="90%"
-                                    class="green H2"/>-->
                                 <HBox
                                     class="sapUiSmallMarginTop"
                                     alignItems = "Center"
