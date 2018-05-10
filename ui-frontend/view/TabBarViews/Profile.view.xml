@@ -150,20 +150,6 @@
                             showLegend="false"
                             showZoom="false"
                             showLegendButton="false">
-                            <suite:toolbar>
-                                <OverflowToolbar>
-                                    <ToolbarSpacer/>
-                                    <Select
-                                        change="onChangeSelect"
-                                        selectedKey="all-time">
-                                        <items>
-                                            <core:Item key="{techModel>/tech/keysOfSelectInChart/allTime}" text="{i18n>allTime}"/>
-                                            <core:Item key="{techModel>/tech/keysOfSelectInChart/lastYear}" text="{i18n>lastYear}"/>
-                                        </items>
-                                    </Select>
-                                    <suite:ChartContainerToolbarPlaceholder></suite:ChartContainerToolbarPlaceholder>
-                                </OverflowToolbar>
-                            </suite:toolbar>
                         </suite:ChartContainer>
                     </content>
                     <layoutData>
