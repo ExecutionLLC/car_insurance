@@ -96,19 +96,12 @@
                                 justifyContent = "SpaceAround"
                                 class = "sapUiSmallMarginEnd">
                                 <Text
-                                    text ="{i18n>myTariff}"
+                                    text ="{i18n>myBonusMalus}"
                                     class = "H2"  />
-                                <core:Icon
-                                    press="onNavigateChangeTariff"
-                                    src="sap-icon://edit-outside"
-                                    color = "#346187"
-                                    width = "2rem"
-                                    height = "2rem"
-                                    size= "2rem"/>
                             </HBox>
                             <Text
-                                text ="{= ${mainModel>/tariff} + '%'}"
-                                class = "coloredText sapUiTinyMarginTop"/>
+                                text ="{= ${mainModel>/tariff} }"
+                                class = "sapUiTinyMarginTop H1"/>
                         </VBox>
                     </content>
                     <layoutData>
