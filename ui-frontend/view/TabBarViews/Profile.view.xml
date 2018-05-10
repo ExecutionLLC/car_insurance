@@ -35,7 +35,7 @@
                                             class = "coloredText"/>
                                     <Text
                                             text ="{
-                                                path:'mainModel>/npf',
+                                                path:'mainModel>/ic',
                                                 formatter:'.formatter.formatICAddressToName'}"
                                             class="H1" />
                                 </HBox>
@@ -50,7 +50,7 @@
                                     justifyContent = "SpaceAround">
                                     <Image
                                         src="{
-                                            path:'mainModel>/npf',
+                                            path:'mainModel>/ic',
                                             formatter:'.formatter.formatICRatingToImage'}"
                                         width = '4rem'
                                         height = "4rem"

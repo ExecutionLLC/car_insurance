@@ -36,6 +36,7 @@ sap.ui.define([
                     if (isPerson) {
                         doneF({
                             "npf": "0xfC9e006d9488F15EA251DFBD8522EAd5ad01ADCd",
+                            "ic": "0x2e1FF243484C3b4887b6416cdb29b06cf788065A",
                             "tariff": 6,
                             "balance": 78650,
                             "operationsHistory": [
