@@ -4,8 +4,9 @@ sap.ui.define([
     "personal/account/model/Model",
     "sap/m/MessageBox",
     "personal/account/util/Const",
-    "personal/account/util/Utils"
-], function (UIComponent, JSONModel, Model, MessageBox, Const, Utils) {
+    "personal/account/util/Utils",
+    "personal/account/util/API",
+], function (UIComponent, JSONModel, Model, MessageBox, Const, Utils, API) {
     "use strict";
 
     var $ = {
@@ -186,10 +187,12 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
-            $.ajax({
-                url: Utils.getPersonInfoUrl(userId),
-                dataType: "json"
-            }).done(function(personInfoResult) {
+            API.getPerson(userId, function(err, personInfoResult) {
+                if (err) {
+                    console.error("Cannot update model data: error = ", err);
+                    MessageBox.error(sErrorText);
+                    return
+                }
                 $.ajax({
                     url: Utils.getPerson1InfoUrl(userId),
                     dataType: "json"
@@ -215,9 +218,6 @@ sap.ui.define([
                     console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                MessageBox.error(sErrorText);
             });
         },
         updateModels: function () {

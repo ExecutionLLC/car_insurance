@@ -42,6 +42,16 @@ pasword везде 123
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 callback(new Error(errorThrown));
             });
+        },
+        getPerson: function(personId, callback) {
+            $.ajax({
+                url: Const.BASE_URL + "/person/" + personId,
+                dataType: "json"
+            }).done(function(personInfoResult) {
+                callback(null, personInfoResult);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
         }
     };
 
