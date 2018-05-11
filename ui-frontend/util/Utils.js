@@ -318,16 +318,16 @@ sap.ui.define([
 
             return url + "?region=" + region.toLowerCase();
         },
-        getLastSnils: function () {
+        getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             if (storage.get("LAST_REGION") !== oModule.getRegion()) {
                 return;
             }
-            return storage.get("LAST_SNILS");
+            return storage.get("LAST_USERID");
         },
-        saveLastSnils: function (snils) {
+        saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            storage.put("LAST_SNILS", snils);
+            storage.put("LAST_USERID", userId);
             storage.put("LAST_REGION", oModule.getRegion());
         }
     };
