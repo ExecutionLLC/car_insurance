@@ -4,6 +4,10 @@ sap.ui.define([
 ], function(MessageBox, Const) {
     "use strict";
 
+    var STORAGE_KEY = {
+        LAST_USERID: "LAST_USERID"
+    };
+
     var $ = {
         ajax: function(opts) {
             console.log('Utils ajax', opts);
@@ -323,11 +327,11 @@ sap.ui.define([
             if (storage.get("LAST_REGION") !== oModule.getRegion()) {
                 return;
             }
-            return storage.get("LAST_USERID");
+            return storage.get(STORAGE_KEY.LAST_USERID);
         },
         saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            storage.put("LAST_USERID", userId);
+            storage.put(STORAGE_KEY.LAST_USERID, userId);
             storage.put("LAST_REGION", oModule.getRegion());
         }
     };
