@@ -6,8 +6,7 @@ sap.ui.define([
     "use strict";
 
     var oModule = {
-        BASE_URL: "https://executiona4038b30e.hana.ondemand.com/PFR/pfr.xsjs",
-        LOGIN_URL: "https://executiona4038b30e.hana.ondemand.com/PFR/simple_login.xsjs",
+        BASE_URL: "https://executiona4038b30e.hana.ondemand.com/CarInsurance/car_insurance.xsjs",
         // время, через которое обновляются данные
         ASYNC_UPDATE_TIMEOUT: 30 * 1000,
         ASYNC_UPDATE_TIMEOUT_DEFAULT: 60 * 1000,
