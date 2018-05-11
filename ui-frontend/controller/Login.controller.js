@@ -38,7 +38,7 @@ sap.ui.define([
                 jsonp: false,
                 data: JSON.stringify(authData)
             }).done(function (result) {
-                oComponent.initModels(result.snils);
+                oComponent.initModels(result.id);
                 oLoginInput.setValue("");
                 oPasswordInput.setValue("");
                 Utils.navigateToMenuPageTab(oRouter);

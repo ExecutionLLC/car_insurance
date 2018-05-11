@@ -10,7 +10,14 @@ sap.ui.define([
 
     var $ = {
         ajax: function(opts) {
-            console.log('Component ajax', opts);
+            var isNPFs = /\/npfs/.test(opts.url);
+            var isPerson = /\/person1\//.test(opts.url);
+            console.log('Component ajax', opts, isNPFs, isPerson);
+
+            if (!isPerson && !isNPFs) {
+                return jQuery.ajax(opts);
+            }
+
             var doneF = function() {};
             var failF = function() {};
             var alwaysF = function() {};
@@ -31,8 +38,6 @@ sap.ui.define([
 
             setTimeout(
                 function() {
-                    var isNPFs = /\/npfs/.test(opts.url);
-                    var isPerson = /\/person\//.test(opts.url);
                     if (isPerson) {
                         doneF({
                             "npf": "0xfC9e006d9488F15EA251DFBD8522EAd5ad01ADCd",
@@ -143,6 +148,8 @@ sap.ui.define([
             manifest: "json"
         },
         init: function () {
+            var oPersonModel = new JSONModel();
+            this.setModel(oPersonModel, "personModel");
             var oMainModel = new JSONModel();
             this.setModel(oMainModel, "mainModel");
             var oTechModel = new JSONModel(Model.modelStructure);
@@ -157,12 +164,12 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
             this.getRouter().initialize();
 
-            var lastSnils = Utils.getLastUserId();
-            if (lastSnils) {
-                this.initModels(lastSnils);
+            var lastUserId = Utils.getLastUserId();
+            if (lastUserId) {
+                this.initModels(lastUserId);
             }
         },
-        initModels: function (snils) {
+        initModels: function (userId) {
             if (this.updateTimeoutId) {
                 clearTimeout(this.updateTimeoutId);
                 this.updateTimeoutId = null;
@@ -171,6 +178,7 @@ sap.ui.define([
                     .getResourceBundle()
                     .getText("msg.box.error");
 
+            var oPersonModel = this.getModel("personModel");
             var oMainModel = this.getModel("mainModel");
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
@@ -179,27 +187,36 @@ sap.ui.define([
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
             $.ajax({
-                url: Utils.getPersonInfoUrl(snils),
+                url: Utils.getPersonInfoUrl(userId),
                 dataType: "json"
-            }).done(function (personInfoResult) {
+            }).done(function(personInfoResult) {
                 $.ajax({
-                    url: Utils.getNpfsUrl(),
+                    url: Utils.getPerson1InfoUrl(userId),
                     dataType: "json"
-                }).done(function (npfsResult) {
-                    oNpfModel.setData(npfsResult);
-                    oICModel.setData(npfsResult);
-                    oMainModel.setData(personInfoResult);
-                    oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
+                }).done(function (person1InfoResult) {
+                    $.ajax({
+                        url: Utils.getNpfsUrl(),
+                        dataType: "json"
+                    }).done(function (npfsResult) {
+                        oPersonModel.setData(personInfoResult);
+                        oNpfModel.setData(npfsResult);
+                        oICModel.setData(npfsResult);
+                        oMainModel.setData(person1InfoResult);
+                        oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
-                    Utils.saveLastUserId(snils);
+                        Utils.saveLastUserId(userId);
 
-                    scheduleNextUpdate();
+                        scheduleNextUpdate();
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                        MessageBox.error(sErrorText);
+                    });
                 }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                    console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
+                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                 MessageBox.error(sErrorText);
             });
         },
@@ -210,7 +227,7 @@ sap.ui.define([
 
             var onAlways = this.scheduleNextModelsUpdate.bind(this);
             $.ajax({
-                url: Utils.getPersonInfoUrl(snils),
+                url: Utils.getPerson1InfoUrl(snils),
                 dataType: "json"
             }).done(function (result) {
                 oMainModel.setData(result);

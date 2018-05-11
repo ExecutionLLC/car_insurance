@@ -281,8 +281,11 @@ sap.ui.define([
         getLoginUrl: function () {
             return Const.BASE_URL + "/login";
         },
-        getPersonInfoUrl: function (snils) {
-            return Const.BASE_URL + "/person/" + snils;
+        getPersonInfoUrl: function (userId) {
+            return Const.BASE_URL + "/person/" + userId;
+        },
+        getPerson1InfoUrl: function (snils) {
+            return Const.BASE_URL + "/person1/" + snils;
         },
         getNpfsUrl: function () {
             return Const.BASE_URL + "/npfs";
