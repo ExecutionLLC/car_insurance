@@ -187,39 +187,38 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
-            API.getPerson(userId, function(err, personInfoResult) {
-                if (err) {
-                    console.error("Cannot update model data: error = ", err);
-                    MessageBox.error(sErrorText);
-                    return
-                }
-
-                $.ajax({
-                    url: Utils.getPerson1InfoUrl(userId),
-                    dataType: "json"
-                }).done(function (person1InfoResult) {
+            API.getPerson(userId)
+                .then(function(personInfoResult) {
                     $.ajax({
-                        url: Utils.getNpfsUrl(),
+                        url: Utils.getPerson1InfoUrl(userId),
                         dataType: "json"
-                    }).done(function (npfsResult) {
-                        oPersonModel.setData(personInfoResult);
-                        oNpfModel.setData(npfsResult);
-                        oICModel.setData(npfsResult);
-                        oMainModel.setData(person1InfoResult);
-                        oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
+                    }).done(function (person1InfoResult) {
+                        $.ajax({
+                            url: Utils.getNpfsUrl(),
+                            dataType: "json"
+                        }).done(function (npfsResult) {
+                            oPersonModel.setData(personInfoResult);
+                            oNpfModel.setData(npfsResult);
+                            oICModel.setData(npfsResult);
+                            oMainModel.setData(person1InfoResult);
+                            oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
-                        Utils.saveLastUserId(userId);
+                            Utils.saveLastUserId(userId);
 
-                        scheduleNextUpdate();
+                            scheduleNextUpdate();
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                            MessageBox.error(sErrorText);
+                        });
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                        console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                         MessageBox.error(sErrorText);
                     });
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
-            });
         },
         updateModels: function () {
             var oMainModel = this.getModel("mainModel");
