@@ -28,35 +28,20 @@ sap.ui.define([
             oLoginInput.setEnabled(false);
             oPasswordInput.setEnabled(false);
 
-            function onComplete() {
-                oLoginInput.setEnabled(true);
-                oPasswordInput.setEnabled(true);
-            }
-
-            function onDone(person) {
-                oComponent.initModels(person.id);
-                oLoginInput.setValue("");
-                oPasswordInput.setValue("");
-                Utils.navigateToMenuPageTab(oRouter);
-            }
-
-            function onFail() {
-                MessageBox.error(sErrorPassOrLog);
-
-            }
-
-            API.login(
-                oLoginInput.getValue(),
-                oPasswordInput.getValue(),
-                function(err, person) {
-                    if (err) {
-                        onFail();
-                    } else {
-                        onDone(person);
-                    }
-                    onComplete();
-                }
-            );
+            API.login(oLoginInput.getValue(), oPasswordInput.getValue())
+                .then(function(person) {
+                    oComponent.initModels(person.id);
+                    oLoginInput.setValue("");
+                    oPasswordInput.setValue("");
+                    Utils.navigateToMenuPageTab(oRouter);
+                })
+                .fail(function() {
+                    MessageBox.error(sErrorPassOrLog);
+                })
+                .always(function() {
+                    oLoginInput.setEnabled(true);
+                    oPasswordInput.setEnabled(true);
+                });
         }
     });
 });
