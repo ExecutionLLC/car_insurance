@@ -187,15 +187,6 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
-            jQuery.when(
-                API.getPerson(userId),
-                API.getInsuranceCompanies()
-            ).then(function(person, companies) {
-                console.log(2, person, companies);
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.log('2err', arguments);
-            });
-
             API.getPerson(userId)
                 .then(function(personInfoResult) {
                     $.ajax({
