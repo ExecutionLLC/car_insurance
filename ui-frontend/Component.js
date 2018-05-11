@@ -187,74 +187,38 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
-            API.getPerson(userId, function(err, personInfoResult) {
-                if (err) {
-                    console.error("Cannot update model data: error = ", err);
-                    MessageBox.error(sErrorText);
-                    return
-                }
-
-                API.getInsuranceCompanies(function(err, companies) {
-                    console.log('insurance companies', err, companies);
-                    if (!err) {
-                        var newICIndex = Math.floor(companies.length * Math.random());
-                        var newIC = companies[newICIndex];
-                        var newICId = newIC.id;
-                        API.setPersonInsuranceCompany(userId, newICId, function(err, result) {
-                            console.log('set insurance company', err, result);
-                        });
-                    }
-                });
-
-                // API.addPersonInsurance(userId, 'carInfo.vin', new Date(3000, 12, 31), function(err, result) {
-                //     console.log('add person insurance', err, result);
-                // });
-
-                API.getPersonOperations(userId, function(err, ops) {
-                    console.log('person operations', err, ops);
-                });
-
-                // API.addPersonCar(
-                //     userId,
-                //     {
-                //         vin: 'carInfo.vin',
-                //         vehicleType: 'carInfo.vehicleType',
-                //         model: 'carInfo.model',
-                //         maxPower: 1,
-                //         year: 19999,
-                //         numberPlate: 'carInfo.numberPlate'
-                //     },
-                //     function (err, res) {
-                //         console.log('add car', err, res);
-                //     }
-                // );
-
-                $.ajax({
-                    url: Utils.getPerson1InfoUrl(userId),
-                    dataType: "json"
-                }).done(function (person1InfoResult) {
+            API.getPerson(userId)
+                .then(function(personInfoResult) {
                     $.ajax({
-                        url: Utils.getNpfsUrl(),
+                        url: Utils.getPerson1InfoUrl(userId),
                         dataType: "json"
-                    }).done(function (npfsResult) {
-                        oPersonModel.setData(personInfoResult);
-                        oNpfModel.setData(npfsResult);
-                        oICModel.setData(npfsResult);
-                        oMainModel.setData(person1InfoResult);
-                        oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
+                    }).done(function (person1InfoResult) {
+                        $.ajax({
+                            url: Utils.getNpfsUrl(),
+                            dataType: "json"
+                        }).done(function (npfsResult) {
+                            oPersonModel.setData(personInfoResult);
+                            oNpfModel.setData(npfsResult);
+                            oICModel.setData(npfsResult);
+                            oMainModel.setData(person1InfoResult);
+                            oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
-                        Utils.saveLastUserId(userId);
+                            Utils.saveLastUserId(userId);
 
-                        scheduleNextUpdate();
+                            scheduleNextUpdate();
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                            MessageBox.error(sErrorText);
+                        });
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                        console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                         MessageBox.error(sErrorText);
                     });
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
-            });
         },
         updateModels: function () {
             var oMainModel = this.getModel("mainModel");
