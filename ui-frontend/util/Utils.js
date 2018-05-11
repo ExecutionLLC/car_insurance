@@ -279,60 +279,30 @@ sap.ui.define([
             router.navTo("menuPage", navToOptions, true);
         },
         getLoginUrl: function () {
-            var url = Const.LOGIN_URL;
-            return oModule.addRegionParameter(url);
+            return Const.LOGIN_URL;
         },
         getPersonInfoUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils;
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils;
         },
         getNpfsUrl: function () {
-            var url = Const.BASE_URL + "/npfs";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/npfs";
         },
         getChangeNpfUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/npf";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils + "/npf";
         },
         getChangeTariffUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/tariff";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils + "/tariff";
         },
         getTransactionInfoUrl: function(transactionHash) {
-            var url = Const.BASE_URL + "/transaction/" + transactionHash;
-            return oModule.addRegionParameter(url);
-        },
-        getRegion: function () {
-            var region = Const.LANG;
-            if (!region) {
-                region = sap.ui.getCore().getConfiguration().getLanguage();
-            }
-            if (region.length > 2) {
-                region = region.slice(0, 2);
-            }
-
-            return region.toLowerCase();
-        },
-        addRegionParameter: function (url) {
-            var region = oModule.getRegion();
-            if (!region) {
-                // server will use default region
-                return url;
-            }
-
-            return url + "?region=" + region.toLowerCase();
+            return Const.BASE_URL + "/transaction/" + transactionHash;
         },
         getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            if (storage.get("LAST_REGION") !== oModule.getRegion()) {
-                return;
-            }
             return storage.get(STORAGE_KEY.LAST_USERID);
         },
         saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             storage.put(STORAGE_KEY.LAST_USERID, userId);
-            storage.put("LAST_REGION", oModule.getRegion());
         }
     };
 
