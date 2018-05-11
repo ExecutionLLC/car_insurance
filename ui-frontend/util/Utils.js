@@ -278,9 +278,6 @@ sap.ui.define([
                     {};
             router.navTo("menuPage", navToOptions, true);
         },
-        getLoginUrl: function () {
-            return Const.BASE_URL + "/login";
-        },
         getPersonInfoUrl: function (userId) {
             return Const.BASE_URL + "/person/" + userId;
         },

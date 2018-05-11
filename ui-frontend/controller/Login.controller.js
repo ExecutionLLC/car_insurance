@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-    "personal/account/util/Utils"
-], function (Controller, MessageBox, Utils) {
+    "personal/account/util/Utils",
+    "personal/account/util/API"
+], function (Controller, MessageBox, Utils, API) {
     "use strict";
 
     return Controller.extend("personal.account.controller.Login", {
@@ -24,30 +25,38 @@ sap.ui.define([
             var oLoginInput = this.getView().byId("loginInput");
             var oPasswordInput = this.getView().byId("passwordInput");
 
-            var authData = {
-                email: oLoginInput.getValue(),
-                password: oPasswordInput.getValue()
-            };
             oLoginInput.setEnabled(false);
             oPasswordInput.setEnabled(false);
 
-            $.ajax({
-                url: Utils.getLoginUrl(),
-                dataType: "json",
-                type: "POST",
-                jsonp: false,
-                data: JSON.stringify(authData)
-            }).done(function (result) {
-                oComponent.initModels(result.id);
+            function onComplete() {
+                oLoginInput.setEnabled(true);
+                oPasswordInput.setEnabled(true);
+            }
+
+            function onDone(person) {
+                oComponent.initModels(person.id);
                 oLoginInput.setValue("");
                 oPasswordInput.setValue("");
                 Utils.navigateToMenuPageTab(oRouter);
-            }).fail(function () {
+            }
+
+            function onFail() {
                 MessageBox.error(sErrorPassOrLog);
-            }).always(function () {
-                oLoginInput.setEnabled(true);
-                oPasswordInput.setEnabled(true);
-            });
+
+            }
+
+            API.login(
+                oLoginInput.getValue(),
+                oPasswordInput.getValue(),
+                function(err, person) {
+                    if (err) {
+                        onFail();
+                    } else {
+                        onDone(person);
+                    }
+                    onComplete();
+                }
+            );
         }
     });
 });
