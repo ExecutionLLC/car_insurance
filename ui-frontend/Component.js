@@ -157,7 +157,7 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
             this.getRouter().initialize();
 
-            var lastSnils = Utils.getLastSnils();
+            var lastSnils = Utils.getLastUserId();
             if (lastSnils) {
                 this.initModels(lastSnils);
             }
@@ -191,7 +191,7 @@ sap.ui.define([
                     oMainModel.setData(personInfoResult);
                     oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
-                    Utils.saveLastSnils(snils);
+                    Utils.saveLastUserId(snils);
 
                     scheduleNextUpdate();
                 }).fail(function (jqXHR, textStatus, errorThrown) {

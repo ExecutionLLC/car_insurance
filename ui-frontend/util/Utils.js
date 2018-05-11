@@ -4,6 +4,10 @@ sap.ui.define([
 ], function(MessageBox, Const) {
     "use strict";
 
+    var STORAGE_KEY = {
+        LAST_USERID: "LAST_USERID"
+    };
+
     var $ = {
         ajax: function(opts) {
             console.log('Utils ajax', opts);
@@ -278,56 +282,27 @@ sap.ui.define([
             return Const.BASE_URL + "/login";
         },
         getPersonInfoUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils;
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils;
         },
         getNpfsUrl: function () {
-            var url = Const.BASE_URL + "/npfs";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/npfs";
         },
         getChangeNpfUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/npf";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils + "/npf";
         },
         getChangeTariffUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/tariff";
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/person/" + snils + "/tariff";
         },
         getTransactionInfoUrl: function(transactionHash) {
-            var url = Const.BASE_URL + "/transaction/" + transactionHash;
-            return oModule.addRegionParameter(url);
+            return Const.BASE_URL + "/transaction/" + transactionHash;
         },
-        getRegion: function () {
-            var region = Const.LANG;
-            if (!region) {
-                region = sap.ui.getCore().getConfiguration().getLanguage();
-            }
-            if (region.length > 2) {
-                region = region.slice(0, 2);
-            }
-
-            return region.toLowerCase();
-        },
-        addRegionParameter: function (url) {
-            var region = oModule.getRegion();
-            if (!region) {
-                // server will use default region
-                return url;
-            }
-
-            return url + "?region=" + region.toLowerCase();
-        },
-        getLastSnils: function () {
+        getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            if (storage.get("LAST_REGION") !== oModule.getRegion()) {
-                return;
-            }
-            return storage.get("LAST_SNILS");
+            return storage.get(STORAGE_KEY.LAST_USERID);
         },
-        saveLastSnils: function (snils) {
+        saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            storage.put("LAST_SNILS", snils);
-            storage.put("LAST_REGION", oModule.getRegion());
+            storage.put(STORAGE_KEY.LAST_USERID, userId);
         }
     };
 
