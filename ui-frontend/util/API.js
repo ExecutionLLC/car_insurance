@@ -3,32 +3,6 @@ sap.ui.define([
 ],function(Const){
     "use strict";
 
-/*
-Игорь, [10.05.18 17:51]
-https://executiona4038b30e.hana.ondemand.com/CarInsurance/car_insurance.xsjs
-
-Игорь, [10.05.18 17:51]
-/login
-
-Игорь, [10.05.18 17:52]
-{email:"", password:""}
-
-Игорь, [10.05.18 17:52]
-test1@execution.su
-
-Игорь, [10.05.18 17:52]
-pasword везде 123
-
-Игорь, [10.05.18 17:54]
-/person/id
-
-Игорь, [10.05.18 17:54]
-/person/id/operations
-
-Игорь, [10.05.18 17:54]
-/insurancecompanies
- */
-
     var oModule = {
         login: function(email, password, callback) {
             $.ajax({
@@ -49,6 +23,79 @@ pasword везде 123
                 dataType: "json"
             }).done(function(personInfoResult) {
                 callback(null, personInfoResult);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
+        },
+        getPersonOperations: function(personId, callback) {
+            $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/operations",
+                dataType: "json"
+            }).done(function(personOperationsResult) {
+                callback(null, personOperationsResult);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
+        },
+        getInsuranceCompanies: function(callback) {
+            $.ajax({
+                url: Const.BASE_URL + "/insurancecompanies",
+                dataType: "json"
+            }).done(function(insuranceCompaniesResult) {
+                callback(null, insuranceCompaniesResult);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
+        },
+        addPersonCar: function(personId, carInfo, callback) {
+            var postDataString = JSON.stringify({
+                vin: carInfo.vin,
+                vehicleType: carInfo.vehicleType,
+                model: carInfo.model,
+                maxPower: carInfo.maxPower,
+                year: carInfo.year,
+                numberPlate: carInfo.numberPlate
+            });
+            $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/cars",
+                dataType: "json",
+                type: "POST",
+                jsonp: false,
+                data: postDataString
+            }).done(function (result) {
+                callback(null, result);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
+        },
+        setPersonInsuranceCompany: function(personId, icId, callback) {
+            var putDataString = JSON.stringify({
+                id: icId
+            });
+            $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/insurancecompanyid",
+                dataType: "json",
+                type: "PUT",
+                jsonp: false,
+                data: putDataString
+            }).done(function (result) {
+                callback(null, result);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                callback(new Error(errorThrown));
+            });
+        },
+        addPersonInsurance: function(personId, vin, dateTo, callback) {
+            var postDataString = JSON.stringify({
+                dateTo: dateTo
+            });
+            $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/cars/" + vin + "/insurances",
+                dataType: "json",
+                type: "POST",
+                jsonp: false,
+                data: postDataString
+            }).done(function (result) {
+                callback(null, result);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 callback(new Error(errorThrown));
             });

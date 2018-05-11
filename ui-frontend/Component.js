@@ -193,6 +193,42 @@ sap.ui.define([
                     MessageBox.error(sErrorText);
                     return
                 }
+
+                API.getInsuranceCompanies(function(err, companies) {
+                    console.log('insurance companies', err, companies);
+                    if (!err) {
+                        var newICIndex = Math.floor(companies.length * Math.random());
+                        var newIC = companies[newICIndex];
+                        var newICId = newIC.id;
+                        API.setPersonInsuranceCompany(userId, newICId, function(err, result) {
+                            console.log('set insurance company', err, result);
+                        });
+                    }
+                });
+
+                // API.addPersonInsurance(userId, 'carInfo.vin', new Date(3000, 12, 31), function(err, result) {
+                //     console.log('add person insurance', err, result);
+                // });
+
+                API.getPersonOperations(userId, function(err, ops) {
+                    console.log('person operations', err, ops);
+                });
+
+                // API.addPersonCar(
+                //     userId,
+                //     {
+                //         vin: 'carInfo.vin',
+                //         vehicleType: 'carInfo.vehicleType',
+                //         model: 'carInfo.model',
+                //         maxPower: 1,
+                //         year: 19999,
+                //         numberPlate: 'carInfo.numberPlate'
+                //     },
+                //     function (err, res) {
+                //         console.log('add car', err, res);
+                //     }
+                // );
+
                 $.ajax({
                     url: Utils.getPerson1InfoUrl(userId),
                     dataType: "json"
