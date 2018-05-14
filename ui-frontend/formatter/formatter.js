@@ -4,6 +4,43 @@ sap.ui.define([
     "personal/account/util/Const"
 ], function (NumberFormat, Utils, Const) {
     "use strict";
+
+    function findLastInsurance(insurances) {
+        return insurances.reduce(
+            function(lastInsurance, insurance) {
+                if (!lastInsurance) {
+                    return insurance;
+                }
+                return lastInsurance.dateTo > insurance.dateTo ?
+                    lastInsurance :
+                    insurance;
+            },
+            null
+        );
+    }
+
+    function findLastInsuranceDateTo(insurances) {
+        if (!insurances) {
+            return null;
+        }
+        var lastInsurance = findLastInsurance(insurances);
+        if (!lastInsurance) {
+            return null;
+        }
+        return new Date(lastInsurance.dateTo);
+    }
+
+    function monthDiff(d1, d2) {
+        if (d2 < d1) {
+            return -1;
+        }
+        var months;
+        months = (d2.getFullYear() - d1.getFullYear()) * 12;
+        months -= d1.getMonth() + 1;
+        months += d2.getMonth();
+        return months <= 0 ? 0 : months;
+    }
+
     return {
 
         /**
@@ -58,8 +95,7 @@ sap.ui.define([
             var oComponent = this.getOwnerComponent();
             var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
-
-            return item ? item.ratingOfReliability : "?";
+            return item ? item.rating : null;
         },
         /**
          * @description Форматирование адреса НПФ в рейтинг надежности
@@ -128,10 +164,21 @@ sap.ui.define([
          * @param {string} icAddress - адрес с.к.
          * @return {string} oICRating.imageSrc - картинка
          */
-        formatICRatingToImage: function (icAddress) {
+        formatICAddressToReliabilityImage: function (icAddress) {
             var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
             return oICRating.imageSrc;
+        },
+
+        /**
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
+         */
+        formatICAddressToReliabilityString: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return oICRating.description + ' (' + oICRating.symbol + ')';
         },
 
         /**
@@ -166,6 +213,37 @@ sap.ui.define([
         formatCurrency: function (value, currencyStr) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
             return formattedValue + " " + currencyStr;
+        },
+
+        formatLastInsuranceDateTo: function(insurances) {
+            var date = findLastInsuranceDateTo(insurances);
+            if (!date) {
+                return '';
+            }
+            return date.toLocaleDateString(
+                sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
+            );
+        },
+
+        formatInsuranceColorStrip(insurances) {
+
+            function color(monthsDoExpire) {
+                if (!monthsDoExpire || monthsDoExpire <= 1) {
+                    return 'red';
+                }
+                if (monthsDoExpire <= 3) {
+                    return 'yellow';
+                }
+                return 'green';
+            }
+
+            var lastInsuranceDataTo = findLastInsuranceDateTo(insurances);
+            var monthsToExpire = lastInsuranceDataTo ?
+                monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
+                -1;
+
+            var bgColor = color(monthsToExpire);
+            return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
         }
     }
 
