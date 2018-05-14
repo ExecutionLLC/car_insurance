@@ -75,7 +75,7 @@ sap.ui.define([
                 return;
             }
 
-            var sRequestPendingText =this.oResourceBundle.getText("npf.men.exp.requestPendingText");
+            var sRequestPendingText =this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
             var npfHistory = this.oMainModel.getProperty("/npfHistory");
             var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
 
@@ -149,7 +149,7 @@ sap.ui.define([
             var oSelectedObject = oItem.getBindingContext("npfModel").getObject();
             var nSelectedNPFAddress = oSelectedObject.address;
             var selectedNpfName = oSelectedObject.name;
-            var sApplyButtonTextChange = this.oResourceBundle.getText("npf.men.exp.applyButtonTextChange");
+            var sApplyButtonTextChange = this.oResourceBundle.getText("insuranceCompany.men.exp.applyButtonTextChange");
             this.oTechModel.setProperty("/tech/changeNpfTab/selectedNpfAddress", nSelectedNPFAddress);
             this.oTechModel.setProperty("/tech/changeNpfTab/selectedNpf", selectedNpfName);
             this.oTechModel.setProperty("/tech/changeNpfTab/isNextNpfTableVisible", false);
@@ -160,8 +160,8 @@ sap.ui.define([
         },
 
         onApplyButton: function () {
-            var sApplyButtonTextChangeConfirm = this.oResourceBundle.getText("npf.men.exp.applyButtonTextChangeConfirm");
-            var sConfirmQuestion = this.oResourceBundle.getText("npf.men.exp.confirmQuestion");
+            var sApplyButtonTextChangeConfirm = this.oResourceBundle.getText("insuranceCompany.men.exp.applyButtonTextChangeConfirm");
+            var sConfirmQuestion = this.oResourceBundle.getText("insuranceCompany.men.exp.confirmQuestion");
             var needConformation = this.oTechModel.getProperty("/tech/changeNpfTab/needConformation");
             if (needConformation) {
                 this.oTechModel.setProperty("/tech/changeNpfTab/applyButtonText", sApplyButtonTextChangeConfirm);

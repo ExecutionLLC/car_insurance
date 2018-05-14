@@ -8,7 +8,7 @@
     <Page showHeader="false">
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>insuranceCompany.currentNpf}">
+                   text="{i18n>insuranceCompany.currentInsuranceCompany}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
                 </layoutData>
@@ -44,7 +44,7 @@
         </layout:Grid>
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>insuranceCompany.newNpf}"
+                   text="{i18n>insuranceCompany.newInsuranceCompany}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
@@ -87,7 +87,7 @@
             </ObjectStatus>
             <Button width="100%"
                     press="onSelectButton"
-                    text="{i18n>insuranceCompany.button.chooseNpf}"
+                    text="{i18n>insuranceCompany.chooseInsuranceCompany}"
                     enabled="{techModel>/tech/changeNpfTab/isSelectButtonEnabled}"
             >
                 <layoutData>
@@ -106,7 +106,7 @@
         >
             <columns>
                 <Column hAlign="Center">
-                    <Text text="{i18n>insuranceCompany.chg.tab.npf}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.insuranceCompany}"/>
                 </Column>
                 <Column hAlign="Center">
                     <Text text="{i18n>insuranceCompany.chg.tab.reliabilityRating}"/>
@@ -166,7 +166,7 @@
         </layout:Grid>
         <!--конец-->
         <Label
-                text="{i18n>insuranceCompany.npfHistory}"
+                text="{i18n>insuranceCompany.insuranceCompanyHistory}"
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
         <!--Таблица-->
         <ScrollContainer vertical="false" horizontal="true">
@@ -177,7 +177,7 @@
                         <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>insuranceCompany.tab.npf}"/>
+                        <Text text="{i18n>insuranceCompany.tab.insuranceCompany}"/>
                     </Column>
                     <Column
                             hAlign="Center">
