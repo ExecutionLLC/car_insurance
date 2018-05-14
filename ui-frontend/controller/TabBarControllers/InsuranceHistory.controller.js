@@ -51,7 +51,7 @@ sap.ui.define([
                 };
             }));
 
-            this.oTechModel.setProperty("/tech/getReportTab/operationsTableData", operationsTableData);
+            this.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsTableData", operationsTableData);
         },
 
 
@@ -76,8 +76,8 @@ sap.ui.define([
             if (from && to) {
                 var timestampFrom = from.valueOf();
                 var timestampTo = to.valueOf();
-                this.oTechModel.setProperty("/tech/getReportTab/dateFrom", Utils.timestampToString(timestampFrom));
-                this.oTechModel.setProperty("/tech/getReportTab/dateTo", Utils.timestampToString(timestampTo));
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateFrom", Utils.timestampToString(timestampFrom));
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateTo", Utils.timestampToString(timestampTo));
 
                 var aFilters = [
                     new Filter({
@@ -97,7 +97,7 @@ sap.ui.define([
                     and: true
                 });
 
-                var operationsTableData = this.oTechModel.getProperty("/tech/getReportTab/operationsTableData");
+                var operationsTableData = this.oTechModel.getProperty("/tech/insuranceHistoryTab/operationsTableData");
                 var aAmountIncome = operationsTableData.filter(function(value) {
                     return value.timestamp < timestampFrom;
                 });
@@ -108,23 +108,23 @@ sap.ui.define([
                 var amountSumIncome = sumOfAmount(aAmountIncome);
                 var amountSumOutgoing = sumOfAmount(aAmountOutgoing);
                 var amountDifference = amountSumOutgoing - amountSumIncome;
-                this.oTechModel.setProperty("/tech/getReportTab/AmountIncome",amountSumIncome);
-                this.oTechModel.setProperty("/tech/getReportTab/AmountOutgoing",amountSumOutgoing);
-                this.oTechModel.setProperty("/tech/getReportTab/AmountDifference",amountDifference);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountIncome",amountSumIncome);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountOutgoing",amountSumOutgoing);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountDifference",amountDifference);
 
-                this.oTechModel.setProperty("/tech/getReportTab/isShowHideButtonEnabled", true);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonEnabled", true);
             } else {
                 _oFilterSet.dateFilter = null;
 
-                this.oTechModel.setProperty("/tech/getReportTab/dateFrom", "?");
-                this.oTechModel.setProperty("/tech/getReportTab/dateTo", "?");
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateFrom", "?");
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateTo", "?");
 
-                this.oTechModel.setProperty("/tech/getReportTab/AmountIncome", 0);
-                this.oTechModel.setProperty("/tech/getReportTab/AmountOutgoing", 0);
-                this.oTechModel.setProperty("/tech/getReportTab/AmountDifference", 0);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountIncome", 0);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountOutgoing", 0);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountDifference", 0);
 
-                this.oTechModel.setProperty("/tech/getReportTab/isShowHideButtonPressed", false);
-                this.oTechModel.setProperty("/tech/getReportTab/isShowHideButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonPressed", false);
+                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonEnabled", false);
             }
 
             var oTable = this.getView().byId("table--report");

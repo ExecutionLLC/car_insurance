@@ -29,13 +29,13 @@
                 </layoutData>
             </DateRangeSelection>
             <ToggleButton
-                    pressed="{techModel>/tech/getReportTab/isShowHideButtonPressed}"
+                    pressed="{techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed}"
                     width="100%"
                     text="{
-                            path:'techModel>/tech/getReportTab/isShowHideButtonPressed',
+                            path:'techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed',
                             formatter:'.formatter.formatButtonName'
                           }"
-                    enabled="{techModel>/tech/getReportTab/isShowHideButtonEnabled}"
+                    enabled="{techModel>/tech/insuranceHistoryTab/isShowHideButtonEnabled}"
             >
                 <layoutData>
                     <layout:GridData
@@ -55,13 +55,13 @@
         </layout:Grid>
         <!--дополнительное поле информации при нажатой кнопке-->
         <form:Form
-                visible="{techModel>/tech/getReportTab/isShowHideButtonPressed}"
+                visible="{techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed}"
                 editable="true">
             <form:formContainers>
                 <form:FormContainer>
                     <form:FormElement>
                         <Label
-                                text="{= ${i18n>insuranceHistory.exp.balance.income} + ' ' + ${techModel>/tech/getReportTab/dateFrom} }"
+                                text="{= ${i18n>insuranceHistory.exp.balance.income} + ' ' + ${techModel>/tech/insuranceHistoryTab/dateFrom} }"
                                 class="label-margin-top">
                             <layoutData>
                                 <layout:GridData
@@ -71,7 +71,7 @@
                         </Label>
                         <ObjectNumber
                                 number="{
-                            parts:[{path:'techModel>/tech/getReportTab/AmountIncome'},{path:'i18n>currencyCode'}],
+                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountIncome'},{path:'i18n>currencyCode'}],
 						    type: 'sap.ui.model.type.Currency'
 					    }">
                             <layoutData>
@@ -84,7 +84,7 @@
                     </form:FormElement>
                     <form:FormElement>
                         <Label
-                                text="{= ${i18n>insuranceHistory.exp.balance.outcome} + ' ' +${techModel>/tech/getReportTab/dateTo} }"
+                                text="{= ${i18n>insuranceHistory.exp.balance.outcome} + ' ' +${techModel>/tech/insuranceHistoryTab/dateTo} }"
                                 class="label-margin-top">
                             <layoutData>
                                 <layout:GridData
@@ -94,7 +94,7 @@
                         </Label>
                         <ObjectNumber
                                 number="{
-                            parts:[{path:'techModel>/tech/getReportTab/AmountOutgoing'},{path:'i18n>currencyCode'}],
+                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountOutgoing'},{path:'i18n>currencyCode'}],
 						    type: 'sap.ui.model.type.Currency'
 					    }">
                             <layoutData>
@@ -116,7 +116,7 @@
                         </Label>
                         <ObjectNumber
                                 number="{
-                            parts:[{path:'techModel>/tech/getReportTab/AmountDifference'},{path:'i18n>currencyCode'}],
+                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountDifference'},{path:'i18n>currencyCode'}],
 						    type: 'sap.ui.model.type.Currency'
 					    }">
                         <layoutData>
@@ -195,7 +195,7 @@
                 <Table
                         id="table--report"
                         items="{
-                            path: 'techModel>/tech/getReportTab/operationsTableData',
+                            path: 'techModel>/tech/insuranceHistoryTab/operationsTableData',
                             sorter : {
                                 path : 'timestamp',
                                 descending:true

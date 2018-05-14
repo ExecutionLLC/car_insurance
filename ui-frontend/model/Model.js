@@ -13,7 +13,7 @@ sap.ui.define([
             //техническая модель приложения
             tech:{
                 selectedKey: "",
-                getReportTab: {
+                insuranceHistoryTab: {
                     isShowHideButtonPressed: false,
                     isShowHideButtonEnabled: false,
                     dateFrom: "?",
