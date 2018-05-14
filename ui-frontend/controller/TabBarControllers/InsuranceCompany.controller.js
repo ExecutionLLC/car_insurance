@@ -58,14 +58,14 @@ sap.ui.define([
 
         enableSelectButton: function(enable, nextMinTimeForChanges) {
             if (nextMinTimeForChanges) {
-                this.oTechModel.setProperty("/tech/changeNpfTab/isNextMinTimeForChangeLabelVisible", true);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible", true);
                 var message = Utils.timestampToString(nextMinTimeForChanges, true);
-                this.oTechModel.setProperty("/tech/changeNpfTab/nextMinTimeForChangeMessage", message);
-                this.oTechModel.setProperty("/tech/changeNpfTab/isSelectButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", message);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", false);
             } else {
-                this.oTechModel.setProperty("/tech/changeNpfTab/isNextMinTimeForChangeLabelVisible", false);
-                this.oTechModel.setProperty("/tech/changeNpfTab/nextMinTimeForChangeMessage", "");
-                this.oTechModel.setProperty("/tech/changeNpfTab/isSelectButtonEnabled", true);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", "");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", true);
             }
         },
 
@@ -95,21 +95,21 @@ sap.ui.define([
                     isFinished: true
                 }
             });
-            var totalnpfTableData = pendedNpfTableData.concat(historyNpfTableData);
-            this.oTechModel.setProperty("/tech/changeNpfTab/npfTableData", totalnpfTableData);
+            var totalInsuranceCompanyTableData = pendedNpfTableData.concat(historyNpfTableData);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", totalInsuranceCompanyTableData);
 
             if (pendedNpfChanges.length !== 0) {
-                this.oTechModel.setProperty("/tech/changeNpfTab/selectedNpf", "");
-                this.oTechModel.setProperty("/tech/changeNpfTab/isNextNpfTableVisible", false);
-                this.oTechModel.setProperty("/tech/changeNpfTab/needConformation", true);
-                this.oTechModel.setProperty("/tech/changeNpfTab/isApplyButtonVisible", false);
-                this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessage", sRequestPendingText);
-                this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessageState", "Warning");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeNpfMessageState", "Warning");
             } else {
-                var changeNpfMessage = this.oTechModel.getProperty("/tech/changeNpfTab/changeNpfMessage");
+                var changeInsuranceCompanyMessage = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage");
                 // FIXME
-                if (changeNpfMessage === sRequestPendingText) {
-                    this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessage", "");
+                if (changeInsuranceCompanyMessage === sRequestPendingText) {
+                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
                 }
             }
 
@@ -140,43 +140,43 @@ sap.ui.define([
         },
 
         onSelectButton: function (oEvent) {
-            var isNextNpfTableVisible = !this.oTechModel.getProperty("/tech/changeNpfTab/isNextNpfTableVisible");
-            this.oTechModel.setProperty("/tech/changeNpfTab/isNextNpfTableVisible", isNextNpfTableVisible);
+            var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
         },
 
-        onSelectNpfTableItem: function (oEvent) {
+        onSelectInsuranceCompanyTableItem: function (oEvent) {
             var oItem = oEvent.getSource();
-            var oSelectedObject = oItem.getBindingContext("npfModel").getObject();
-            var nSelectedNPFAddress = oSelectedObject.address;
-            var selectedNpfName = oSelectedObject.name;
+            var oSelectedObject = oItem.getBindingContext("icModel").getObject();
+            var nSelectedInsuranceCompanyAddress = oSelectedObject.id;
+            var selectedInsuranceCompanyName = oSelectedObject.name;
             var sApplyButtonTextChange = this.oResourceBundle.getText("insuranceCompany.men.exp.applyButtonTextChange");
-            this.oTechModel.setProperty("/tech/changeNpfTab/selectedNpfAddress", nSelectedNPFAddress);
-            this.oTechModel.setProperty("/tech/changeNpfTab/selectedNpf", selectedNpfName);
-            this.oTechModel.setProperty("/tech/changeNpfTab/isNextNpfTableVisible", false);
-            this.oTechModel.setProperty("/tech/changeNpfTab/applyButtonText", sApplyButtonTextChange);
-            this.oTechModel.setProperty("/tech/changeNpfTab/needConformation", true);
-            this.oTechModel.setProperty("/tech/changeNpfTab/isApplyButtonVisible", true);
-            this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessage", "");
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress", nSelectedInsuranceCompanyAddress);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", selectedInsuranceCompanyName);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/applyButtonText", sApplyButtonTextChange);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", true);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
         },
 
         onApplyButton: function () {
             var sApplyButtonTextChangeConfirm = this.oResourceBundle.getText("insuranceCompany.men.exp.applyButtonTextChangeConfirm");
             var sConfirmQuestion = this.oResourceBundle.getText("insuranceCompany.men.exp.confirmQuestion");
-            var needConformation = this.oTechModel.getProperty("/tech/changeNpfTab/needConformation");
+            var needConformation = this.oTechModel.getProperty("/tech/insuranceCompanyTab/needConformation");
             if (needConformation) {
-                this.oTechModel.setProperty("/tech/changeNpfTab/applyButtonText", sApplyButtonTextChangeConfirm);
-                this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessage", sConfirmQuestion);
-                this.oTechModel.setProperty("/tech/changeNpfTab/changeNpfMessageType", "Error");
-                this.oTechModel.setProperty("/tech/changeNpfTab/needConformation", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/applyButtonText", sApplyButtonTextChangeConfirm);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sConfirmQuestion);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Error");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", false);
             } else {
                 var snils = this.oMainModel.getProperty("/metadata/snils");
-                var selectedNpfAddress = this.oTechModel.getProperty("/tech/changeNpfTab/selectedNpfAddress");
+                var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
 
                 $.ajax({
                     url: Utils.getChangeNpfUrl(snils),
                     dataType: "json",
                     type: "PUT",
-                    data: JSON.stringify({"npf": selectedNpfAddress}),
+                    data: JSON.stringify({"npf": selectedInsuranceCompanyAddress}),
                     jsonp: false
                 });
 
@@ -184,7 +184,7 @@ sap.ui.define([
                 var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
                 // состояние кнопок/лейблов/... следует состоянию модели, все изменения состояния GUI произойдут в onMainModelChanges
                 this.oMainModel.setProperty("/pendedNpfChanges", pendedNpfChanges.concat([{
-                    npf: selectedNpfAddress,
+                    npf: selectedInsuranceCompanyAddress,
                     timestamp: now,
                     isFinished: false
                 }]));

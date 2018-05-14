@@ -51,23 +51,23 @@
                 </layoutData>
             </Label>
             <Text class="sapUiSmallMarginTop text-bold"
-                  text="{techModel>/tech/changeNpfTab/selectedNpf}"
+                  text="{techModel>/tech/insuranceCompanyTab/selectedInsuranceCompany}"
             >
                 <layoutData>
                     <layout:GridData span="L4 M4 S4"/>
                 </layoutData>
             </Text>
-            <Label id="changeNpfLabel"
-                   class="sapUiSmallMarginTop"
-                   text="{i18n>insuranceCompany.possibleDate}"
-                   visible="{techModel>/tech/changeNpfTab/isNextMinTimeForChangeLabelVisible}"
+            <Label
+                    class="sapUiSmallMarginTop"
+                    text="{i18n>insuranceCompany.possibleDate}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible}"
             >
                 <layoutData>
                     <layout:GridData span="L3 M4 S4"/>
                 </layoutData>
             </Label>
             <Text class="sapUiSmallMarginTop"
-                  text="{techModel>/tech/changeNpfTab/nextMinTimeForChangeMessage}"
+                  text="{techModel>/tech/insuranceCompanyTab/nextMinTimeForChangeMessage}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M4 S4"/>
@@ -77,8 +77,8 @@
         <layout:Grid width="100%">
             <ObjectStatus
                     class="sapUiSmallMarginTop"
-                    text="{techModel>/tech/changeNpfTab/changeNpfMessage}"
-                    state="{techModel>/tech/changeNpfTab/changeNpfMessageType}">
+                    text="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessage}"
+                    state="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType}">
                 <layoutData>
                     <layout:GridData
                             span="L5 M3 S7"
@@ -88,7 +88,7 @@
             <Button width="100%"
                     press="onSelectButton"
                     text="{i18n>insuranceCompany.chooseInsuranceCompany}"
-                    enabled="{techModel>/tech/changeNpfTab/isSelectButtonEnabled}"
+                    enabled="{techModel>/tech/insuranceCompanyTab/isSelectButtonEnabled}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>
@@ -97,10 +97,10 @@
         </layout:Grid>
 
 
-        <!--Таблица для выбора нового НПФ-->
-        <Table visible="{techModel>/tech/changeNpfTab/isNextNpfTableVisible}"
+        <!--Таблица для выбора новой с.к.-->
+        <Table visible="{techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible}"
                items="{
-                    path:'npfModel>/'
+                    path:'icModel>/'
 
                }"
         >
@@ -122,22 +122,22 @@
             <items>
                 <ColumnListItem visible="{
                                     parts:[
-                                        {path:'npfModel>address'},
+                                        {path:'icModel>id'},
                                         {path:'personModel>/insuranceCompanyId'}
                                     ],
                                     formatter:'.formatter.formatICColumnListItem'
                                 }"
                                 type="Active"
-                                press="onSelectNpfTableItem"
+                                press="onSelectInsuranceCompanyTableItem"
                 >
                     <cells>
-                        <Text text="{npfModel>name}"/>
+                        <Text text="{icModel>name}"/>
                         <Text text="{
-                                        path:'npfModel>address',
-                                        formatter:'.formatter.formatNpfRating'
+                                        path:'icModel>id',
+                                        formatter:'.formatter.formatICAddressToReliabilityString'
                                     }"
                         />
-                        <Text text="{npfModel>ratingOfIncomeRate}"/>
+                        <Text text="{icModel>rating}"/>
                         <core:Icon
                                 src="sap-icon://hello-world"
                                 press="onIconPress"
@@ -155,8 +155,8 @@
             <Button
                     width="100%"
                     press="onApplyButton"
-                    text="{techModel>/tech/changeNpfTab/applyButtonText}"
-                    visible="{techModel>/tech/changeNpfTab/isApplyButtonVisible}">
+                    text="{techModel>/tech/insuranceCompanyTab/applyButtonText}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}">
                 <layoutData>
                     <layout:GridData
                             span="L2 M3 S7"
@@ -192,7 +192,7 @@
 
                 <Table
                         items="{
-                            path:'techModel>/tech/changeNpfTab/npfTableData',
+                            path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
                             sorter : {
                                 path : 'timestamp',
                                 descending:true
