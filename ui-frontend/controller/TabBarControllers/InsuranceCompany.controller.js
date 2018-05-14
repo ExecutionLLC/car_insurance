@@ -8,7 +8,7 @@ sap.ui.define([
 
     var $ = {
         ajax: function(opts) {
-            console.log('NPF ajax', opts);
+            console.log('IC ajax', opts);
             var doneF = function() {};
             var failF = function() {};
             var alwaysF = function() {};
