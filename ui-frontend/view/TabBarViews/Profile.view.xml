@@ -34,8 +34,8 @@
                                             text=""
                                             class = "coloredText"/>
                                     <Text
-                                            text ="{
-                                                path:'mainModel>/ic',
+                                            text="{
+                                                path:'personModel>/insuranceCompanyId',
                                                 formatter:'.formatter.formatICAddressToName'}"
                                             class="H1" />
                                 </HBox>
@@ -50,14 +50,19 @@
                                     justifyContent = "SpaceAround">
                                     <Image
                                         src="{
-                                            path:'mainModel>/ic',
-                                            formatter:'.formatter.formatICRatingToImage'}"
+                                            path:'personModel>/insuranceCompanyId',
+                                            formatter:'.formatter.formatICAddressToReliabilityImage'}"
                                         width = '4rem'
                                         height = "4rem"
                                         />
                                     <Text
                                         text = "{i18n>ratingOfReliability}"
                                         class="H2"/>
+                                    <Text
+                                            text="{
+                                                path:'personModel>/insuranceCompanyId',
+                                                formatter:'.formatter.formatICAddressToReliabilityString'}"
+                                            class="H1"/>
                                 </HBox>
                             </VBox>
                         </HBox>

@@ -58,8 +58,7 @@ sap.ui.define([
             var oComponent = this.getOwnerComponent();
             var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
-
-            return item ? item.ratingOfReliability : "?";
+            return item ? item.rating : null;
         },
         /**
          * @description Форматирование адреса НПФ в рейтинг надежности
@@ -128,10 +127,21 @@ sap.ui.define([
          * @param {string} icAddress - адрес с.к.
          * @return {string} oICRating.imageSrc - картинка
          */
-        formatICRatingToImage: function (icAddress) {
+        formatICAddressToReliabilityImage: function (icAddress) {
             var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
             return oICRating.imageSrc;
+        },
+
+        /**
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
+         */
+        formatICAddressToReliabilityString: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return oICRating.description + ' (' + oICRating.symbol + ')';
         },
 
         /**

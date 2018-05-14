@@ -104,9 +104,8 @@ sap.ui.define([
             if (!modelData || !modelData.find) {
                 return null;
             }
-            var adressUpperCase = address.toUpperCase();
             return modelData.find(function (item) {
-                return item.address.toUpperCase() === adressUpperCase;
+                return item.id === address;
             });
         },
         getNpfObjectByAddress: function(address, model) {

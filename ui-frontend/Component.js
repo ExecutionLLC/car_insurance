@@ -187,38 +187,40 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
-            API.getPerson(userId)
-                .then(function(personInfoResult) {
-                    $.ajax({
-                        url: Utils.getPerson1InfoUrl(userId),
-                        dataType: "json"
-                    }).done(function (person1InfoResult) {
-                        $.ajax({
-                            url: Utils.getNpfsUrl(),
-                            dataType: "json"
-                        }).done(function (npfsResult) {
-                            oPersonModel.setData(personInfoResult);
-                            oNpfModel.setData(npfsResult);
-                            oICModel.setData(npfsResult);
-                            oMainModel.setData(person1InfoResult);
-                            oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
+            jQuery.when(
+                API.getPerson(userId),
+                API.getInsuranceCompanies()
+            ).then(function(personInfoResult, insuranceCompaniesResult) {
+                oICModel.setData(insuranceCompaniesResult[0]);
+                oPersonModel.setData(personInfoResult[0]);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                MessageBox.error(sErrorText);
+            });
 
-                            Utils.saveLastUserId(userId);
+            $.ajax({
+                url: Utils.getPerson1InfoUrl(userId),
+                dataType: "json"
+            }).done(function (person1InfoResult) {
+                $.ajax({
+                    url: Utils.getNpfsUrl(),
+                    dataType: "json"
+                }).done(function (npfsResult) {
+                    oNpfModel.setData(npfsResult);
+                    oMainModel.setData(person1InfoResult);
+                    oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
-                            scheduleNextUpdate();
-                        }).fail(function (jqXHR, textStatus, errorThrown) {
-                            console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                            MessageBox.error(sErrorText);
-                        });
-                    }).fail(function (jqXHR, textStatus, errorThrown) {
-                        console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
-                        MessageBox.error(sErrorText);
-                    });
-                })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                    Utils.saveLastUserId(userId);
+
+                    scheduleNextUpdate();
+                }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
+                MessageBox.error(sErrorText);
+            });
         },
         updateModels: function () {
             var oMainModel = this.getModel("mainModel");
