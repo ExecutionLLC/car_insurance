@@ -11,29 +11,6 @@
         <layout:Grid
                 width="100%">
             <Label
-                    class="label-margin-top"
-                    text="{i18n>totalAccumulated}">
-                <layoutData>
-                    <layout:GridData
-                            span="L3 M5 S4"
-                            indent="L1 M0 S0"/>
-                </layoutData>
-            </Label>
-            <ObjectNumber
-                    class="label-margin-top"
-                    number="{
-                            parts:[{path:'mainModel>/balance'},{path:'i18n>currencyCode'}],
-						    type: 'sap.ui.model.type.Currency'
-					    }">
-                <layoutData>
-                    <layout:GridData
-                            span="L4 M4 S4"/>
-                </layoutData>
-            </ObjectNumber>
-        </layout:Grid>
-        <layout:Grid
-                width="100%">
-            <Label
                     class="sapUiSmallMarginTop"
                     text="{i18n>cashFlow}">
                 <layoutData>
