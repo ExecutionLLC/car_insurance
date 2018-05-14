@@ -70,11 +70,6 @@ sap.ui.define([
         },
 
         onMainModelChanges: function() {
-            if(!this.oMainModel.getProperty("/metadata/snils")) {
-                // user is logged out
-                return;
-            }
-
             var sRequestPendingText =this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
             var npfHistory = this.oMainModel.getProperty("/npfHistory");
             var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
