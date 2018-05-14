@@ -1,7 +1,6 @@
 <mvc:View controllerName="personal.account.controller.TabBarControllers.InsuranceCompany"
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
-          xmlns:form="sap.ui.layout.form"
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
           displayBlock="true"
