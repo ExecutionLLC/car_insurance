@@ -140,12 +140,59 @@
                         class="sapUiTinyMarginBottom">
                     <content>
                         <HBox
-                                height ="7rem"
+                                height ="1rem"
                                 width = "96%"
                                 class = "sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
                             <Text
                                     text="{i18n>myCarsTitle}" />
                         </HBox>
+                        <Table
+                                items="{
+                                    path: 'personModel>/cars'
+                                }">
+                            <columns>
+                                <Column
+                                        hAlign="Center">
+                                </Column>
+                                <Column
+                                        hAlign="Left">
+                                </Column>
+                                <Column
+                                        hAlign="Left">
+                                </Column>
+                                <Column
+                                        hAlign="Right">
+                                </Column>
+                            </columns>
+                            <items>
+                                <CustomListItem>
+                                    <Panel
+                                            expand="false"
+                                            width="auto">
+                                        <content>
+                                            <l:HorizontalLayout>
+                                                <Text
+                                                    text="CARICON" />
+                                                <l:VerticalLayout>
+                                                    <Text
+                                                            text="{personModel>model}" />
+                                                    <Text
+                                                            text="{personModel>numberPlate}" />
+                                                </l:VerticalLayout>
+                                                <l:VerticalLayout>
+                                                    <Text
+                                                            text="{i18n>insurancedTo}" />
+                                                    <Text
+                                                            text="INSORANCEDDUEDATE" />
+                                                </l:VerticalLayout>
+                                                <Text
+                                                        text="COLOR" />
+                                            </l:HorizontalLayout>
+                                        </content>
+                                    </Panel>
+                                </CustomListItem>
+                            </items>
+                        </Table>
                     </content>
                     <layoutData>
                         <l:GridData
