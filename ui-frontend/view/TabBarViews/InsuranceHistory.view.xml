@@ -1,5 +1,5 @@
 <mvc:View
-        controllerName="personal.account.controller.TabBarControllers.Report"
+        controllerName="personal.account.controller.TabBarControllers.InsuranceHistory"
         xmlns="sap.m"
         xmlns:core="sap.ui.core"
         xmlns:mvc="sap.ui.core.mvc"

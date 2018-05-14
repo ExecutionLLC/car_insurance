@@ -41,7 +41,7 @@
                 width="100%"
                 height="calc(100% - 3rem - 1px)">
             <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"/>
-            <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.Report"/>
+            <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.InsuranceHistory"/>
             <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"/>
             <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.NPF"/>
 
