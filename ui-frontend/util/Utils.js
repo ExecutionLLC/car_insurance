@@ -131,102 +131,102 @@ sap.ui.define([
         conversionNpfRating: function (int) {
             var defaultRating = {
                 symbol: "?",
-                descrition: "Неизвестен"
+                description: "Неизвестен"
             };
             var ratingForInt = {
                 0: {
                     symbol    : "D",
-                    descrition: "В состоянии дефолта"
+                    description: "В состоянии дефолта"
                 },
                 1: {
                     symbol    : "C",
-                    descrition: "Близки к дефолту"
+                    description: "Близки к дефолту"
                 },
                 2: {
                     symbol    : "CC",
-                    descrition: "Близки к дефолту"
+                    description: "Близки к дефолту"
                 },
                 3: {
                     symbol    : "CCC-",
-                    descrition: "Близки к дефолту"
+                    description: "Близки к дефолту"
                 },
                 4: {
                     symbol    : "CCC",
-                    descrition: "Крайне высокий кредитный риск"
+                    description: "Крайне высокий кредитный риск"
                 },
                 5: {
                     symbol    : "CCC+",
-                    descrition: "Очень высокий кредитный риск"
+                    description: "Очень высокий кредитный риск"
                 },
                 6: {
                     symbol    : "B-",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
+                    description: "Рискованные обязательства в высокой степени спекулятивные"
                 },
                 7: {
                     symbol    : "B",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
+                    description: "Рискованные обязательства в высокой степени спекулятивные"
                 },
                 8: {
                     symbol    : "B+",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
+                    description: "Рискованные обязательства в высокой степени спекулятивные"
                 },
                 9: {
                     symbol    : "BB-",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
+                    description: "Рискованные обязательства с чертами спекулятивных"
                 },
                 10: {
                     symbol    : "BB",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
+                    description: "Рискованные обязательства с чертами спекулятивных"
                 },
                 11: {
                     symbol    : "BB+",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
+                    description: "Рискованные обязательства с чертами спекулятивных"
                 },
                 12: {
                     symbol    : "BBB-",
-                    descrition: "Надежность ниже среднего"
+                    description: "Надежность ниже среднего"
                 },
                 13: {
                     symbol    : "BBB",
-                    descrition: "Надежность ниже среднего"
+                    description: "Надежность ниже среднего"
                 },
                 14: {
                     symbol    : "BBB+",
-                    descrition: "Надежность ниже среднего"
+                    description: "Надежность ниже среднего"
                 },
                 15: {
                     symbol    : "A-",
-                    descrition: "Надежность выше среднего"
+                    description: "Надежность выше среднего"
                 },
                 16: {
                     symbol    : "A",
-                    descrition: "Надежность выше среднего"
+                    description: "Надежность выше среднего"
                 },
                 17: {
                     symbol    : "A+",
-                    descrition: "Надежность выше среднего"
+                    description: "Надежность выше среднего"
                 },
                 18: {
                     symbol    : "AA-",
-                    descrition: "Высокая надежность"
+                    description: "Высокая надежность"
                 },
                 19: {
                     symbol    : "AA",
-                    descrition: "Высокая надежность"
+                    description: "Высокая надежность"
                 },
                 20: {
                     symbol    : "AA+",
-                    descrition: "Высокая надежность",
+                    description: "Высокая надежность",
                     imageSrc  : "./image/AAplus.jpg"
                 },
                 21: {
                     symbol    : "AAA",
-                    descrition: "Наивысшая надежность",
+                    description: "Наивысшая надежность",
                     imageSrc  : "./image/AAA.jpg"
                 },
                 22: {
                     symbol    : "AAA+",
-                    descrition: "Наивысшая надежность",
+                    description: "Наивысшая надежность",
                     imageSrc  : "./image/AAAplus.jpg"
                 }
             };
