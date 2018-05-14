@@ -12,7 +12,7 @@
                 width="100%">
             <Label
                     class="sapUiSmallMarginTop"
-                    text="{i18n>cashFlow}">
+                    text="{i18n>dateRange}">
                 <layoutData>
                     <layout:GridData
                             span="L3 M4 S4"
