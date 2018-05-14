@@ -8,7 +8,7 @@
     <Page showHeader="false">
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>npf.currentNpf}">
+                   text="{i18n>insuranceCompany.currentNpf}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
                 </layoutData>
@@ -26,7 +26,7 @@
             </Text>
             <Label
                     class="sapUiSmallMarginTop"
-                    text="{i18n>npf.ratingOfReliability}">
+                    text="{i18n>insuranceCompany.ratingOfReliability}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4"/>
                 </layoutData>
@@ -44,7 +44,7 @@
         </layout:Grid>
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>npf.newNpf}"
+                   text="{i18n>insuranceCompany.newNpf}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
@@ -59,7 +59,7 @@
             </Text>
             <Label id="changeNpfLabel"
                    class="sapUiSmallMarginTop"
-                   text="{i18n>npf.possibleDate}"
+                   text="{i18n>insuranceCompany.possibleDate}"
                    visible="{techModel>/tech/changeNpfTab/isNextMinTimeForChangeLabelVisible}"
             >
                 <layoutData>
@@ -87,7 +87,7 @@
             </ObjectStatus>
             <Button width="100%"
                     press="onSelectButton"
-                    text="{i18n>npf.button.chooseNpf}"
+                    text="{i18n>insuranceCompany.button.chooseNpf}"
                     enabled="{techModel>/tech/changeNpfTab/isSelectButtonEnabled}"
             >
                 <layoutData>
@@ -106,16 +106,16 @@
         >
             <columns>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.npf}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.npf}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.reliabilityRating}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.reliabilityRating}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.revenueRating}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.revenueRating}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.website}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.website}"/>
                 </Column>
             </columns>
 
@@ -166,7 +166,7 @@
         </layout:Grid>
         <!--конец-->
         <Label
-                text="{i18n>npf.npfHistory}"
+                text="{i18n>insuranceCompany.npfHistory}"
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
         <!--Таблица-->
         <ScrollContainer vertical="false" horizontal="true">
@@ -174,17 +174,17 @@
                     showNoData="false">
                 <columns>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.operationDate}"/>
+                        <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.npf}"/>
+                        <Text text="{i18n>insuranceCompany.tab.npf}"/>
                     </Column>
                     <Column
                             hAlign="Center">
-                        <Text text="{i18n>npf.tab.status}"/>
+                        <Text text="{i18n>insuranceCompany.tab.status}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.check}"/>
+                        <Text text="{i18n>insuranceCompany.tab.check}"/>
                     </Column>
                 </columns>
             </Table>
@@ -251,21 +251,21 @@
                                     <layout:VerticalLayout
                                             class="verticalLayout_tariff_npf-margin_left">
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>npf.tab.exp.transactionId}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
                                             </Label>
                                             <Link text="{techModel>transactionHash}" press="onLinkPress">
                                             </Link>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>npf.tab.exp.sender}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.sender}">
                                             </Label>
                                             <Text text="{mainModel>/metadata/address}">
                                             </Text>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout width="100%">
-                                            <Label text="{i18n>npf.tab.exp.confirmationsNumber}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
                                             </Label>
                                             <Text text="{
                                                             path: 'techModel>isFinished',
