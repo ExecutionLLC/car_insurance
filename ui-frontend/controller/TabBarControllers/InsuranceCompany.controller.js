@@ -2,42 +2,10 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "personal/account/formatter/formatter",
     "personal/account/util/Const",
-    "personal/account/util/Utils"
-], function (Controller, formatter, Const, Utils) {
+    "personal/account/util/Utils",
+    "personal/account/util/API"
+], function (Controller, formatter, Const, Utils, API) {
     "use strict";
-
-    var $ = {
-        ajax: function(opts) {
-            console.log('IC ajax', opts);
-            var doneF = function() {};
-            var failF = function() {};
-            var alwaysF = function() {};
-            var res = {
-                done: function(f) {
-                    doneF = f;
-                    return res;
-                },
-                fail: function(f) {
-                    failF = f;
-                    return res;
-                },
-                always: function(f) {
-                    alwaysF = f;
-                    return res;
-                }
-            };
-
-            setTimeout(
-                function() {
-                    doneF({ "transactionHash": '' + Math.random() });
-                    alwaysF();
-                },
-                1000
-            );
-
-            return res;
-        }
-    };
 
     return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
         formatter: formatter,
@@ -46,6 +14,7 @@ sap.ui.define([
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oMainModel = this.oComponent.getModel("mainModel");
+            this.oPersonModel = this.oComponent.getModel("personModel");
             this.enableSelectButtonTimerId = null;
             this.oResourceBundle = this.oComponent.getModel("i18n").getResourceBundle();
 
@@ -164,16 +133,11 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Error");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", false);
             } else {
-                var snils = this.oMainModel.getProperty("/metadata/snils");
+                var personId = this.oPersonModel.getProperty("/id");
                 var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
-
-                $.ajax({
-                    url: Utils.getChangeNpfUrl(snils),
-                    dataType: "json",
-                    type: "PUT",
-                    data: JSON.stringify({"npf": selectedInsuranceCompanyAddress}),
-                    jsonp: false
-                });
+                API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
+                    .then(function(resp) {
+                    });
 
                 var now = +new Date();
                 var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
