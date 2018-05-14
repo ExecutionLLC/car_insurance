@@ -249,7 +249,7 @@
                                 </headerToolbar>
                                 <content>
                                     <layout:VerticalLayout
-                                            class="verticalLayout_tariff_npf-margin_left">
+                                            class="verticalLayout_tariff_npf_ic-margin_left">
                                         <layout:HorizontalLayout>
                                             <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
                                             </Label>
