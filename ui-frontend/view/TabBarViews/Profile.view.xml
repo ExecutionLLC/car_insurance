@@ -183,10 +183,16 @@
                                                     <Text
                                                             text="{i18n>insurancedTo}" />
                                                     <Text
-                                                            text="INSORANCEDDUEDATE" />
+                                                            text="{
+                                                                path: 'personModel>insurances',
+                                                                formatter: '.formatter.formatLastInsuranceDateTo'
+                                                            }" />
                                                 </l:VerticalLayout>
                                                 <Text
-                                                        text="COLOR" />
+                                                        text="{
+                                                            path: 'personModel>insurances',
+                                                            formatter: '.formatter.formatLastInsuranceColor'
+                                                        }" />
                                             </l:HorizontalLayout>
                                         </content>
                                     </Panel>

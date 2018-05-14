@@ -4,6 +4,43 @@ sap.ui.define([
     "personal/account/util/Const"
 ], function (NumberFormat, Utils, Const) {
     "use strict";
+
+    function findLastInsurance(insurances) {
+        return insurances.reduce(
+            function(lastInsurance, insurance) {
+                if (!lastInsurance) {
+                    return insurance;
+                }
+                return lastInsurance.dateTo > insurance.dateTo ?
+                    lastInsurance :
+                    insurance;
+            },
+            null
+        );
+    }
+
+    function findLastInsuranceDateTo(insurances) {
+        if (!insurances) {
+            return null;
+        }
+        var lastInsurance = findLastInsurance(insurances);
+        if (!lastInsurance) {
+            return null;
+        }
+        return new Date(lastInsurance.dateTo);
+    }
+
+    function monthDiff(d1, d2) {
+        if (d2 < d1) {
+            return -1;
+        }
+        var months;
+        months = (d2.getFullYear() - d1.getFullYear()) * 12;
+        months -= d1.getMonth() + 1;
+        months += d2.getMonth();
+        return months <= 0 ? 0 : months;
+    }
+
     return {
 
         /**
@@ -176,6 +213,35 @@ sap.ui.define([
         formatCurrency: function (value, currencyStr) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
             return formattedValue + " " + currencyStr;
+        },
+
+        formatLastInsuranceDateTo: function(insurances) {
+            var date = findLastInsuranceDateTo(insurances);
+            if (!date) {
+                return '';
+            }
+            return date.toLocaleDateString(
+                sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
+            );
+        },
+
+        formatLastInsuranceColor: function(insurances) {
+
+            function color(monthsDoExpire) {
+                if (!monthsDoExpire || monthsDoExpire <= 1) {
+                    return 'RED';
+                }
+                if (monthsDoExpire <= 3) {
+                    return 'YELLOW';
+                }
+                return 'GREEN';
+            }
+
+            var lastInsuranceDataTo = findLastInsuranceDateTo(insurances);
+            var monthsToExpire = lastInsuranceDataTo ?
+                monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
+                -1;
+            return color(monthsToExpire) +' (' + monthsToExpire + ');'
         }
     }
 
