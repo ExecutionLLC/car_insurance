@@ -39,7 +39,7 @@ sap.ui.define([
         }
     };
 
-    return Controller.extend("personal.account.controller.TabBarControllers.NPF", {
+    return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
         formatter: formatter,
 
         onInit: function () {
