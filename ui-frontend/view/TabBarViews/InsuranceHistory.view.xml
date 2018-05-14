@@ -84,7 +84,7 @@
                 <form:FormContainer>
                     <form:FormElement>
                         <Label
-                                text="{= ${i18n>rep.exp.balance.income} + ' ' + ${techModel>/tech/getReportTab/dateFrom} }"
+                                text="{= ${i18n>insuranceHistory.exp.balance.income} + ' ' + ${techModel>/tech/getReportTab/dateFrom} }"
                                 class="label-margin-top">
                             <layoutData>
                                 <layout:GridData
@@ -107,7 +107,7 @@
                     </form:FormElement>
                     <form:FormElement>
                         <Label
-                                text="{= ${i18n>rep.exp.balance.outcome} + ' ' +${techModel>/tech/getReportTab/dateTo} }"
+                                text="{= ${i18n>insuranceHistory.exp.balance.outcome} + ' ' +${techModel>/tech/getReportTab/dateTo} }"
                                 class="label-margin-top">
                             <layoutData>
                                 <layout:GridData
@@ -129,7 +129,7 @@
                     </form:FormElement>
                     <form:FormElement>
                         <Label
-                                text="{i18n>rep.exp.balance.total}"
+                                text="{i18n>insuranceHistory.exp.balance.total}"
                                 class="label-margin-top">
                             <layoutData>
                                 <layout:GridData
@@ -170,46 +170,46 @@
                     <Column
                             width="10%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.date}"/>
+                        <Text text="{i18n>insuranceHistory.tab.date}"/>
                     </Column>
                     <Column
                             width="20%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.operation}"/>
+                        <Text text="{i18n>insuranceHistory.tab.operation}"/>
                     </Column>
                     <Column
                             width="7%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.status}"/>
+                        <Text text="{i18n>insuranceHistory.tab.status}"/>
                     </Column>
                     <Column
                             width="7%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.tariff}"/>
+                        <Text text="{i18n>insuranceHistory.tab.tariff}"/>
                     </Column>
                     <Column
                             width="12%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.contrAgent}"/>
+                        <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
                     </Column>
                     <Column
                             width="8%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.npf}"/>
+                        <Text text="{i18n>insuranceHistory.tab.npf}"/>
                     </Column>
                     <Column
                             width="12%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.summ}"/>
+                        <Text text="{i18n>insuranceHistory.tab.summ}"/>
                     </Column>
                     <Column
                             width="13%"
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.salary}"/>
+                        <Text text="{i18n>insuranceHistory.tab.salary}"/>
                     </Column>
                     <Column
                             hAlign="Center">
-                        <Text text="{i18n>rep.tab.check}"/>
+                        <Text text="{i18n>insuranceHistory.tab.check}"/>
                     </Column>
                 </columns>
             </Table>
@@ -321,21 +321,21 @@
                                     <layout:VerticalLayout
                                         class="verticalLayout-margin_left">
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>rep.tab.exp.transactionId}">
+                                            <Label text="{i18n>insuranceHistory.tab.exp.transactionId}">
                                             </Label>
                                             <Link text="{techModel>transactionHash}" press="onLinkPress">
                                             </Link>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>rep.tab.exp.sender}">
+                                            <Label text="{i18n>insuranceHistory.tab.exp.sender}">
                                             </Label>
                                             <Text text="{techModel>npf}">
                                             </Text>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout width="100%">
-                                            <Label text="{i18n>rep.tab.exp.confirmationsNumber}">
+                                            <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}">
                                             </Label>
                                             <Text text="{
                                                             path: 'techModel>isFinished',
