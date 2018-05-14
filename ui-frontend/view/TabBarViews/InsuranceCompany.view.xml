@@ -16,8 +16,8 @@
             <Text
                     class="sapUiSmallMarginTop text-bold"
                     text="{
-                        path:'mainModel>/npf',
-                        formatter:'.formatter.formatNpfAddressToName'
+                        path:'personModel>/insuranceCompanyId',
+                        formatter:'.formatter.formatICAddressToName'
                     }"
             >
                 <layoutData>
@@ -33,8 +33,8 @@
             </Label>
             <Text class="sapUiSmallMarginTop"
                   text="{
-                    path:'mainModel>/npf',
-                    formatter:'.formatter.formatNpfRating'
+                    path:'personModel>/insuranceCompanyId',
+                    formatter:'.formatter.formatICAddressToReliabilityString'
                   }">
                 <layoutData>
                     <layout:GridData
@@ -123,9 +123,9 @@
                 <ColumnListItem visible="{
                                     parts:[
                                         {path:'npfModel>address'},
-                                        {path:'mainModel>/npf'}
+                                        {path:'personModel>/insuranceCompanyId'}
                                     ],
-                                    formatter:'.formatter.formatColumnListItem'
+                                    formatter:'.formatter.formatICColumnListItem'
                                 }"
                                 type="Active"
                                 press="onSelectNpfTableItem"

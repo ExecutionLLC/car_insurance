@@ -149,6 +149,19 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование рядов в таблице возможных с.к. для вкладки "Смена с.к." (не отображает текущий с.к. в таблице выбора)
+         * @param icAddress - адреса с.к.
+         * @param currentICAddress - текущий адрес
+         */
+        formatICColumnListItem: function (icAddress, currentICAddress) {
+            if (!icAddress || !currentICAddress) {
+                return true;
+            }
+
+            return icAddress !== currentICAddress;
+        },
+
+        /**
          * @description Форматирование НПФ рейтинга в символ
          * @param npfAddress - адрес НПФ
          * @return oNpfRating.symbol - символ
