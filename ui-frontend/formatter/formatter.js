@@ -225,23 +225,25 @@ sap.ui.define([
             );
         },
 
-        formatLastInsuranceColor: function(insurances) {
+        formatInsuranceColorStrip(insurances) {
 
             function color(monthsDoExpire) {
                 if (!monthsDoExpire || monthsDoExpire <= 1) {
-                    return 'RED';
+                    return 'red';
                 }
                 if (monthsDoExpire <= 3) {
-                    return 'YELLOW';
+                    return 'yellow';
                 }
-                return 'GREEN';
+                return 'green';
             }
 
             var lastInsuranceDataTo = findLastInsuranceDateTo(insurances);
             var monthsToExpire = lastInsuranceDataTo ?
                 monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
-            return color(monthsToExpire) +' (' + monthsToExpire + ');'
+
+            var bgColor = color(monthsToExpire);
+            return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
         }
     }
 

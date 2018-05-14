@@ -2,7 +2,8 @@
     controllerName="personal.account.controller.TabBarControllers.Profile"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:l="sap.ui.layout">
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core">
     <Page
         showHeader="false">
         <l:Grid
@@ -188,11 +189,13 @@
                                                                 formatter: '.formatter.formatLastInsuranceDateTo'
                                                             }" />
                                                 </l:VerticalLayout>
-                                                <Text
-                                                        text="{
-                                                            path: 'personModel>insurances',
-                                                            formatter: '.formatter.formatLastInsuranceColor'
-                                                        }" />
+                                                <l:VerticalLayout>
+                                                    <core:HTML
+                                                            content="{
+                                                               path: 'personModel>insurances',
+                                                                formatter: '.formatter.formatInsuranceColorStrip'
+                                                            }" />
+                                                </l:VerticalLayout>
                                             </l:HorizontalLayout>
                                         </content>
                                     </Panel>
