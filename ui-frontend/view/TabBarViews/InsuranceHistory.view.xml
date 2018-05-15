@@ -28,21 +28,6 @@
                             indent="L0 M0 S0"/>
                 </layoutData>
             </DateRangeSelection>
-            <ToggleButton
-                    pressed="{techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed}"
-                    width="100%"
-                    text="{
-                            path:'techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed',
-                            formatter:'.formatter.formatButtonName'
-                          }"
-                    enabled="{techModel>/tech/insuranceHistoryTab/isShowHideButtonEnabled}"
-            >
-                <layoutData>
-                    <layout:GridData
-                            span="L2 M3 S7"
-                            indent="L0 M0 S0"/>
-                </layoutData>
-            </ToggleButton>
             <Button
                     width="100%"
                     press="onPrint"
@@ -53,92 +38,6 @@
                 </layoutData>
             </Button>
         </layout:Grid>
-        <!--дополнительное поле информации при нажатой кнопке-->
-        <form:Form
-                visible="{techModel>/tech/insuranceHistoryTab/isShowHideButtonPressed}"
-                editable="true">
-            <form:formContainers>
-                <form:FormContainer>
-                    <form:FormElement>
-                        <Label
-                                text="{= ${i18n>insuranceHistory.exp.balance.income} + ' ' + ${techModel>/tech/insuranceHistoryTab/dateFrom} }"
-                                class="label-margin-top">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L3 M3 S7"
-                                        indent="L1 M0 S0"/>
-                            </layoutData>
-                        </Label>
-                        <ObjectNumber
-                                number="{
-                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountIncome'},{path:'i18n>currencyCode'}],
-						    type: 'sap.ui.model.type.Currency'
-					    }">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L6 M3 S7"
-                                        indent="L1 M0 S0"/>
-                            </layoutData>
-                        </ObjectNumber>
-
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                text="{= ${i18n>insuranceHistory.exp.balance.outcome} + ' ' +${techModel>/tech/insuranceHistoryTab/dateTo} }"
-                                class="label-margin-top">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L3 M3 S7"
-                                        indent="L1 M0 S0"/>
-                            </layoutData>
-                        </Label>
-                        <ObjectNumber
-                                number="{
-                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountOutgoing'},{path:'i18n>currencyCode'}],
-						    type: 'sap.ui.model.type.Currency'
-					    }">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L6 M3 S7"
-                                        indent="L1 M0 S0"/>
-                            </layoutData>
-                        </ObjectNumber>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                text="{i18n>insuranceHistory.exp.balance.total}"
-                                class="label-margin-top">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L4 M3 S7"
-                                        indent="L1 M0 S0"/>
-                            </layoutData>
-                        </Label>
-                        <ObjectNumber
-                                number="{
-                            parts:[{path:'techModel>/tech/insuranceHistoryTab/AmountDifference'},{path:'i18n>currencyCode'}],
-						    type: 'sap.ui.model.type.Currency'
-					    }">
-                        <layoutData>
-                            <layout:GridData
-                                    span="L2 M3 S7"/>
-                        </layoutData>
-                        </ObjectNumber>
-                    </form:FormElement>
-                </form:FormContainer>
-            </form:formContainers>
-            <form:layout>
-                <form:ResponsiveGridLayout
-                        labelSpanXL="3"
-                        labelSpanL="3"
-                        labelSpanM="4"
-                        labelSpanS="3"
-                        columnsL="1"
-                        columnsM="1"
-                        columnsS="1"/>
-            </form:layout>
-        </form:Form>
-        <!--Конец доп поля-->
 
         <ScrollContainer vertical="false" horizontal="true">
             <Table

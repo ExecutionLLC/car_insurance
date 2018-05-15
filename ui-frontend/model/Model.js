@@ -14,13 +14,6 @@ sap.ui.define([
             tech:{
                 selectedKey: "",
                 insuranceHistoryTab: {
-                    isShowHideButtonPressed: false,
-                    isShowHideButtonEnabled: false,
-                    dateFrom: "?",
-                    dateTo: "?",
-                    AmountIncome: 0,
-                    AmountOutgoing: 0,
-                    AmountDifference: 0,
                     operationsTableData: []
                 },
                 changeTariffTab: {

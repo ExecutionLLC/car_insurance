@@ -33,8 +33,6 @@ sap.ui.define([
             if (from && to) {
                 var timestampFrom = from.valueOf();
                 var timestampTo = to.valueOf();
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateFrom", Utils.timestampToString(timestampFrom));
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateTo", Utils.timestampToString(timestampTo));
 
                 var aFilters = [
                     new Filter({
@@ -54,34 +52,9 @@ sap.ui.define([
                     and: true
                 });
 
-                var operationsTableData = this.oTechModel.getProperty("/tech/insuranceHistoryTab/operationsTableData");
-                var aAmountIncome = operationsTableData.filter(function(value) {
-                    return value.timestamp < timestampFrom;
-                });
-                var aAmountOutgoing = operationsTableData.filter(function(value) {
-                    return value.timestamp <= timestampTo;
-                });
-
-                var amountSumIncome = sumOfAmount(aAmountIncome);
-                var amountSumOutgoing = sumOfAmount(aAmountOutgoing);
-                var amountDifference = amountSumOutgoing - amountSumIncome;
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountIncome",amountSumIncome);
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountOutgoing",amountSumOutgoing);
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountDifference",amountDifference);
-
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonEnabled", true);
+                //var operationsTableData = this.oTechModel.getProperty("/tech/insuranceHistoryTab/operationsTableData"); // TODO remove
             } else {
                 _oFilterSet.dateFilter = null;
-
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateFrom", "?");
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/dateTo", "?");
-
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountIncome", 0);
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountOutgoing", 0);
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/AmountDifference", 0);
-
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonPressed", false);
-                this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonEnabled", false);
             }
 
             var oTable = this.getView().byId("table-insurance-history");
