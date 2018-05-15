@@ -236,19 +236,17 @@ sap.ui.define([
             });
         },
         updateModels: function () {
-            var oMainModel = this.getModel("mainModel");
-
-            var snils = oMainModel.getProperty("/metadata/snils");
-
-            var onAlways = this.scheduleNextModelsUpdate.bind(this);
-            $.ajax({
-                url: Utils.getPerson1InfoUrl(snils),
-                dataType: "json"
-            }).done(function (result) {
-                oMainModel.setData(result);
+            var oPersonModel = this.getModel("personModel");
+            var userId = oPersonModel.getProperty("/id");
+            jQuery.when(
+                API.getPerson(userId),
+                this.receiveOperations.bind(this)()
+            ).then(function(personInfoResult) {
+                oPersonModel.setData(personInfoResult[0]);
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
-            }).always(onAlways);
+                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                MessageBox.error(sErrorText);
+            }).always(this.scheduleNextModelsUpdate.bind(this));
         },
         scheduleNextModelsUpdate: function () {
             this.updateTimeoutId = setTimeout(this.updateModels.bind(this), Const.ASYNC_UPDATE_TIMEOUT);
