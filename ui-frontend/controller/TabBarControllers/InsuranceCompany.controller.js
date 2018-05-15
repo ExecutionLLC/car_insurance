@@ -136,7 +136,6 @@ sap.ui.define([
                 var personId = this.oPersonModel.getProperty("/id");
                 var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
                 var operationsModel = this.oOperationsModel;
-                var oldInsuranceCompaneId = this.oPersonModel.getProperty("/insuranceCompanyId");
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
                     .then(function(responceOperations) {
                         appendPendingOperations(operationsModel, responceOperations);
