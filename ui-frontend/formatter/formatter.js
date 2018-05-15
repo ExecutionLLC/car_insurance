@@ -49,20 +49,6 @@ sap.ui.define([
         oCurrencyFormat: NumberFormat.getCurrencyInstance(),
 
         /**
-         * @description Форматирование названия кнопки по щелчку, во вкладке "Получить выписку"
-         * @param {boolean] isShowHideButtonPressed - нажата ли кнопка
-         * @return {string} Показать или Спрятать
-         */
-        formatButtonName: function (isShowHideButtonPressed) {
-            var oBundle = this.getOwnerComponent()
-                    .getModel("i18n")
-                    .getResourceBundle();
-            var sHide = oBundle.getText("hideButtonLabel");
-            var sShow = oBundle.getText("showButtonLabel");
-            return isShowHideButtonPressed ? sHide : sShow
-        },
-
-        /**
          * @description Форматирование адреса страховой компании в имя
          * @param {string} icAddress - адрес с.к.
          * @return {string} - имя
@@ -265,6 +251,13 @@ sap.ui.define([
 
             var bgColor = color(monthsToExpire);
             return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
+        },
+
+        formatOperationName(operationType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("operationType." + operationType);
         }
     }
 

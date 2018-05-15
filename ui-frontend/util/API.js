@@ -23,6 +23,10 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId + "/operations",
                 dataType: "json"
+            }).then(function(operations) {
+                return operations.map(function(operation) {
+                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
+                });
             });
         },
         getInsuranceCompanies: function() {
