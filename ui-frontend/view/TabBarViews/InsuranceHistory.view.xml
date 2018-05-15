@@ -260,7 +260,7 @@
                                             <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}">
                                             </Label>
                                             <Text text="{
-                                                            path: 'techModel>pending',
+                                                            path: 'operationsModel>pending',
                                                             formatter: '.formatter.formatNumberOfConfirmations'
                                                         }"
                                             />
