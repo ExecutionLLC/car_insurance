@@ -209,6 +209,7 @@ sap.ui.define([
                 self
                     .receiveOperations()
                     .then(function() {
+                        scheduleNextUpdate();
                     });
 
             }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -229,8 +230,6 @@ sap.ui.define([
                     oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
                     Utils.saveLastUserId(userId);
-
-                    scheduleNextUpdate();
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                     MessageBox.error(sErrorText);
