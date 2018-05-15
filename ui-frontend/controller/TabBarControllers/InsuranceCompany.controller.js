@@ -30,10 +30,10 @@ sap.ui.define([
             this.oResourceBundle = this.oComponent.getModel("i18n").getResourceBundle();
 
 
-            var mainModelBinding = new sap.ui.model.Binding(
-                this.oMainModel, "/", this.oMainModel.getContext("/")
-            );
-            mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
+            // var mainModelBinding = new sap.ui.model.Binding(
+            //     this.oMainModel, "/", this.oMainModel.getContext("/")
+            // );
+            // mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
 
             var operationsModelBinding = new sap.ui.model.Binding(
                 this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
@@ -56,6 +56,52 @@ sap.ui.define([
 
         onOperationsModelChanges: function() {
             console.log('OPS', this.oOperationsModel.getData()); // TODO handle operations change
+            var modelOperations = this.oOperationsModel.getData();
+            var operationsArray = modelOperations.length ? modelOperations : [];
+            var insuranceOperations = operationsArray.filter(function(operation) {
+                var operationType = operation.operationType;
+                return operationType === Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED;
+            });
+            var firstPendedOperation = insuranceOperations.find(function(operation) {
+                return operation.pending;
+            });
+
+            if (firstPendedOperation) {
+                var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Warning");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", true);
+            } else {
+                var changeInsuranceCompanyMessageIsPending = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending");
+                if (changeInsuranceCompanyMessageIsPending) {
+                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
+                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
+                }
+            }
+
+            var lastOperation = insuranceOperations[insuranceOperations.length - 1];
+            var nextMinTimeForChanges = lastOperation ?
+                new Date(lastOperation.timestamp) + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY :
+                null;
+            var currentTime = new Date();
+            if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
+                if (this.enableSelectButtonTimerId) {
+                    clearTimeout(this.enableSelectButtonTimerId);
+                }
+
+                this.enableSelectButton(false, nextMinTimeForChanges);
+
+                this.enableSelectButtonTimerId = setTimeout(function () {
+                    this.enableSelectButton(true);
+                    this.enableSelectButtonTimerId = null;
+                }.bind(this), nextMinTimeForChanges - currentTime);
+            } else {
+                this.enableSelectButton(true);
+            }
         },
 
         onMainModelChanges: function() {
