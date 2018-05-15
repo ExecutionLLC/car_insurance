@@ -17,7 +17,12 @@ sap.ui.define([
         REQUEST_DONE_COLOR: "green",
         REQUEST_PENDING_COLOR: "#f4d742",
         // язык приложения
-        LANG: "ru_RU"
+        LANG: "ru_RU",
+        OPERATION_TYPE: {
+            INSURANCE_COMPANY_CHANGED: "INSURANCE_COMPANY_CHANGED",
+            INSURANCE_ADDED: "INSURANCE_ADDED",
+            INSURANCE_DEACTIVATED: "INSURANCE_DEACTIVATED"
+        }
     };
 
     return oModule;

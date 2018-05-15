@@ -163,7 +163,7 @@ sap.ui.define([
 
                         appendPendingOperation(operationsModel, {
                             timestamp: '' + new Date(),
-                            operationsType: 'INSURANCE_COMPANY_CHANGED',
+                            operationsType: Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED,
                             contragent: 'counterparty...',
                             carVin: null,
                             insuranceNumber: null,
