@@ -59,7 +59,7 @@ sap.ui.define([
         },
 
         onMainModelChanges: function() {
-            var sRequestPendingText =this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
+            var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
             var npfHistory = this.oMainModel.getProperty("/npfHistory");
             var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
 
