@@ -8,8 +8,7 @@ sap.ui.define([
     var oModule = {
         BASE_URL: "https://executiona4038b30e.hana.ondemand.com/CarInsurance/car_insurance.xsjs",
         // время, через которое обновляются данные
-        ASYNC_UPDATE_TIMEOUT: 30 * 1000,
-        ASYNC_UPDATE_TIMEOUT_DEFAULT: 60 * 1000,
+        ASYNC_UPDATE_TIMEOUT: 10 * 1000,
         // время следующей смены НПФ
         TIME_NEXT_CHANGE_NPF: 120*1000, // TODO remove
         TIME_NEXT_CHANGE_INSURANCE_COMPANY: 120*1000,
