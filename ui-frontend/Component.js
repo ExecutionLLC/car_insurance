@@ -193,7 +193,6 @@ sap.ui.define([
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
             var oICModel = this.getModel("icModel");
-            var oOperationsModel = this.getModel("operationsModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
