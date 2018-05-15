@@ -44,6 +44,21 @@ sap.ui.define([
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
                     npfTableData: []
+                },
+                insuranceCompanyTab: {
+                    selectedInsuranceCompanyAddress: "",
+                    selectedInsuranceCompany: "",
+                    isSelectButtonEnabled: true,
+                    needConformation: true,
+                    isNextInsuranceCompanyTableVisible: false,
+                    applyButtonText: "",
+                    isApplyButtonVisible: false,
+                    changeInsuranceCompanyMessage: "",
+                    changeInsuranceCompanyMessageType: "Error",
+                    changeInsuranceCompanyMessageIsPending: false,
+                    nextMinTimeForChangeMessage: "",
+                    isNextMinTimeForChangeLabelVisible: false,
+                    insuranceCompaniesTableData: []
                 }
             }
         }
