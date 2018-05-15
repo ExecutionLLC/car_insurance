@@ -11,50 +11,7 @@ sap.ui.define([
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
-            this.oMainModel = this.oComponent.getModel("mainModel");
-
-            var mainModelBinding = new sap.ui.model.Binding(
-                this.oMainModel, "/", this.oMainModel.getContext("/")
-            );
-            mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
         },
-
-        onMainModelChanges: function() {
-            var operationsHistory = this.oMainModel.getProperty("/operationsHistory");
-            var pendedOperationsChanges = this.oMainModel.getProperty("/pendedOperations");
-
-            var currentTariff = this.oMainModel.getProperty("/tariff");
-            var currentNpf = this.oMainModel.getProperty("/npf");
-
-            var operationsTableData = pendedOperationsChanges.map(function (value) {
-                return {
-                    npf: currentNpf,
-                    tariff: currentTariff,
-                    amount: value.amount,
-                    contractor: value.contractor,
-                    comment: value.comment,
-                    timestamp: value.timestamp,
-                    transactionHash: value.transactionHash,
-                    isFinished: false
-                };
-            });
-            operationsTableData = operationsTableData.concat(operationsHistory.map(function (value) {
-                return {
-                    npf: value.npf,
-                    tariff: value.tariff,
-                    amount: value.amount,
-                    contractor: value.contractor,
-                    comment: value.comment,
-                    timestamp: value.timestamp,
-                    transactionHash: value.transactionHash,
-                    isFinished: true
-                };
-            }));
-
-            this.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsTableData", operationsTableData);
-        },
-
-
 
         /**
          * @description Составление фильтра по датам
