@@ -55,6 +55,7 @@ sap.ui.define([
                     isApplyButtonVisible: false,
                     changeInsuranceCompanyMessage: "",
                     changeInsuranceCompanyMessageType: "Error",
+                    changeInsuranceCompanyMessageIsPending: false,
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
                     insuranceCompaniesTableData: []

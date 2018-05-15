@@ -89,11 +89,12 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Warning");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", true);
             } else {
-                var changeInsuranceCompanyMessage = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage");
-                // FIXME
-                if (changeInsuranceCompanyMessage === sRequestPendingText) {
+                var changeInsuranceCompanyMessageIsPending = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending");
+                if (changeInsuranceCompanyMessageIsPending) {
                     this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
+                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
                 }
             }
 
@@ -141,6 +142,7 @@ sap.ui.define([
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", true);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
         },
 
         onApplyButton: function () {
@@ -151,6 +153,7 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/applyButtonText", sApplyButtonTextChangeConfirm);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sConfirmQuestion);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Error");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", false);
             } else {
                 var personId = this.oPersonModel.getProperty("/id");
