@@ -101,10 +101,10 @@ sap.ui.define([
             var nextMinTimeForChanges = null;
             if (pendedNpfChanges.length !== 0) {
                 var lastItem = pendedNpfChanges[pendedNpfChanges.length - 1];
-                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_NPF;
+                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY;
             } else if (npfHistory.length !== 0) {
                 var lastItem = npfHistory[npfHistory.length - 1];
-                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_NPF;
+                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY;
             }
 
             var currentTime = +new Date();

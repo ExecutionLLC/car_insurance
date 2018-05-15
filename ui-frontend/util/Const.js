@@ -11,7 +11,8 @@ sap.ui.define([
         ASYNC_UPDATE_TIMEOUT: 30 * 1000,
         ASYNC_UPDATE_TIMEOUT_DEFAULT: 60 * 1000,
         // время следующей смены НПФ
-        TIME_NEXT_CHANGE_NPF: 120*1000,
+        TIME_NEXT_CHANGE_NPF: 120*1000, // TODO remove
+        TIME_NEXT_CHANGE_INSURANCE_COMPANY: 120*1000,
         DEFAULT_NUMBER_OF_CONFORMATIONS: 7,
         //цвета состояния выполнения запроса
         REQUEST_DONE_COLOR: "green",
