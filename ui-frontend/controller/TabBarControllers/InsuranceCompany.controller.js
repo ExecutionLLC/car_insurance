@@ -7,13 +7,15 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils, API) {
     "use strict";
 
-    function appendPendingOperation(operationsModel, operation) {
+    function appendPendingOperations(operationsModel, operations) {
         var modelOperations = operationsModel.getData();
         var operationsArray = modelOperations.length ?
             modelOperations :
             [];
-        var pendingOperation = Object.assign({}, operation, {pending: true});
-        var newOperations = operationsArray.concat(pendingOperation);
+        var pendingOperations = operations.map(function(operation) {
+            return Object.assign({}, operation, {pending: true});
+        });
+        var newOperations = operationsArray.concat(pendingOperations);
         operationsModel.setData(newOperations);
     }
 
@@ -136,21 +138,8 @@ sap.ui.define([
                 var operationsModel = this.oOperationsModel;
                 var oldInsuranceCompaneId = this.oPersonModel.getProperty("/insuranceCompanyId");
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
-                    .then(function(resp) {
-                        console.log('resp', resp); // TODO handle result
-
-                        appendPendingOperation(operationsModel, {
-                            timestamp: '' + new Date(),
-                            operationType: Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED,
-                            contragent: null,
-                            carVin: null,
-                            insuranceNumber: null,
-                            ownerId: personId,
-                            operationData: {
-                                oldId: oldInsuranceCompaneId,
-                                newId: selectedInsuranceCompanyAddress
-                            }
-                        });
+                    .then(function(responceOperations) {
+                        appendPendingOperations(operationsModel, responceOperations);
                     });
             }
         },
