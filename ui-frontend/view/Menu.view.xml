@@ -31,6 +31,9 @@
                     <IconTabFilter
                             text="{i18n>toolbarIcon.myPolicies}"
                             key="MyPolicies"/>
+                    <IconTabFilter
+                            text="{i18n>toolbarIcon.myInsuranceCompany}"
+                            key="MyInsuranceCompany"/>
                 </items>
             </IconTabHeader>
         </tnt:ToolHeader>
@@ -44,6 +47,7 @@
             <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.InsuranceHistory"/>
             <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"/>
             <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.NPF"/>
+            <mvc:XMLView id="MyInsuranceCompany" viewName="personal.account.view.TabBarViews.InsuranceCompany"/>
 
         </NavContainer>
     </Page>

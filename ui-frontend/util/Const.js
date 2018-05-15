@@ -11,13 +11,19 @@ sap.ui.define([
         ASYNC_UPDATE_TIMEOUT: 30 * 1000,
         ASYNC_UPDATE_TIMEOUT_DEFAULT: 60 * 1000,
         // время следующей смены НПФ
-        TIME_NEXT_CHANGE_NPF: 120*1000,
+        TIME_NEXT_CHANGE_NPF: 120*1000, // TODO remove
+        TIME_NEXT_CHANGE_INSURANCE_COMPANY: 120*1000,
         DEFAULT_NUMBER_OF_CONFORMATIONS: 7,
         //цвета состояния выполнения запроса
         REQUEST_DONE_COLOR: "green",
         REQUEST_PENDING_COLOR: "#f4d742",
         // язык приложения
-        LANG: "ru_RU"
+        LANG: "ru_RU",
+        OPERATION_TYPE: {
+            INSURANCE_COMPANY_CHANGED: "INSURANCE_COMPANY_CHANGED",
+            INSURANCE_ADDED: "INSURANCE_ADDED",
+            INSURANCE_DEACTIVATED: "INSURANCE_DEACTIVATED"
+        }
     };
 
     return oModule;

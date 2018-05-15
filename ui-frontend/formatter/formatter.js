@@ -149,6 +149,19 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование рядов в таблице возможных с.к. для вкладки "Смена с.к." (не отображает текущий с.к. в таблице выбора)
+         * @param icAddress - адреса с.к.
+         * @param currentICAddress - текущий адрес
+         */
+        formatICColumnListItem: function (icAddress, currentICAddress) {
+            if (!icAddress || !currentICAddress) {
+                return true;
+            }
+
+            return icAddress !== currentICAddress;
+        },
+
+        /**
          * @description Форматирование НПФ рейтинга в символ
          * @param npfAddress - адрес НПФ
          * @return oNpfRating.symbol - символ
@@ -201,6 +214,10 @@ sap.ui.define([
             return isFinished ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
         },
 
+        formatTableItemPending: function (isPending) {
+            return !isPending ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
+        },
+
         /**
          * @description Вывод числа подтверждений
          * @param {boolean} isFinished - выполнение запроса
@@ -208,6 +225,10 @@ sap.ui.define([
          */
         formatNumberOfConformations: function(isFinished) {
             return isFinished ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
+        },
+
+        formatNumberOfConfirmations: function(isPending) {
+            return !isPending ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
         },
 
         formatCurrency: function (value, currencyStr) {
@@ -225,7 +246,7 @@ sap.ui.define([
             );
         },
 
-        formatInsuranceColorStrip(insurances) {
+        formatInsuranceColorStrip: function(insurances) {
 
             function color(monthsDoExpire) {
                 if (!monthsDoExpire || monthsDoExpire <= 1) {
