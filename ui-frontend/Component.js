@@ -149,16 +149,11 @@ sap.ui.define([
             manifest: "json"
         },
         init: function () {
-            var oPersonModel = new JSONModel();
-            this.setModel(oPersonModel, "personModel");
-            var oMainModel = new JSONModel();
-            this.setModel(oMainModel, "mainModel");
-            var oTechModel = new JSONModel(Model.modelStructure);
-            this.setModel(oTechModel, "techModel");
-            var oListNpfModel = new JSONModel();
-            this.setModel(oListNpfModel, "npfModel");
-            var oListICModel = new JSONModel();
-            this.setModel(oListICModel, "icModel");
+            this.setModel(new JSONModel(), "personModel");
+            this.setModel(new JSONModel(), "mainModel");
+            this.setModel(new JSONModel(Model.modelStructure), "techModel");
+            this.setModel(new JSONModel(), "npfModel");
+            this.setModel(new JSONModel(), "icModel");
             this.setModel(new JSONModel(), "operationsModel");
 
             this.setLanguages();
@@ -170,6 +165,19 @@ sap.ui.define([
             if (lastUserId) {
                 this.initModels(lastUserId);
             }
+        },
+        receiveOperations: function() {
+            var oPersonModel = this.getModel("personModel");
+            var oOperationsModel = this.getModel("operationsModel");
+            var userId = oPersonModel.getProperty("/id");
+            return API.getPersonOperations(userId)
+                .then(function(operations) {
+                    oOperationsModel.setData(operations);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
+                    MessageBox.error(sErrorText);
+                });
         },
         initModels: function (userId) {
             if (this.updateTimeoutId) {
@@ -185,9 +193,10 @@ sap.ui.define([
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
             var oICModel = this.getModel("icModel");
-            var oOperationsModel = this.getModel("operationsModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
+
+            var self = this;
 
             jQuery.when(
                 API.getPerson(userId),
@@ -195,16 +204,10 @@ sap.ui.define([
             ).then(function(personInfoResult, insuranceCompaniesResult) {
                 oICModel.setData(insuranceCompaniesResult[0]);
                 oPersonModel.setData(personInfoResult[0]);
-
-                API.getPersonOperations(userId)
-                    .then(function(operations) {
-                        oOperationsModel.setData(operations);
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
-                        MessageBox.error(sErrorText);
+                self.receiveOperations()
+                    .then(function() {
+                        scheduleNextUpdate();
                     });
-
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                 MessageBox.error(sErrorText);
@@ -223,8 +226,6 @@ sap.ui.define([
                     oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
 
                     Utils.saveLastUserId(userId);
-
-                    scheduleNextUpdate();
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                     MessageBox.error(sErrorText);
@@ -235,26 +236,20 @@ sap.ui.define([
             });
         },
         updateModels: function () {
-            var oMainModel = this.getModel("mainModel");
-
-            var snils = oMainModel.getProperty("/metadata/snils");
-
-            var onAlways = this.scheduleNextModelsUpdate.bind(this);
-            $.ajax({
-                url: Utils.getPerson1InfoUrl(snils),
-                dataType: "json"
-            }).done(function (result) {
-                oMainModel.setData(result);
+            var oPersonModel = this.getModel("personModel");
+            var userId = oPersonModel.getProperty("/id");
+            jQuery.when(
+                API.getPerson(userId),
+                this.receiveOperations.bind(this)()
+            ).then(function(personInfoResult) {
+                oPersonModel.setData(personInfoResult[0]);
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
-            }).always(onAlways);
+                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
+                MessageBox.error(sErrorText);
+            }).always(this.scheduleNextModelsUpdate.bind(this));
         },
         scheduleNextModelsUpdate: function () {
-            if (this.updateTimeoutId) {
-                clearTimeout(this.updateTimeoutId);
-            }
-            var timeout = Const.ASYNC_UPDATE_TIMEOUT || Const.ASYNC_UPDATE_TIMEOUT_DEFAULT;
-            this.updateTimeoutId = setTimeout(this.updateModels.bind(this), timeout);
+            this.updateTimeoutId = setTimeout(this.updateModels.bind(this), Const.ASYNC_UPDATE_TIMEOUT);
         },
         setLanguages: function () {
             var lang = Const.LANG;
