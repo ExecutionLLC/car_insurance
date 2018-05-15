@@ -159,6 +159,7 @@ sap.ui.define([
             this.setModel(oListNpfModel, "npfModel");
             var oListICModel = new JSONModel();
             this.setModel(oListICModel, "icModel");
+            this.setModel(new JSONModel(), "operationsModel");
 
             this.setLanguages();
 
@@ -184,6 +185,7 @@ sap.ui.define([
             var oTechModel = this.getModel("techModel");
             var oNpfModel = this.getModel("npfModel");
             var oICModel = this.getModel("icModel");
+            var oOperationsModel = this.getModel("operationsModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
@@ -193,6 +195,16 @@ sap.ui.define([
             ).then(function(personInfoResult, insuranceCompaniesResult) {
                 oICModel.setData(insuranceCompaniesResult[0]);
                 oPersonModel.setData(personInfoResult[0]);
+
+                API.getPersonOperations(userId)
+                    .then(function(operations) {
+                        oOperationsModel.setData(operations);
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
+                        MessageBox.error(sErrorText);
+                    });
+
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                 MessageBox.error(sErrorText);
