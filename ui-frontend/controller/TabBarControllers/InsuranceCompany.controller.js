@@ -136,9 +136,19 @@ sap.ui.define([
                 var personId = this.oPersonModel.getProperty("/id");
                 var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
                 var operationsModel = this.oOperationsModel;
+                var self = this;
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
                     .then(function(responceOperations) {
                         appendPendingOperations(operationsModel, responceOperations);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error("Cannot change insurance company: textStatus = ", textStatus, "error = ", errorThrown);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
                     });
             }
         },
