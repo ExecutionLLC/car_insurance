@@ -238,7 +238,7 @@ sap.ui.define([
             );
         },
 
-        formatInsuranceColorStrip(insurances) {
+        formatInsuranceColorStrip: function(insurances) {
 
             function color(monthsDoExpire) {
                 if (!monthsDoExpire || monthsDoExpire <= 1) {
