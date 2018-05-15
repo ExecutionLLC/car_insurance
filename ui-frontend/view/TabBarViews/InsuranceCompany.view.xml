@@ -262,7 +262,7 @@
                                         <layout:HorizontalLayout>
                                             <Label text="{i18n>insuranceCompany.tab.exp.sender}">
                                             </Label>
-                                            <Text text="{mainModel>/metadata/address}">
+                                            <Text text="{techModel>transactionFrom}">
                                             </Text>
                                         </layout:HorizontalLayout>
 

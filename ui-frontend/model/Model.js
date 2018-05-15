@@ -49,7 +49,7 @@ sap.ui.define([
                     selectedInsuranceCompanyAddress: "",
                     selectedInsuranceCompany: "",
                     isSelectButtonEnabled: true,
-                    needConformation: true,
+                    needConfirmation: true,
                     isNextInsuranceCompanyTableVisible: false,
                     applyButtonText: "",
                     isApplyButtonVisible: false,

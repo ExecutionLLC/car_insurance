@@ -7,13 +7,15 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils, API) {
     "use strict";
 
-    function appendPendingOperation(operationsModel, operation) {
+    function appendPendingOperations(operationsModel, operations) {
         var modelOperations = operationsModel.getData();
         var operationsArray = modelOperations.length ?
             modelOperations :
             [];
-        var pendingOperation = Object.assign({}, operation, {pending: true});
-        var newOperations = operationsArray.concat(pendingOperation);
+        var pendingOperations = operations.map(function(operation) {
+            return Object.assign({}, operation, {pending: true});
+        });
+        var newOperations = operationsArray.concat(pendingOperations);
         operationsModel.setData(newOperations);
     }
 
@@ -23,7 +25,6 @@ sap.ui.define([
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
-            this.oMainModel = this.oComponent.getModel("mainModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.enableSelectButtonTimerId = null;
@@ -66,7 +67,7 @@ sap.ui.define([
                 var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConfirmation", true);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Warning");
@@ -115,7 +116,7 @@ sap.ui.define([
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", selectedInsuranceCompanyName);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/applyButtonText", sApplyButtonTextChange);
-            this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConfirmation", true);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", true);
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
@@ -124,34 +125,30 @@ sap.ui.define([
         onApplyButton: function () {
             var sApplyButtonTextChangeConfirm = this.oResourceBundle.getText("insuranceCompany.men.exp.applyButtonTextChangeConfirm");
             var sConfirmQuestion = this.oResourceBundle.getText("insuranceCompany.men.exp.confirmQuestion");
-            var needConformation = this.oTechModel.getProperty("/tech/insuranceCompanyTab/needConformation");
-            if (needConformation) {
+            var needConfirmation = this.oTechModel.getProperty("/tech/insuranceCompanyTab/needConfirmation");
+            if (needConfirmation) {
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/applyButtonText", sApplyButtonTextChangeConfirm);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sConfirmQuestion);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Error");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", false);
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConfirmation", false);
             } else {
                 var personId = this.oPersonModel.getProperty("/id");
                 var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
                 var operationsModel = this.oOperationsModel;
-                var oldInsuranceCompaneId = this.oPersonModel.getProperty("/insuranceCompanyId");
+                var self = this;
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
-                    .then(function(resp) {
-                        console.log('resp', resp); // TODO handle result
-
-                        appendPendingOperation(operationsModel, {
-                            timestamp: '' + new Date(),
-                            operationType: Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED,
-                            contragent: null,
-                            carVin: null,
-                            insuranceNumber: null,
-                            ownerId: personId,
-                            operationData: {
-                                oldId: oldInsuranceCompaneId,
-                                newId: selectedInsuranceCompanyAddress
-                            }
-                        });
+                    .then(function(responceOperations) {
+                        appendPendingOperations(operationsModel, responceOperations);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error("Cannot change insurance company: textStatus = ", textStatus, "error = ", errorThrown);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/needConfirmation", true);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
+                        self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
                     });
             }
         },
