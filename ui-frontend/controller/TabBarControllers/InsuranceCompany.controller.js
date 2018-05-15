@@ -34,6 +34,11 @@ sap.ui.define([
                 this.oMainModel, "/", this.oMainModel.getContext("/")
             );
             mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
+
+            var operationsModelBinding = new sap.ui.model.Binding(
+                this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
+            );
+            operationsModelBinding.attachChange(this.onOperationsModelChanges.bind(this));
         },
 
         enableSelectButton: function(enable, nextMinTimeForChanges) {
@@ -47,6 +52,10 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", "");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", true);
             }
+        },
+
+        onOperationsModelChanges: function() {
+            console.log('OPS', this.oOperationsModel.getData()); // TODO handle operations change
         },
 
         onMainModelChanges: function() {
