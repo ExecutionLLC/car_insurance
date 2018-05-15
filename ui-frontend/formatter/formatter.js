@@ -228,7 +228,7 @@ sap.ui.define([
         },
 
         formatNumberOfConfirmations: function(isPending) {
-            return !isPending ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
+            return !isPending ? Const.DEFAULT_NUMBER_OF_CONFIRMATIONS : 0;
         },
 
         formatCurrency: function (value, currencyStr) {
