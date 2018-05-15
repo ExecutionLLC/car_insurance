@@ -11,11 +11,10 @@ sap.ui.define([
 
     var $ = {
         ajax: function(opts) {
-            var isNPFs = /\/npfs/.test(opts.url);
             var isPerson = /\/person1\//.test(opts.url);
-            console.log('Component ajax', opts, isNPFs, isPerson);
+            console.log('Component ajax', opts, isPerson);
 
-            if (!isPerson && !isNPFs) {
+            if (!isPerson) {
                 return jQuery.ajax(opts);
             }
 
@@ -81,46 +80,6 @@ sap.ui.define([
                             },
                             "pensionForecast": "23270.25"
                         });
-                    } else if (isNPFs) {
-                        doneF(
-                            [
-                                {
-                                    "id": 1,
-                                    "name": "АО НПФ БанкФонд",
-                                    "address": "0x2e1FF243484C3b4887b6416cdb29b06cf788065A",
-                                    "ratingOfReliability": 22,
-                                    "ratingOfIncomeRate": 7
-                                },
-                                {
-                                    "id": 2,
-                                    "name": "АО НПФ НефтьФонд",
-                                    "address": "0xf7102C7f9AFD041176240dA98072DB49f1398cF6",
-                                    "ratingOfReliability": 21,
-                                    "ratingOfIncomeRate": 8
-                                },
-                                {
-                                    "id": 3,
-                                    "name": "АО НПФ ТяжМашФонд",
-                                    "address": "0xfC9e006d9488F15EA251DFBD8522EAd5ad01ADCd",
-                                    "ratingOfReliability": 20,
-                                    "ratingOfIncomeRate": 9
-                                },
-                                {
-                                    "id": 4,
-                                    "name": "АО НПФ Оборона",
-                                    "address": "0xe272DacD9d924dC92153A6784144fC0D67F5e916",
-                                    "ratingOfReliability": 22,
-                                    "ratingOfIncomeRate": 7
-                                },
-                                {
-                                    "id": 5,
-                                    "name": "АО НПФ Флокс",
-                                    "address": "0xAfc13cF7755B0EC2f190F63845e1A2C2667dbB86",
-                                    "ratingOfReliability": 22,
-                                    "ratingOfIncomeRate": 9
-                                }
-                            ]
-                        );
                     } else {
                         failF(null, 'textStatus', 'errorThrown');
                     }
@@ -204,18 +163,9 @@ sap.ui.define([
                 url: Utils.getPerson1InfoUrl(userId),
                 dataType: "json"
             }).done(function (person1InfoResult) {
-                $.ajax({
-                    url: Utils.getNpfsUrl(),
-                    dataType: "json"
-                }).done(function (npfsResult) {
-                    oMainModel.setData(person1InfoResult);
-                    oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
-
-                    Utils.saveLastUserId(userId);
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                    MessageBox.error(sErrorText);
-                });
+                oMainModel.setData(person1InfoResult);
+                oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
+                Utils.saveLastUserId(userId);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                 MessageBox.error(sErrorText);

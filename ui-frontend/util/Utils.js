@@ -110,10 +110,6 @@ sap.ui.define([
         },
 
         conversionICRating: function (int) {
-            return this.conversionNpfRating(int);
-        },
-
-        conversionNpfRating: function (int) {
             var defaultRating = {
                 symbol: "?",
                 description: "Неизвестен"
@@ -218,21 +214,6 @@ sap.ui.define([
 
             return ratingForInt[int] || defaultRating;
         },
-        conversionNpfIncomeRateToImage: function (incomeRate) {
-            var sImageSrc;
-            switch (incomeRate){
-                case 7:
-                    sImageSrc = "./image/7.jpg";
-                    break;
-                case 8:
-                    sImageSrc = "./image/8.jpg";
-                    break;
-                case 9:
-                    sImageSrc = "./image/9.jpg";
-                    break;
-            }
-            return sImageSrc;
-        },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
             $.ajax({
                 url: oModule.getTransactionInfoUrl(transactionHash),
@@ -265,9 +246,6 @@ sap.ui.define([
         },
         getPerson1InfoUrl: function (snils) {
             return Const.BASE_URL + "/person1/" + snils;
-        },
-        getNpfsUrl: function () {
-            return Const.BASE_URL + "/npfs";
         },
         getChangeTariffUrl: function (snils) {
             return Const.BASE_URL + "/person/" + snils + "/tariff";
