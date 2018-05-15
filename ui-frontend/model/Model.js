@@ -22,21 +22,6 @@ sap.ui.define([
                     isSliderChangeTariffEnabled: false,
                     tariffTableData: []
                 },
-                changeNpfTab: {
-                    selectedNpfAddress:"",
-                    selectedNpf: "",
-                    isSelectButtonEnabled: true,
-                    isSelectedNpfLabelVisible: false,
-                    needConformation: true,
-                    isNextNpfTableVisible: false,
-                    applyButtonText: "",
-                    isApplyButtonVisible: false,
-                    changeNpfMessage: "",
-                    changeNpfMessageType: "Error",
-                    nextMinTimeForChangeMessage: "",
-                    isNextMinTimeForChangeLabelVisible: false,
-                    npfTableData: []
-                },
                 insuranceCompanyTab: {
                     selectedInsuranceCompanyAddress: "",
                     selectedInsuranceCompany: "",

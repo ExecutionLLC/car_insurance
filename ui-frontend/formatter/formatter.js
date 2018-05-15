@@ -61,18 +61,6 @@ sap.ui.define([
         },
 
         /**
-         * @description Форматирование адреса НПФ в имя
-         * @param {string} npfAddress - адрес нпф
-         * @return {string} - имя
-         */
-        formatNpfAddressToName: function (npfAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.name : "?";
-        },
-        /**
          * @description Форматирование адреса с.к. в рейтинг надежности
          * @param {string} icAddress - адрес с.к.
          * @return {string} надежность
@@ -82,18 +70,6 @@ sap.ui.define([
             var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
             return item ? item.rating : null;
-        },
-        /**
-         * @description Форматирование адреса НПФ в рейтинг надежности
-         * @param {string} npfAddress - адрес НПФ
-         * @return {string} - надежность
-         */
-        formatNpfAddressToReliability: function (npfAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.ratingOfReliability : "?";
         },
 
         /**
@@ -122,19 +98,6 @@ sap.ui.define([
         },
 
         /**
-         * @description Форматирование рядов в таблице возможных НПФ для вкладки "Смена НПФ" (не отображает текущий НПФ в таблице выбора)
-         * @param npfAddress - адреса НПФ
-         * @param currentNpfAddress - текущий адрес
-         */
-        formatColumnListItem: function (npfAddress, currentNpfAddress) {
-            if (!npfAddress || !currentNpfAddress) {
-                return true;
-            }
-
-            return npfAddress.toUpperCase() !== currentNpfAddress.toUpperCase();
-        },
-
-        /**
          * @description Форматирование рядов в таблице возможных с.к. для вкладки "Смена с.к." (не отображает текущий с.к. в таблице выбора)
          * @param icAddress - адреса с.к.
          * @param currentICAddress - текущий адрес
@@ -145,17 +108,6 @@ sap.ui.define([
             }
 
             return icAddress !== currentICAddress;
-        },
-
-        /**
-         * @description Форматирование НПФ рейтинга в символ
-         * @param npfAddress - адрес НПФ
-         * @return oNpfRating.symbol - символ
-         */
-        formatNpfRating: function (npfAddress) {
-            var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
-            var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
-            return oNpfRating.symbol;
         },
 
         /**
@@ -178,17 +130,6 @@ sap.ui.define([
             var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
             return oICRating.description + ' (' + oICRating.symbol + ')';
-        },
-
-        /**
-         * @description Форматирование НПФ рейтинга в соответствующую картинку
-         * @param {string} npfAddress - адрес НПФ
-         * @return {string} oNpfRating.imageSrc - картинка
-         */
-        formatNpfRatingToImage: function (npfAddress) {
-            var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
-            var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
-            return oNpfRating.imageSrc;
         },
 
         /**

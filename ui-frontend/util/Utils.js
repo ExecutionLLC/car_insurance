@@ -108,20 +108,6 @@ sap.ui.define([
                 return item.id === address;
             });
         },
-        getNpfObjectByAddress: function(address, model) {
-            if (!address || !model) {
-                return null;
-            }
-
-            var modelData = model.getData();
-            if (!modelData || !modelData.find) {
-                return null;
-            }
-            var adressUpperCase = address.toUpperCase();
-            return modelData.find(function(item) {
-                return item.address.toUpperCase() === adressUpperCase;
-            });
-        },
 
         conversionICRating: function (int) {
             return this.conversionNpfRating(int);
@@ -282,9 +268,6 @@ sap.ui.define([
         },
         getNpfsUrl: function () {
             return Const.BASE_URL + "/npfs";
-        },
-        getChangeNpfUrl: function (snils) {
-            return Const.BASE_URL + "/person/" + snils + "/npf";
         },
         getChangeTariffUrl: function (snils) {
             return Const.BASE_URL + "/person/" + snils + "/tariff";
