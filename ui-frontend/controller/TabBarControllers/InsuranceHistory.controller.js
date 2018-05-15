@@ -51,8 +51,6 @@ sap.ui.define([
                     filters: aFilters,
                     and: true
                 });
-
-                //var operationsTableData = this.oTechModel.getProperty("/tech/insuranceHistoryTab/operationsTableData"); // TODO remove
             } else {
                 _oFilterSet.dateFilter = null;
             }

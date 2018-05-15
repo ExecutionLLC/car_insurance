@@ -14,7 +14,6 @@ sap.ui.define([
             tech:{
                 selectedKey: "",
                 insuranceHistoryTab: {
-                    operationsTableData: []
                 },
                 changeTariffTab: {
                     selectedTariff: 6,
