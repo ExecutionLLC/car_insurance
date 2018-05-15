@@ -149,16 +149,11 @@ sap.ui.define([
             manifest: "json"
         },
         init: function () {
-            var oPersonModel = new JSONModel();
-            this.setModel(oPersonModel, "personModel");
-            var oMainModel = new JSONModel();
-            this.setModel(oMainModel, "mainModel");
-            var oTechModel = new JSONModel(Model.modelStructure);
-            this.setModel(oTechModel, "techModel");
-            var oListNpfModel = new JSONModel();
-            this.setModel(oListNpfModel, "npfModel");
-            var oListICModel = new JSONModel();
-            this.setModel(oListICModel, "icModel");
+            this.setModel(new JSONModel(), "personModel");
+            this.setModel(new JSONModel(), "mainModel");
+            this.setModel(new JSONModel(Model.modelStructure), "techModel");
+            this.setModel(new JSONModel(), "npfModel");
+            this.setModel(new JSONModel(), "icModel");
             this.setModel(new JSONModel(), "operationsModel");
 
             this.setLanguages();
