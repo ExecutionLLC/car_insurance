@@ -220,7 +220,10 @@
                                             <Text
                                                     width="30%"
                                                     textAlign="Center"
-                                                    text="{operationsModel>operationType}"/>
+                                                    text="{
+                                                        path: 'operationsModel>operationType',
+                                                        formatter: '.formatter.formatOperationName'
+                                                    }"/>
                                             <core:Icon
                                                     width="10%"
                                                     src="sap-icon://overlay"

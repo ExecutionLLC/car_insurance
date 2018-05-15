@@ -265,6 +265,13 @@ sap.ui.define([
 
             var bgColor = color(monthsToExpire);
             return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
+        },
+
+        formatOperationName(operationType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("operationType." + operationType);
         }
     }
 
