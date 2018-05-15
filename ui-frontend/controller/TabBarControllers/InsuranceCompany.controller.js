@@ -7,6 +7,16 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils, API) {
     "use strict";
 
+    function appendPendingOperation(operationsModel, operation) {
+        var modelOperations = operationsModel.getData();
+        var operationsArray = modelOperations.length ?
+            modelOperations :
+            [];
+        var pendingOperation = Object.assign({}, operation, {pending: true});
+        var newOperations = operationsArray.concat(pendingOperation);
+        operationsModel.setData(newOperations);
+    }
+
     return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
         formatter: formatter,
 
@@ -15,6 +25,7 @@ sap.ui.define([
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oMainModel = this.oComponent.getModel("mainModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
+            this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.enableSelectButtonTimerId = null;
             this.oResourceBundle = this.oComponent.getModel("i18n").getResourceBundle();
 
@@ -135,18 +146,25 @@ sap.ui.define([
             } else {
                 var personId = this.oPersonModel.getProperty("/id");
                 var selectedInsuranceCompanyAddress = this.oTechModel.getProperty("/tech/insuranceCompanyTab/selectedInsuranceCompanyAddress");
+                var operationsModel = this.oOperationsModel;
+                var oldInsuranceCompaneId = this.oPersonModel.getProperty("/insuranceCompanyId");
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
                     .then(function(resp) {
-                    });
+                        console.log('resp', resp); // TODO handle result
 
-                var now = +new Date();
-                var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
-                // состояние кнопок/лейблов/... следует состоянию модели, все изменения состояния GUI произойдут в onMainModelChanges
-                this.oMainModel.setProperty("/pendedNpfChanges", pendedNpfChanges.concat([{
-                    npf: selectedInsuranceCompanyAddress,
-                    timestamp: now,
-                    isFinished: false
-                }]));
+                        appendPendingOperation(operationsModel, {
+                            timestamp: '' + new Date(),
+                            operationsType: 'INSURANCE_COMPANY_CHANGED',
+                            contragent: 'counterparty...',
+                            carVin: null,
+                            insuranceNumber: null,
+                            ownerId: personId,
+                            operationData: {
+                                oldId: oldInsuranceCompaneId,
+                                newId: selectedInsuranceCompanyAddress
+                            }
+                        });
+                    });
             }
         },
 
