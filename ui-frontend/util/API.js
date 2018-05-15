@@ -62,6 +62,10 @@ sap.ui.define([
                 type: "PUT",
                 jsonp: false,
                 data: putDataString
+            }).then(function(operations) {
+                return operations.map(function(operation) {
+                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
+                });
             });
         },
         addPersonInsurance: function(personId, vin, dateTo) {
