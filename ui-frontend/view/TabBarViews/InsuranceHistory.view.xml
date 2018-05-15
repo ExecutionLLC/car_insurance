@@ -145,46 +145,26 @@
                     showNoData="false">
                 <columns>
                     <Column
-                            width="10%"
+                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.date}"/>
                     </Column>
                     <Column
-                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.operation}"/>
                     </Column>
                     <Column
-                            width="7%"
+                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.status}"/>
                     </Column>
                     <Column
-                            width="7%"
-                            hAlign="Center">
-                        <Text text="{i18n>insuranceHistory.tab.tariff}"/>
-                    </Column>
-                    <Column
-                            width="12%"
+                            width="30%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
                     </Column>
                     <Column
-                            width="8%"
-                            hAlign="Center">
-                        <Text text="{i18n>insuranceHistory.tab.npf}"/>
-                    </Column>
-                    <Column
-                            width="12%"
-                            hAlign="Center">
-                        <Text text="{i18n>insuranceHistory.tab.summ}"/>
-                    </Column>
-                    <Column
-                            width="13%"
-                            hAlign="Center">
-                        <Text text="{i18n>insuranceHistory.tab.salary}"/>
-                    </Column>
-                    <Column
+                            width="10%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.check}"/>
                     </Column>
