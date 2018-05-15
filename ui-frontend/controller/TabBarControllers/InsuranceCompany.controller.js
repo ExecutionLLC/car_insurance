@@ -55,7 +55,6 @@ sap.ui.define([
         },
 
         onOperationsModelChanges: function() {
-            console.log('OPS', this.oOperationsModel.getData()); // TODO handle operations change
             var modelOperations = this.oOperationsModel.getData();
             var operationsArray = modelOperations.length ? modelOperations : [];
             var insuranceOperations = operationsArray.filter(function(operation) {
