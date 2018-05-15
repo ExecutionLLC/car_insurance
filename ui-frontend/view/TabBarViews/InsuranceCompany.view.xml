@@ -98,11 +98,11 @@
 
 
         <!--Таблица для выбора новой с.к.-->
-        <Table visible="{techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible}"
-               items="{
+        <Table
+                visible="{techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible}"
+                items="{
                     path:'icModel>/'
-
-               }"
+                }"
         >
             <columns>
                 <Column hAlign="Center">
@@ -120,21 +120,22 @@
             </columns>
 
             <items>
-                <ColumnListItem visible="{
-                                    parts:[
-                                        {path:'icModel>id'},
-                                        {path:'personModel>/insuranceCompanyId'}
-                                    ],
-                                    formatter:'.formatter.formatICColumnListItem'
-                                }"
-                                type="Active"
-                                press="onSelectInsuranceCompanyTableItem"
+                <ColumnListItem
+                        visible="{
+                            parts: [
+                                {path: 'icModel>id'},
+                                {path: 'personModel>/insuranceCompanyId'}
+                            ],
+                            formatter: '.formatter.formatICColumnListItem'
+                        }"
+                        type="Active"
+                        press="onSelectInsuranceCompanyTableItem"
                 >
                     <cells>
-                        <Text text="{icModel>name}"/>
+                        <Text text="{icModel>name}" />
                         <Text text="{
-                                        path:'icModel>id',
-                                        formatter:'.formatter.formatICAddressToReliabilityString'
+                                        path: 'icModel>id',
+                                        formatter: '.formatter.formatICAddressToReliabilityString'
                                     }"
                         />
                         <Text text="{icModel>rating}"/>
