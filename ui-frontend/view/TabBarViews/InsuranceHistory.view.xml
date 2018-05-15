@@ -173,7 +173,7 @@
             <ScrollContainer vertical="true" horizontal="false">
 
                 <Table
-                        id="table--report"
+                        id="table-insurance-history"
                         items="{
                             path: 'techModel>/tech/insuranceHistoryTab/operationsTableData',
                             sorter : {

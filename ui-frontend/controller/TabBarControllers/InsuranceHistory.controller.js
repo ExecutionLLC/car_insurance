@@ -127,7 +127,7 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceHistoryTab/isShowHideButtonEnabled", false);
             }
 
-            var oTable = this.getView().byId("table--report");
+            var oTable = this.getView().byId("table-insurance-history");
             var oBinding = oTable.getBinding("items");
             oBinding.filter(_oFilterSet.dateFilter);
         },
