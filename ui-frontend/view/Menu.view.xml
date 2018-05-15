@@ -46,7 +46,7 @@
             <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"/>
             <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.InsuranceHistory"/>
             <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"/>
-            <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.NPF"/>
+            <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.MyPolicies"/>
             <mvc:XMLView id="MyInsuranceCompany" viewName="personal.account.view.TabBarViews.InsuranceCompany"/>
 
         </NavContainer>
