@@ -23,7 +23,6 @@ sap.ui.define([
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
-            this.oMainModel = this.oComponent.getModel("mainModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.enableSelectButtonTimerId = null;
