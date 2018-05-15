@@ -88,7 +88,7 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeNpfMessageState", "Warning");
+                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Warning");
             } else {
                 var changeInsuranceCompanyMessage = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage");
                 // FIXME
