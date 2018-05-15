@@ -245,8 +245,7 @@ sap.ui.define([
             }).always(onAlways);
         },
         scheduleNextModelsUpdate: function () {
-            var timeout = Const.ASYNC_UPDATE_TIMEOUT;
-            this.updateTimeoutId = setTimeout(this.updateModels.bind(this), timeout);
+            this.updateTimeoutId = setTimeout(this.updateModels.bind(this), Const.ASYNC_UPDATE_TIMEOUT);
         },
         setLanguages: function () {
             var lang = Const.LANG;
