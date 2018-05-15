@@ -29,12 +29,6 @@ sap.ui.define([
             this.enableSelectButtonTimerId = null;
             this.oResourceBundle = this.oComponent.getModel("i18n").getResourceBundle();
 
-
-            // var mainModelBinding = new sap.ui.model.Binding(
-            //     this.oMainModel, "/", this.oMainModel.getContext("/")
-            // );
-            // mainModelBinding.attachChange(this.onMainModelChanges.bind(this));
-
             var operationsModelBinding = new sap.ui.model.Binding(
                 this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
             );
@@ -90,72 +84,6 @@ sap.ui.define([
                 +new Date(lastOperation.timestamp) + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY :
                 null;
             var currentTime = new Date();
-            if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
-                if (this.enableSelectButtonTimerId) {
-                    clearTimeout(this.enableSelectButtonTimerId);
-                }
-
-                this.enableSelectButton(false, nextMinTimeForChanges);
-
-                this.enableSelectButtonTimerId = setTimeout(function () {
-                    this.enableSelectButton(true);
-                    this.enableSelectButtonTimerId = null;
-                }.bind(this), nextMinTimeForChanges - currentTime);
-            } else {
-                this.enableSelectButton(true);
-            }
-        },
-
-        onMainModelChanges: function() {
-            var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
-            var npfHistory = this.oMainModel.getProperty("/npfHistory");
-            var pendedNpfChanges = this.oMainModel.getProperty("/pendedNpfChanges");
-
-            var pendedNpfTableData = pendedNpfChanges.map(function (value) {
-                return {
-                    npf: value.npf,
-                    timestamp: value.timestamp,
-                    transactionHash: value.transactionHash,
-                    isFinished: false
-                };
-            });
-            var historyNpfTableData = npfHistory.map(function (value) {
-                return {
-                    npf: value.newNpf,
-                    timestamp: value.timestamp,
-                    transactionHash: value.transactionHash,
-                    isFinished: true
-                }
-            });
-            var totalInsuranceCompanyTableData = pendedNpfTableData.concat(historyNpfTableData);
-            this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", totalInsuranceCompanyTableData);
-
-            if (pendedNpfChanges.length !== 0) {
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/needConformation", true);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", sRequestPendingText);
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType", "Warning");
-                this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", true);
-            } else {
-                var changeInsuranceCompanyMessageIsPending = this.oTechModel.getProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending");
-                if (changeInsuranceCompanyMessageIsPending) {
-                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
-                    this.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
-                }
-            }
-
-            var nextMinTimeForChanges = null;
-            if (pendedNpfChanges.length !== 0) {
-                var lastItem = pendedNpfChanges[pendedNpfChanges.length - 1];
-                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY;
-            } else if (npfHistory.length !== 0) {
-                var lastItem = npfHistory[npfHistory.length - 1];
-                nextMinTimeForChanges = lastItem.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY;
-            }
-
-            var currentTime = +new Date();
             if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
                 if (this.enableSelectButtonTimerId) {
                     clearTimeout(this.enableSelectButtonTimerId);
