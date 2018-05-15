@@ -204,13 +204,10 @@ sap.ui.define([
             ).then(function(personInfoResult, insuranceCompaniesResult) {
                 oICModel.setData(insuranceCompaniesResult[0]);
                 oPersonModel.setData(personInfoResult[0]);
-
-                self
-                    .receiveOperations()
+                self.receiveOperations()
                     .then(function() {
                         scheduleNextUpdate();
                     });
-
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                 MessageBox.error(sErrorText);
