@@ -166,6 +166,19 @@ sap.ui.define([
                 this.initModels(lastUserId);
             }
         },
+        receiveOperations: function() {
+            var oPersonModel = this.getModel("personModel");
+            var oOperationsModel = this.getModel("operationsModel");
+            var userId = oPersonModel.getProperty("/id");
+            return API.getPersonOperations(userId)
+                .then(function(operations) {
+                    oOperationsModel.setData(operations);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
+                    MessageBox.error(sErrorText);
+                });
+        },
         initModels: function (userId) {
             if (this.updateTimeoutId) {
                 clearTimeout(this.updateTimeoutId);
@@ -184,6 +197,8 @@ sap.ui.define([
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
 
+            var self = this;
+
             jQuery.when(
                 API.getPerson(userId),
                 API.getInsuranceCompanies()
@@ -191,13 +206,9 @@ sap.ui.define([
                 oICModel.setData(insuranceCompaniesResult[0]);
                 oPersonModel.setData(personInfoResult[0]);
 
-                API.getPersonOperations(userId)
-                    .then(function(operations) {
-                        oOperationsModel.setData(operations);
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
-                        MessageBox.error(sErrorText);
+                self
+                    .receiveOperations()
+                    .then(function() {
                     });
 
             }).fail(function (jqXHR, textStatus, errorThrown) {
