@@ -62,6 +62,9 @@ sap.ui.define([
                 var operationType = operation.operationType;
                 return operationType === Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED;
             });
+
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", insuranceOperations);
+
             var firstPendedOperation = insuranceOperations.find(function(operation) {
                 return operation.pending;
             });

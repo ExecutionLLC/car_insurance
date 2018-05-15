@@ -232,19 +232,20 @@
                                             }"/>
                                             <Text
                                                     textAlign="Center"
-                                                    key="{techModel>npf}"
                                                     width="32%"
                                                     text="{
-                                                path:'techModel>npf',
-                                                formatter:'.formatter.formatNpfAddressToName'
-                                            }"/>
+                                                        path:'techModel>operationData/newId',
+                                                        formatter:'.formatter.formatICAddressToName'
+                                                    }"
+                                            />
                                             <core:Icon
                                                     width="17%"
                                                     src="sap-icon://overlay"
                                                     color="{
-                                        path: 'techModel>isFinished',
-                                        formatter: '.formatter.formatTableItemStatus'
-                                   }"/>
+                                                        path: 'techModel>pending',
+                                                        formatter: '.formatter.formatTableItemPending'
+                                                    }"
+                                            />
                                         </content>
                                     </Toolbar>
                                 </headerToolbar>
@@ -269,8 +270,8 @@
                                             <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
                                             </Label>
                                             <Text text="{
-                                                            path: 'techModel>isFinished',
-                                                            formatter: '.formatter.formatNumberOfConformations'
+                                                            path: 'techModel>pending',
+                                                            formatter: '.formatter.formatNumberOfConfirmations'
                                                         }"
                                             />
                                         </layout:HorizontalLayout>
