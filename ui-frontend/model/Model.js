@@ -15,13 +15,6 @@ sap.ui.define([
                 selectedKey: "",
                 insuranceHistoryTab: {
                 },
-                changeTariffTab: {
-                    selectedTariff: 6,
-                    changeTariffMessage: "",
-                    isButtonChangeTariffEnabled: false,
-                    isSliderChangeTariffEnabled: false,
-                    tariffTableData: []
-                },
                 insuranceCompanyTab: {
                     selectedInsuranceCompanyAddress: "",
                     selectedInsuranceCompany: "",

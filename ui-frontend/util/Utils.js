@@ -247,9 +247,6 @@ sap.ui.define([
         getPerson1InfoUrl: function (snils) {
             return Const.BASE_URL + "/person1/" + snils;
         },
-        getChangeTariffUrl: function (snils) {
-            return Const.BASE_URL + "/person/" + snils + "/tariff";
-        },
         getTransactionInfoUrl: function(transactionHash) {
             return Const.BASE_URL + "/transaction/" + transactionHash;
         },
