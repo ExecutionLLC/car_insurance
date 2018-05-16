@@ -10,9 +10,6 @@
 	width: 0.1rem;
 	background-color: darkgray;
 }
-.label-margin-top{
-	margin-top: 1rem;
-}
 
 .coloredText {
 	color : #346187;
@@ -69,7 +66,7 @@
 .verticalLayout-margin_left{
 	margin-left: 2rem;
 }
-.verticalLayout_tariff_npf_ic-margin_left{
+.verticalLayout_ic-margin_left{
 	margin-left: 6.5rem;
 }
 
