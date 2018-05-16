@@ -27,38 +27,29 @@
         </layout:Grid>
         <Table
                 items="{
-                    path: 'personModel>/cars'
+                    path: 'techModel>/tech/myCarsTab/cars'
                 }"
         >
             <columns>
                 <Column
                         hAlign="Center">
                 </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
             </columns>
             <items>
-                <CustomListItem>
+                <ColumnListItem>
                     <Panel expandable="true">
                         <headerToolbar>
                             <Toolbar>
                                 <content>
                                     <Text
                                             width="25%"
-                                            text="{personModel>model}"
+                                            text="{techModel>model}"
                                     />
                                     <layout:VerticalLayout width="30%">
                                         <layout:HorizontalLayout>
                                             <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
                                             <Text text="{
-                                                            path: 'personModel>insurances',
+                                                            path: 'techModel>insurances',
                                                             formatter: '.formatter.formatLastInsuranceNumber'
                                                         }"
                                             />
@@ -68,7 +59,7 @@
                                         <layout:HorizontalLayout>
                                             <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
                                             <Text text="{
-                                                            path: 'personModel>insurances',
+                                                            path: 'techModel>insurances',
                                                             formatter: '.formatter.formatLastInsuranceDateTo'
                                                         }"
                                         />
@@ -83,19 +74,19 @@
                                     <Text text="CARICON" />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
-                                        <Text text="{path: 'personModel>vin'}" />
+                                        <Text text="{path: 'techModel>vin'}" />
                                     </HBox>
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.numberPlate}" />
-                                        <Text text="{path: 'personModel>numberPlate'}" />
+                                        <Text text="{path: 'techModel>numberPlate'}" />
                                     </HBox>
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.power}" />
-                                        <Text text="{path: 'personModel>maxPower'}" />
+                                        <Text text="{path: 'techModel>maxPower'}" />
                                     </HBox>
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.year}" />
-                                        <Text text="{path: 'personModel>year'}" />
+                                        <Text text="{path: 'techModel>year'}" />
                                     </HBox>
                                     <Button
                                             text="{i18n>mycars.carInfo.sell}"
@@ -103,11 +94,37 @@
                                     />
                                 </layout:VerticalLayout>
                                 <layout:VerticalLayout>
+                                    <Label
+                                            text="{i18n>mycars.carInfo.history}"
+                                            class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    />
+                                    <Table
+                                            items="{
+                                                path: 'techModel>operations'
+                                            }"
+                                    >
+                                        <columns>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Label text="{techModel>id}" />
+                                                    <Label text="{techModel>operationType}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
                                 </layout:VerticalLayout>
                             </layout:Grid>
                         </content>
                     </Panel>
-                </CustomListItem>
+                </ColumnListItem>
             </items>
         </Table>
         <layout:Grid width="100%">
