@@ -10,7 +10,6 @@ sap.ui.define([
         // время, через которое обновляются данные
         ASYNC_UPDATE_TIMEOUT: 10 * 1000,
         // время следующей смены НПФ
-        TIME_NEXT_CHANGE_NPF: 120*1000, // TODO remove
         TIME_NEXT_CHANGE_INSURANCE_COMPANY: 120*1000,
         DEFAULT_NUMBER_OF_CONFORMATIONS: 7,
         DEFAULT_NUMBER_OF_CONFIRMATIONS: 7,

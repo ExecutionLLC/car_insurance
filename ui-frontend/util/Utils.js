@@ -108,26 +108,8 @@ sap.ui.define([
                 return item.id === address;
             });
         },
-        getNpfObjectByAddress: function(address, model) {
-            if (!address || !model) {
-                return null;
-            }
-
-            var modelData = model.getData();
-            if (!modelData || !modelData.find) {
-                return null;
-            }
-            var adressUpperCase = address.toUpperCase();
-            return modelData.find(function(item) {
-                return item.address.toUpperCase() === adressUpperCase;
-            });
-        },
 
         conversionICRating: function (int) {
-            return this.conversionNpfRating(int);
-        },
-
-        conversionNpfRating: function (int) {
             var defaultRating = {
                 symbol: "?",
                 description: "Неизвестен"
@@ -232,21 +214,6 @@ sap.ui.define([
 
             return ratingForInt[int] || defaultRating;
         },
-        conversionNpfIncomeRateToImage: function (incomeRate) {
-            var sImageSrc;
-            switch (incomeRate){
-                case 7:
-                    sImageSrc = "./image/7.jpg";
-                    break;
-                case 8:
-                    sImageSrc = "./image/8.jpg";
-                    break;
-                case 9:
-                    sImageSrc = "./image/9.jpg";
-                    break;
-            }
-            return sImageSrc;
-        },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
             $.ajax({
                 url: oModule.getTransactionInfoUrl(transactionHash),
@@ -279,12 +246,6 @@ sap.ui.define([
         },
         getPerson1InfoUrl: function (snils) {
             return Const.BASE_URL + "/person1/" + snils;
-        },
-        getNpfsUrl: function () {
-            return Const.BASE_URL + "/npfs";
-        },
-        getChangeNpfUrl: function (snils) {
-            return Const.BASE_URL + "/person/" + snils + "/npf";
         },
         getChangeTariffUrl: function (snils) {
             return Const.BASE_URL + "/person/" + snils + "/tariff";
