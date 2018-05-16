@@ -30,6 +30,17 @@ sap.ui.define([
         return new Date(lastInsurance.dateTo);
     }
 
+    function findLastInsuranceNumber(insurances) {
+        if (!insurances) {
+            return null;
+        }
+        var lastInsurance = findLastInsurance(insurances);
+        if (!lastInsurance) {
+            return null;
+        }
+        return lastInsurance.insuranceNumber;
+    }
+
     function monthDiff(d1, d2) {
         if (d2 < d1) {
             return -1;
@@ -153,6 +164,10 @@ sap.ui.define([
             return date.toLocaleDateString(
                 sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
             );
+        },
+
+        formatLastInsuranceNumber: function(insurances) {
+            return findLastInsuranceNumber(insurances) || '';
         },
 
         formatInsuranceColorStrip: function(insurances) {

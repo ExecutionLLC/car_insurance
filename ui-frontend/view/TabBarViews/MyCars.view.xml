@@ -25,6 +25,47 @@
                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
             />
         </layout:Grid>
+        <Table
+                items="{
+                    path: 'personModel>/cars'
+                }"
+        >
+            <columns>
+                <Column
+                        hAlign="Center">
+                </Column>
+                <Column
+                        hAlign="Center">
+                </Column>
+                <Column
+                        hAlign="Center">
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem
+                        type="Active"
+                        press="onSelectInsuranceCompanyTableItem"
+                >
+                    <cells>
+                        <Text text="{personModel>model}" />
+                        <layout:Grid>
+                            <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
+                            <Text text="{
+                                path: 'personModel>insurances',
+                                formatter: '.formatter.formatLastInsuranceNumber'
+                            }" />
+                        </layout:Grid>
+                        <layout:Grid>
+                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
+                            <Text text="{
+                                path: 'personModel>insurances',
+                                formatter: '.formatter.formatLastInsuranceDateTo'
+                            }" />
+                        </layout:Grid>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
         <layout:Grid width="100%">
             <Label
                     text="{i18n>mycars.history}"
