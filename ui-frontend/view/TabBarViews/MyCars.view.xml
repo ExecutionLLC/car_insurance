@@ -1,0 +1,9 @@
+<mvc:View controllerName="personal.account.controller.TabBarControllers.MyCars"
+          xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:layout="sap.ui.layout"
+          xmlns:core="sap.ui.core">
+    <Page showHeader="false">
+        <Text text="My cars" />
+    </Page>
+</mvc:View>
