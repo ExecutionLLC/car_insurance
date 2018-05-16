@@ -78,6 +78,33 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
+                            <layout:Grid>
+                                <layout:VerticalLayout width="100%">
+                                    <Text text="CARICON" />
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.vin}" />
+                                        <Text text="{path: 'personModel>vin'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.numberPlate}" />
+                                        <Text text="{path: 'personModel>numberPlate'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.power}" />
+                                        <Text text="{path: 'personModel>maxPower'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.year}" />
+                                        <Text text="{path: 'personModel>year'}" />
+                                    </HBox>
+                                    <Button
+                                            text="{i18n>mycars.carInfo.sell}"
+                                            press="onSellCar"
+                                    />
+                                </layout:VerticalLayout>
+                                <layout:VerticalLayout>
+                                </layout:VerticalLayout>
+                            </layout:Grid>
                         </content>
                     </Panel>
                 </CustomListItem>
