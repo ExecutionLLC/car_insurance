@@ -5,6 +5,9 @@ sap.ui.define([
     "use strict";
 
     return Controller.extend("personal.account.controller.TabBarControllers.MyCars", {
-        formatter: formatter
+        formatter: formatter,
+
+        onAddCar: function() {
+        }
     });
 });

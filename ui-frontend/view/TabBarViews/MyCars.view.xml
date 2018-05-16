@@ -4,6 +4,32 @@
           xmlns:layout="sap.ui.layout"
           xmlns:core="sap.ui.core">
     <Page showHeader="false">
-        <Text text="My cars" />
+        <layout:Grid width="100%">
+            <Button
+                    text=""
+                    press="onAddCar"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" indent="L1 M3 S3" />
+                </layoutData>
+            </Button>
+            <Label text="{i18n>mycars.add}">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" />
+                </layoutData>
+            </Label>
+        </layout:Grid>
+        <layout:Grid width="100%">
+            <Label
+                    text="{i18n>mycars.mycars}"
+                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+        <layout:Grid width="100%">
+            <Label
+                    text="{i18n>mycars.history}"
+                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
     </Page>
 </mvc:View>
