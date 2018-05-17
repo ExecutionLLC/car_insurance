@@ -105,10 +105,24 @@ sap.ui.define([
                 }
             }
 
-            function getSelectKey(inputId) {
-                var oSelect = oView.byId(inputId);
+            function getSelectKey(selectId) {
+                var oSelect = oView.byId(selectId);
                 if (oSelect) {
                     return oSelect.getSelectedKey();
+                }
+            }
+
+            function clearInputText(inputId) {
+                var oInput = oView.byId(inputId);
+                if (oInput) {
+                    return oInput.setValue('');
+                }
+            }
+
+            function setSelectKey(selectId, value) {
+                var oSelect = oView.byId(selectId);
+                if (oSelect) {
+                    return oSelect.setSelectedKey(value);
                 }
             }
 
@@ -128,6 +142,12 @@ sap.ui.define([
                     appendCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
+                    clearInputText("vinInput");
+                    setSelectKey("typeInput", Const.CAR_TYPES[0].id);
+                    clearInputText("modelInput");
+                    clearInputText("powerInput");
+                    clearInputText("yearInput");
+                    clearInputText("numberPlateInput");
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot add car: textStatus = ", textStatus, "error = ", errorThrown);
