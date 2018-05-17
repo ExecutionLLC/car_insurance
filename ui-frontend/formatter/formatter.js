@@ -11,7 +11,7 @@ sap.ui.define([
                 if (!lastInsurance) {
                     return insurance;
                 }
-                return lastInsurance.dateTo > insurance.dateTo ? // TODO check if it is dates, not strings
+                return lastInsurance.dateTo > insurance.dateTo ?
                     lastInsurance :
                     insurance;
             },
@@ -27,7 +27,7 @@ sap.ui.define([
         if (!lastInsurance) {
             return null;
         }
-        return new Date(lastInsurance.dateTo);
+        return lastInsurance.dateTo;
     }
 
     function findLastInsuranceNumber(insurances) {
