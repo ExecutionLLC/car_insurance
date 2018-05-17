@@ -1,9 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-    "personal/account/util/Utils"
-], function (Controller, MessageBox, Utils) {
+    "personal/account/util/Utils",
+    "personal/account/util/API"
+], function (Controller, MessageBox, Utils, API) {
     "use strict";
+
     return Controller.extend("personal.account.controller.Login", {
         onInit: function () {
             var oLoginInput = this.byId("loginInput");
@@ -23,30 +25,23 @@ sap.ui.define([
             var oLoginInput = this.getView().byId("loginInput");
             var oPasswordInput = this.getView().byId("passwordInput");
 
-            var authData = {
-                login: oLoginInput.getValue().replace(/[- ]/g, ""),
-                password: oPasswordInput.getValue()
-            };
             oLoginInput.setEnabled(false);
             oPasswordInput.setEnabled(false);
 
-            $.ajax({
-                url: Utils.getLoginUrl(),
-                dataType: "json",
-                type: "POST",
-                jsonp: false,
-                data: JSON.stringify(authData)
-            }).done(function (result) {
-                oComponent.initModels(result.snils);
-                oLoginInput.setValue("");
-                oPasswordInput.setValue("");
-                oRouter.navTo("menuPage");
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                MessageBox.error(sErrorPassOrLog);
-            }).always(function () {
-                oLoginInput.setEnabled(true);
-                oPasswordInput.setEnabled(true);
-            });
+            API.login(oLoginInput.getValue(), oPasswordInput.getValue())
+                .then(function(person) {
+                    oComponent.initModels(person.id);
+                    oLoginInput.setValue("");
+                    oPasswordInput.setValue("");
+                    Utils.navigateToMenuPageTab(oRouter);
+                })
+                .fail(function() {
+                    MessageBox.error(sErrorPassOrLog);
+                })
+                .always(function() {
+                    oLoginInput.setEnabled(true);
+                    oPasswordInput.setEnabled(true);
+                });
         }
     });
 });
