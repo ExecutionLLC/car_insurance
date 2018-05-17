@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/m/MessageBox",
     "personal/account/formatter/formatter",
     "personal/account/util/API",
-    "personal/account/util/Utils"
-], function (Controller, MessageBox, formatter, API, Utils) {
+    "personal/account/util/Utils",
+    "personal/account/util/Const"
+], function (Controller, MessageBox, formatter, API, Utils, Const) {
     "use strict";
 
     function appendCar(personModel, carInfo) {
@@ -36,6 +37,12 @@ sap.ui.define([
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
+            var oCarTypesModel = this.oComponent.getModel("operationsModel");
+
+            this.oTechModel.setProperty(
+                "/tech/myCarsTab/carTypes",
+                Const.CAR_TYPES
+            );
 
             var operationsModelBinding = new sap.ui.model.Binding(
                 this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
@@ -98,9 +105,16 @@ sap.ui.define([
                 }
             }
 
+            function getSelectKey(inputId) {
+                var oSelect = oView.byId(inputId);
+                if (oSelect) {
+                    return oSelect.getSelectedKey();
+                }
+            }
+
             var carInfo = {
                 vin: getInputText("vinInput"),
-                vehicleType: getInputText("typeInput"),
+                vehicleType: getSelectKey("typeInput"),
                 model: getInputText("modelInput"),
                 maxPower: getInputText("powerInput"),
                 year: getInputText("yearInput"),

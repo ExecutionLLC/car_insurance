@@ -196,6 +196,13 @@ sap.ui.define([
                 .getModel("i18n")
                 .getResourceBundle();
             return oBundle.getText("operationType." + operationType);
+        },
+
+        formatCarType: function(carType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("CarTypes." + carType);
         }
     }
 

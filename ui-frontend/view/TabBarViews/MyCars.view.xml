@@ -61,7 +61,20 @@
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="typeInput"/>
+                        <Select
+                                id="typeInput"
+                                items="{
+                                    path: 'techModel>/tech/myCarsTab/carTypes'
+                                }"
+                        >
+                            <core:Item
+                                    key="{techModel>id}"
+                                    text="{
+                                        path: 'techModel>id',
+                                        formatter: '.formatter.formatCarType'
+                                    }"
+                            />
+                        </Select>
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
             </layout:VerticalLayout>

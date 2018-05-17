@@ -32,6 +32,7 @@ sap.ui.define([
                 },
                 myCarsTab: {
                     isNewCarInfoVisible: false,
+                    carTypes: [],
                     cars: [],
                     soldCars: []
                 }
