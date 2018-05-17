@@ -24,12 +24,6 @@ sap.ui.define([
             var from = oEvent.getParameter("from");
             var to = oEvent.getParameter("to");
 
-            function sumOfAmount(array) {
-                return array.reduce(function(sum, current) {
-                    return sum + current.amount;
-                }, 0);
-            }
-
             if (from && to) {
                 var timestampFrom = from.valueOf();
                 var timestampTo = to.valueOf();
