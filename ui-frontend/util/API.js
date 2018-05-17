@@ -3,6 +3,18 @@ sap.ui.define([
 ],function(Const){
     "use strict";
 
+    function makeArrayTimestampsAsDate(array) {
+        return array.map(function(item) {
+            return Object.assign(
+                {},
+                item,
+                {
+                    timestamp: new Date(item.timestamp)
+                }
+            );
+        });
+    }
+
     var oModule = {
         login: function(email, password) {
             return $.ajax({
@@ -29,11 +41,7 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId + "/operations",
                 dataType: "json"
-            }).then(function(operations) {
-                return operations.map(function(operation) {
-                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
-                });
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         getInsuranceCompanies: function() {
             return $.ajax({
@@ -56,7 +64,7 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: postDataString
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         salePersonCar: function(personId, carVin) {
             return $.ajax({
@@ -64,7 +72,7 @@ sap.ui.define([
                 dataType: "json",
                 type: "DELETE",
                 jsonp: false
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         setPersonInsuranceCompany: function(personId, icId) {
             var putDataString = JSON.stringify({
@@ -76,11 +84,7 @@ sap.ui.define([
                 type: "PUT",
                 jsonp: false,
                 data: putDataString
-            }).then(function(operations) {
-                return operations.map(function(operation) {
-                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
-                });
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         addPersonInsurance: function(personId, vin, dateTo) {
             var postDataString = JSON.stringify({
@@ -92,7 +96,7 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: postDataString
-            });
+            }).then(makeArrayTimestampsAsDate);
         }
     };
 
