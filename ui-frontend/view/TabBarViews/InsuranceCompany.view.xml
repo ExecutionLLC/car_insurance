@@ -31,11 +31,13 @@
                     <layout:GridData span="L2 M4 S4"/>
                 </layoutData>
             </Label>
-            <Text class="sapUiSmallMarginTop"
-                  text="{
-                    path:'personModel>/insuranceCompanyId',
-                    formatter:'.formatter.formatICAddressToReliabilityString'
-                  }">
+            <Text
+                    class="sapUiSmallMarginTop"
+                    text="{
+                        path:'personModel>/insuranceCompanyId',
+                        formatter:'.formatter.formatICAddressToReliabilityString'
+                    }"
+            >
                 <layoutData>
                     <layout:GridData
                             span="L1 M4 S4" indent="L1 M1 S1"/>
