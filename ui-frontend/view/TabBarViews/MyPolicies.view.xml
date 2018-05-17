@@ -170,7 +170,7 @@
                                         <layout:HorizontalLayout>
                                             <Text text="{
                                                 path: 'policiesModel>dateTo',
-                                                formatter:'.formatter.formatDateForTable'
+                                                formatter: '.formatter.formatDateForTable'
                                             }"/>
                                         </layout:HorizontalLayout>
                                     </layout:VerticalLayout>
