@@ -49,21 +49,17 @@
                                         class="sapUiSmallMarginTop"
                                         alignItems="Center"
                                         justifyContent="SpaceAround">
-                                    <Image
-                                            src="{
-                                            path:'personModel>/insuranceCompanyId',
-                                            formatter:'.formatter.formatICAddressToReliabilityImage'}"
-                                            width='4rem'
-                                            height="4rem"
-                                    />
                                     <Text
                                             text="{i18n>ratingOfReliability}"
                                             class="H2"/>
-                                    <Text
-                                            text="{
+                                    <Image
+                                            src="{
                                                 path:'personModel>/insuranceCompanyId',
-                                                formatter:'.formatter.formatICAddressToReliabilityString'}"
-                                            class="H1"/>
+                                                formatter:'.formatter.formatICAddressToReliabilityImage'
+                                            }"
+                                            width='4rem'
+                                            height="4rem"
+                                    />
                                 </HBox>
                             </VBox>
                         </HBox>

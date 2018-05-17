@@ -31,18 +31,19 @@
                     <layout:GridData span="L2 M4 S4"/>
                 </layoutData>
             </Label>
-            <Text
-                    class="sapUiSmallMarginTop"
-                    text="{
-                        path:'personModel>/insuranceCompanyId',
-                        formatter:'.formatter.formatICAddressToReliabilityString'
-                    }"
+            <Image
+                    src="{
+                                                path:'personModel>/insuranceCompanyId',
+                                                formatter:'.formatter.formatICAddressToReliabilityImage'
+                                            }"
+                    width='4rem'
+                    height="4rem"
             >
                 <layoutData>
                     <layout:GridData
                             span="L1 M4 S4" indent="L1 M1 S1"/>
                 </layoutData>
-            </Text>
+            </Image>
         </layout:Grid>
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
