@@ -4,8 +4,216 @@
         xmlns:mvc="sap.ui.core.mvc"
         xmlns:layout="sap.ui.layout"
         xmlns:core="sap.ui.core">
-    <Page
-            showHeader="false">
+    <Page showHeader="false">
         <Text text="My policies" />
+        <layout:Grid width="100%">
+            <Button text="" press="onAddPolicy">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" indent="L1 M3 S3" />
+                </layoutData>
+            </Button>
+            <Label text="{i18n>myPolicies.add}">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" />
+                </layoutData>
+            </Label>
+        </layout:Grid>
+        <layout:Grid width="100%">
+            <Label
+                text="{i18n>myPolicies.activePolicies}"
+                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+        <Table showNoData="false">
+            <columns>
+                <Column hAlign="Center" width="15%">
+                    <Text text="Номер"/>
+                </Column>
+                <Column hAlign="Center" width="25%">
+                    <Text text="Автомобиль"/>
+                </Column>
+                <Column hAlign="Center" width="15%">
+                    <Text text="Действителен с"/>
+                </Column>
+                <Column hAlign="Center" width="15%">
+                    <Text text="Действителен по"/>
+                </Column>
+                <Column hAlign="Center" width="15%">
+                    <Text text="Статус"/>
+                </Column>
+                <Column hAlign="Center" width="15%">
+                </Column>
+            </columns>
+        </Table>
+        <Table items="{path: 'policiesModel>/activePolicies'}">
+            <columns>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+            </columns>
+            <items>
+                <CustomListItem>
+                    <Panel expandable="true">
+                        <headerToolbar>
+                            <Toolbar>
+                                <content>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{path: 'policiesModel>insuranceNumber'}"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="25%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{path: 'policiesModel>carModel'}"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{
+                                                path: 'policiesModel>dateFrom',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{
+                                                path: 'policiesModel>dateTo',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <core:Icon
+                                                    width="10%"
+                                                    src="sap-icon://overlay"
+                                                    color="{
+                                                        path: 'operationsModel>pending',
+                                                        formatter: '.formatter.formatTableItemPending'
+                                                    }"
+                                            />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%"/>
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:VerticalLayout class="verticalLayout-margin_left">
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
+                                    <Link text="{policiesModel>transactionHash}" press="onLinkPress"/>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}"/>
+                                    <Text text="{policiesModel>transactionFrom}"/>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout width="100%">
+                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}"/>
+                                    <Text text="{
+                                        path: 'policiesModel>pending',
+                                        formatter: '.formatter.formatNumberOfConfirmations'
+                                    }"/>
+                                </layout:HorizontalLayout>
+                            </layout:VerticalLayout>
+                        </content>
+                    </Panel>
+                </CustomListItem>
+            </items>
+        </Table>
+        <layout:Grid width="100%">
+            <Label
+                text="{i18n>myPolicies.inactivePolicies}"
+                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+        <Table items="{path: 'policiesModel>/inactivePolicies'}">
+            <columns>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+                <Column hAlign="Center"/>
+            </columns>
+            <items>
+                <CustomListItem>
+                    <Panel expandable="true">
+                        <headerToolbar>
+                            <Toolbar>
+                                <content>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{path: 'policiesModel>insuranceNumber'}"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="25%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{path: 'policiesModel>carModel'}"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{
+                                                path: 'policiesModel>dateFrom',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{
+                                                path: 'policiesModel>dateTo',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"/>
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%">
+                                        <layout:HorizontalLayout>
+                                            <core:Icon
+                                                    width="10%"
+                                                    src="sap-icon://overlay"
+                                                    color="{
+                                                        path: 'operationsModel>pending',
+                                                        formatter: '.formatter.formatTableItemPending'
+                                                    }"
+                                            />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="15%"/>
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:VerticalLayout class="verticalLayout-margin_left">
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
+                                    <Link text="{policiesModel>transactionHash}" press="onLinkPress"/>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}"/>
+                                    <Text text="{policiesModel>transactionFrom}"/>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout width="100%">
+                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}"/>
+                                    <Text text="{
+                                        path: 'policiesModel>pending',
+                                        formatter: '.formatter.formatNumberOfConfirmations'
+                                    }"/>
+                                </layout:HorizontalLayout>
+                            </layout:VerticalLayout>
+                        </content>
+                    </Panel>
+                </CustomListItem>
+            </items>
+        </Table>
     </Page>
 </mvc:View>
