@@ -350,10 +350,6 @@
                                         <Text text="{i18n>mycars.carInfo.year}" />
                                         <Text text="{path: 'techModel>year'}" />
                                     </HBox>
-                                    <Button
-                                            text="{i18n>mycars.carInfo.sell}"
-                                            press="onSellCar"
-                                    />
                                 </layout:VerticalLayout>
                                 <layout:VerticalLayout>
                                     <Label
