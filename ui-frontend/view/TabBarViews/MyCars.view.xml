@@ -236,7 +236,8 @@
                                                                         width="20%"
                                                                         text="{
                                                                             path: 'techModel>timestamp',
-                                                                            formatter:'.formatter.formatDateForTable'}"
+                                                                            formatter:'.formatter.formatDateForTable'
+                                                                        }"
                                                                 />
                                                                 <Text
                                                                         width="30%"
@@ -402,7 +403,8 @@
                                                                         width="20%"
                                                                         text="{
                                                                             path: 'techModel>timestamp',
-                                                                            formatter:'.formatter.formatDateForTable'}"
+                                                                            formatter:'.formatter.formatDateForTable'
+                                                                        }"
                                                                 />
                                                                 <Text
                                                                         width="30%"

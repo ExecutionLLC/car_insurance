@@ -30,12 +30,10 @@ sap.ui.define([
 
             return oModule._addLeadingZeroIfNeedIt(hours) + ":" + oModule._addLeadingZeroIfNeedIt(minutes);
         },
-        timestampToString: function(timestamp, addTime) {
-            var date = new Date(timestamp);
-
-            var result = oModule.dateObjToDateString(date);
+        dateObjToString: function(timestamp, addTime) {
+            var result = oModule.dateObjToDateString(timestamp);
             if (addTime) {
-                result = result + " " + oModule.dateObjToTimeString(date);
+                result = result + " " + oModule.dateObjToTimeString(timestamp);
             }
 
             return result;
@@ -180,9 +178,6 @@ sap.ui.define([
                     } :
                     {};
             router.navTo("menuPage", navToOptions, true);
-        },
-        getPerson1InfoUrl: function (snils) {
-            return Const.BASE_URL + "/person1/" + snils;
         },
         getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);

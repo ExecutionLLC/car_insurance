@@ -27,7 +27,7 @@ sap.ui.define([
         enableSelectButton: function(enable, nextMinTimeForChanges) {
             if (nextMinTimeForChanges) {
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible", true);
-                var message = Utils.timestampToString(nextMinTimeForChanges, true);
+                var message = Utils.dateObjToString(nextMinTimeForChanges, true);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", message);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", false);
             } else {
@@ -47,11 +47,11 @@ sap.ui.define([
 
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", insuranceOperations);
 
-            var firstPendedOperation = insuranceOperations.find(function(operation) {
+            var firstPendingOperation = insuranceOperations.find(function(operation) {
                 return operation.pending;
             });
 
-            if (firstPendedOperation) {
+            if (firstPendingOperation) {
                 var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);

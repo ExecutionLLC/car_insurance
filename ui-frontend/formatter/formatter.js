@@ -27,7 +27,7 @@ sap.ui.define([
         if (!lastInsurance) {
             return null;
         }
-        return new Date(lastInsurance.dateTo);
+        return lastInsurance.dateTo;
     }
 
     function findLastInsuranceNumber(insurances) {
@@ -89,23 +89,7 @@ sap.ui.define([
          * @return {string} дата в формате "дд.мм.гггг"
          */
         formatDateForTable: function (timestamp) {
-            return Utils.timestampToString(timestamp);
-        },
-
-        /**
-         * @description Форматирование значения зарплаты
-         * @param {number} amount - значение выплат
-         * @param {number} tariff - тариф
-         * @param {string} comment - назначение выплат
-         * @param {string} currencyCode - код валюты
-         * @return {number} - искомая зарплата с кодом валюты
-         */
-        formatAmountToSalary: function (amount, tariff, comment, currencyCode) {
-            if (/.*(процент)|(Interest).*/.test(comment)) {
-                return "";
-            }
-            var salary = amount/tariff*100.0;
-            return this.formatter.oCurrencyFormat.format(salary, currencyCode);
+            return Utils.dateObjToString(timestamp);
         },
 
         /**
@@ -161,9 +145,7 @@ sap.ui.define([
             if (!date) {
                 return '';
             }
-            return date.toLocaleDateString(
-                sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
-            );
+            return Utils.dateObjToDateString(date);
         },
 
         formatLastInsuranceNumber: function(insurances) {

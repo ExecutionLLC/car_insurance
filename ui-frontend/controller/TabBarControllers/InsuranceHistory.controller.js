@@ -10,7 +10,6 @@ sap.ui.define([
 
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
-            this.oTechModel = this.oComponent.getModel("techModel");
         },
 
         /**
@@ -24,26 +23,19 @@ sap.ui.define([
             var from = oEvent.getParameter("from");
             var to = oEvent.getParameter("to");
 
-            function sumOfAmount(array) {
-                return array.reduce(function(sum, current) {
-                    return sum + current.amount;
-                }, 0);
-            }
-
             if (from && to) {
-                var timestampFrom = from.valueOf();
-                var timestampTo = to.valueOf();
-
+                var dateFrom = new Date(from.valueOf());
+                var dateTo = new Date(to.valueOf());
                 var aFilters = [
                     new Filter({
                         path: "timestamp",
                         operator: sap.ui.model.FilterOperator.GE,
-                        value1: timestampFrom
+                        value1: dateFrom
                     }),
                     new Filter({
                         path: "timestamp",
                         operator: sap.ui.model.FilterOperator.LE,
-                        value1: timestampTo
+                        value1: dateTo
                     })
                 ];
                 // Запишем фильтр в массив фильтров

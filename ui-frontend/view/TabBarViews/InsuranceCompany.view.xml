@@ -227,9 +227,10 @@
                                                     textAlign="Center"
                                                     width="17%"
                                                     text="{
-                                                path: 'techModel>timestamp',
-                                                formatter:'.formatter.formatDateForTable'
-                                            }"/>
+                                                        path: 'techModel>timestamp',
+                                                        formatter:'.formatter.formatDateForTable'
+                                                    }"
+                                            />
                                             <Text
                                                     textAlign="Center"
                                                     width="32%"
