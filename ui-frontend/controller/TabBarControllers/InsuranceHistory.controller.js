@@ -10,7 +10,6 @@ sap.ui.define([
 
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
-            this.oTechModel = this.oComponent.getModel("techModel");
         },
 
         /**
