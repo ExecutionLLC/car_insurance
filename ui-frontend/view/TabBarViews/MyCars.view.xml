@@ -177,7 +177,13 @@
                         <content>
                             <layout:HorizontalLayout>
                                 <layout:VerticalLayout>
-                                    <Text text="CARICON" />
+                                    <Image
+                                            width="134px"
+                                            src="{
+                                                path: 'techModel>vehicleType',
+                                                formatter: '.formatter.formatCarTypeImage'
+                                            }"
+                                    />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
                                         <Text text="{path: 'techModel>vin'}" />
@@ -349,7 +355,13 @@
                         <content>
                             <layout:HorizontalLayout>
                                 <layout:VerticalLayout>
-                                    <Text text="CARICON" />
+                                    <Image
+                                            width="134px"
+                                            src="{
+                                                path: 'techModel>vehicleType',
+                                                formatter: '.formatter.formatCarTypeImage'
+                                            }"
+                                    />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
                                         <Text text="{path: 'techModel>vin'}" />
