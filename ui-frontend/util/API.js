@@ -52,6 +52,14 @@ sap.ui.define([
                 data: postDataString
             });
         },
+        salePersonCar: function(personId, carVin) {
+            return $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/cars/" + carVin,
+                dataType: "json",
+                type: "DELETE",
+                jsonp: false
+            });
+        },
         setPersonInsuranceCompany: function(personId, icId) {
             var putDataString = JSON.stringify({
                 id: icId

@@ -13,6 +13,21 @@ sap.ui.define([
         personModel.setProperty("/cars", newCars);
     }
 
+    function moveToSoldCar(personModel, carVin) {
+        var modelCars = personModel.getProperty("/cars") || [];
+        var modelSoldCars = personModel.getProperty("/soldCars") || [];
+        var foundCarIndex = modelCars.findIndex(function(car) {
+            return car.vin === carVin;
+        });
+        if (foundCarIndex < 0) {
+            return;
+        }
+        var foundCars = modelCars.splice(foundCarIndex, 1);
+        var newSoldCars = modelSoldCars.concat(foundCars);
+        personModel.setProperty("/cars", modelCars);
+        personModel.setProperty("/soldCars", newSoldCars);
+    }
+
     return Controller.extend("personal.account.controller.TabBarControllers.MyCars", {
         formatter: formatter,
 
@@ -106,7 +121,23 @@ sap.ui.define([
                 });
         },
 
-        onSellCar: function() {
+        onSellCar: function(oEvent) {
+            var sErrorText = this.getOwnerComponent().getModel("i18n")
+                .getResourceBundle()
+                .getText("msg.box.error");
+            var personModel = this.oPersonModel;
+            var operationsModel = this.oOperationsModel;
+            var personId = personModel.getProperty("/id");
+            var vin = oEvent.getSource().data("vin");
+            API.salePersonCar(personId, vin)
+                .then(function(soldCarOperations) {
+                    moveToSoldCar(personModel, vin);
+                    Utils.appendPendingOperations(operationsModel, soldCarOperations);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot sale car: textStatus = ", textStatus, "error = ", errorThrown);
+                    MessageBox.error(sErrorText);
+                });
         },
 
         onLinkPress: function (oEvent) {
