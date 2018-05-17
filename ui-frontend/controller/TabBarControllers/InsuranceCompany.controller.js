@@ -47,11 +47,11 @@ sap.ui.define([
 
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", insuranceOperations);
 
-            var firstPendedOperation = insuranceOperations.find(function(operation) { // TODO rename as pending
+            var firstPendingOperation = insuranceOperations.find(function(operation) {
                 return operation.pending;
             });
 
-            if (firstPendedOperation) {
+            if (firstPendingOperation) {
                 var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
