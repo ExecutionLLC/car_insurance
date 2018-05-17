@@ -27,7 +27,7 @@ sap.ui.define([
         enableSelectButton: function(enable, nextMinTimeForChanges) {
             if (nextMinTimeForChanges) {
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible", true);
-                var message = Utils.timestampToString(nextMinTimeForChanges, true);
+                var message = Utils.dateObjToString(nextMinTimeForChanges, true);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", message);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", false);
             } else {

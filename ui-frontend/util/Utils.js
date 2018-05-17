@@ -30,7 +30,7 @@ sap.ui.define([
 
             return oModule._addLeadingZeroIfNeedIt(hours) + ":" + oModule._addLeadingZeroIfNeedIt(minutes);
         },
-        timestampToString: function(timestamp, addTime) {
+        dateObjToString: function(timestamp, addTime) {
             var result = oModule.dateObjToDateString(timestamp);
             if (addTime) {
                 result = result + " " + oModule.dateObjToTimeString(timestamp);

@@ -89,7 +89,7 @@ sap.ui.define([
          * @return {string} дата в формате "дд.мм.гггг"
          */
         formatDateForTable: function (timestamp) {
-            return Utils.timestampToString(timestamp);
+            return Utils.dateObjToString(timestamp);
         },
 
         /**
