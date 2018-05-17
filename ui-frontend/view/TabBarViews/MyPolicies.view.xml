@@ -5,18 +5,11 @@
         xmlns:layout="sap.ui.layout"
         xmlns:core="sap.ui.core">
     <Page showHeader="false">
-        <Text text="My policies" />
         <layout:Grid width="100%">
-            <Button text="" press="onAddPolicy">
-                <layoutData>
-                    <layout:GridData span="L2 M4 S4" indent="L1 M3 S3" />
-                </layoutData>
-            </Button>
-            <Label text="{i18n>myPolicies.add}">
-                <layoutData>
-                    <layout:GridData span="L2 M4 S4" />
-                </layoutData>
-            </Label>
+            <layout:HorizontalLayout>
+                <Button text="" press="onAddPolicy"/>
+                <Label text="{i18n>myPolicies.add}" class="sapUiSmallMarginTop"/>
+            </layout:HorizontalLayout>
         </layout:Grid>
         <layout:Grid width="100%">
             <Label
@@ -24,6 +17,39 @@
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
             />
         </layout:Grid>
+
+        <layout:Grid width="100%" defaultSpan="XL6 L6 M6 S12">
+            <layout:HorizontalLayout>
+                <Label text="Автомобиль:" class="sapUiSmallMarginTop"/>
+                <Select change="onPolicyCarSelected" items="{personModel>/cars}">
+                    <items>
+                        <core:Item key="{personModel>vin}" text="{personModel>model}"/>
+                    </items>
+                </Select>
+            </layout:HorizontalLayout>
+
+
+            <layout:HorizontalLayout>
+                <Label text="Дата окончания действия:" class="sapUiSmallMarginTop"/>
+                <DatePicker id="policyDateTo" change="onPolicyDateSelected"/>
+            </layout:HorizontalLayout>
+
+            <layout:HorizontalLayout>
+                <Label text="Стоимость:" class="sapUiSmallMarginTop"/>
+                <Text/>
+            </layout:HorizontalLayout>
+
+            <Button text="Купить полис"
+                    press="onAddPolicyPress"
+                    enabled="{techModel>/tech/myPoliciesTab/isAddPolicyButtonEnabled}"
+            />
+
+            <ObjectStatus class="sapUiSmallMarginTop"
+                          state="{techModel>/tech/myPoliciesTab/infoTextState}"
+                          text="{techModel>/tech/myPoliciesTab/infoText}"
+            />
+        </layout:Grid>
+
         <Table showNoData="false">
             <columns>
                 <Column hAlign="Center" width="15%">
@@ -92,7 +118,7 @@
                                                     width="10%"
                                                     src="sap-icon://overlay"
                                                     color="{
-                                                        path: 'operationsModel>pending',
+                                                        path: 'policiesModel>pending',
                                                         formatter: '.formatter.formatTableItemPending'
                                                     }"
                                             />
@@ -106,7 +132,7 @@
                             <layout:VerticalLayout class="verticalLayout-margin_left">
                                 <layout:HorizontalLayout>
                                     <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
-                                    <Link text="{policiesModel>transactionHash}" press="onLinkPress"/>
+                                    <Link text="{policiesModel>transactionHash}" press="onTransactionInfoLinkPress"/>
                                 </layout:HorizontalLayout>
 
                                 <layout:HorizontalLayout>
@@ -180,7 +206,7 @@
                                                     width="10%"
                                                     src="sap-icon://overlay"
                                                     color="{
-                                                        path: 'operationsModel>pending',
+                                                        path: 'policiesModel>pending',
                                                         formatter: '.formatter.formatTableItemPending'
                                                     }"
                                             />
@@ -194,7 +220,7 @@
                             <layout:VerticalLayout class="verticalLayout-margin_left">
                                 <layout:HorizontalLayout>
                                     <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
-                                    <Link text="{policiesModel>transactionHash}" press="onLinkPress"/>
+                                    <Link text="{policiesModel>transactionHash}" press="onTransactionInfoLinkPress"/>
                                 </layout:HorizontalLayout>
 
                                 <layout:HorizontalLayout>

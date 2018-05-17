@@ -29,6 +29,13 @@ sap.ui.define([
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
                     insuranceCompaniesTableData: []
+                },
+                myPoliciesTab: {
+                    isAddPolicyButtonEnabled: false,
+                    nextPolicyCarVin: null,
+                    nextPolicyDateTo: null,
+                    infoTextState: "Error",
+                    infoText: ""
                 }
             }
         }
