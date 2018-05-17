@@ -52,6 +52,12 @@ sap.ui.define([
         },
 
         onAddCar: function() {
+        },
+
+        onLinkPress: function (oEvent) {
+            var transactionHash = oEvent.getSource().getProperty("text");
+            var langModel = this.getOwnerComponent().getModel("i18n");
+            Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         }
     });
 });
