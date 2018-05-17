@@ -30,6 +30,17 @@ sap.ui.define([
         return new Date(lastInsurance.dateTo);
     }
 
+    function findLastInsuranceNumber(insurances) {
+        if (!insurances) {
+            return null;
+        }
+        var lastInsurance = findLastInsurance(insurances);
+        if (!lastInsurance) {
+            return null;
+        }
+        return lastInsurance.insuranceNumber;
+    }
+
     function monthDiff(d1, d2) {
         if (d2 < d1) {
             return -1;
@@ -155,6 +166,10 @@ sap.ui.define([
             );
         },
 
+        formatLastInsuranceNumber: function(insurances) {
+            return findLastInsuranceNumber(insurances) || '';
+        },
+
         formatInsuranceColorStrip: function(insurances) {
 
             function color(monthsDoExpire) {
@@ -176,11 +191,18 @@ sap.ui.define([
             return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
         },
 
-        formatOperationName(operationType) {
+        formatOperationName: function(operationType) {
             var oBundle = this.getOwnerComponent()
                 .getModel("i18n")
                 .getResourceBundle();
             return oBundle.getText("operationType." + operationType);
+        },
+
+        formatCarType: function(carType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("CarTypes." + carType);
         }
     }
 

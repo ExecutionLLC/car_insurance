@@ -7,18 +7,6 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils, API) {
     "use strict";
 
-    function appendPendingOperations(operationsModel, operations) {
-        var modelOperations = operationsModel.getData();
-        var operationsArray = modelOperations.length ?
-            modelOperations :
-            [];
-        var pendingOperations = operations.map(function(operation) {
-            return Object.assign({}, operation, {pending: true});
-        });
-        var newOperations = operationsArray.concat(pendingOperations);
-        operationsModel.setData(newOperations);
-    }
-
     return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
         formatter: formatter,
 
@@ -139,7 +127,7 @@ sap.ui.define([
                 var self = this;
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
                     .then(function(responceOperations) {
-                        appendPendingOperations(operationsModel, responceOperations);
+                        Utils.appendPendingOperations(operationsModel, responceOperations);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
                         console.error("Cannot change insurance company: textStatus = ", textStatus, "error = ", errorThrown);

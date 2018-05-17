@@ -2,8 +2,465 @@
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:layout="sap.ui.layout"
-          xmlns:core="sap.ui.core">
+          xmlns:core="sap.ui.core"
+          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
-        <Text text="My cars" />
+        <layout:Grid width="100%">
+            <Button
+                    text=""
+                    press="onAddCar"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" indent="L1 M3 S3" />
+                </layoutData>
+            </Button>
+            <Label text="{i18n>mycars.add}">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" />
+                </layoutData>
+            </Label>
+        </layout:Grid>
+
+        <layout:HorizontalLayout
+                visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
+                width="100%"
+        >
+            <layout:VerticalLayout
+                    width="50%"
+            >
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.vin}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="vinInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.model}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="modelInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.type}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Select
+                                id="typeInput"
+                                items="{
+                                    path: 'techModel>/tech/myCarsTab/carTypes'
+                                }"
+                        >
+                            <core:Item
+                                    key="{techModel>id}"
+                                    text="{
+                                        path: 'techModel>id',
+                                        formatter: '.formatter.formatCarType'
+                                    }"
+                            />
+                        </Select>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </layout:VerticalLayout>
+            <layout:VerticalLayout
+                    width="50%"
+            >
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.numberPlate}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="numberPlateInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.power}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="powerInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.year}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="yearInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <Button
+                        width="100%"
+                        press="onAddSelectedCar"
+                        text="{i18n>mycars.addCar.add}"
+                />
+            </layout:VerticalLayout>
+        </layout:HorizontalLayout>
+
+        <layout:Grid width="100%">
+            <Label
+                    text="{i18n>mycars.mycars}"
+                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+        <Table
+                items="{
+                    path: 'techModel>/tech/myCarsTab/cars'
+                }"
+        >
+            <columns>
+                <Column
+                        hAlign="Center">
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <Panel expandable="true">
+                        <headerToolbar>
+                            <Toolbar>
+                                <content>
+                                    <Text
+                                            width="25%"
+                                            text="{techModel>model}"
+                                    />
+                                    <layout:VerticalLayout width="30%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
+                                            <Text text="{
+                                                            path: 'techModel>insurances',
+                                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                                        }"
+                                            />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="30%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
+                                            <Text text="{
+                                                            path: 'techModel>insurances',
+                                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                                        }"
+                                        />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:HorizontalLayout>
+                                <layout:VerticalLayout>
+                                    <Text text="CARICON" />
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.vin}" />
+                                        <Text text="{path: 'techModel>vin'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.numberPlate}" />
+                                        <Text text="{path: 'techModel>numberPlate'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.power}" />
+                                        <Text text="{path: 'techModel>maxPower'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.year}" />
+                                        <Text text="{path: 'techModel>year'}" />
+                                    </HBox>
+                                    <Button
+                                            text="{i18n>mycars.carInfo.sell}"
+                                            app:vin="{path: 'techModel>vin'}"
+                                            press="onSellCar"
+                                    />
+                                </layout:VerticalLayout>
+                                <layout:VerticalLayout>
+                                    <Label
+                                            text="{i18n>mycars.carInfo.history}"
+                                            class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    />
+                                    <Table
+                                            items="{
+                                                path: 'techModel>operations'
+                                            }"
+                                    >
+                                        <columns>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <CustomListItem>
+                                                <Panel
+                                                        expandable="true"
+                                                        expand="false"
+                                                        width="auto">
+                                                    <headerToolbar>
+                                                        <Toolbar
+                                                                width="100%">
+                                                            <content>
+                                                                <Text
+                                                                        textAlign="Left"
+                                                                        width="20%"
+                                                                        text="{
+                                                                            path: 'techModel>timestamp',
+                                                                            formatter:'.formatter.formatDateForTable'}"
+                                                                />
+                                                                <Text
+                                                                        width="30%"
+                                                                        textAlign="Center"
+                                                                        text="{
+                                                                            path: 'techModel>operationType',
+                                                                            formatter: '.formatter.formatOperationName'
+                                                                        }"
+                                                                />
+                                                                <core:Icon
+                                                                        width="10%"
+                                                                        src="sap-icon://overlay"
+                                                                        color="{
+                                                                            path: 'techModel>pending',
+                                                                            formatter: '.formatter.formatTableItemPending'
+                                                                        }"
+                                                                />
+                                                            </content>
+                                                        </Toolbar>
+                                                    </headerToolbar>
+                                                    <content>
+                                                        <layout:VerticalLayout
+                                                                class="verticalLayout_ic-margin_left">
+                                                            <layout:HorizontalLayout>
+                                                                <Label text="{i18n>mycars.carInfo.history.transactionId}">
+                                                                </Label>
+                                                                <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                                                </Link>
+                                                            </layout:HorizontalLayout>
+
+                                                            <layout:HorizontalLayout>
+                                                                <Label text="{i18n>mycars.carInfo.history.sender}">
+                                                                </Label>
+                                                                <Text text="{techModel>transactionFrom}">
+                                                                </Text>
+                                                            </layout:HorizontalLayout>
+
+                                                            <layout:HorizontalLayout width="100%">
+                                                                <Label text="{i18n>mycars.carInfo.history.confirmationsNumber}">
+                                                                </Label>
+                                                                <Text text="{
+                                                                                path: 'techModel>pending',
+                                                                                formatter: '.formatter.formatNumberOfConfirmations'
+                                                                            }"
+                                                                />
+                                                            </layout:HorizontalLayout>
+                                                        </layout:VerticalLayout>
+                                                    </content>
+                                                </Panel>
+                                            </CustomListItem>
+                                        </items>
+                                    </Table>
+                                </layout:VerticalLayout>
+                            </layout:HorizontalLayout>
+                        </content>
+                    </Panel>
+                </ColumnListItem>
+            </items>
+        </Table>
+        <layout:Grid width="100%">
+            <Label
+                    text="{i18n>mycars.history}"
+                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+        <Table
+                items="{
+                    path: 'techModel>/tech/myCarsTab/soldCars'
+                }"
+        >
+            <columns>
+                <Column
+                        hAlign="Center">
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <Panel expandable="true">
+                        <headerToolbar>
+                            <Toolbar>
+                                <content>
+                                    <Text
+                                            width="25%"
+                                            text="{techModel>model}"
+                                    />
+                                    <layout:VerticalLayout width="30%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
+                                            <Text text="{
+                                                            path: 'techModel>insurances',
+                                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                                        }"
+                                            />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                    <layout:VerticalLayout width="30%">
+                                        <layout:HorizontalLayout>
+                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
+                                            <Text text="{
+                                                            path: 'techModel>insurances',
+                                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                                        }"
+                                            />
+                                        </layout:HorizontalLayout>
+                                    </layout:VerticalLayout>
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:HorizontalLayout>
+                                <layout:VerticalLayout>
+                                    <Text text="CARICON" />
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.vin}" />
+                                        <Text text="{path: 'techModel>vin'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.numberPlate}" />
+                                        <Text text="{path: 'techModel>numberPlate'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.power}" />
+                                        <Text text="{path: 'techModel>maxPower'}" />
+                                    </HBox>
+                                    <HBox justifyContent="SpaceBetween">
+                                        <Text text="{i18n>mycars.carInfo.year}" />
+                                        <Text text="{path: 'techModel>year'}" />
+                                    </HBox>
+                                </layout:VerticalLayout>
+                                <layout:VerticalLayout>
+                                    <Label
+                                            text="{i18n>mycars.carInfo.history}"
+                                            class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    />
+                                    <Table
+                                            items="{
+                                                path: 'techModel>operations'
+                                            }"
+                                    >
+                                        <columns>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <CustomListItem>
+                                                <Panel
+                                                        expandable="true"
+                                                        expand="false"
+                                                        width="auto">
+                                                    <headerToolbar>
+                                                        <Toolbar
+                                                                width="100%">
+                                                            <content>
+                                                                <Text
+                                                                        textAlign="Left"
+                                                                        width="20%"
+                                                                        text="{
+                                                                            path: 'techModel>timestamp',
+                                                                            formatter:'.formatter.formatDateForTable'}"
+                                                                />
+                                                                <Text
+                                                                        width="30%"
+                                                                        textAlign="Center"
+                                                                        text="{
+                                                                            path: 'techModel>operationType',
+                                                                            formatter: '.formatter.formatOperationName'
+                                                                        }"
+                                                                />
+                                                                <core:Icon
+                                                                        width="10%"
+                                                                        src="sap-icon://overlay"
+                                                                        color="{
+                                                                            path: 'techModel>pending',
+                                                                            formatter: '.formatter.formatTableItemPending'
+                                                                        }"
+                                                                />
+                                                            </content>
+                                                        </Toolbar>
+                                                    </headerToolbar>
+                                                    <content>
+                                                        <layout:VerticalLayout
+                                                                class="verticalLayout_ic-margin_left">
+                                                            <layout:HorizontalLayout>
+                                                                <Label text="{i18n>mycars.carInfo.history.transactionId}">
+                                                                </Label>
+                                                                <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                                                </Link>
+                                                            </layout:HorizontalLayout>
+
+                                                            <layout:HorizontalLayout>
+                                                                <Label text="{i18n>mycars.carInfo.history.sender}">
+                                                                </Label>
+                                                                <Text text="{techModel>transactionFrom}">
+                                                                </Text>
+                                                            </layout:HorizontalLayout>
+
+                                                            <layout:HorizontalLayout width="100%">
+                                                                <Label text="{i18n>mycars.carInfo.history.confirmationsNumber}">
+                                                                </Label>
+                                                                <Text text="{
+                                                                                path: 'techModel>pending',
+                                                                                formatter: '.formatter.formatNumberOfConfirmations'
+                                                                            }"
+                                                                />
+                                                            </layout:HorizontalLayout>
+                                                        </layout:VerticalLayout>
+                                                    </content>
+                                                </Panel>
+                                            </CustomListItem>
+                                        </items>
+                                    </Table>
+                                </layout:VerticalLayout>
+                            </layout:HorizontalLayout>
+                        </content>
+                    </Panel>
+                </ColumnListItem>
+            </items>
+        </Table>
     </Page>
 </mvc:View>

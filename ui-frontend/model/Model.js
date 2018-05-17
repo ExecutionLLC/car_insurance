@@ -29,6 +29,12 @@ sap.ui.define([
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
                     insuranceCompaniesTableData: []
+                },
+                myCarsTab: {
+                    isNewCarInfoVisible: false,
+                    carTypes: [],
+                    cars: [],
+                    soldCars: []
                 }
             }
         }
