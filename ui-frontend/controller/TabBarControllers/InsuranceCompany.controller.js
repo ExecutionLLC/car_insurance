@@ -70,7 +70,7 @@ sap.ui.define([
 
             var lastOperation = insuranceOperations[insuranceOperations.length - 1];
             var nextMinTimeForChanges = lastOperation ?
-                +new Date(lastOperation.timestamp) + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY :
+                new Date(+lastOperation.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY) :
                 null;
             var currentTime = new Date();
             if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
@@ -89,7 +89,7 @@ sap.ui.define([
             }
         },
 
-        onSelectButton: function (oEvent) {
+        onSelectButton: function () {
             var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
         },
