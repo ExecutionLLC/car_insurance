@@ -89,7 +89,7 @@ sap.ui.define([
             }
         },
 
-        onSelectButton: function (oEvent) {
+        onSelectButton: function () {
             var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
         },
