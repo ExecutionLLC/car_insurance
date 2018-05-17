@@ -69,8 +69,8 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:Grid>
-                                <layout:VerticalLayout width="100%">
+                            <layout:HorizontalLayout>
+                                <layout:VerticalLayout>
                                     <Text text="CARICON" />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
@@ -110,18 +110,42 @@
                                             <Column
                                                     hAlign="Center">
                                             </Column>
+                                            <Column
+                                                    hAlign="Center">
+                                            </Column>
                                         </columns>
                                         <items>
                                             <ColumnListItem>
                                                 <cells>
-                                                    <Label text="{techModel>id}" />
-                                                    <Label text="{techModel>operationType}" />
+                                                    <Text
+                                                            textAlign="Left"
+                                                            width="20%"
+                                                            text="{
+                                                                path: 'techModel>timestamp',
+                                                                formatter:'.formatter.formatDateForTable'}"
+                                                    />
+                                                    <Text
+                                                            width="30%"
+                                                            textAlign="Center"
+                                                            text="{
+                                                                path: 'techModel>operationType',
+                                                                formatter: '.formatter.formatOperationName'
+                                                            }"
+                                                    />
+                                                    <core:Icon
+                                                            width="10%"
+                                                            src="sap-icon://overlay"
+                                                            color="{
+                                                                path: 'techModel>pending',
+                                                                formatter: '.formatter.formatTableItemPending'
+                                                            }"
+                                                    />
                                                 </cells>
                                             </ColumnListItem>
                                         </items>
                                     </Table>
                                 </layout:VerticalLayout>
-                            </layout:Grid>
+                            </layout:HorizontalLayout>
                         </content>
                     </Panel>
                 </ColumnListItem>
