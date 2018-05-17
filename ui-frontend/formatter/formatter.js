@@ -93,22 +93,6 @@ sap.ui.define([
         },
 
         /**
-         * @description Форматирование значения зарплаты
-         * @param {number} amount - значение выплат
-         * @param {number} tariff - тариф
-         * @param {string} comment - назначение выплат
-         * @param {string} currencyCode - код валюты
-         * @return {number} - искомая зарплата с кодом валюты
-         */
-        formatAmountToSalary: function (amount, tariff, comment, currencyCode) {
-            if (/.*(процент)|(Interest).*/.test(comment)) {
-                return "";
-            }
-            var salary = amount/tariff*100.0;
-            return this.formatter.oCurrencyFormat.format(salary, currencyCode);
-        },
-
-        /**
          * @description Форматирование рядов в таблице возможных с.к. для вкладки "Смена с.к." (не отображает текущий с.к. в таблице выбора)
          * @param icAddress - адреса с.к.
          * @param currentICAddress - текущий адрес
