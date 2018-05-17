@@ -56,26 +56,27 @@ sap.ui.define([
                 case int <= 2:
                     return {
                         symbol    : "AA+",
-                        description: "Высокая надежность",
+                        description: "high",
                         imageSrc  : "./image/rating/AAplus.jpg"
                     };
                 case int <= 4:
                     return {
                         symbol    : "AAA",
-                        description: "Наивысшая надежность",
+                        description: "higher",
                         imageSrc  : "./image/rating/AAA.jpg"
                     };
                 case int > 4:
                     return {
                         symbol    : "AAA+",
-                        description: "Наивысшая надежность",
+                        description: "highest",
                         imageSrc  : "./image/rating/AAAplus.jpg"
                     };
                 default:
                     return {
                         symbol: "?",
-                        description: "Неизвестен",
-                        imageSrc  : "./image/rating/unknown.jpg"
+                        description: "unknown",
+                        imageSrc  : "./image/rating/unknown.jpg",
+                        color: "gray"
                     };
             }
         },

@@ -127,12 +127,20 @@ sap.ui.define([
         formatICAddressToReliabilityString: function (icAddress) {
             var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
-            return oICRating.description + ' (' + oICRating.symbol + ')';
+            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
         },
 
-        formatReliabilityString: function (rating) {
+        formatReliabilityDescription: function(rating) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
             var oICRating = Utils.conversionICRating(rating);
-            return oICRating.symbol + ' (' + oICRating.description + ')';
+            return oBundle.getText("InsuranceReliability." + oICRating.description);
+        },
+
+        formatReliabilityString: function(rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            return oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
         },
 
         formatTableItemPending: function (isPending) {
