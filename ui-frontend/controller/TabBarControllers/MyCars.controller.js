@@ -1,8 +1,30 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "personal/account/formatter/formatter"
-], function (Controller, formatter) {
+    "sap/m/MessageBox",
+    "personal/account/formatter/formatter",
+    "personal/account/util/API",
+    "personal/account/util/Utils"
+], function (Controller, MessageBox, formatter, API, Utils) {
     "use strict";
+
+    // TODO move to utils
+    function appendPendingOperations(operationsModel, operations) {
+        var modelOperations = operationsModel.getData();
+        var operationsArray = modelOperations.length ?
+            modelOperations :
+            [];
+        var pendingOperations = operations.map(function(operation) {
+            return Object.assign({}, operation, {pending: true});
+        });
+        var newOperations = operationsArray.concat(pendingOperations);
+        operationsModel.setData(newOperations);
+    }
+
+    function appendCar(personModel, carInfo) {
+        var modelCars = personModel.getProperty("/cars") || [];
+        var newCars = modelCars.concat([carInfo]);
+        personModel.setProperty("/cars", newCars);
+    }
 
     return Controller.extend("personal.account.controller.TabBarControllers.MyCars", {
         formatter: formatter,
@@ -54,6 +76,47 @@ sap.ui.define([
         onAddCar: function() {
             var isNewCarInfoVisible = !this.oTechModel.getProperty("/tech/myCarsTab/isNewCarInfoVisible");
             this.oTechModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", isNewCarInfoVisible);
+        },
+
+        onAddSelectedCar: function() {
+
+            var oView = this.getView();
+            var operationsModel = this.oOperationsModel;
+            var techModel = this.oTechModel;
+            var personModel = this.oPersonModel;
+
+            var sErrorText = this.getOwnerComponent().getModel("i18n")
+                .getResourceBundle()
+                .getText("msg.box.error");
+
+            function getInputText(inputId) {
+                var oInput = oView.byId(inputId);
+                if (oInput) {
+                    return oInput.getValue();
+                }
+            }
+
+            var carInfo = {
+                vin: getInputText("vinInput"),
+                vehicleType: getInputText("typeInput"),
+                model: getInputText("modelInput"),
+                maxPower: getInputText("powerInput"),
+                year: getInputText("yearInput"),
+                numberPlate: getInputText("numberPlateInput")
+            };
+
+            var personId = this.oPersonModel.getProperty("/id");
+
+            API.addPersonCar(personId, carInfo)
+                .then(function(addCarOperations) {
+                    appendCar(personModel, carInfo);
+                    appendPendingOperations(operationsModel, addCarOperations);
+                    techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("Cannot add car: textStatus = ", textStatus, "error = ", errorThrown);
+                    MessageBox.error(sErrorText);
+                });
         },
 
         onSellCar: function() {
