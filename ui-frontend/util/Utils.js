@@ -181,9 +181,6 @@ sap.ui.define([
                     {};
             router.navTo("menuPage", navToOptions, true);
         },
-        getPerson1InfoUrl: function (snils) { // TODO remove
-            return Const.BASE_URL + "/person1/" + snils;
-        },
         getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             return storage.get(STORAGE_KEY.LAST_USERID);

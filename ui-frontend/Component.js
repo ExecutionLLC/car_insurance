@@ -9,52 +9,6 @@ sap.ui.define([
 ], function (UIComponent, JSONModel, Model, MessageBox, Const, Utils, API) {
     "use strict";
 
-    var $ = {
-        ajax: function(opts) {
-            var isPerson = /\/person1\//.test(opts.url);
-            console.log('Component ajax', opts, isPerson);
-
-            if (!isPerson) {
-                return jQuery.ajax(opts);
-            }
-
-            var doneF = function() {};
-            var failF = function() {};
-            var alwaysF = function() {};
-            var res = {
-                done: function(f) {
-                    doneF = f;
-                    return res;
-                },
-                fail: function(f) {
-                    failF = f;
-                    return res;
-                },
-                always: function(f) {
-                    alwaysF = f;
-                    return res;
-                }
-            };
-
-            setTimeout(
-                function() {
-                    if (isPerson) {
-                        doneF({
-                            "tariff": 6,
-                            "pensionForecast": "23270.25"
-                        });
-                    } else {
-                        failF(null, 'textStatus', 'errorThrown');
-                    }
-                    alwaysF();
-                },
-                1000
-            );
-
-            return res;
-        }
-    };
-
     return UIComponent.extend("personal.account.Component", {
         metadata: {
             manifest: "json"
@@ -67,7 +21,6 @@ sap.ui.define([
         },
         init: function () {
             this.setModel(new JSONModel(), "personModel");
-            this.setModel(new JSONModel(), "mainModel");
             this.setModel(new JSONModel(Model.modelStructure), "techModel");
             this.setModel(new JSONModel(), "icModel");
             this.setModel(new JSONModel(), "operationsModel");
@@ -106,7 +59,6 @@ sap.ui.define([
                     .getText("msg.box.error");
 
             var oPersonModel = this.getModel("personModel");
-            var oMainModel = this.getModel("mainModel");
             var oICModel = this.getModel("icModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
@@ -125,17 +77,6 @@ sap.ui.define([
                     });
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                self.showNetworkErrorMessage();
-            });
-
-            $.ajax({
-                url: Utils.getPerson1InfoUrl(userId),
-                dataType: "json"
-            }).done(function (person1InfoResult) {
-                oMainModel.setData(person1InfoResult);
-                Utils.saveLastUserId(userId);
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
                 self.showNetworkErrorMessage();
             });
         },
