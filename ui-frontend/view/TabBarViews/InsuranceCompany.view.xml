@@ -112,9 +112,6 @@
                     <Text text="{i18n>insuranceCompany.chg.tab.reliabilityRating}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>insuranceCompany.chg.tab.revenueRating}"/>
-                </Column>
-                <Column hAlign="Center">
                     <Text text="{i18n>insuranceCompany.chg.tab.website}"/>
                 </Column>
             </columns>
@@ -138,7 +135,6 @@
                                         formatter: '.formatter.formatICAddressToReliabilityString'
                                     }"
                         />
-                        <Text text="{icModel>rating}"/>
                         <core:Icon
                                 src="sap-icon://hello-world"
                                 press="onIconPress"
