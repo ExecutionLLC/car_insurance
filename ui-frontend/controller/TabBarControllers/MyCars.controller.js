@@ -92,7 +92,7 @@ sap.ui.define([
                 numberPlate: getInputText("numberPlateInput")
             };
 
-            var personId = this.oPersonModel.getProperty("/id");
+            var personId = personModel.getProperty("/id");
 
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
