@@ -27,7 +27,7 @@
                             key="InsuranceHistory"/>
                     <IconTabFilter
                             text="{i18n>toolbarIcon.myAutos}"
-                            key="MyAutos"/>
+                            key="MyCars"/>
                     <IconTabFilter
                             text="{i18n>toolbarIcon.myPolicies}"
                             key="MyPolicies"/>
@@ -45,7 +45,7 @@
                 height="calc(100% - 3rem - 1px)">
             <mvc:XMLView id="Profile" viewName="personal.account.view.TabBarViews.Profile"/>
             <mvc:XMLView id="InsuranceHistory" viewName="personal.account.view.TabBarViews.InsuranceHistory"/>
-            <mvc:XMLView id="MyAutos" viewName="personal.account.view.TabBarViews.ChangeTariff"/>
+            <mvc:XMLView id="MyCars" viewName="personal.account.view.TabBarViews.MyCars"/>
             <mvc:XMLView id="MyPolicies" viewName="personal.account.view.TabBarViews.MyPolicies"/>
             <mvc:XMLView id="MyInsuranceCompany" viewName="personal.account.view.TabBarViews.InsuranceCompany"/>
 

@@ -132,26 +132,8 @@ sap.ui.define([
             return oICRating.description + ' (' + oICRating.symbol + ')';
         },
 
-        /**
-         * @description Форматирование цвета статуса смены состояния
-         * @param {boolean} isFinished - закрончена ли операция
-         * @return {string} - цвет
-         */
-        formatTableItemStatus: function (isFinished) {
-            return isFinished ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
-        },
-
         formatTableItemPending: function (isPending) {
             return !isPending ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
-        },
-
-        /**
-         * @description Вывод числа подтверждений
-         * @param {boolean} isFinished - выполнение запроса
-         * @return {number} - номер
-         */
-        formatNumberOfConformations: function(isFinished) {
-            return isFinished ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
         },
 
         formatNumberOfConfirmations: function(isPending) {

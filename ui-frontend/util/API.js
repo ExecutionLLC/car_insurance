@@ -13,6 +13,12 @@ sap.ui.define([
                 data: JSON.stringify({email: email, password: password})
             });
         },
+        getTransaction: function(hash) {
+            return $.ajax({
+                url: Const.BASE_URL + "/transaction/" + hash,
+                dataType: "json"
+            });
+        },
         getPerson: function(personId) {
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId,
