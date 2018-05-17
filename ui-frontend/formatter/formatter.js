@@ -145,9 +145,7 @@ sap.ui.define([
             if (!date) {
                 return '';
             }
-            return date.toLocaleDateString(
-                sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
-            );
+            return Utils.dateObjToDateString(date);
         },
 
         formatLastInsuranceNumber: function(insurances) {
