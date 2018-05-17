@@ -1,7 +1,6 @@
-<mvc:View controllerName="personal.account.controller.TabBarControllers.NPF"
+<mvc:View controllerName="personal.account.controller.TabBarControllers.InsuranceCompany"
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
-          xmlns:form="sap.ui.layout.form"
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
           displayBlock="true"
@@ -9,7 +8,7 @@
     <Page showHeader="false">
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>npf.currentNpf}">
+                   text="{i18n>insuranceCompany.currentInsuranceCompany}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
                 </layoutData>
@@ -17,8 +16,8 @@
             <Text
                     class="sapUiSmallMarginTop text-bold"
                     text="{
-                        path:'mainModel>/npf',
-                        formatter:'.formatter.formatNpfAddressToName'
+                        path:'personModel>/insuranceCompanyId',
+                        formatter:'.formatter.formatICAddressToName'
                     }"
             >
                 <layoutData>
@@ -27,15 +26,15 @@
             </Text>
             <Label
                     class="sapUiSmallMarginTop"
-                    text="{i18n>npf.ratingOfReliability}">
+                    text="{i18n>insuranceCompany.ratingOfReliability}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4"/>
                 </layoutData>
             </Label>
             <Text class="sapUiSmallMarginTop"
                   text="{
-                    path:'mainModel>/npf',
-                    formatter:'.formatter.formatNpfRating'
+                    path:'personModel>/insuranceCompanyId',
+                    formatter:'.formatter.formatICAddressToReliabilityString'
                   }">
                 <layoutData>
                     <layout:GridData
@@ -45,30 +44,30 @@
         </layout:Grid>
         <layout:Grid width="100%">
             <Label class="sapUiSmallMarginTop"
-                   text="{i18n>npf.newNpf}"
+                   text="{i18n>insuranceCompany.newInsuranceCompany}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
                 </layoutData>
             </Label>
             <Text class="sapUiSmallMarginTop text-bold"
-                  text="{techModel>/tech/changeNpfTab/selectedNpf}"
+                  text="{techModel>/tech/insuranceCompanyTab/selectedInsuranceCompany}"
             >
                 <layoutData>
                     <layout:GridData span="L4 M4 S4"/>
                 </layoutData>
             </Text>
-            <Label id="changeNpfLabel"
-                   class="sapUiSmallMarginTop"
-                   text="{i18n>npf.possibleDate}"
-                   visible="{techModel>/tech/changeNpfTab/isNextMinTimeForChangeLabelVisible}"
+            <Label
+                    class="sapUiSmallMarginTop"
+                    text="{i18n>insuranceCompany.possibleDate}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible}"
             >
                 <layoutData>
                     <layout:GridData span="L3 M4 S4"/>
                 </layoutData>
             </Label>
             <Text class="sapUiSmallMarginTop"
-                  text="{techModel>/tech/changeNpfTab/nextMinTimeForChangeMessage}"
+                  text="{techModel>/tech/insuranceCompanyTab/nextMinTimeForChangeMessage}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M4 S4"/>
@@ -78,8 +77,8 @@
         <layout:Grid width="100%">
             <ObjectStatus
                     class="sapUiSmallMarginTop"
-                    text="{techModel>/tech/changeNpfTab/changeNpfMessage}"
-                    state="{techModel>/tech/changeNpfTab/changeNpfMessageType}">
+                    text="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessage}"
+                    state="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType}">
                 <layoutData>
                     <layout:GridData
                             span="L5 M3 S7"
@@ -88,8 +87,8 @@
             </ObjectStatus>
             <Button width="100%"
                     press="onSelectButton"
-                    text="{i18n>npf.button.chooseNpf}"
-                    enabled="{techModel>/tech/changeNpfTab/isSelectButtonEnabled}"
+                    text="{i18n>insuranceCompany.chooseInsuranceCompany}"
+                    enabled="{techModel>/tech/insuranceCompanyTab/isSelectButtonEnabled}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>
@@ -98,47 +97,48 @@
         </layout:Grid>
 
 
-        <!--Таблица для выбора нового НПФ-->
-        <Table visible="{techModel>/tech/changeNpfTab/isNextNpfTableVisible}"
-               items="{
-                    path:'npfModel>/'
-
-               }"
+        <!--Таблица для выбора новой с.к.-->
+        <Table
+                visible="{techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible}"
+                items="{
+                    path:'icModel>/'
+                }"
         >
             <columns>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.npf}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.insuranceCompany}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.reliabilityRating}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.reliabilityRating}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.revenueRating}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.revenueRating}"/>
                 </Column>
                 <Column hAlign="Center">
-                    <Text text="{i18n>npf.chg.tab.website}"/>
+                    <Text text="{i18n>insuranceCompany.chg.tab.website}"/>
                 </Column>
             </columns>
 
             <items>
-                <ColumnListItem visible="{
-                                    parts:[
-                                        {path:'npfModel>address'},
-                                        {path:'mainModel>/npf'}
-                                    ],
-                                    formatter:'.formatter.formatColumnListItem'
-                                }"
-                                type="Active"
-                                press="onSelectNpfTableItem"
+                <ColumnListItem
+                        visible="{
+                            parts: [
+                                {path: 'icModel>id'},
+                                {path: 'personModel>/insuranceCompanyId'}
+                            ],
+                            formatter: '.formatter.formatICColumnListItem'
+                        }"
+                        type="Active"
+                        press="onSelectInsuranceCompanyTableItem"
                 >
                     <cells>
-                        <Text text="{npfModel>name}"/>
+                        <Text text="{icModel>name}" />
                         <Text text="{
-                                        path:'npfModel>address',
-                                        formatter:'.formatter.formatNpfRating'
+                                        path: 'icModel>id',
+                                        formatter: '.formatter.formatICAddressToReliabilityString'
                                     }"
                         />
-                        <Text text="{npfModel>ratingOfIncomeRate}"/>
+                        <Text text="{icModel>rating}"/>
                         <core:Icon
                                 src="sap-icon://hello-world"
                                 press="onIconPress"
@@ -150,14 +150,14 @@
 
         <!--конец-->
 
-        <!--доп контейнер подтверждения смены НПФ-->
+        <!--доп контейнер подтверждения смены с.к.-->
         <layout:Grid>
 
             <Button
                     width="100%"
                     press="onApplyButton"
-                    text="{techModel>/tech/changeNpfTab/applyButtonText}"
-                    visible="{techModel>/tech/changeNpfTab/isApplyButtonVisible}">
+                    text="{techModel>/tech/insuranceCompanyTab/applyButtonText}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}">
                 <layoutData>
                     <layout:GridData
                             span="L2 M3 S7"
@@ -167,7 +167,7 @@
         </layout:Grid>
         <!--конец-->
         <Label
-                text="{i18n>npf.npfHistory}"
+                text="{i18n>insuranceCompany.insuranceCompanyHistory}"
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
         <!--Таблица-->
         <ScrollContainer vertical="false" horizontal="true">
@@ -175,17 +175,17 @@
                     showNoData="false">
                 <columns>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.operationDate}"/>
+                        <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.npf}"/>
+                        <Text text="{i18n>insuranceCompany.tab.insuranceCompany}"/>
                     </Column>
                     <Column
                             hAlign="Center">
-                        <Text text="{i18n>npf.tab.status}"/>
+                        <Text text="{i18n>insuranceCompany.tab.status}"/>
                     </Column>
                     <Column hAlign="Center">
-                        <Text text="{i18n>npf.tab.check}"/>
+                        <Text text="{i18n>insuranceCompany.tab.check}"/>
                     </Column>
                 </columns>
             </Table>
@@ -193,7 +193,7 @@
 
                 <Table
                         items="{
-                            path:'techModel>/tech/changeNpfTab/npfTableData',
+                            path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
                             sorter : {
                                 path : 'timestamp',
                                 descending:true
@@ -232,45 +232,46 @@
                                             }"/>
                                             <Text
                                                     textAlign="Center"
-                                                    key="{techModel>npf}"
                                                     width="32%"
                                                     text="{
-                                                path:'techModel>npf',
-                                                formatter:'.formatter.formatNpfAddressToName'
-                                            }"/>
+                                                        path:'techModel>operationData/newId',
+                                                        formatter:'.formatter.formatICAddressToName'
+                                                    }"
+                                            />
                                             <core:Icon
                                                     width="17%"
                                                     src="sap-icon://overlay"
                                                     color="{
-                                        path: 'techModel>isFinished',
-                                        formatter: '.formatter.formatTableItemStatus'
-                                   }"/>
+                                                        path: 'techModel>pending',
+                                                        formatter: '.formatter.formatTableItemPending'
+                                                    }"
+                                            />
                                         </content>
                                     </Toolbar>
                                 </headerToolbar>
                                 <content>
                                     <layout:VerticalLayout
-                                            class="verticalLayout_tariff_npf-margin_left">
+                                            class="verticalLayout_ic-margin_left">
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>npf.tab.exp.transactionId}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
                                             </Label>
                                             <Link text="{techModel>transactionHash}" press="onLinkPress">
                                             </Link>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout>
-                                            <Label text="{i18n>npf.tab.exp.sender}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.sender}">
                                             </Label>
-                                            <Text text="{mainModel>/metadata/address}">
+                                            <Text text="{techModel>transactionFrom}">
                                             </Text>
                                         </layout:HorizontalLayout>
 
                                         <layout:HorizontalLayout width="100%">
-                                            <Label text="{i18n>npf.tab.exp.confirmationsNumber}">
+                                            <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
                                             </Label>
                                             <Text text="{
-                                                            path: 'techModel>isFinished',
-                                                            formatter: '.formatter.formatNumberOfConformations'
+                                                            path: 'techModel>pending',
+                                                            formatter: '.formatter.formatNumberOfConfirmations'
                                                         }"
                                             />
                                         </layout:HorizontalLayout>

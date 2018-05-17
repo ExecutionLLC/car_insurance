@@ -3,7 +3,7 @@ sap.ui.define([
     "personal/account/formatter/formatter"
 ], function (Controller, formatter) {
     "use strict";
-    return Controller.extend("personal.account.controller.TabBarControllers.Profile", {
+    return Controller.extend("personal.account.controller.TabBarControllers.MyPolicies", {
         formatter: formatter
     });
 });

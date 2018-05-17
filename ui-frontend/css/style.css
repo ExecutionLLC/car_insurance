@@ -1,6 +1,5 @@
 .form-margin {
-	margin-left: 35%;
-	margin-top: 10%;
+  margin: 30px auto;
 }
 .label-position {
 	font-size: x-large;
@@ -10,9 +9,6 @@
 	height: 7rem;
 	width: 0.1rem;
 	background-color: darkgray;
-}
-.label-margin-top{
-	margin-top: 1rem;
 }
 
 .coloredText {
@@ -27,11 +23,6 @@
 }
 .H2 {
 	font-size : 1rem;
-}
-
-.link {
-	text-decoration: underline;
-	color : #346187;
 }
 
 .right-border {
@@ -61,19 +52,6 @@
 	border-bottom: none;
 }
 
-.button-color{
-	border: none;
-	background-color: transparent;
-}
-.logout-color{
-	color: gray;
-}
-
-.visited{
-	color: black;
-	font-weight: bold;
-}
-
 .sapMPanelExpandableIcon.sapUiIcon{
 	right: 10%;
 }
@@ -88,6 +66,22 @@
 .verticalLayout-margin_left{
 	margin-left: 2rem;
 }
-.verticalLayout_tariff_npf-margin_left{
+.verticalLayout_ic-margin_left{
 	margin-left: 6.5rem;
+}
+
+.sapMShellBrandingBar {
+	height: 0px;
+}
+
+.sapMPageHeader::before {
+	border-top-width: 0rem;
+}
+
+.sapMShell {
+  padding: 20px;
+}
+
+a.sapMLnk {
+  text-decoration: underline;
 }

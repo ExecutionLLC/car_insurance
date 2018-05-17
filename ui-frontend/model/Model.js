@@ -13,73 +13,28 @@ sap.ui.define([
             //техническая модель приложения
             tech:{
                 selectedKey: "",
-                profileTab: {
-                    diagramData: []
+                insuranceHistoryTab: {
                 },
-                keysOfSelectInChart:{
-                    allTime: Const.SELECTED_ALL_TIME,
-                    lastYear: Const.SELECTED_LAST_YEAR
-                },
-                getReportTab: {
-                    isShowHideButtonPressed: false,
-                    isShowHideButtonEnabled: false,
-                    dateFrom: "?",
-                    dateTo: "?",
-                    AmountIncome: 0,
-                    AmountOutgoing: 0,
-                    AmountDifference: 0,
-                    operationsTableData: []
-                },
-                changeTariffTab: {
-                    selectedTariff: 6,
-                    changeTariffMessage: "",
-                    isButtonChangeTariffEnabled: false,
-                    isSliderChangeTariffEnabled: false,
-                    tariffTableData: []
-                },
-                changeNpfTab: {
-                    selectedNpfAddress:"",
-                    selectedNpf: "",
+                insuranceCompanyTab: {
+                    selectedInsuranceCompanyAddress: "",
+                    selectedInsuranceCompany: "",
                     isSelectButtonEnabled: true,
-                    isSelectedNpfLabelVisible: false,
-                    needConformation: true,
-                    isNextNpfTableVisible: false,
+                    needConfirmation: true,
+                    isNextInsuranceCompanyTableVisible: false,
                     applyButtonText: "",
                     isApplyButtonVisible: false,
-                    changeNpfMessage: "",
-                    changeNpfMessageType: "Error",
+                    changeInsuranceCompanyMessage: "",
+                    changeInsuranceCompanyMessageType: "Error",
+                    changeInsuranceCompanyMessageIsPending: false,
                     nextMinTimeForChangeMessage: "",
                     isNextMinTimeForChangeLabelVisible: false,
-                    npfTableData: []
-                }
-            },
-            // Настройки диаграммы
-            diagrammProperties:{
-                // Ось Х
-                valueAxis:{
-                    title:{
-                        // Видимость заголовка оси Х
-                        visible:false
-                    },
-                    axisLine:{
-                        // Видимость левой полосы
-                        visible:false
-                    }
+                    insuranceCompaniesTableData: []
                 },
-                // Ось Y
-                categoryAxis:{
-                    // Видимость заголовка оси Y
-                    title:{
-                        visible:false
-                    },
-                    // Видимость рисок
-                    axisTick:{
-                        visible:false
-                    }
-                },
-                // Видимость основного заголовка диаграммы
-                title: {
-                    visible: false
+                myCarsTab: {
+                    isNewCarInfoVisible: false,
+                    carTypes: [],
+                    cars: [],
+                    soldCars: []
                 }
             }
         }
