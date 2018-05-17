@@ -25,19 +25,18 @@ sap.ui.define([
             var to = oEvent.getParameter("to");
 
             if (from && to) {
-                var timestampFrom = from.valueOf();
-                var timestampTo = to.valueOf();
-
+                var dateFrom = new Date(from.valueOf());
+                var dateTo = new Date(to.valueOf());
                 var aFilters = [
                     new Filter({
                         path: "timestamp",
                         operator: sap.ui.model.FilterOperator.GE,
-                        value1: timestampFrom
+                        value1: dateFrom
                     }),
                     new Filter({
                         path: "timestamp",
                         operator: sap.ui.model.FilterOperator.LE,
-                        value1: timestampTo
+                        value1: dateTo
                     })
                 ];
                 // Запишем фильтр в массив фильтров
