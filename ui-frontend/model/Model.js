@@ -31,6 +31,7 @@ sap.ui.define([
                     insuranceCompaniesTableData: []
                 },
                 myCarsTab: {
+                    isNewCarInfoVisible: false,
                     cars: [],
                     soldCars: []
                 }

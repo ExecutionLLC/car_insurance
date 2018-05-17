@@ -52,6 +52,8 @@ sap.ui.define([
         },
 
         onAddCar: function() {
+            var isNewCarInfoVisible = !this.oTechModel.getProperty("/tech/myCarsTab/isNewCarInfoVisible");
+            this.oTechModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", isNewCarInfoVisible);
         },
 
         onSellCar: function() {

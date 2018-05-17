@@ -19,6 +19,98 @@
                 </layoutData>
             </Label>
         </layout:Grid>
+
+        <layout:HorizontalLayout
+                visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
+                width="100%"
+        >
+            <layout:VerticalLayout
+                    width="50%"
+            >
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.vin}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="vinInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.model}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="modelInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.type}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="typeInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+            </layout:VerticalLayout>
+            <layout:VerticalLayout
+                    width="50%"
+            >
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.numberPlate}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="numberPlateInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.power}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="powerInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <layout:HorizontalLayout>
+                    <layout:VerticalLayout
+                            width="25%"
+                    >
+                        <Text text="{i18n>mycars.addCar.year}"/>
+                    </layout:VerticalLayout>
+                    <layout:VerticalLayout
+                            width="75%"
+                    >
+                        <Input id="yearInput"/>
+                    </layout:VerticalLayout>
+                </layout:HorizontalLayout>
+                <Button
+                        width="100%"
+                        press="onAddSelectedCar"
+                        text="{i18n>mycars.addCar.add}"
+                />
+            </layout:VerticalLayout>
+        </layout:HorizontalLayout>
+
         <layout:Grid width="100%">
             <Label
                     text="{i18n>mycars.mycars}"
