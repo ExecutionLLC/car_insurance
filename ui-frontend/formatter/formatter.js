@@ -130,6 +130,11 @@ sap.ui.define([
             return oICRating.description + ' (' + oICRating.symbol + ')';
         },
 
+        formatReliabilityString: function (rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            return oICRating.symbol + ' (' + oICRating.description + ')';
+        },
+
         formatTableItemPending: function (isPending) {
             return !isPending ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
         },

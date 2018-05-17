@@ -133,8 +133,8 @@
                     <cells>
                         <Text text="{icModel>name}" />
                         <Text text="{
-                                        path: 'icModel>id',
-                                        formatter: '.formatter.formatICAddressToReliabilityString'
+                                        path: 'icModel>rating',
+                                        formatter: '.formatter.formatReliabilityString'
                                     }"
                         />
                         <core:Icon
