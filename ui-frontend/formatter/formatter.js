@@ -8,6 +8,9 @@ sap.ui.define([
     function findLastInsurance(insurances) {
         return insurances.reduce(
             function(lastInsurance, insurance) {
+                if (insurance.isManuallyDeactivated) {
+                    return lastInsurance;
+                }
                 if (!lastInsurance) {
                     return insurance;
                 }
