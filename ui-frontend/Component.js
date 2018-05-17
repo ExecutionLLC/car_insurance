@@ -68,8 +68,8 @@ sap.ui.define([
             jQuery.when(
                 API.getPerson(userId),
                 API.getInsuranceCompanies()
-            ).then(function(personInfo, insuranceCompaniesResult) {
-                oICModel.setData(insuranceCompaniesResult[0]);
+            ).then(function(personInfo, insuranceCompanies) {
+                oICModel.setData(insuranceCompanies);
                 oPersonModel.setData(personInfo);
                 self.receiveOperations()
                     .then(function() {

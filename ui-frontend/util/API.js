@@ -85,7 +85,9 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/insurancecompanies",
                 dataType: "json"
-            }).then(makePersonCarsInsurancesDatesFromToAsDate);
+            }).then(function(insuranceCompanies) { // this returns ar result only without status, etc.
+                return insuranceCompanies;
+            });
         },
         addPersonCar: function(personId, carInfo) {
             var postDataString = JSON.stringify({
