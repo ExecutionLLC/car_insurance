@@ -70,7 +70,7 @@ sap.ui.define([
 
             var lastOperation = insuranceOperations[insuranceOperations.length - 1];
             var nextMinTimeForChanges = lastOperation ?
-                +new Date(lastOperation.timestamp) + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY :
+                new Date(+lastOperation.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY) :
                 null;
             var currentTime = new Date();
             if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
