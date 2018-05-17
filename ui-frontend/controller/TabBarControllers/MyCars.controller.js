@@ -7,19 +7,6 @@ sap.ui.define([
 ], function (Controller, MessageBox, formatter, API, Utils) {
     "use strict";
 
-    // TODO move to utils
-    function appendPendingOperations(operationsModel, operations) {
-        var modelOperations = operationsModel.getData();
-        var operationsArray = modelOperations.length ?
-            modelOperations :
-            [];
-        var pendingOperations = operations.map(function(operation) {
-            return Object.assign({}, operation, {pending: true});
-        });
-        var newOperations = operationsArray.concat(pendingOperations);
-        operationsModel.setData(newOperations);
-    }
-
     function appendCar(personModel, carInfo) {
         var modelCars = personModel.getProperty("/cars") || [];
         var newCars = modelCars.concat([carInfo]);
@@ -110,7 +97,7 @@ sap.ui.define([
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
                     appendCar(personModel, carInfo);
-                    appendPendingOperations(operationsModel, addCarOperations);
+                    Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {

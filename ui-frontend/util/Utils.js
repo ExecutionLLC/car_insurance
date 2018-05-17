@@ -257,6 +257,17 @@ sap.ui.define([
         saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             storage.put(STORAGE_KEY.LAST_USERID, userId);
+        },
+        appendPendingOperations: function(operationsModel, operations) {
+            var modelOperations = operationsModel.getData();
+            var operationsArray = modelOperations.length ?
+                modelOperations :
+                [];
+            var pendingOperations = operations.map(function(operation) {
+                return Object.assign({}, operation, {pending: true});
+            });
+            var newOperations = operationsArray.concat(pendingOperations);
+            operationsModel.setData(newOperations);
         }
     };
 
