@@ -100,7 +100,6 @@ sap.ui.define([
 
             var oPersonModel = this.getModel("personModel");
             var oMainModel = this.getModel("mainModel");
-            var oTechModel = this.getModel("techModel"); // TODO remove
             var oICModel = this.getModel("icModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
@@ -127,7 +126,6 @@ sap.ui.define([
                 dataType: "json"
             }).done(function (person1InfoResult) {
                 oMainModel.setData(person1InfoResult);
-//                oTechModel.setProperty("/tech/changeTariffTab/selectedTariff", oMainModel.getData().tariff);
                 Utils.saveLastUserId(userId);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
