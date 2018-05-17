@@ -194,7 +194,7 @@ sap.ui.define([
             return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
         },
 
-        formatOperationName(operationType) {
+        formatOperationName: function (operationType) {
             var oBundle = this.getOwnerComponent()
                 .getModel("i18n")
                 .getResourceBundle();
