@@ -172,8 +172,13 @@
                                             width="auto">
                                         <content>
                                             <layout:HorizontalLayout>
-                                                <Text
-                                                        text="CARICON"/>
+                                                <Image
+                                                        width="134px"
+                                                        src="{
+                                                            path: 'personModel>vehicleType',
+                                                            formatter: '.formatter.formatCarTypeImage'
+                                                        }"
+                                                />
                                                 <layout:VerticalLayout>
                                                     <Text
                                                             text="{personModel>model}"/>
