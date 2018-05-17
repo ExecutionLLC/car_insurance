@@ -3,7 +3,7 @@
 */
 sap.ui.define([
     "personal/account/util/Const"
-],function(Const){
+],function(Const){//TODO remove, reformat
 
     "use strict";
 
@@ -13,7 +13,7 @@ sap.ui.define([
             //техническая модель приложения
             tech:{
                 selectedKey: "",
-                insuranceHistoryTab: {
+                insuranceHistoryTab: {//TODO remove
                 },
                 insuranceCompanyTab: {
                     selectedInsuranceCompanyAddress: "",

@@ -86,7 +86,7 @@ sap.ui.define([
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
-                    MessageBox.error(sErrorText);
+                    MessageBox.error(sErrorText); // FIXME undefined
                 });
         },
         initModels: function (userId) {
@@ -100,7 +100,7 @@ sap.ui.define([
 
             var oPersonModel = this.getModel("personModel");
             var oMainModel = this.getModel("mainModel");
-            var oTechModel = this.getModel("techModel");
+            var oTechModel = this.getModel("techModel"); // TODO remove
             var oICModel = this.getModel("icModel");
 
             var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);

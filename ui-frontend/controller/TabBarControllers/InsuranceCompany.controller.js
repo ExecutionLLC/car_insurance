@@ -47,7 +47,7 @@ sap.ui.define([
 
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", insuranceOperations);
 
-            var firstPendedOperation = insuranceOperations.find(function(operation) {
+            var firstPendedOperation = insuranceOperations.find(function(operation) { // TODO rename as pending
                 return operation.pending;
             });
 

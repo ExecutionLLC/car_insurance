@@ -181,7 +181,7 @@ sap.ui.define([
                     {};
             router.navTo("menuPage", navToOptions, true);
         },
-        getPerson1InfoUrl: function (snils) {
+        getPerson1InfoUrl: function (snils) { // TODO remove
             return Const.BASE_URL + "/person1/" + snils;
         },
         getLastUserId: function () {
