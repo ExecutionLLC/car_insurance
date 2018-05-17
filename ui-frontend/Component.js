@@ -68,9 +68,9 @@ sap.ui.define([
             jQuery.when(
                 API.getPerson(userId),
                 API.getInsuranceCompanies()
-            ).then(function(personInfoResult, insuranceCompaniesResult) {
+            ).then(function(personInfo, insuranceCompaniesResult) {
                 oICModel.setData(insuranceCompaniesResult[0]);
-                oPersonModel.setData(personInfoResult[0]);
+                oPersonModel.setData(personInfo);
                 self.receiveOperations()
                     .then(function() {
                         scheduleNextUpdate();
@@ -87,8 +87,8 @@ sap.ui.define([
             jQuery.when(
                 API.getPerson(userId),
                 this.receiveOperations.bind(this)()
-            ).then(function(personInfoResult) {
-                oPersonModel.setData(personInfoResult[0]);
+            ).then(function(personInfo) {
+                oPersonModel.setData(personInfo);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
                 self.showNetworkErrorMessage();

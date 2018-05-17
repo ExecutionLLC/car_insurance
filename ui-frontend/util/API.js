@@ -15,6 +15,44 @@ sap.ui.define([
         });
     }
 
+    function makeArrayDatesFromToAsDate(array) {
+        return array.map(function(item) {
+            return Object.assign(
+                {},
+                item,
+                {
+                    dateFrom: new Date(item.dateFrom),
+                    dateTo: new Date(item.dateTo)
+                }
+            );
+        });
+    }
+
+    function makeCarInsurancesDatesFromToAsDate(car) {
+        return Object.assign(
+            {},
+            car,
+            {
+                insurances: makeArrayDatesFromToAsDate(car.insurances)
+            }
+        );
+    }
+
+    function makeCarsInsurancesDatesFromToAsDate(cars) {
+        return cars.map(makeCarInsurancesDatesFromToAsDate);
+    }
+
+    function makePersonCarsInsurancesDatesFromToAsDate(personInfo) {
+        return Object.assign(
+            {},
+            personInfo,
+            {
+                cars: makeCarsInsurancesDatesFromToAsDate(personInfo.cars),
+                soldCars: makeCarsInsurancesDatesFromToAsDate(personInfo.soldCars),
+            }
+        );
+    }
+
     var oModule = {
         login: function(email, password) {
             return $.ajax({
@@ -35,7 +73,7 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId,
                 dataType: "json"
-            });
+            }).then(makePersonCarsInsurancesDatesFromToAsDate);
         },
         getPersonOperations: function(personId) {
             return $.ajax({
@@ -47,7 +85,7 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/insurancecompanies",
                 dataType: "json"
-            });
+            }).then(makePersonCarsInsurancesDatesFromToAsDate);
         },
         addPersonCar: function(personId, carInfo) {
             var postDataString = JSON.stringify({
