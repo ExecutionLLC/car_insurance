@@ -59,6 +59,12 @@ sap.ui.define([
         metadata: {
             manifest: "json"
         },
+        showNetworkErrorMessage: function() {
+            var sErrorText = this.getModel("i18n")
+                .getResourceBundle()
+                .getText("msg.box.error");
+            MessageBox.error(sErrorText);
+        },
         init: function () {
             this.setModel(new JSONModel(), "personModel");
             this.setModel(new JSONModel(), "mainModel");
@@ -80,13 +86,14 @@ sap.ui.define([
             var oPersonModel = this.getModel("personModel");
             var oOperationsModel = this.getModel("operationsModel");
             var userId = oPersonModel.getProperty("/id");
+            var self = this;
             return API.getPersonOperations(userId)
                 .then(function(operations) {
                     oOperationsModel.setData(operations);
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
-                    MessageBox.error(sErrorText); // FIXME undefined
+                    self.showNetworkErrorMessage();
                 });
         },
         initModels: function (userId) {
@@ -118,7 +125,7 @@ sap.ui.define([
                     });
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                MessageBox.error(sErrorText);
+                self.showNetworkErrorMessage();
             });
 
             $.ajax({
@@ -129,12 +136,13 @@ sap.ui.define([
                 Utils.saveLastUserId(userId);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, "error = ", errorThrown);
-                MessageBox.error(sErrorText);
+                self.showNetworkErrorMessage();
             });
         },
         updateModels: function () {
             var oPersonModel = this.getModel("personModel");
             var userId = oPersonModel.getProperty("/id");
+            var self = this;
             jQuery.when(
                 API.getPerson(userId),
                 this.receiveOperations.bind(this)()
@@ -142,7 +150,7 @@ sap.ui.define([
                 oPersonModel.setData(personInfoResult[0]);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                MessageBox.error(sErrorText);
+                self.showNetworkErrorMessage();
             }).always(this.scheduleNextModelsUpdate.bind(this));
         },
         scheduleNextModelsUpdate: function () {
