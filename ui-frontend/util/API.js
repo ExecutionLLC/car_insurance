@@ -48,7 +48,7 @@ sap.ui.define([
             personInfo,
             {
                 cars: makeCarsInsurancesDatesFromToAsDate(personInfo.cars),
-                soldCars: makeCarsInsurancesDatesFromToAsDate(personInfo.soldCars),
+                soldCars: makeCarsInsurancesDatesFromToAsDate(personInfo.soldCars)
             }
         );
     }
