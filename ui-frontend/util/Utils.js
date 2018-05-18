@@ -57,19 +57,22 @@ sap.ui.define([
                     return {
                         symbol    : "AA+",
                         description: "high",
-                        imageSrc  : "./image/rating/AAplus.jpg"
+                        imageSrc  : "./image/rating/AAplus.jpg",
+                        color: "lightgreen"
                     };
                 case int <= 4:
                     return {
                         symbol    : "AAA",
                         description: "higher",
-                        imageSrc  : "./image/rating/AAA.jpg"
+                        imageSrc  : "./image/rating/AAA.jpg",
+                        color: "green"
                     };
                 case int > 4:
                     return {
                         symbol    : "AAA+",
                         description: "highest",
-                        imageSrc  : "./image/rating/AAAplus.jpg"
+                        imageSrc  : "./image/rating/AAAplus.jpg",
+                        color: "darkgreen"
                     };
                 default:
                     return {

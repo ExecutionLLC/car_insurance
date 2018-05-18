@@ -133,10 +133,11 @@
                 >
                     <cells>
                         <Text text="{icModel>name}" />
-                        <Text text="{
-                                        path: 'icModel>rating',
-                                        formatter: '.formatter.formatReliabilityString'
-                                    }"
+                        <core:HTML
+                                content="{
+                                    path: 'icModel>rating',
+                                    formatter: '.formatter.formatReliabilitySpan'
+                                }"
                         />
                         <core:Icon
                                 src="sap-icon://hello-world"
