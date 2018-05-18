@@ -92,7 +92,8 @@ sap.ui.define([
         onInit: function () {
             var oView = this.getView();
             oView.setModel(new JSONModel({
-                carInfo: Object.assign({}, emptyCarInfo)
+                carInfo: Object.assign({}, emptyCarInfo),
+                vinHash: Object.create(null)
             }));
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
@@ -141,6 +142,16 @@ sap.ui.define([
 
             this.oTechModel.setProperty("/tech/myCarsTab/cars", fillCarsWithOperations(modelCars, operations));
             this.oTechModel.setProperty("/tech/myCarsTab/soldCars", fillCarsWithOperations(modelSoldCars, operations));
+
+            var allCars = modelCars.concat(modelSoldCars);
+            var vinHash = allCars.reduce(
+                function(hash, car) {
+                    hash[car.vin] = car;
+                    return hash;
+                },
+                Object.create(null)
+            );
+            this.getView().getModel().setProperty("/vinHash", vinHash);
         },
 
         onAddCar: function() {
@@ -156,7 +167,7 @@ sap.ui.define([
                 return trimSpaces(oValue);
             },
             validateValue: function (oValue) {
-                return !!oValue.length; // TODO check for duplicate vins
+                return !!oValue.length;
             }
         }),
 
@@ -189,6 +200,12 @@ sap.ui.define([
                 .getText("msg.box.error");
 
             var carInfo = oView.getModel().getProperty("/carInfo");
+
+            var vinHash = oView.getModel().getProperty("/vinHash");
+            if (vinHash[carInfo.vin]) {
+                oView.byId("vinInput").setValueState("Error");
+                return;
+            }
 
             var personId = personModel.getProperty("/id");
 
