@@ -40,6 +40,8 @@ sap.ui.define([
                     policiesHash[policyNumber].isManuallyDeactivated = 1;
                 } else {
                     var policy = Object.assign({}, item.operationData);
+                    policy.dateFrom = new Date(policy.dateFrom);
+                    policy.dateTo = new Date(policy.dateTo);
                     policy.transactionHash = item.transactionHash;
                     policy.transactionFrom = item.transactionFrom;
                     policy.pending = pending;
@@ -93,7 +95,7 @@ sap.ui.define([
 
             var result = new Date();
             var dateTo = Utils.findLastActiveInsuranceDateTo(car.insurances);
-            if (result < dateTo) {
+            if (dateTo && result < dateTo) {
                 result = dateTo;
             }
             result.setDate(result.getDate() + 1);
