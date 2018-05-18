@@ -3,6 +3,7 @@
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
+          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
           displayBlock="true"
 >
     <Page showHeader="false">
@@ -139,10 +140,12 @@
                                     }"
                         />
                         <Text text="{icModel>rating}"/>
-                        <core:Icon
-                                src="sap-icon://hello-world"
+                        <Button
+                                icon="sap-icon://hello-world"
                                 press="onIconPress"
-                                size="2rem"/>
+                                size="2rem"
+                                app:href="{path: 'icModel>website'}"
+                        />
                     </cells>
                 </ColumnListItem>
             </items>
