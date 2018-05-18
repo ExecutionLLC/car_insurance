@@ -2,9 +2,10 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "personal/account/util/Utils",
     "personal/account/util/API",
+    "personal/account/util/Const",
     "sap/m/MessageBox",
     "personal/account/formatter/formatter"
-], function (Controller, Utils, API, MessageBox, formatter) {
+], function (Controller, Utils, API, Const, MessageBox, formatter) {
     "use strict";
     return Controller.extend("personal.account.controller.TabBarControllers.MyPolicies", {
         formatter: formatter,
@@ -29,14 +30,16 @@ sap.ui.define([
 
             var policiesHash = Object.create(null);
             operations.forEach(function(item) {
-                if (item.operationType !== "INSURANCE_ADDED" && item.operationType !== "INSURANCE_DEACTIVATED") {
+                if (item.operationType !== Const.OPERATION_TYPE.INSURANCE_ADDED &&
+                    item.operationType !== Const.OPERATION_TYPE.INSURANCE_DEACTIVATED)
+                {
                     return;
                 }
 
                 var pending = item.pending;
                 var policyNumber = item.insuranceNumber;
 
-                if (policiesHash[policyNumber] !== undefined && item.operationType === "INSURANCE_DEACTIVATED") {
+                if (policiesHash[policyNumber] && item.operationType === Const.OPERATION_TYPE.INSURANCE_DEACTIVATED) {
                     policiesHash[policyNumber].isManuallyDeactivated = 1;
                 } else {
                     var policy = Object.assign({}, item.operationData);
@@ -61,7 +64,7 @@ sap.ui.define([
             var inactivePolicies = [];
             for (var k in policiesHash) {
                 var policy = policiesHash[k];
-                policy.carModel = modelsHash[policy.carVin] || '?';
+                policy.carModel = modelsHash[policy.carVin] || "?";
                 if (this.isNotActivePolicy(policy)) {
                     inactivePolicies.push(policy);
                 } else {
@@ -83,14 +86,14 @@ sap.ui.define([
             Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         },
         getMinValidPolicyDate: function (carVin) {
-            var cars = this.oPersonModel.getProperty('/cars');
-            var soldCars = this.oPersonModel.getProperty('/soldCars');
+            var cars = this.oPersonModel.getProperty("/cars");
+            var soldCars = this.oPersonModel.getProperty("/soldCars");
 
             var car = cars.concat(soldCars).find(function(item) {
                 return item.vin === carVin;
             });
             if (!car) {
-                return;
+                return null;
             }
 
             var result = new Date();
