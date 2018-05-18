@@ -5,45 +5,6 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function findLastInsurance(insurances) {
-        return insurances.reduce(
-            function(lastInsurance, insurance) {
-                if (insurance.isManuallyDeactivated) {
-                    return lastInsurance;
-                }
-                if (!lastInsurance) {
-                    return insurance;
-                }
-                return lastInsurance.dateTo > insurance.dateTo ?
-                    lastInsurance :
-                    insurance;
-            },
-            null
-        );
-    }
-
-    function findLastInsuranceDateTo(insurances) {
-        if (!insurances) {
-            return null;
-        }
-        var lastInsurance = findLastInsurance(insurances);
-        if (!lastInsurance) {
-            return null;
-        }
-        return lastInsurance.dateTo;
-    }
-
-    function findLastInsuranceNumber(insurances) {
-        if (!insurances) {
-            return null;
-        }
-        var lastInsurance = findLastInsurance(insurances);
-        if (!lastInsurance) {
-            return null;
-        }
-        return lastInsurance.insuranceNumber;
-    }
-
     function monthDiff(d1, d2) {
         if (d2 < d1) {
             return -1;
@@ -144,7 +105,7 @@ sap.ui.define([
         },
 
         formatLastInsuranceDateTo: function(insurances) {
-            var date = findLastInsuranceDateTo(insurances);
+            var date = Utils.findLastActiveInsuranceDateTo(insurances);
             if (!date) {
                 return '';
             }
@@ -152,7 +113,7 @@ sap.ui.define([
         },
 
         formatLastInsuranceNumber: function(insurances) {
-            return findLastInsuranceNumber(insurances) || '';
+            return Utils.findLastActiveInsuranceNumber(insurances) || '';
         },
 
         formatInsuranceColorStrip: function(insurances) {
@@ -167,7 +128,7 @@ sap.ui.define([
                 return 'green';
             }
 
-            var lastInsuranceDataTo = findLastInsuranceDateTo(insurances);
+            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
             var monthsToExpire = lastInsuranceDataTo ?
                 monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
