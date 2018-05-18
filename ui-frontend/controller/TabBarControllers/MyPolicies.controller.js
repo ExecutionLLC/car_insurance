@@ -92,20 +92,12 @@ sap.ui.define([
             }
 
             var result = new Date();
-            if (car.insurances && car.insurances.length) {
-                car.insurances.forEach(function (item) {
-                    if (item.isManuallyDeactivated) {
-                        return;
-                    }
-
-                    var dateTo = new Date(item.dateTo);
-                    if (result < dateTo) {
-                        result = dateTo;
-                    }
-                });
+            var dateTo = Utils.findLastActiveInsuranceDateTo(car.insurances);
+            if (result < dateTo) {
+                result = dateTo;
             }
-
             result.setDate(result.getDate() + 1);
+
             return result;
         },
         updateDatePickerRange: function () {
@@ -147,13 +139,8 @@ sap.ui.define([
             var dateTo = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
             var operationsModel = this.oOperationsModel;
             var langModel = this.getOwnerComponent().getModel("i18n");
-            API.addPersonInsurance(personId, vin, dateTo).done(function(pendedOperations) {
-                pendedOperations.forEach(function(item) {
-                    item.pending = true;
-                });
-                var operations = operationsModel.getProperty("/");
-                operations = operations.concat(pendedOperations);
-                operationsModel.setProperty("/", operations);
+            API.addPersonInsurance(personId, vin, dateTo).done(function(operations) {
+                Utils.appendPendingOperations(operationsModel, operations);
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.error("Cannot add insurance: textStatus = ", textStatus, "error = ", errorThrown);
                 var sErrorText = langModel.getResourceBundle().getText("msg.box.error");
