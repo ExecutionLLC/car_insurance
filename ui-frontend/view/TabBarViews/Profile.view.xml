@@ -5,9 +5,10 @@
         xmlns:layout="sap.ui.layout"
         xmlns:core="sap.ui.core">
     <Page
-            showHeader="false">
-        <layout:VerticalLayout id="containerLayout" width="100%" >
-            <layout:BlockLayout id="BlockLayout" background="Dashboard">
+            showHeader="false"
+    >
+        <layout:VerticalLayout width="60%" hAlign="Center">
+            <layout:BlockLayout background="Dashboard">
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
                             width="2"
@@ -76,56 +77,39 @@
                         <Table
                                 items="{
                                     path: 'personModel>/cars'
-                                }">
+                                }"
+                        >
                             <columns>
-                                <Column
-                                        hAlign="Center">
-                                </Column>
-                                <Column
-                                        hAlign="Left">
-                                </Column>
-                                <Column
-                                        hAlign="Left">
-                                </Column>
-                                <Column
-                                        hAlign="Right">
-                                </Column>
+                                <Column />
+                                <Column />
+                                <Column />
+                                <Column width="14px" />
                             </columns>
                             <items>
-                                <CustomListItem>
-                                    <Panel
-                                            expand="false"
-                                            width="auto">
-                                        <content>
-                                            <layout:HorizontalLayout>
-                                                <Text
-                                                        text="CARICON"/>
-                                                <layout:VerticalLayout>
-                                                    <Text
-                                                            text="{personModel>model}"/>
-                                                    <Text
-                                                            text="{personModel>numberPlate}"/>
-                                                </layout:VerticalLayout>
-                                                <layout:VerticalLayout>
-                                                    <Text
-                                                            text="{i18n>insurancedTo}"/>
-                                                    <Text
-                                                            text="{
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                                text="CARICON"/>
+                                        <ObjectIdentifier
+                                                title="{personModel>model}"
+                                                text="{personModel>numberPlate}"/>
+                                        <layout:VerticalLayout>
+                                            <Text
+                                                    text="{i18n>insurancedTo}"/>
+                                            <Text
+                                                    text="{
                                                                 path: 'personModel>insurances',
                                                                 formatter: '.formatter.formatLastInsuranceDateTo'
                                                             }"/>
-                                                </layout:VerticalLayout>
-                                                <layout:VerticalLayout>
-                                                    <core:HTML
-                                                            content="{
-                                                               path: 'personModel>insurances',
-                                                                formatter: '.formatter.formatInsuranceColorStrip'
-                                                            }"/>
-                                                </layout:VerticalLayout>
-                                            </layout:HorizontalLayout>
-                                        </content>
-                                    </Panel>
-                                </CustomListItem>
+                                        </layout:VerticalLayout>
+                                        <core:HTML
+                                                content="{
+                                                           path: 'personModel>insurances',
+                                                            formatter: '.formatter.formatInsuranceColorStrip'
+                                                        }"
+                                        />
+                                    </cells>
+                                </ColumnListItem>
                             </items>
                         </Table>
                     </layout:BlockLayoutCell>
