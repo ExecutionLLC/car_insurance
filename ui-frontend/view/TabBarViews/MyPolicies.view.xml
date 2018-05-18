@@ -8,19 +8,13 @@
         <layout:Grid width="100%">
             <layout:HorizontalLayout>
                 <Button text="" press="onAddPolicy"/>
-                <Label text="{i18n>myPolicies.add}" class="sapUiSmallMarginTop"/>
+                <Label text="{i18n>myPolicies.addNewPolicy}" class="sapUiSmallMarginTop"/>
             </layout:HorizontalLayout>
-        </layout:Grid>
-        <layout:Grid width="100%">
-            <Label
-                text="{i18n>myPolicies.activePolicies}"
-                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
-            />
         </layout:Grid>
 
         <layout:Grid width="100%" defaultSpan="XL6 L6 M6 S12">
             <layout:HorizontalLayout>
-                <Label text="Автомобиль:" class="sapUiSmallMarginTop"/>
+                <Label text="{i18n>myPolicies.carModelLabel}" class="sapUiSmallMarginTop"/>
                 <Select change="onPolicyCarSelected" items="{personModel>/cars}">
                     <items>
                         <core:Item key="{personModel>vin}" text="{personModel>model}"/>
@@ -30,16 +24,16 @@
 
 
             <layout:HorizontalLayout>
-                <Label text="Дата окончания действия:" class="sapUiSmallMarginTop"/>
+                <Label text="{i18n>myPolicies.dateToLabel}" class="sapUiSmallMarginTop"/>
                 <DatePicker id="policyDateTo" change="onPolicyDateSelected"/>
             </layout:HorizontalLayout>
 
             <layout:HorizontalLayout>
-                <Label text="Стоимость:" class="sapUiSmallMarginTop"/>
+                <Label text="{i18n>myPolicies.priceLabel}" class="sapUiSmallMarginTop"/>
                 <Text/>
             </layout:HorizontalLayout>
 
-            <Button text="Купить полис"
+            <Button text="{i18n>myPolicies.addNewPolicy}"
                     press="onAddPolicyPress"
                     enabled="{techModel>/tech/myPoliciesTab/isAddPolicyButtonEnabled}"
             />
@@ -50,22 +44,29 @@
             />
         </layout:Grid>
 
+        <layout:Grid width="100%">
+            <Label
+                    text="{i18n>myPolicies.activePolicies}"
+                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+            />
+        </layout:Grid>
+
         <Table showNoData="false">
             <columns>
                 <Column hAlign="Center" width="15%">
-                    <Text text="Номер"/>
+                    <Text text="{i18n>myPolicies.policyNumberColumn}"/>
                 </Column>
                 <Column hAlign="Center" width="25%">
-                    <Text text="Автомобиль"/>
+                    <Text text="{i18n>myPolicies.carModelColumn}"/>
                 </Column>
                 <Column hAlign="Center" width="15%">
-                    <Text text="Действителен с"/>
+                    <Text text="{i18n>myPolicies.dateFromColumn}"/>
                 </Column>
                 <Column hAlign="Center" width="15%">
-                    <Text text="Действителен по"/>
+                    <Text text="{i18n>myPolicies.dateToColumn}"/>
                 </Column>
                 <Column hAlign="Center" width="15%">
-                    <Text text="Статус"/>
+                    <Text text="{i18n>myPolicies.stateColumn}"/>
                 </Column>
                 <Column hAlign="Center" width="15%">
                 </Column>
