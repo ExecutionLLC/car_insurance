@@ -14,9 +14,10 @@
                             width="2"
                             title="{i18n>myInsuranceCompany}"
                     >
-                        <Text
-                                text=""
-                                class="coloredText"
+                        <core:Icon
+                                src="sap-icon://edit"
+                                press="onEditPress"
+                                size="2em"
                         />
                         <Text
                                 text="{
