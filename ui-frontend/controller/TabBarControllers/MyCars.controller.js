@@ -113,6 +113,15 @@ sap.ui.define([
                 this.oPersonModel, "/", this.oPersonModel.getContext("/")
             );
             personModelBinding.attachChange(this.onModelChanges.bind(this));
+            var viewModelBinding = new sap.ui.model.Binding(
+                oView.getModel(), "/", oView.getModel().getContext("/")
+            );
+            viewModelBinding.attachChange(this.onViewModelChanges.bind(this));
+
+        },
+
+        onViewModelChanges: function() {
+            console.log('>>>>>>', this.getView().getModel().getData());
         },
 
         onModelChanges: function() {
