@@ -36,7 +36,7 @@ sap.ui.define([
         return s.replace(/^\s+/, '').replace(/\s+$/, '');
     }
 
-    var emptyCarData = {
+    var emptyCarInfo = {
         vin: "",
         model: "",
         vehicleType: "",
@@ -91,7 +91,9 @@ sap.ui.define([
 
         onInit: function () {
             var oView = this.getView();
-            oView.setModel(new JSONModel(Object.assign({}, emptyCarData)));
+            oView.setModel(new JSONModel({
+                carInfo: Object.assign({}, emptyCarInfo)
+            }));
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
@@ -186,7 +188,7 @@ sap.ui.define([
                 .getResourceBundle()
                 .getText("msg.box.error");
 
-            var carInfo = oView.getModel().getData();
+            var carInfo = oView.getModel().getProperty("/carInfo");
 
             var personId = personModel.getProperty("/id");
 
@@ -195,7 +197,7 @@ sap.ui.define([
                     appendCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
-                    oView.getModel().setData(Object.assign({}, emptyCarData));
+                    oView.getModel().getProperty("/carInfo", Object.assign({}, emptyCarInfo));
                     resetValidation(oView, inputIds);
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {

@@ -45,7 +45,7 @@
                                 id="vinInput"
                                 required="true"
                                 value="{
-                                    path: '/vin',
+                                    path: '/carInfo/vin',
                                     type: '.customVINType'
                                 }"
                         />
@@ -67,7 +67,7 @@
                                 id="modelInput"
                                 required="true"
                                 value="{
-                                    path: '/model',
+                                    path: '/carInfo/model',
                                     type: '.customNonemptyType'
                                 }"
                         />
@@ -91,7 +91,7 @@
                                     path: 'techModel>/tech/myCarsTab/carTypes'
                                 }"
                                 selectedKey="{
-                                    path: '/vehicleType'
+                                    path: '/carInfo/vehicleType'
                                 }"
                         >
                             <core:Item
@@ -124,7 +124,7 @@
                                 id="numberPlateInput"
                                 required="true"
                                 value="{
-                                    path: '/numberPlate',
+                                    path: '/carInfo/numberPlate',
                                     type: '.customNonemptyType'
                                 }"
                         />
@@ -148,7 +148,7 @@
                                 placeholderSymbol=" "
                                 required="true"
                                 value="{
-                                    path: '/maxPower',
+                                    path: '/carInfo/maxPower',
                                     type: '.customNonemptyType'
                                 }"
                         />
@@ -173,7 +173,7 @@
                                 placeholderSymbol=" "
                                 required="true"
                                 value="{
-                                    path: '/year',
+                                    path: '/carInfo/year',
                                     type: '.customNonemptyType'
                                 }"
                         />
