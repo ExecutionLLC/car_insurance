@@ -14,17 +14,50 @@
                             width="2"
                             title="{i18n>myInsuranceCompany}"
                     >
-                        <core:Icon
-                                src="sap-icon://edit"
-                                press="onEditPress"
-                                size="2em"
-                        />
-                        <Text
-                                text="{
-                                    path:'personModel>/insuranceCompanyId',
-                                    formatter:'.formatter.formatICAddressToName'
-                                }"
-                        />
+                        <Table>
+                            <columns>
+                                <Column />
+                                <Column />
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <layout:VerticalLayout>
+                                            <core:Icon
+                                                    src="sap-icon://edit"
+                                                    press="onEditPress"
+                                                    size="2em"
+                                            />
+                                            <Text
+                                                    text="{
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToName'
+                                                    }"
+                                            />
+                                        </layout:VerticalLayout>
+                                        <layout:VerticalLayout>
+                                            <Image
+                                                    src="{
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToReliabilityImage'
+                                                    }"
+                                                    width='4rem'
+                                                    height="4rem"
+                                            />
+                                            <Text
+                                                    text="{i18n>ratingOfReliability}"
+                                                    class="H2"/>
+                                            <Text
+                                                    text="{
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToReliabilityString'
+                                                    }"
+                                                    class="H1"/>
+                                        </layout:VerticalLayout>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
                 <layout:BlockLayoutRow>
