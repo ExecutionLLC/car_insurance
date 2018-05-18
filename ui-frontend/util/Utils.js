@@ -30,12 +30,10 @@ sap.ui.define([
 
             return oModule._addLeadingZeroIfNeedIt(hours) + ":" + oModule._addLeadingZeroIfNeedIt(minutes);
         },
-        timestampToString: function(timestamp, addTime) {
-            var date = new Date(timestamp);
-
-            var result = oModule.dateObjToDateString(date);
+        dateObjToString: function(timestamp, addTime) {
+            var result = oModule.dateObjToDateString(timestamp);
             if (addTime) {
-                result = result + " " + oModule.dateObjToTimeString(date);
+                result = result + " " + oModule.dateObjToTimeString(timestamp);
             }
 
             return result;
@@ -181,9 +179,6 @@ sap.ui.define([
                     {};
             router.navTo("menuPage", navToOptions, true);
         },
-        getPerson1InfoUrl: function (snils) {
-            return Const.BASE_URL + "/person1/" + snils;
-        },
         getLastUserId: function () {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             return storage.get(STORAGE_KEY.LAST_USERID);
@@ -191,6 +186,53 @@ sap.ui.define([
         saveLastUserId: function (userId) {
             var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             storage.put(STORAGE_KEY.LAST_USERID, userId);
+        },
+        appendPendingOperations: function(operationsModel, operations) {
+            var modelOperations = operationsModel.getData();
+            var operationsArray = modelOperations.length ?
+                modelOperations :
+                [];
+            var pendingOperations = operations.map(function(operation) {
+                return Object.assign({}, operation, {pending: true});
+            });
+            var newOperations = operationsArray.concat(pendingOperations);
+            operationsModel.setData(newOperations);
+        },
+
+        findLastActiveInsurance: function(insurances) {
+            if (!insurances || !insurances.length) {
+                return null;
+            }
+            return insurances.reduce(
+                function(lastInsurance, insurance) {
+                    if (insurance.isManuallyDeactivated) {
+                        return lastInsurance;
+                    }
+                    if (!lastInsurance) {
+                        return insurance;
+                    }
+                    return lastInsurance.dateTo > insurance.dateTo ?
+                        lastInsurance :
+                        insurance;
+                },
+                null
+            );
+        },
+
+        findLastActiveInsuranceDateTo: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.dateTo;
+        },
+
+        findLastActiveInsuranceNumber: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.insuranceNumber;
         }
     };
 

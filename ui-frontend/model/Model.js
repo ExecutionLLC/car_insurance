@@ -2,19 +2,16 @@
 	Модуль описывает элементы структуры моделей и константы для приложения
 */
 sap.ui.define([
-    "personal/account/util/Const"
-],function(Const){
+], function () {
 
     "use strict";
 
-    var oModule={
+    var oModule = {
         //структуры локальных моделей
-        modelStructure:{
+        modelStructure: {
             //техническая модель приложения
-            tech:{
+            tech: {
                 selectedKey: "",
-                insuranceHistoryTab: {
-                },
                 insuranceCompanyTab: {
                     selectedInsuranceCompanyAddress: "",
                     selectedInsuranceCompany: "",
@@ -36,6 +33,12 @@ sap.ui.define([
                     nextPolicyDateTo: null,
                     infoTextState: "Error",
                     infoText: ""
+                },
+                myCarsTab: {
+                    isNewCarInfoVisible: false,
+                    carTypes: [],
+                    cars: [],
+                    soldCars: []
                 }
             }
         }
@@ -43,4 +46,4 @@ sap.ui.define([
 
     return oModule;
 
-},true);
+}, true);

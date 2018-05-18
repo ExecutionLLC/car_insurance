@@ -3,6 +3,56 @@ sap.ui.define([
 ],function(Const){
     "use strict";
 
+    function makeArrayTimestampsAsDate(array) {
+        return array.map(function(item) {
+            return Object.assign(
+                {},
+                item,
+                {
+                    timestamp: new Date(item.timestamp)
+                }
+            );
+        });
+    }
+
+    function makeArrayDatesFromToAsDate(array) {
+        return array.map(function(item) {
+            return Object.assign(
+                {},
+                item,
+                {
+                    dateFrom: new Date(item.dateFrom),
+                    dateTo: new Date(item.dateTo)
+                }
+            );
+        });
+    }
+
+    function makeCarInsurancesDatesFromToAsDate(car) {
+        return Object.assign(
+            {},
+            car,
+            {
+                insurances: makeArrayDatesFromToAsDate(car.insurances)
+            }
+        );
+    }
+
+    function makeCarsInsurancesDatesFromToAsDate(cars) {
+        return cars.map(makeCarInsurancesDatesFromToAsDate);
+    }
+
+    function makePersonCarsInsurancesDatesFromToAsDate(personInfo) {
+        return Object.assign(
+            {},
+            personInfo,
+            {
+                cars: makeCarsInsurancesDatesFromToAsDate(personInfo.cars),
+                soldCars: makeCarsInsurancesDatesFromToAsDate(personInfo.soldCars),
+            }
+        );
+    }
+
     var oModule = {
         login: function(email, password) {
             return $.ajax({
@@ -23,22 +73,20 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId,
                 dataType: "json"
-            });
+            }).then(makePersonCarsInsurancesDatesFromToAsDate);
         },
         getPersonOperations: function(personId) {
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId + "/operations",
                 dataType: "json"
-            }).then(function(operations) {
-                return operations.map(function(operation) {
-                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
-                });
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         getInsuranceCompanies: function() {
             return $.ajax({
                 url: Const.BASE_URL + "/insurancecompanies",
                 dataType: "json"
+            }).then(function(insuranceCompanies) { // this returns ar result only without status, etc.
+                return insuranceCompanies;
             });
         },
         addPersonCar: function(personId, carInfo) {
@@ -56,7 +104,15 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: postDataString
-            });
+            }).then(makeArrayTimestampsAsDate);
+        },
+        salePersonCar: function(personId, carVin) {
+            return $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/cars/" + carVin,
+                dataType: "json",
+                type: "DELETE",
+                jsonp: false
+            }).then(makeArrayTimestampsAsDate);
         },
         setPersonInsuranceCompany: function(personId, icId) {
             var putDataString = JSON.stringify({
@@ -68,11 +124,7 @@ sap.ui.define([
                 type: "PUT",
                 jsonp: false,
                 data: putDataString
-            }).then(function(operations) {
-                return operations.map(function(operation) {
-                    return Object.assign({}, operation, {timestamp: new Date(operation.timestamp)});
-                });
-            });
+            }).then(makeArrayTimestampsAsDate);
         },
         addPersonInsurance: function(personId, vin, dateTo) {
             var postDataString = JSON.stringify({
@@ -84,7 +136,7 @@ sap.ui.define([
                 type: "POST",
                 jsonp: false,
                 data: postDataString
-            });
+            }).then(makeArrayTimestampsAsDate);
         }
     };
 

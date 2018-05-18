@@ -5,31 +5,6 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function findLastInsurance(insurances) {
-        return insurances.reduce(
-            function(lastInsurance, insurance) {
-                if (!lastInsurance) {
-                    return insurance;
-                }
-                return lastInsurance.dateTo > insurance.dateTo ?
-                    lastInsurance :
-                    insurance;
-            },
-            null
-        );
-    }
-
-    function findLastInsuranceDateTo(insurances) {
-        if (!insurances) {
-            return null;
-        }
-        var lastInsurance = findLastInsurance(insurances);
-        if (!lastInsurance) {
-            return null;
-        }
-        return new Date(lastInsurance.dateTo);
-    }
-
     function monthDiff(d1, d2) {
         if (d2 < d1) {
             return -1;
@@ -78,23 +53,7 @@ sap.ui.define([
          * @return {string} дата в формате "дд.мм.гггг"
          */
         formatDateForTable: function (timestamp) {
-            return Utils.timestampToString(timestamp);
-        },
-
-        /**
-         * @description Форматирование значения зарплаты
-         * @param {number} amount - значение выплат
-         * @param {number} tariff - тариф
-         * @param {string} comment - назначение выплат
-         * @param {string} currencyCode - код валюты
-         * @return {number} - искомая зарплата с кодом валюты
-         */
-        formatAmountToSalary: function (amount, tariff, comment, currencyCode) {
-            if (/.*(процент)|(Interest).*/.test(comment)) {
-                return "";
-            }
-            var salary = amount/tariff*100.0;
-            return this.formatter.oCurrencyFormat.format(salary, currencyCode);
+            return Utils.dateObjToString(timestamp);
         },
 
         /**
@@ -146,13 +105,15 @@ sap.ui.define([
         },
 
         formatLastInsuranceDateTo: function(insurances) {
-            var date = findLastInsuranceDateTo(insurances);
+            var date = Utils.findLastActiveInsuranceDateTo(insurances);
             if (!date) {
                 return '';
             }
-            return date.toLocaleDateString(
-                sap.ui.getCore().getConfiguration().getLanguage().slice(0, 2)
-            );
+            return Utils.dateObjToDateString(date);
+        },
+
+        formatLastInsuranceNumber: function(insurances) {
+            return Utils.findLastActiveInsuranceNumber(insurances) || '';
         },
 
         formatInsuranceColorStrip: function(insurances) {
@@ -167,7 +128,7 @@ sap.ui.define([
                 return 'green';
             }
 
-            var lastInsuranceDataTo = findLastInsuranceDateTo(insurances);
+            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
             var monthsToExpire = lastInsuranceDataTo ?
                 monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
@@ -181,6 +142,13 @@ sap.ui.define([
                 .getModel("i18n")
                 .getResourceBundle();
             return oBundle.getText("operationType." + operationType);
+        },
+
+        formatCarType: function(carType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("CarTypes." + carType);
         }
     }
 

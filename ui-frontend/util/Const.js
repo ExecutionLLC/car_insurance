@@ -24,7 +24,17 @@ sap.ui.define([
             INSURANCE_ADDED: "INSURANCE_ADDED",
             INSURANCE_DEACTIVATED: "INSURANCE_DEACTIVATED",
             INSURANCE_COMPANY_CHANGED: "INSURANCE_COMPANY_CHANGED"
-        }
+        },
+        CAR_TYPES: [
+            {
+                id: 'CAR',
+                icon: 'car'
+            },
+            {
+                id: 'MOTORCYCLE',
+                icon: 'motorcycle'
+            }
+        ]
     };
 
     return oModule;

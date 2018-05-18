@@ -7,18 +7,6 @@ sap.ui.define([
 ], function (Controller, formatter, Const, Utils, API) {
     "use strict";
 
-    function appendPendingOperations(operationsModel, operations) {
-        var modelOperations = operationsModel.getData();
-        var operationsArray = modelOperations.length ?
-            modelOperations :
-            [];
-        var pendingOperations = operations.map(function(operation) {
-            return Object.assign({}, operation, {pending: true});
-        });
-        var newOperations = operationsArray.concat(pendingOperations);
-        operationsModel.setData(newOperations);
-    }
-
     return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
         formatter: formatter,
 
@@ -39,7 +27,7 @@ sap.ui.define([
         enableSelectButton: function(enable, nextMinTimeForChanges) {
             if (nextMinTimeForChanges) {
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible", true);
-                var message = Utils.timestampToString(nextMinTimeForChanges, true);
+                var message = Utils.dateObjToString(nextMinTimeForChanges, true);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/nextMinTimeForChangeMessage", message);
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isSelectButtonEnabled", false);
             } else {
@@ -59,11 +47,11 @@ sap.ui.define([
 
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/insuranceCompaniesTableData", insuranceOperations);
 
-            var firstPendedOperation = insuranceOperations.find(function(operation) {
+            var firstPendingOperation = insuranceOperations.find(function(operation) {
                 return operation.pending;
             });
 
-            if (firstPendedOperation) {
+            if (firstPendingOperation) {
                 var sRequestPendingText = this.oResourceBundle.getText("insuranceCompany.men.exp.requestPendingText");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/selectedInsuranceCompany", "");
                 this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
@@ -82,7 +70,7 @@ sap.ui.define([
 
             var lastOperation = insuranceOperations[insuranceOperations.length - 1];
             var nextMinTimeForChanges = lastOperation ?
-                +new Date(lastOperation.timestamp) + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY :
+                new Date(+lastOperation.timestamp + Const.TIME_NEXT_CHANGE_INSURANCE_COMPANY) :
                 null;
             var currentTime = new Date();
             if (nextMinTimeForChanges && currentTime < nextMinTimeForChanges) {
@@ -101,7 +89,7 @@ sap.ui.define([
             }
         },
 
-        onSelectButton: function (oEvent) {
+        onSelectButton: function () {
             var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
             this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
         },
@@ -139,7 +127,7 @@ sap.ui.define([
                 var self = this;
                 API.setPersonInsuranceCompany(personId, selectedInsuranceCompanyAddress)
                     .then(function(responceOperations) {
-                        appendPendingOperations(operationsModel, responceOperations);
+                        Utils.appendPendingOperations(operationsModel, responceOperations);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
                         console.error("Cannot change insurance company: textStatus = ", textStatus, "error = ", errorThrown);
