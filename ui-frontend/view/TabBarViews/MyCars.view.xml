@@ -2,6 +2,7 @@
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:layout="sap.ui.layout"
+          xmlns:commons="sap.ui.commons"
           xmlns:core="sap.ui.core"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
@@ -32,31 +33,46 @@
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.vin}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.vin}"
+                                labelFor="vinInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="vinInput"/>
+                        <Input
+                                id="vinInput"
+                                required="true"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.model}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.model}"
+                                labelFor="modelInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="modelInput"/>
+                        <Input
+                                id="modelInput"
+                                required="true"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.type}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.type}"
+                                labelFor="typeInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
@@ -85,36 +101,57 @@
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.numberPlate}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.numberPlate}"
+                                labelFor="numberPlateInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="numberPlateInput"/>
+                        <Input
+                                id="numberPlateInput"
+                                required="true"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.power}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.power}"
+                                labelFor="powerInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="powerInput"/>
+                        <MaskInput
+                                id="powerInput"
+                                mask="9999"
+                                required="true"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.year}"/>
+                        <Label
+                                width="100px"
+                                text="{i18n>mycars.addCar.year}"
+                                labelFor="yearInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="yearInput"/>
+                        <MaskInput
+                                id="yearInput"
+                                mask="9999"
+                                required="true"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <Button
