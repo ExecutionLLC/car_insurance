@@ -99,7 +99,6 @@ sap.ui.define([
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
-            var oCarTypesModel = this.oComponent.getModel("operationsModel");
 
             this.oTechModel.setProperty(
                 "/tech/myCarsTab/carTypes",
