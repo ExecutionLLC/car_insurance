@@ -17,10 +17,26 @@ sap.ui.define([
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.oPoliciesModel = this.oComponent.getModel("policiesModel");
 
+            var myPoliciesTabContext = this.oTechModel.getContext("/tech/myPoliciesTab");
+
+            var techModelBindingCarVin = this.oTechModel.bindProperty("nextPolicyCarVin", myPoliciesTabContext);
+            techModelBindingCarVin.attachChange(this.onNextPolicyCarVinChanges.bind(this));
+
+            var techModelBindingDateTo = this.oTechModel.bindProperty("nextPolicyDateTo", myPoliciesTabContext);
+            techModelBindingDateTo.attachChange(this.onNextPolicyDateToChanges.bind(this));
+
+            var operationsContext = this.oOperationsModel.getContext("/");
             var operationsModelBinding = new sap.ui.model.Binding(
-                this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
+                this.oOperationsModel, "/", operationsContext
             );
             operationsModelBinding.attachChange(this.onOperationsChanges.bind(this));
+        },
+        onNextPolicyCarVinChanges: function () {
+            this.updateNextPolicyMinDate(true);
+            this.updateNextPolicyGroupState();
+        },
+        onNextPolicyDateToChanges: function () {
+            this.updateNextPolicyGroupState();
         },
         onOperationsChanges: function () {
             var operations = this.oOperationsModel.getProperty("/");
@@ -74,6 +90,79 @@ sap.ui.define([
 
             this.oPoliciesModel.setProperty("/activePolicies", activePolicies);
             this.oPoliciesModel.setProperty("/inactivePolicies", inactivePolicies);
+
+            this.updateNextPolicyMinDate(false);
+            this.updateNextPolicyGroupState();
+        },
+        updateNextPolicyMinDate: function (forceResetCurrentValue) {
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            if (!vin) {
+                return;
+            }
+
+            var minDate = this.getMinValidPolicyDate(vin);
+            var minDateString = Utils.dateObjToDateString(minDate);
+
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+
+            var datePicker = this.getView().byId("policyDateTo");
+            if (dateTo && dateTo < minDate) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", minDateString);
+                datePicker.setMinDate(minDate);
+            } else {
+                datePicker.setMinDate(minDate);
+                if (forceResetCurrentValue) {
+                    this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", minDateString);
+                }
+            }
+        },
+        updateNextPolicyGroupState: function () {
+            var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
+            var hasPending = activePolicies && activePolicies.find(function (item) {
+               return item.pending === true;
+            });
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+
+            if (hasPending) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Заявка на расмотрении");
+            } else if (!vin) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Выберите автомобиль");
+            } else if (!dateToString) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Выберите дату");
+            } else {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "");
+            }
+        },
+        getMinValidPolicyDate: function (carVin) {
+            var result = new Date();
+
+            var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
+            if (activePolicies) {
+                result = activePolicies.reduce(function (minDate, item) {
+                    if (item.pending || item.carVin !== carVin || item.dateTo <= minDate) {
+                        return minDate;
+                    }
+
+                    return item.dateTo;
+                }, result);
+            }
+
+            result.setDate(result.getDate() + 1);
+            return result;
         },
         isNotActivePolicy: function (policy) {
             var currentDate = new Date();
@@ -85,63 +174,12 @@ sap.ui.define([
             var langModel = this.getOwnerComponent().getModel("i18n");
             Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         },
-        getMinValidPolicyDate: function (carVin) {
-            var cars = this.oPersonModel.getProperty("/cars");
-            var soldCars = this.oPersonModel.getProperty("/soldCars");
-
-            var car = cars.concat(soldCars).find(function(item) {
-                return item.vin === carVin;
-            });
-            if (!car) {
-                return null;
-            }
-
-            var result = new Date();
-            var dateTo = Utils.findLastActiveInsuranceDateTo(car.insurances);
-            if (dateTo && result < dateTo) {
-                result = dateTo;
-            }
-            result.setDate(result.getDate() + 1);
-
-            return result;
-        },
-        updateDatePickerRange: function () {
-            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var minDate = this.getMinValidPolicyDate(vin);
-            var datePicker = this.getView().byId("policyDateTo");
-            datePicker.setValue(minDate);
-            datePicker.setMinDate(minDate);
-        },
-        updateAddPolicyState: function ()  {
-            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateTo = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
-            if (!vin) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", false);
-                return;
-            }
-            if (!dateTo) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", false);
-                return;
-            }
-
-            this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", true);
-        },
-        onPolicyCarSelected: function (oEvent) {
-            var vin = oEvent.getSource().getProperty("selectedKey");
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyCarVin", vin);
-            this.updateDatePickerRange();
-            this.updateAddPolicyState();
-        },
-        onPolicyDateSelected: function (oEvent) {
-            var dateString = oEvent.getSource().getProperty("dateValue");
-            var date = new Date(dateString);
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", date);
-            this.updateAddPolicyState();
-        },
         onAddPolicyPress: function (oEvent) {
             var personId = this.oPersonModel.getProperty("/id");
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateTo = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateTo = Utils.dateStringToDateObject(dateToString);
+
             var operationsModel = this.oOperationsModel;
             var langModel = this.getOwnerComponent().getModel("i18n");
             API.addPersonInsurance(personId, vin, dateTo).done(function(operations) {

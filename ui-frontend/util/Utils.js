@@ -38,6 +38,13 @@ sap.ui.define([
 
             return result;
         },
+        dateStringToDateObject: function(dateString) {
+            var dateData = dateString.split(".").map(function(item) {
+                return parseInt(item);
+            });
+
+            return new Date(dateData[2], dateData[1] - 1, dateData[0]);
+        },
         getInsuranceObjectByAddress: function (address, model) {
             if (!address || !model) {
                 return null;
