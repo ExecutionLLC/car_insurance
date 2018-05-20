@@ -29,15 +29,15 @@
 
             <layout:HorizontalLayout>
                 <Label text="{i18n>myPolicies.dateToLabel}" class="sapUiSmallMarginTop"/>
-                <DatePicker value="{techModel>/tech/myPoliciesTab/nextPolicyDateTo}"
-                            id="policyDateTo"
+                <DatePicker minDate="{techModel>/tech/myPoliciesTab/nextPolicyDateFrom}"
+                            value="{techModel>/tech/myPoliciesTab/nextPolicyDateToString}"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
                 />
             </layout:HorizontalLayout>
 
             <layout:HorizontalLayout>
                 <Label text="{i18n>myPolicies.priceLabel}" class="sapUiSmallMarginTop"/>
-                <Text/>
+                <Text text="{techModel>/tech/myPoliciesTab/nextPolicyPriceString}" class="sapUiSmallMarginTop"/>
             </layout:HorizontalLayout>
 
             <Button text="{i18n>myPolicies.addNewPolicy}"

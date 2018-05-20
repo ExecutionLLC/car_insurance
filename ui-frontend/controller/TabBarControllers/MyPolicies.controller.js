@@ -22,7 +22,10 @@ sap.ui.define([
             var techModelBindingCarVin = this.oTechModel.bindProperty("nextPolicyCarVin", myPoliciesTabContext);
             techModelBindingCarVin.attachChange(this.onNextPolicyCarVinChanges.bind(this));
 
-            var techModelBindingDateTo = this.oTechModel.bindProperty("nextPolicyDateTo", myPoliciesTabContext);
+            var techModelBindingDateFrom = this.oTechModel.bindProperty("nextPolicyDateFrom", myPoliciesTabContext);
+            techModelBindingDateFrom.attachChange(this.onNextPolicyDateFromChanges.bind(this));
+
+            var techModelBindingDateTo = this.oTechModel.bindProperty("nextPolicyDateToString", myPoliciesTabContext);
             techModelBindingDateTo.attachChange(this.onNextPolicyDateToChanges.bind(this));
 
             var operationsContext = this.oOperationsModel.getContext("/");
@@ -31,12 +34,41 @@ sap.ui.define([
             );
             operationsModelBinding.attachChange(this.onOperationsChanges.bind(this));
         },
+        updatePolicyPrice: function () {
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            if (!vin) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+            var perYearPrice = Utils.getInsurancePerYearPrice(this.oPersonModel, vin);
+            if (!perYearPrice) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+
+            var dateFrom = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateFrom");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
+            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+            if (!dateFrom || !dateTo) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+
+            var days = (dateTo - dateFrom)/(1000*60*60*24) + 1;
+            var nextPolicyPriceString = (perYearPrice*days/365.0).toFixed(2);
+            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", nextPolicyPriceString);
+        },
         onNextPolicyCarVinChanges: function () {
-            this.updateNextPolicyMinDate(true);
+            this.updateNextPolicyDateFrom(true);
             this.updateNextPolicyGroupState();
+            this.updatePolicyPrice();
+        },
+        onNextPolicyDateFromChanges: function () {
+            this.updatePolicyPrice();
         },
         onNextPolicyDateToChanges: function () {
             this.updateNextPolicyGroupState();
+            this.updatePolicyPrice();
         },
         onOperationsChanges: function () {
             var operations = this.oOperationsModel.getProperty("/");
@@ -91,29 +123,28 @@ sap.ui.define([
             this.oPoliciesModel.setProperty("/activePolicies", activePolicies);
             this.oPoliciesModel.setProperty("/inactivePolicies", inactivePolicies);
 
-            this.updateNextPolicyMinDate(false);
+            this.updateNextPolicyDateFrom(false);
             this.updateNextPolicyGroupState();
         },
-        updateNextPolicyMinDate: function (forceResetCurrentValue) {
+        updateNextPolicyDateFrom: function (forceResetDateToString) {
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
             if (!vin) {
                 return;
             }
 
-            var minDate = this.getMinValidPolicyDate(vin);
-            var minDateString = Utils.dateObjToDateString(minDate);
+            var dateFrom = this.getMinValidPolicyDate(vin);
+            var dateFromString = Utils.dateObjToDateString(dateFrom);
 
-            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
             var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
 
-            var datePicker = this.getView().byId("policyDateTo");
-            if (dateTo && dateTo < minDate) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", minDateString);
-                datePicker.setMinDate(minDate);
+            if (dateTo && dateTo < dateFrom) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
             } else {
-                datePicker.setMinDate(minDate);
-                if (forceResetCurrentValue) {
-                    this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", minDateString);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
+                if (forceResetDateToString) {
+                    this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
                 }
             }
         },
@@ -123,7 +154,7 @@ sap.ui.define([
                return item.pending === true;
             });
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
 
             if (hasPending) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", false);
@@ -177,7 +208,7 @@ sap.ui.define([
         onAddPolicyPress: function (oEvent) {
             var personId = this.oPersonModel.getProperty("/id");
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
             var dateTo = Utils.dateStringToDateObject(dateToString);
 
             var operationsModel = this.oOperationsModel;

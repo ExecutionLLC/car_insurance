@@ -31,7 +31,9 @@ sap.ui.define([
                     isNextPolicyGroupEnabled: false,
                     isNextPolicyButtonEnabled: false,
                     nextPolicyCarVin: null,
-                    nextPolicyDateTo: null,
+                    nextPolicyDateFrom: null,
+                    nextPolicyDateToString: null,
+                    nextPolicyPriceString: '?',
                     infoTextState: "Warning",
                     infoText: ""
                 },
