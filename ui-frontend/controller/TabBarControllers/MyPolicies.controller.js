@@ -16,6 +16,7 @@ sap.ui.define([
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.oPoliciesModel = this.oComponent.getModel("policiesModel");
+            this.oLangModel = this.oComponent.getModel("i18n");
 
             var myPoliciesTabContext = this.oTechModel.getContext("/tech/myPoliciesTab");
 
@@ -156,26 +157,31 @@ sap.ui.define([
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
 
+            var langModelResources = this.oLangModel.getResourceBundle();
+            var infoText = "";
             if (hasPending) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", false);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
-                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Заявка на расмотрении");
+                infoText = langModelResources.getText("myPolicies.waitingText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
             } else if (!vin) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
-                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Выберите автомобиль");
+                infoText = langModelResources.getText("myPolicies.carVinIsEmptyText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
             } else if (!dateToString) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
-                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "Выберите дату");
+                infoText = langModelResources.getText("myPolicies.dateToIsEmptyText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
             } else {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", true);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
-                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", "");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
             }
         },
         getMinValidPolicyDate: function (carVin) {
@@ -211,13 +217,12 @@ sap.ui.define([
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
             var dateTo = Utils.dateStringToDateObject(dateToString);
 
-            var operationsModel = this.oOperationsModel;
-            var langModel = this.getOwnerComponent().getModel("i18n");
+            var self = this;
             API.addPersonInsurance(personId, vin, dateTo).done(function(operations) {
-                Utils.appendPendingOperations(operationsModel, operations);
+                Utils.appendPendingOperations(self.oOperationsModel, operations);
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.error("Cannot add insurance: textStatus = ", textStatus, "error = ", errorThrown);
-                var sErrorText = langModel.getResourceBundle().getText("msg.box.error");
+                var sErrorText = self.oLangModel.getResourceBundle().getText("msg.box.error");
                 MessageBox.error(sErrorText);
             });
         }
