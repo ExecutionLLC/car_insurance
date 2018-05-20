@@ -207,6 +207,10 @@ sap.ui.define([
             var dateTo = new Date(policy.dateTo);
             return dateTo < currentDate || policy.isManuallyDeactivated;
         },
+        onHideShowNextPolicyPress: function() {
+            var isNewPolicyVisible = !this.oTechModel.getProperty("/tech/myPoliciesTab/isNewPolicyVisible");
+            this.oTechModel.setProperty("/tech/myPoliciesTab/isNewPolicyVisible", isNewPolicyVisible);
+        },
         onTransactionInfoLinkPress: function (oEvent) {
             var transactionHash = oEvent.getSource().getProperty("text");
             var langModel = this.getOwnerComponent().getModel("i18n");

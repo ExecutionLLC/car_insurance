@@ -28,6 +28,7 @@ sap.ui.define([
                     insuranceCompaniesTableData: []
                 },
                 myPoliciesTab: {
+                    isNewPolicyVisible: false,
                     isNextPolicyGroupEnabled: false,
                     isNextPolicyButtonEnabled: false,
                     nextPolicyCarVin: null,
