@@ -55,7 +55,7 @@ sap.ui.define([
                 return;
             }
 
-            var days = (dateTo - dateFrom)/(1000*60*60*24) + 1;
+            var days = Math.floor((dateTo - dateFrom)/(1000*60*60*24)) + 1;
             var nextPolicyPriceString = (perYearPrice*days/365.0).toFixed(2);
             this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", nextPolicyPriceString);
         },
@@ -186,6 +186,7 @@ sap.ui.define([
         },
         getMinValidPolicyDate: function (carVin) {
             var result = new Date();
+            result.setHours(0, 0, 0, 0);
 
             var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
             if (activePolicies) {
