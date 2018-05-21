@@ -69,8 +69,8 @@
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
 
-            <layout:BlockLayoutRow class="sapUiNoMarginTop sapUiNoMarginBottom">
-                <layout:BlockLayoutCell width="2" class="sapUiNoMarginTop sapUiNoMarginBottom">
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell width="2">
                     <Label text="{i18n>myPolicies.priceLabel}"
                            textAlign="Right"
                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
@@ -87,6 +87,14 @@
                             press="onAddPolicyPress"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
                             width="100%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell>
+                    <ObjectStatus class="sapUiSmallMarginTop"
+                                  state="{techModel>/tech/myPoliciesTab/infoTextState}"
+                                  text="{techModel>/tech/myPoliciesTab/infoText}"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
