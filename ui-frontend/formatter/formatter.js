@@ -22,6 +22,7 @@ sap.ui.define([
          * @description объект для форматирования валюты
          */
         oCurrencyFormat: NumberFormat.getCurrencyInstance(),
+        oBonusMalusFormat: NumberFormat.getInstance({maxFractionDigits: 2}),
 
         /**
          * @description Форматирование адреса страховой компании в имя
@@ -116,6 +117,10 @@ sap.ui.define([
         formatCurrency: function (value, currencyStr) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
             return formattedValue + " " + currencyStr;
+        },
+
+        formatBonusMalus: function (value) {
+            return this.formatter.oBonusMalusFormat.format(value);
         },
 
         formatLastInsuranceDateTo: function(insurances) {

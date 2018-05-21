@@ -71,7 +71,10 @@
                             />
                         </HBox>
                         <Text
-                                text="{personModel>/bonusMalus}"
+                                text="{
+                                    path: 'personModel>/bonusMalus',
+                                    formatter: '.formatter.formatBonusMalus'
+                                }"
                                 class="sapUiTinyMarginTop H1"
                         />
                     </layout:BlockLayoutCell>
