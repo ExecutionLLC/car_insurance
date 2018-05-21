@@ -7,25 +7,32 @@
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
         <layout:Grid width="100%">
-            <core:Icon
-                    src="sap-icon://add"
-                    size="2rem"
-                    class="sapUiMediumMarginBeginEnd"
-                    visible="{=!${techModel>/tech/myCarsTab/isNewCarInfoVisible}}"
-                    press="onAddCar"
-            />
-            <core:Icon
-                    src="sap-icon://decline"
-                    size="2rem"
-                    class="sapUiMediumMarginBeginEnd"
-                    visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
-                    press="onAddCar"
-            />
-            <Label text="{i18n>mycars.add}">
-                <layoutData>
-                    <layout:GridData span="L2 M4 S4" />
-                </layoutData>
-            </Label>
+            <layout:HorizontalLayout class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
+                <core:Icon
+                        src="sap-icon://add"
+                        width="40px"
+                        height="40px"
+                        size="1.5rem"
+                        visible="{=!${techModel>/tech/myCarsTab/isNewCarInfoVisible}}"
+                        press="onAddCar"
+                />
+                <core:Icon
+                        src="sap-icon://decline"
+                        width="40px"
+                        height="40px"
+                        size="1.5rem"
+                        visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
+                        press="onAddCar"
+                />
+                <Title text="{i18n>mycars.add}"
+                       titleStyle="H1"
+                       class="sapUiTinyMarginTop"
+                       width="100%"
+                />
+                <layout:layoutData>
+                    <layout:GridData span="L12 M12 S12"/>
+                </layout:layoutData>
+            </layout:HorizontalLayout>
         </layout:Grid>
 
         <layout:HorizontalLayout
