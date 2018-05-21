@@ -36,6 +36,12 @@
                             key="MyInsuranceCompany"/>
                 </items>
             </IconTabHeader>
+            <ToolbarSpacer/>
+            <Button
+                    type="Transparent"
+                    text="{i18n>toolbarIcon.logout}"
+                    press="onLogout"
+            />
         </tnt:ToolHeader>
 
 

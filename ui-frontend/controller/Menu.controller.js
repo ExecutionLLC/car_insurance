@@ -31,6 +31,10 @@ sap.ui.define([
             Utils.navigateToMenuPageTab(this.getRouter(), oEvent.getParameter("selectedKey"));
         },
 
+        onLogout: function () {
+            this.getRouter().navTo("loginPage");
+        },
+
         onHomePress: function () {
             Utils.navigateToMenuPageTab(this.getRouter(), "Profile");
         }
