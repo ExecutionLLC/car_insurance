@@ -228,8 +228,7 @@
                         </Toolbar>
                     </headerToolbar>
                     <content>
-                        <layout:HorizontalLayout>
-                            <layout:VerticalLayout>
+                            <layout:VerticalLayout width="20%">
                                 <Image
                                         width="134px"
                                         src="{
@@ -257,9 +256,12 @@
                                         text="{i18n>mycars.carInfo.sell}"
                                         app:vin="{path: 'techModel>vin'}"
                                         press="onSellCar"
+                                        width="100%"
                                 />
                             </layout:VerticalLayout>
-                            <layout:VerticalLayout>
+                            <layout:VerticalLayout width="5%">
+                            </layout:VerticalLayout>
+                            <layout:VerticalLayout width="75%">
                                 <Label
                                         text="{i18n>mycars.carInfo.history}"
                                         class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
@@ -351,7 +353,6 @@
                                     </items>
                                 </Table>
                             </layout:VerticalLayout>
-                        </layout:HorizontalLayout>
                     </content>
                 </Panel>
             </CustomListItem>
