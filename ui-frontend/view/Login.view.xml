@@ -127,6 +127,20 @@
                         columnsS="1"/>
             </form:layout>
         </form:Form>
+
+        <footer>
+            <Toolbar>
+                <content>
+                    <Image
+                            class="image-pointer sapUiSmallMarginBegin"
+                            height="4rem"
+                            src="./image/sap.png"/>
+                    <ToolbarSpacer/>
+                    <core:HTML
+                            content="{i18n>foter.copyright}"/>
+                </content>
+            </Toolbar>
+        </footer>
     </Page>
 
 </mvc:View>

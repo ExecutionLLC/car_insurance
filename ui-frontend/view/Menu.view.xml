@@ -59,6 +59,20 @@
             <mvc:XMLView id="MyInsuranceCompany" viewName="personal.account.view.TabBarViews.InsuranceCompany"/>
 
         </NavContainer>
+
+        <footer>
+            <Toolbar>
+                <content>
+                    <Image
+                            class="image-pointer sapUiSmallMarginBegin"
+                            height="4rem"
+                            src="./image/sap.png"/>
+                    <ToolbarSpacer/>
+                    <core:HTML
+                            content="{i18n>foter.copyright}"/>
+                </content>
+            </Toolbar>
+        </footer>
     </Page>
 
 

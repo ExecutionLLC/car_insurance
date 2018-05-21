@@ -78,10 +78,6 @@
 	border-top-width: 0rem;
 }
 
-.sapMShell {
-  padding: 20px;
-}
-
 a.sapMLnk {
   text-decoration: underline;
 }
@@ -96,4 +92,12 @@ a.sapMLnk {
 .buy-car.buy-car.buy-car .sapUiBlockCellContent,
 .buy-policy.buy-policy.buy-policy .sapUiBlockCellContent {
 	padding: 0.25rem 1rem;
+}
+
+.text-space-after {
+	margin-right: 0.5em;
+}
+
+.footer-copyright {
+	margin-right: 50px;
 }
