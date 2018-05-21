@@ -154,6 +154,11 @@ sap.ui.define([
             var transactionHash = oEvent.getSource().getProperty("text");
             var langModel = this.getOwnerComponent().getModel("i18n");
             Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
+        },
+
+        onIconPress: function(oEvent) {
+            var url = oEvent.getSource().data("url");
+            sap.m.URLHelper.redirect(url, true);
         }
     });
 });
