@@ -35,170 +35,156 @@
             </layout:HorizontalLayout>
         </layout:Grid>
 
-        <layout:HorizontalLayout
-                visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
-                width="100%"
+
+
+
+        <layout:BlockLayout background="Default"
+                            visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
+                            class="buy-car"
         >
-            <layout:VerticalLayout
-                    width="50%"
-            >
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.vin}"
+                            labelFor="vinInput"
+                            textAlign="Right"
+                            wrapping="true"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
                             width="25%"
-                    >
-                        <Label
-                                text="{i18n>mycars.addCar.vin}"
-                                labelFor="vinInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <Input
-                                id="vinInput"
-                                required="true"
-                                value="{
-                                    path: '/carInfo/vin',
-                                    type: '.customVINType'
-                                }"
-                        />
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
+                    />
+                    <Input
+                            id="vinInput"
+                            required="true"
+                            value="{
+                                path: '/carInfo/vin',
+                                type: '.customVINType'
+                            }"
+                            width="70%"
+                    />
+                </layout:BlockLayoutCell>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.numberPlate}"
+                            labelFor="numberPlateInput"
+                            textAlign="Right"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            width="35%"
+                    />
+                    <Input
+                            id="numberPlateInput"
+                            required="true"
+                            value="{
+                                path: '/carInfo/numberPlate',
+                                type: '.customNonemptyType'
+                            }"
+                            width="60%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.model}"
+                            labelFor="modelInput"
+                            textAlign="Right"
+                            wrapping="true"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
                             width="25%"
-                    >
-                        <Label
-                                text="{i18n>mycars.addCar.model}"
-                                labelFor="modelInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <Input
-                                id="modelInput"
-                                required="true"
-                                value="{
-                                    path: '/carInfo/model',
-                                    type: '.customNonemptyType'
-                                }"
-                        />
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
+                    />
+                    <Input
+                            id="modelInput"
+                            required="true"
+                            value="{
+                                path: '/carInfo/model',
+                                type: '.customNonemptyType'
+                            }"
+                            width="70%"
+                    />
+                </layout:BlockLayoutCell>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.power}"
+                            labelFor="powerInput"
+                            textAlign="Right"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            width="35%"
+                    />
+                    <MaskInput
+                            id="powerInput"
+                            mask="9999"
+                            placeholderSymbol=" "
+                            required="true"
+                            value="{
+                                path: '/carInfo/maxPower',
+                                type: '.customNonemptyType'
+                            }"
+                            width="60%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.type}"
+                            labelFor="typeInput"
+                            textAlign="Right"
+                            wrapping="true"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
                             width="25%"
+                    />
+                    <Select
+                            id="typeInput"
+                            items="{
+                                path: 'techModel>/tech/myCarsTab/carTypes'
+                            }"
+                            selectedKey="{
+                                path: '/carInfo/vehicleType'
+                            }"
+                            width="70%"
                     >
-                        <Label
-                                text="{i18n>mycars.addCar.type}"
-                                labelFor="typeInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <Select
-                                id="typeInput"
-                                items="{
-                                    path: 'techModel>/tech/myCarsTab/carTypes'
-                                }"
-                                selectedKey="{
-                                    path: '/carInfo/vehicleType'
-                                }"
-                        >
-                            <core:Item
-                                    key="{techModel>id}"
-                                    text="{
-                                        path: 'techModel>id',
-                                        formatter: '.formatter.formatCarType'
-                                    }"
-                            />
-                        </Select>
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-            </layout:VerticalLayout>
-            <layout:VerticalLayout
-                    width="50%"
-            >
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
-                            width="25%"
-                    >
-                        <Label
-                                text="{i18n>mycars.addCar.numberPlate}"
-                                labelFor="numberPlateInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <Input
-                                id="numberPlateInput"
-                                required="true"
-                                value="{
-                                    path: '/carInfo/numberPlate',
-                                    type: '.customNonemptyType'
+                        <core:Item
+                                key="{techModel>id}"
+                                text="{
+                                    path: 'techModel>id',
+                                    formatter: '.formatter.formatCarType'
                                 }"
                         />
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
-                            width="25%"
-                    >
-                        <Label
-                                text="{i18n>mycars.addCar.power}"
-                                labelFor="powerInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <MaskInput
-                                id="powerInput"
-                                mask="9999"
-                                placeholderSymbol=" "
-                                required="true"
-                                value="{
-                                    path: '/carInfo/maxPower',
-                                    type: '.customNonemptyType'
-                                }"
-                        />
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-                <layout:HorizontalLayout>
-                    <layout:VerticalLayout
-                            width="25%"
-                    >
-                        <Label
-                                width="100px"
-                                text="{i18n>mycars.addCar.year}"
-                                labelFor="yearInput"
-                        />
-                    </layout:VerticalLayout>
-                    <layout:VerticalLayout
-                            width="75%"
-                    >
-                        <MaskInput
-                                id="yearInput"
-                                mask="9999"
-                                placeholderSymbol=" "
-                                required="true"
-                                value="{
-                                    path: '/carInfo/year',
-                                    type: '.customNonemptyType'
-                                }"
-                        />
-                    </layout:VerticalLayout>
-                </layout:HorizontalLayout>
-                <Button
-                        width="100%"
-                        press="onAddSelectedCar"
-                        text="{i18n>mycars.addCar.add}"
-                />
-            </layout:VerticalLayout>
-        </layout:HorizontalLayout>
+                    </Select>
+                </layout:BlockLayoutCell>
+                <layout:BlockLayoutCell>
+                    <Label
+                            text="{i18n>mycars.addCar.year}"
+                            labelFor="yearInput"
+                            textAlign="Right"
+                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            width="35%"
+                    />
+                    <MaskInput
+                            id="yearInput"
+                            mask="9999"
+                            placeholderSymbol=" "
+                            required="true"
+                            value="{
+                                path: '/carInfo/year',
+                                type: '.customNonemptyType'
+                            }"
+                            width="60%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell class="sapUiNoMarginTop sapUiNoMarginBottom">
+                </layout:BlockLayoutCell>
+
+                <layout:BlockLayoutCell>
+                    <Button
+                            width="100%"
+                            press="onAddSelectedCar"
+                            text="{i18n>mycars.addCar.add}"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+        </layout:BlockLayout>
 
         <layout:Grid width="100%">
             <Label
