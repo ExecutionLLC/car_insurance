@@ -35,9 +35,6 @@
             </layout:HorizontalLayout>
         </layout:Grid>
 
-
-
-
         <layout:BlockLayout background="Default"
                             visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
                             class="buy-car"
