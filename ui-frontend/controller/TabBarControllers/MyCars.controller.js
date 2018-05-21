@@ -213,7 +213,7 @@ sap.ui.define([
                     appendCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
-                    oView.getModel().getProperty("/carInfo", Object.assign({}, emptyCarInfo));
+                    oView.getModel().setProperty("/carInfo", Object.assign({}, emptyCarInfo));
                     resetValidation(oView, inputIds);
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
