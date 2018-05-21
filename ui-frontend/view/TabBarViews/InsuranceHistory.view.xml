@@ -7,33 +7,32 @@
     <Page
             showHeader="false"
             enableScrolling="true">
-        <layout:Grid
-                width="100%">
-            <Label
-                    class="sapUiSmallMarginTop"
-                    text="{i18n>dateRange}">
+        <layout:Grid width="100%"
+                     class="sapUiMediumMarginTop"
+        >
+            <Label class="sapUiSmallMarginTop"
+                   text="{i18n>dateRange}">
                 <layoutData>
-                    <layout:GridData
-                            span="L3 M4 S4"
-                            indent="L1 M1 S1"/>
+                    <layout:GridData span="L3 M4 S4"
+                                     indent="L1 M1 S1"
+                    />
                 </layoutData>
             </Label>
-            <DateRangeSelection
-                    placeholder="{i18n>dateRangePlaceholder}"
-                    change="onDateRangeChange">
+            <DateRangeSelection placeholder="{i18n>dateRangePlaceholder}"
+                                change="onDateRangeChange"
+            >
                 <layoutData>
-                    <layout:GridData
-                            span="L4 M5 S4"
-                            indent="L0 M0 S0"/>
+                    <layout:GridData span="L4 M5 S4"
+                                     indent="L0 M0 S0"
+                    />
                 </layoutData>
             </DateRangeSelection>
-            <Button
-                    width="100%"
+            <Button width="100%"
                     press="onPrint"
-                    icon="sap-icon://print">
+                    icon="sap-icon://print"
+            >
                 <layoutData>
-                    <layout:GridData
-                            span="L2 M2 S2"/>
+                    <layout:GridData span="L2 M2 S2"/>
                 </layoutData>
             </Button>
         </layout:Grid>
