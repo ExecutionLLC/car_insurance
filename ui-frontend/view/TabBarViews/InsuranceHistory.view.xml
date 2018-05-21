@@ -38,15 +38,13 @@
             </Button>
         </layout:Grid>
 
-        <layout:Grid width="100%">
-            <Label
-                    text="{
+        <Label
+                text="{
                         path: 'operationsModel>/',
                         formatter: '.formatter.formatOperationsWCount'
                     }"
-                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
-            />
-        </layout:Grid>
+                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+        />
 
         <ScrollContainer vertical="false" horizontal="true">
             <Table
