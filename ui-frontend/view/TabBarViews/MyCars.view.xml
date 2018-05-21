@@ -7,7 +7,7 @@
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
         <layout:Grid width="100%">
-            <layout:HorizontalLayout class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
+            <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd sapUiMediumMarginTop">
                 <core:Icon
                         src="sap-icon://add"
                         width="40px"
@@ -37,16 +37,16 @@
 
         <layout:BlockLayout background="Default"
                             visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
-                            class="buy-car"
+                            class="sapUiMediumMarginBegin buy-car"
         >
             <layout:BlockLayoutRow>
                 <layout:BlockLayoutCell>
                     <Label
                             text="{i18n>mycars.addCar.vin}"
                             labelFor="vinInput"
-                            textAlign="Right"
+                            textAlign="Left"
                             wrapping="true"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            class="sapUiSmallMarginTop"
                             width="25%"
                     />
                     <Input
@@ -56,16 +56,16 @@
                                 path: '/carInfo/vin',
                                 type: '.customVINType'
                             }"
-                            width="70%"
+                            width="75%"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>
                     <Label
                             text="{i18n>mycars.addCar.numberPlate}"
                             labelFor="numberPlateInput"
-                            textAlign="Right"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
-                            width="35%"
+                            textAlign="Left"
+                            class="sapUiSmallMarginTop"
+                            width="25%"
                     />
                     <Input
                             id="numberPlateInput"
@@ -74,7 +74,7 @@
                                 path: '/carInfo/numberPlate',
                                 type: '.customNonemptyType'
                             }"
-                            width="60%"
+                            width="75%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -83,9 +83,9 @@
                     <Label
                             text="{i18n>mycars.addCar.model}"
                             labelFor="modelInput"
-                            textAlign="Right"
+                            textAlign="Left"
                             wrapping="true"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            class="sapUiSmallMarginTop"
                             width="25%"
                     />
                     <Input
@@ -95,16 +95,16 @@
                                 path: '/carInfo/model',
                                 type: '.customNonemptyType'
                             }"
-                            width="70%"
+                            width="75%"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>
                     <Label
                             text="{i18n>mycars.addCar.power}"
                             labelFor="powerInput"
-                            textAlign="Right"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
-                            width="35%"
+                            textAlign="Left"
+                            class="sapUiSmallMarginTop"
+                            width="25%"
                     />
                     <MaskInput
                             id="powerInput"
@@ -115,7 +115,7 @@
                                 path: '/carInfo/maxPower',
                                 type: '.customNonemptyType'
                             }"
-                            width="60%"
+                            width="75%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -124,9 +124,9 @@
                     <Label
                             text="{i18n>mycars.addCar.type}"
                             labelFor="typeInput"
-                            textAlign="Right"
+                            textAlign="Left"
                             wrapping="true"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                            class="sapUiSmallMarginTop"
                             width="25%"
                     />
                     <Select
@@ -137,7 +137,7 @@
                             selectedKey="{
                                 path: '/carInfo/vehicleType'
                             }"
-                            width="70%"
+                            width="75%"
                     >
                         <core:Item
                                 key="{techModel>id}"
@@ -152,9 +152,9 @@
                     <Label
                             text="{i18n>mycars.addCar.year}"
                             labelFor="yearInput"
-                            textAlign="Right"
-                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
-                            width="35%"
+                            textAlign="Left"
+                            class="sapUiSmallMarginTop"
+                            width="25%"
                     />
                     <MaskInput
                             id="yearInput"
@@ -165,7 +165,7 @@
                                 path: '/carInfo/year',
                                 type: '.customNonemptyType'
                             }"
-                            width="60%"
+                            width="75%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -174,8 +174,9 @@
                 </layout:BlockLayoutCell>
 
                 <layout:BlockLayoutCell>
+                    <layout:VerticalLayout width="25%"/>
                     <Button
-                            width="100%"
+                            width="75%"
                             press="onAddSelectedCar"
                             text="{i18n>mycars.addCar.add}"
                     />
