@@ -5,211 +5,150 @@
         xmlns:layout="sap.ui.layout"
         xmlns:core="sap.ui.core">
     <Page
-            showHeader="false">
-        <layout:Grid
-                defaultSpan="L10 M10 S10"
-                class="sapUiSmallMarginTop">
-            <layout:content>
-                <CustomListItem>
-                    <content>
+            showHeader="false"
+    >
+        <layout:VerticalLayout width="60%" hAlign="Center">
+            <layout:BlockLayout background="Dashboard">
+                <layout:BlockLayoutRow>
+                    <layout:BlockLayoutCell
+                            width="2"
+                            title="{i18n>myInsuranceCompany}"
+                    >
+                        <Table>
+                            <columns>
+                                <Column />
+                                <Column />
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <layout:VerticalLayout>
+                                            <core:Icon
+                                                    src="sap-icon://edit"
+                                                    press="onEditPress"
+                                                    size="2em"
+                                            />
+                                            <Text
+                                                    text="{
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToName'
+                                                    }"
+                                            />
+                                        </layout:VerticalLayout>
+                                        <layout:VerticalLayout>
+                                            <Text
+                                                    text="{i18n>ratingOfReliability}"
+                                                    class="H2"/>
+                                            <Image
+                                                    src="{
+                                                path:'personModel>/insuranceCompanyId',
+                                                formatter:'.formatter.formatICAddressToReliabilityImage'
+                                            }"
+                                                    width='4rem'
+                                                    height="4rem"
+                                            />
+                                        </layout:VerticalLayout>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </layout:BlockLayoutCell>
+                </layout:BlockLayoutRow>
+                <layout:BlockLayoutRow>
+                    <layout:BlockLayoutCell
+                            title="{i18n>myBonusMalus}"
+                    >
                         <HBox
-                                height="7rem"
-                                width="96%"
-                                class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
-                            <VBox
-                                    height="7rem"
-                                    alignItems="Center"
-                                    width="65%"
-                                    class="right-border">
-                                <HBox
-                                        width="100%"
-                                        height="2rem">
-                                    <Text
-                                            text="{i18n>myInsuranceCompany}"
-                                            class="H2"/>
-                                </HBox>
-                                <HBox
-                                        width="100%"
-                                        height="2rem">
-                                    <Text
-                                            text=""
-                                            class="coloredText"/>
-                                    <Text
-                                            text="{
-                                                path:'personModel>/insuranceCompanyId',
-                                                formatter:'.formatter.formatICAddressToName'}"
-                                            class="H1"/>
-                                </HBox>
-                            </VBox>
-
-                            <VBox
-                                    height="7rem"
-                                    width="35%">
-                                <HBox
-                                        class="sapUiSmallMarginTop"
-                                        alignItems="Center"
-                                        justifyContent="SpaceAround">
-                                    <Image
-                                            src="{
-                                            path:'personModel>/insuranceCompanyId',
-                                            formatter:'.formatter.formatICAddressToReliabilityImage'}"
-                                            width='4rem'
-                                            height="4rem"
-                                    />
-                                    <Text
-                                            text="{i18n>ratingOfReliability}"
-                                            class="H2"/>
-                                    <Text
-                                            text="{
-                                                path:'personModel>/insuranceCompanyId',
-                                                formatter:'.formatter.formatICAddressToReliabilityString'}"
-                                            class="H1"/>
-                                </HBox>
-                            </VBox>
-                        </HBox>
-                    </content>
-                    <layoutData>
-                        <layout:GridData
-                                span="L8 M6 S6"
-                                indent="L2 M3 S3"/>
-                    </layoutData>
-                </CustomListItem>
-
-                <CustomListItem
-                        class="sapUiTinyMarginBottom">
-                    <content>
-                        <VBox
-                                height="7rem"
-                                alignItems="Center"
                                 width="100%"
-                                class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
-                            <HBox
-                                    width="100%"
-                                    height="2rem"
-                                    alignItems="Center"
-                                    justifyContent="SpaceAround"
-                                    class="sapUiSmallMarginEnd">
-                                <Text
-                                        text="{i18n>myBonusMalus}"
-                                        class="H2"/>
-                            </HBox>
-                            <Text
-                                    text="{= ${mainModel>/tariff} }"
-                                    class="sapUiTinyMarginTop H1"/>
-                        </VBox>
-                    </content>
-                    <layoutData>
-                        <layout:GridData
-                                span="L3 M2 S2"
-                                indent="L2 M3 S3"/>
-                    </layoutData>
-                </CustomListItem>
-
-                <CustomListItem
-                        class="sapUiTinyMarginBottom">
-                    <content>
-                        <VBox
-                                height="7rem"
-                                width="94%"
+                                height="2rem"
+                                alignItems="Center"
                                 justifyContent="SpaceAround"
-                                class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                                class="sapUiSmallMarginEnd"
+                        >
                             <Text
-                                    text="{i18n>baseInsuranceCost}"
+                                    text="{i18n>myBonusMalus}"
                                     class="H2"
-                                    textAlign="Begin"
-                                    width="100%"/>
-                            <Text
-                                    text="{
+                            />
+                        </HBox>
+                        <Text
+                                text="{personModel>/bonusMalus}"
+                                class="sapUiTinyMarginTop H1"
+                        />
+                    </layout:BlockLayoutCell>
+                    <layout:BlockLayoutCell
+                            title="{i18n>baseInsuranceCost}"
+                    >
+                        <Text
+                                text="{i18n>baseInsuranceCost}"
+                                class="H2"
+                                textAlign="Begin"
+                                width="100%"
+                        />
+                        <Text
+                                text="{
                                     parts:[
-                                        {path:'mainModel>/pensionForecast'},
-                                        {path:'i18n>currency'}
+                                        {path: 'personModel>/basePrice'},
+                                        {path: 'i18n>currency'}
                                     ],
                                     formatter: '.formatter.formatCurrency'
                                 }"
-                                    textAlign="Center"
-                                    width="100%"
-                                    class="H1"/>
-                        </VBox>
-                    </content>
-                    <layoutData>
-                        <layout:GridData
-                                span="L5 M4 S4"/>
-                    </layoutData>
-                </CustomListItem>
-
-                <CustomListItem
-                        class="sapUiTinyMarginBottom">
-                    <content>
-                        <HBox
-                                height="1rem"
-                                width="96%"
-                                class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
-                            <Text
-                                    text="{i18n>myCarsTitle}"/>
-                        </HBox>
+                                textAlign="Center"
+                                width="100%"
+                                class="H1"
+                        />
+                    </layout:BlockLayoutCell>
+                </layout:BlockLayoutRow>
+                <layout:BlockLayoutRow>
+                    <layout:BlockLayoutCell
+                            title="{i18n>myCarsTitle}"
+                    >
                         <Table
                                 items="{
                                     path: 'personModel>/cars'
-                                }">
+                                }"
+                        >
                             <columns>
-                                <Column
-                                        hAlign="Center">
-                                </Column>
-                                <Column
-                                        hAlign="Left">
-                                </Column>
-                                <Column
-                                        hAlign="Left">
-                                </Column>
-                                <Column
-                                        hAlign="Right">
-                                </Column>
+                                <Column/>
+                                <Column/>
+                                <Column/>
+                                <Column width="14px"/>
                             </columns>
                             <items>
-                                <CustomListItem>
-                                    <Panel
-                                            expand="false"
-                                            width="auto">
-                                        <content>
-                                            <layout:HorizontalLayout>
-                                                <Text
-                                                        text="CARICON"/>
-                                                <layout:VerticalLayout>
-                                                    <Text
-                                                            text="{personModel>model}"/>
-                                                    <Text
-                                                            text="{personModel>numberPlate}"/>
-                                                </layout:VerticalLayout>
-                                                <layout:VerticalLayout>
-                                                    <Text
-                                                            text="{i18n>insurancedTo}"/>
-                                                    <Text
-                                                            text="{
-                                                                path: 'personModel>insurances',
-                                                                formatter: '.formatter.formatLastInsuranceDateTo'
-                                                            }"/>
-                                                </layout:VerticalLayout>
-                                                <layout:VerticalLayout>
-                                                    <core:HTML
-                                                            content="{
-                                                               path: 'personModel>insurances',
-                                                                formatter: '.formatter.formatInsuranceColorStrip'
-                                                            }"/>
-                                                </layout:VerticalLayout>
-                                            </layout:HorizontalLayout>
-                                        </content>
-                                    </Panel>
-                                </CustomListItem>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Image
+                                                width="134px"
+                                                src="{
+                                                    path: 'personModel>vehicleType',
+                                                    formatter: '.formatter.formatCarTypeImage'
+                                                }"
+                                        />
+                                        <ObjectIdentifier
+                                                title="{personModel>model}"
+                                                text="{personModel>numberPlate}"/>
+                                        <layout:VerticalLayout>
+                                            <Text
+                                                    text="{i18n>insurancedTo}"/>
+                                            <Text
+                                                    text="{
+                                                        path: 'personModel>insurances',
+                                                        formatter: '.formatter.formatLastInsuranceDateTo'
+                                                    }"
+                                            />
+                                        </layout:VerticalLayout>
+                                        <core:HTML
+                                                content="{
+                                                    path: 'personModel>insurances',
+                                                    formatter: '.formatter.formatInsuranceColorStrip'
+                                                }"
+                                        />
+                                    </cells>
+                                </ColumnListItem>
                             </items>
                         </Table>
-                    </content>
-                    <layoutData>
-                        <layout:GridData
-                                span="L8 M6 S6"
-                                indent="L2 M3 S3"/>
-                    </layoutData>
-                </CustomListItem>
-            </layout:content>
-        </layout:Grid>
+                    </layout:BlockLayoutCell>
+                </layout:BlockLayoutRow>
+            </layout:BlockLayout>
+        </layout:VerticalLayout>
     </Page>
 </mvc:View>

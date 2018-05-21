@@ -7,15 +7,35 @@
     <Page showHeader="false">
         <layout:Grid width="100%">
             <layout:HorizontalLayout>
-                <Button text="" press="onAddPolicy"/>
+                <core:Icon
+                        src="sap-icon://add"
+                        size="2rem"
+                        class="sapUiMediumMarginBeginEnd"
+                        visible="{=!${techModel>/tech/myPoliciesTab/isNewPolicyVisible}}"
+                        press="onHideShowNextPolicyPress"
+                />
+                <core:Icon
+                        src="sap-icon://decline"
+                        size="2rem"
+                        class="sapUiMediumMarginBeginEnd"
+                        visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
+                        press="onHideShowNextPolicyPress"
+                />
                 <Label text="{i18n>myPolicies.addNewPolicy}" class="sapUiSmallMarginTop"/>
             </layout:HorizontalLayout>
         </layout:Grid>
 
-        <layout:Grid width="100%" defaultSpan="XL6 L6 M6 S12">
+        <layout:Grid width="100%"
+                     defaultSpan="XL6 L6 M6 S12"
+                     visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
+        >
             <layout:HorizontalLayout>
                 <Label text="{i18n>myPolicies.carModelLabel}" class="sapUiSmallMarginTop"/>
-                <Select change="onPolicyCarSelected" items="{personModel>/cars}">
+                <Select change="onPolicyCarSelected"
+                        items="{personModel>/cars}"
+                        selectedKey="{techModel>/tech/myPoliciesTab/nextPolicyCarVin}"
+                        enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
+                >
                     <items>
                         <core:Item key="{personModel>vin}" text="{personModel>model}"/>
                     </items>
@@ -25,17 +45,20 @@
 
             <layout:HorizontalLayout>
                 <Label text="{i18n>myPolicies.dateToLabel}" class="sapUiSmallMarginTop"/>
-                <DatePicker id="policyDateTo" change="onPolicyDateSelected"/>
+                <DatePicker minDate="{techModel>/tech/myPoliciesTab/nextPolicyDateFrom}"
+                            value="{techModel>/tech/myPoliciesTab/nextPolicyDateToString}"
+                            enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
+                />
             </layout:HorizontalLayout>
 
             <layout:HorizontalLayout>
                 <Label text="{i18n>myPolicies.priceLabel}" class="sapUiSmallMarginTop"/>
-                <Text/>
+                <Text text="{techModel>/tech/myPoliciesTab/nextPolicyPriceString}" class="sapUiSmallMarginTop"/>
             </layout:HorizontalLayout>
 
             <Button text="{i18n>myPolicies.addNewPolicy}"
                     press="onAddPolicyPress"
-                    enabled="{techModel>/tech/myPoliciesTab/isAddPolicyButtonEnabled}"
+                    enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
             />
 
             <ObjectStatus class="sapUiSmallMarginTop"

@@ -38,6 +38,13 @@ sap.ui.define([
 
             return result;
         },
+        dateStringToDateObject: function(dateString) {
+            var dateData = dateString.split(".").map(function(item) {
+                return parseInt(item);
+            });
+
+            return new Date(dateData[2], dateData[1] - 1, dateData[0]);
+        },
         getInsuranceObjectByAddress: function (address, model) {
             if (!address || !model) {
                 return null;
@@ -52,109 +59,36 @@ sap.ui.define([
         },
 
         conversionICRating: function (int) {
-            var defaultRating = {
-                symbol: "?",
-                description: "Неизвестен"
-            };
-            var ratingForInt = {
-                0: {
-                    symbol    : "D",
-                    description: "В состоянии дефолта"
-                },
-                1: {
-                    symbol    : "C",
-                    description: "Близки к дефолту"
-                },
-                2: {
-                    symbol    : "CC",
-                    description: "Близки к дефолту"
-                },
-                3: {
-                    symbol    : "CCC-",
-                    description: "Близки к дефолту"
-                },
-                4: {
-                    symbol    : "CCC",
-                    description: "Крайне высокий кредитный риск"
-                },
-                5: {
-                    symbol    : "CCC+",
-                    description: "Очень высокий кредитный риск"
-                },
-                6: {
-                    symbol    : "B-",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                7: {
-                    symbol    : "B",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                8: {
-                    symbol    : "B+",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                9: {
-                    symbol    : "BB-",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                10: {
-                    symbol    : "BB",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                11: {
-                    symbol    : "BB+",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                12: {
-                    symbol    : "BBB-",
-                    description: "Надежность ниже среднего"
-                },
-                13: {
-                    symbol    : "BBB",
-                    description: "Надежность ниже среднего"
-                },
-                14: {
-                    symbol    : "BBB+",
-                    description: "Надежность ниже среднего"
-                },
-                15: {
-                    symbol    : "A-",
-                    description: "Надежность выше среднего"
-                },
-                16: {
-                    symbol    : "A",
-                    description: "Надежность выше среднего"
-                },
-                17: {
-                    symbol    : "A+",
-                    description: "Надежность выше среднего"
-                },
-                18: {
-                    symbol    : "AA-",
-                    description: "Высокая надежность"
-                },
-                19: {
-                    symbol    : "AA",
-                    description: "Высокая надежность"
-                },
-                20: {
-                    symbol    : "AA+",
-                    description: "Высокая надежность",
-                    imageSrc  : "./image/AAplus.jpg"
-                },
-                21: {
-                    symbol    : "AAA",
-                    description: "Наивысшая надежность",
-                    imageSrc  : "./image/AAA.jpg"
-                },
-                22: {
-                    symbol    : "AAA+",
-                    description: "Наивысшая надежность",
-                    imageSrc  : "./image/AAAplus.jpg"
-                }
-            };
-
-            return ratingForInt[int] || defaultRating;
+            switch (true) {
+                case int <= 2:
+                    return {
+                        symbol    : "AA+",
+                        description: "high",
+                        imageSrc  : "./image/rating/AAplus.jpg",
+                        color: "lightgreen"
+                    };
+                case int <= 4:
+                    return {
+                        symbol    : "AAA",
+                        description: "higher",
+                        imageSrc  : "./image/rating/AAA.jpg",
+                        color: "green"
+                    };
+                case int > 4:
+                    return {
+                        symbol    : "AAA+",
+                        description: "highest",
+                        imageSrc  : "./image/rating/AAAplus.jpg",
+                        color: "darkgreen"
+                    };
+                default:
+                    return {
+                        symbol: "?",
+                        description: "unknown",
+                        imageSrc  : "./image/rating/unknown.jpg",
+                        color: "gray"
+                    };
+            }
         },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
             API.getTransaction(transactionHash).done(function (transactionInfo) {
@@ -197,6 +131,43 @@ sap.ui.define([
             });
             var newOperations = operationsArray.concat(pendingOperations);
             operationsModel.setData(newOperations);
+        },
+
+        getInsurancePerYearPrice: function (oPersonModel, carVin) {
+            var basePrice = oPersonModel.getProperty("/basePrice");
+            var bonusMalus = oPersonModel.getProperty("/bonusMalus");
+
+            if (!basePrice || !bonusMalus) {
+                return null;
+            }
+
+            var cars = oPersonModel.getProperty("/cars") || [];
+            var soldCars = oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+            var car = allCars.find(function (item) {
+                return item.vin === carVin;
+            });
+
+            if (!car) {
+                return null;
+            }
+
+            var k;
+            if (car.maxPower <= 50) {
+                k = 0.6;
+            } else if (car.maxPower <= 70) {
+                k = 1.0;
+            } else if (car.maxPower <= 100) {
+                k = 1.1;
+            } else if (car.maxPower <= 120) {
+                k = 1.2;
+            } else if (car.maxPower <= 150) {
+                k = 1.4;
+            } else {
+                k = 1.6;
+            }
+
+            return bonusMalus*basePrice*k;
         },
 
         findLastActiveInsurance: function(insurances) {

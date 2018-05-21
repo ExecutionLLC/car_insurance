@@ -2,18 +2,25 @@
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:layout="sap.ui.layout"
+          xmlns:commons="sap.ui.commons"
           xmlns:core="sap.ui.core"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
         <layout:Grid width="100%">
-            <Button
-                    text=""
+            <core:Icon
+                    src="sap-icon://add"
+                    size="2rem"
+                    class="sapUiMediumMarginBeginEnd"
+                    visible="{=!${techModel>/tech/myCarsTab/isNewCarInfoVisible}}"
                     press="onAddCar"
-            >
-                <layoutData>
-                    <layout:GridData span="L2 M4 S4" indent="L1 M3 S3" />
-                </layoutData>
-            </Button>
+            />
+            <core:Icon
+                    src="sap-icon://decline"
+                    size="2rem"
+                    class="sapUiMediumMarginBeginEnd"
+                    visible="{techModel>/tech/myCarsTab/isNewCarInfoVisible}"
+                    press="onAddCar"
+            />
             <Label text="{i18n>mycars.add}">
                 <layoutData>
                     <layout:GridData span="L2 M4 S4" />
@@ -32,31 +39,54 @@
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.vin}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.vin}"
+                                labelFor="vinInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="vinInput"/>
+                        <Input
+                                id="vinInput"
+                                required="true"
+                                value="{
+                                    path: '/carInfo/vin',
+                                    type: '.customVINType'
+                                }"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.model}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.model}"
+                                labelFor="modelInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="modelInput"/>
+                        <Input
+                                id="modelInput"
+                                required="true"
+                                value="{
+                                    path: '/carInfo/model',
+                                    type: '.customNonemptyType'
+                                }"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.type}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.type}"
+                                labelFor="typeInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
@@ -65,6 +95,9 @@
                                 id="typeInput"
                                 items="{
                                     path: 'techModel>/tech/myCarsTab/carTypes'
+                                }"
+                                selectedKey="{
+                                    path: '/carInfo/vehicleType'
                                 }"
                         >
                             <core:Item
@@ -85,36 +118,71 @@
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.numberPlate}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.numberPlate}"
+                                labelFor="numberPlateInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="numberPlateInput"/>
+                        <Input
+                                id="numberPlateInput"
+                                required="true"
+                                value="{
+                                    path: '/carInfo/numberPlate',
+                                    type: '.customNonemptyType'
+                                }"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.power}"/>
+                        <Label
+                                text="{i18n>mycars.addCar.power}"
+                                labelFor="powerInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="powerInput"/>
+                        <MaskInput
+                                id="powerInput"
+                                mask="9999"
+                                placeholderSymbol=" "
+                                required="true"
+                                value="{
+                                    path: '/carInfo/maxPower',
+                                    type: '.customNonemptyType'
+                                }"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <layout:HorizontalLayout>
                     <layout:VerticalLayout
                             width="25%"
                     >
-                        <Text text="{i18n>mycars.addCar.year}"/>
+                        <Label
+                                width="100px"
+                                text="{i18n>mycars.addCar.year}"
+                                labelFor="yearInput"
+                        />
                     </layout:VerticalLayout>
                     <layout:VerticalLayout
                             width="75%"
                     >
-                        <Input id="yearInput"/>
+                        <MaskInput
+                                id="yearInput"
+                                mask="9999"
+                                placeholderSymbol=" "
+                                required="true"
+                                value="{
+                                    path: '/carInfo/year',
+                                    type: '.customNonemptyType'
+                                }"
+                        />
                     </layout:VerticalLayout>
                 </layout:HorizontalLayout>
                 <Button
@@ -177,7 +245,13 @@
                         <content>
                             <layout:HorizontalLayout>
                                 <layout:VerticalLayout>
-                                    <Text text="CARICON" />
+                                    <Image
+                                            width="134px"
+                                            src="{
+                                                path: 'techModel>vehicleType',
+                                                formatter: '.formatter.formatCarTypeImage'
+                                            }"
+                                    />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
                                         <Text text="{path: 'techModel>vin'}" />
@@ -349,7 +423,13 @@
                         <content>
                             <layout:HorizontalLayout>
                                 <layout:VerticalLayout>
-                                    <Text text="CARICON" />
+                                    <Image
+                                            width="134px"
+                                            src="{
+                                                path: 'techModel>vehicleType',
+                                                formatter: '.formatter.formatCarTypeImage'
+                                            }"
+                                    />
                                     <HBox justifyContent="SpaceBetween">
                                         <Text text="{i18n>mycars.carInfo.vin}" />
                                         <Text text="{path: 'techModel>vin'}" />

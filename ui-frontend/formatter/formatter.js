@@ -88,7 +88,21 @@ sap.ui.define([
         formatICAddressToReliabilityString: function (icAddress) {
             var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
-            return oICRating.description + ' (' + oICRating.symbol + ')';
+            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
+        },
+
+        formatReliabilityDescription: function(rating) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            var oICRating = Utils.conversionICRating(rating);
+            return oBundle.getText("InsuranceReliability." + oICRating.description);
+        },
+
+        formatReliabilitySpan: function(rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
         formatTableItemPending: function (isPending) {
@@ -134,7 +148,7 @@ sap.ui.define([
                 -1;
 
             var bgColor = color(monthsToExpire);
-            return '<div style="width: 20px; height: 100px; background: ' + bgColor + ';" />';
+            return '<div style="width: 100%; height: 80px; background: ' + bgColor + ';" />';
         },
 
         formatOperationName: function (operationType) {
@@ -149,6 +163,15 @@ sap.ui.define([
                 .getModel("i18n")
                 .getResourceBundle();
             return oBundle.getText("CarTypes." + carType);
+        },
+
+        formatCarTypeImage: function(carType) {
+            var carTypeInfo = Const.CAR_TYPES.find(function(typeInfo) {
+                return typeInfo.id === carType;
+            });
+            if (carTypeInfo) {
+                return "./image/cars/" + carTypeInfo.icon;
+            }
         }
     }
 
