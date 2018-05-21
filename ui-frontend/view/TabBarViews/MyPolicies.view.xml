@@ -76,7 +76,13 @@
                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
                            width="25%"
                     />
-                    <Text text="{techModel>/tech/myPoliciesTab/nextPolicyPriceString}"
+                    <Text text="{
+                            parts:[
+                                {path: 'techModel>/tech/myPoliciesTab/nextPolicyPriceString'},
+                                {path: 'i18n>currency'}
+                            ],
+                            formatter: '.formatter.formatCurrency'
+                          }"
                           class="sapUiSmallMarginTop"
                           width="70%"
                     />
