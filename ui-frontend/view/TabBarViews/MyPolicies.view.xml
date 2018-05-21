@@ -8,7 +8,7 @@
 >
     <Page showHeader="false">
         <layout:Grid width="100%">
-            <layout:HorizontalLayout class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
+            <layout:HorizontalLayout>
                 <core:Icon
                         src="sap-icon://add"
                         width="40px"
@@ -37,11 +37,11 @@
                             class="buy-policy"
         >
             <layout:BlockLayoutRow>
-                <layout:BlockLayoutCell width="2">
+                <layout:BlockLayoutCell>
                     <Label text="{i18n>myPolicies.carModelLabel}"
                            textAlign="Right"
-                           wrapping="true"
                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                           wrapping="true"
                            width="25%"
                     />
                     <Select change="onPolicyCarSelected"
@@ -55,7 +55,7 @@
                         </items>
                     </Select>
                 </layout:BlockLayoutCell>
-                <layout:BlockLayoutCell width="2">
+                <layout:BlockLayoutCell>
                     <Label text="{i18n>myPolicies.dateToLabel}"
                            textAlign="Right"
                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
@@ -70,7 +70,7 @@
             </layout:BlockLayoutRow>
 
             <layout:BlockLayoutRow>
-                <layout:BlockLayoutCell width="2">
+                <layout:BlockLayoutCell>
                     <Label text="{i18n>myPolicies.priceLabel}"
                            textAlign="Right"
                            class="sapUiSmallMarginTop sapUiTinyMarginEnd"
@@ -88,7 +88,7 @@
                     />
                 </layout:BlockLayoutCell>
 
-                <layout:BlockLayoutCell width="2">
+                <layout:BlockLayoutCell>
                     <Button text="{i18n>myPolicies.addNewPolicy}"
                             press="onAddPolicyPress"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
