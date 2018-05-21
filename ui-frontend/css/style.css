@@ -85,3 +85,7 @@
 a.sapMLnk {
   text-decoration: underline;
 }
+
+.buy-policy.buy-policy.buy-policy .sapUiBlockCellContent {
+	padding: 0.25rem 1rem;
+}

@@ -32,8 +32,9 @@
             </layout:HorizontalLayout>
         </layout:Grid>
 
-        <layout:BlockLayout background="Dashboard"
+        <layout:BlockLayout background="Default"
                             visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
+                            class="buy-policy"
         >
             <layout:BlockLayoutRow>
                 <layout:BlockLayoutCell width="2">
