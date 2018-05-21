@@ -3,69 +3,94 @@
         xmlns="sap.m"
         xmlns:mvc="sap.ui.core.mvc"
         xmlns:layout="sap.ui.layout"
-        xmlns:core="sap.ui.core">
+        xmlns:core="sap.ui.core"
+        xmlns:form="sap.ui.layout.form"
+>
     <Page showHeader="false">
         <layout:Grid width="100%">
-            <layout:HorizontalLayout>
+            <layout:HorizontalLayout class="sapUiMediumMarginBeginEnd sapUiMediumMarginTop">
                 <core:Icon
                         src="sap-icon://add"
-                        size="2rem"
-                        class="sapUiMediumMarginBeginEnd"
+                        width="40px"
+                        height="40px"
+                        size="1.5rem"
                         visible="{=!${techModel>/tech/myPoliciesTab/isNewPolicyVisible}}"
                         press="onHideShowNextPolicyPress"
                 />
                 <core:Icon
                         src="sap-icon://decline"
-                        size="2rem"
-                        class="sapUiMediumMarginBeginEnd"
+                        width="40px"
+                        height="40px"
+                        size="1.5rem"
                         visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
                         press="onHideShowNextPolicyPress"
                 />
-                <Label text="{i18n>myPolicies.addNewPolicy}" class="sapUiSmallMarginTop"/>
-            </layout:HorizontalLayout>
-        </layout:Grid>
-
-        <layout:Grid width="100%"
-                     defaultSpan="XL6 L6 M6 S12"
-                     visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
-        >
-            <layout:HorizontalLayout>
-                <Label text="{i18n>myPolicies.carModelLabel}" class="sapUiSmallMarginTop"/>
-                <Select change="onPolicyCarSelected"
-                        items="{personModel>/cars}"
-                        selectedKey="{techModel>/tech/myPoliciesTab/nextPolicyCarVin}"
-                        enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
-                >
-                    <items>
-                        <core:Item key="{personModel>vin}" text="{personModel>model}"/>
-                    </items>
-                </Select>
-            </layout:HorizontalLayout>
-
-
-            <layout:HorizontalLayout>
-                <Label text="{i18n>myPolicies.dateToLabel}" class="sapUiSmallMarginTop"/>
-                <DatePicker minDate="{techModel>/tech/myPoliciesTab/nextPolicyDateFrom}"
-                            value="{techModel>/tech/myPoliciesTab/nextPolicyDateToString}"
-                            enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
+                <Title text="{i18n>myPolicies.addNewPolicy}"
+                       titleStyle="H1"
+                       class="sapUiTinyMarginTop"
                 />
             </layout:HorizontalLayout>
-
-            <layout:HorizontalLayout>
-                <Label text="{i18n>myPolicies.priceLabel}" class="sapUiSmallMarginTop"/>
-                <Text text="{techModel>/tech/myPoliciesTab/nextPolicyPriceString}" class="sapUiSmallMarginTop"/>
-            </layout:HorizontalLayout>
-
-            <Button text="{i18n>myPolicies.addNewPolicy}"
-                    press="onAddPolicyPress"
-                    enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
-            />
-
-            <ObjectStatus class="sapUiSmallMarginTop"
-                          state="{techModel>/tech/myPoliciesTab/infoTextState}"
-                          text="{techModel>/tech/myPoliciesTab/infoText}"
-            />
         </layout:Grid>
+
+        <layout:BlockLayout background="Default"
+                            visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
+                            class="buy-policy"
+        >
+            <layout:BlockLayoutRow>
+                <layout:BlockLayoutCell width="2">
+                    <Label text="{i18n>myPolicies.carModelLabel}"
+                           textAlign="Right"
+                           wrapping="true"
+                           class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                           width="25%"
+                    />
+                    <Select change="onPolicyCarSelected"
+                            items="{personModel>/cars}"
+                            selectedKey="{techModel>/tech/myPoliciesTab/nextPolicyCarVin}"
+                            enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
+                            width="70%"
+                    >
+                        <items>
+                            <core:Item key="{personModel>vin}" text="{personModel>model}"/>
+                        </items>
+                    </Select>
+                </layout:BlockLayoutCell>
+                <layout:BlockLayoutCell width="2">
+                    <Label text="{i18n>myPolicies.dateToLabel}"
+                           textAlign="Right"
+                           class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                           width="35%"
+                    />
+                    <DatePicker minDate="{techModel>/tech/myPoliciesTab/nextPolicyDateFrom}"
+                                value="{techModel>/tech/myPoliciesTab/nextPolicyDateToString}"
+                                enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
+                                width="60%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+
+            <layout:BlockLayoutRow class="sapUiNoMarginTop sapUiNoMarginBottom">
+                <layout:BlockLayoutCell width="2" class="sapUiNoMarginTop sapUiNoMarginBottom">
+                    <Label text="{i18n>myPolicies.priceLabel}"
+                           textAlign="Right"
+                           class="sapUiSmallMarginTop sapUiTinyMarginEnd"
+                           width="25%"
+                    />
+                    <Text text="{techModel>/tech/myPoliciesTab/nextPolicyPriceString}"
+                          class="sapUiSmallMarginTop"
+                          width="70%"
+                    />
+                </layout:BlockLayoutCell>
+
+                <layout:BlockLayoutCell width="2">
+                    <Button text="{i18n>myPolicies.addNewPolicy}"
+                            press="onAddPolicyPress"
+                            enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
+                            width="100%"
+                    />
+                </layout:BlockLayoutCell>
+            </layout:BlockLayoutRow>
+        </layout:BlockLayout>
 
         <layout:Grid width="100%">
             <Label

@@ -92,3 +92,7 @@ a.sapMLnk {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+.buy-policy.buy-policy.buy-policy .sapUiBlockCellContent {
+	padding: 0.25rem 1rem;
+}
