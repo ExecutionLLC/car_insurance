@@ -7,7 +7,20 @@
     <Page showHeader="false">
         <layout:Grid width="100%">
             <layout:HorizontalLayout>
-                <Button text="" press="onHideShowNextPolicyPress"/>
+                <core:Icon
+                        src="sap-icon://add"
+                        size="2rem"
+                        class="sapUiMediumMarginBeginEnd"
+                        visible="{=!${techModel>/tech/myPoliciesTab/isNewPolicyVisible}}"
+                        press="onHideShowNextPolicyPress"
+                />
+                <core:Icon
+                        src="sap-icon://decline"
+                        size="2rem"
+                        class="sapUiMediumMarginBeginEnd"
+                        visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
+                        press="onHideShowNextPolicyPress"
+                />
                 <Label text="{i18n>myPolicies.addNewPolicy}" class="sapUiSmallMarginTop"/>
             </layout:HorizontalLayout>
         </layout:Grid>
