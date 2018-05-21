@@ -77,7 +77,7 @@
                             />
                         </HBox>
                         <Text
-                                text="{= ${mainModel>/tariff} }"
+                                text="{personModel>/bonusMalus}"
                                 class="sapUiTinyMarginTop H1"
                         />
                     </layout:BlockLayoutCell>
@@ -93,8 +93,8 @@
                         <Text
                                 text="{
                                     parts:[
-                                        {path:'mainModel>/pensionForecast'},
-                                        {path:'i18n>currency'}
+                                        {path: 'personModel>/basePrice'},
+                                        {path: 'i18n>currency'}
                                     ],
                                     formatter: '.formatter.formatCurrency'
                                 }"
