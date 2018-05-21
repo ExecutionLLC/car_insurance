@@ -36,23 +36,17 @@
                                             />
                                         </layout:VerticalLayout>
                                         <layout:VerticalLayout>
-                                            <Image
-                                                    src="{
-                                                        path:'personModel>/insuranceCompanyId',
-                                                        formatter:'.formatter.formatICAddressToReliabilityImage'
-                                                    }"
-                                                    width='4rem'
-                                                    height="4rem"
-                                            />
                                             <Text
                                                     text="{i18n>ratingOfReliability}"
                                                     class="H2"/>
-                                            <Text
-                                                    text="{
-                                                        path:'personModel>/insuranceCompanyId',
-                                                        formatter:'.formatter.formatICAddressToReliabilityString'
-                                                    }"
-                                                    class="H1"/>
+                                            <Image
+                                                    src="{
+                                                path:'personModel>/insuranceCompanyId',
+                                                formatter:'.formatter.formatICAddressToReliabilityImage'
+                                            }"
+                                                    width='4rem'
+                                                    height="4rem"
+                                            />
                                         </layout:VerticalLayout>
                                     </cells>
                                 </ColumnListItem>

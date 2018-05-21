@@ -59,109 +59,36 @@ sap.ui.define([
         },
 
         conversionICRating: function (int) {
-            var defaultRating = {
-                symbol: "?",
-                description: "Неизвестен"
-            };
-            var ratingForInt = {
-                0: {
-                    symbol    : "D",
-                    description: "В состоянии дефолта"
-                },
-                1: {
-                    symbol    : "C",
-                    description: "Близки к дефолту"
-                },
-                2: {
-                    symbol    : "CC",
-                    description: "Близки к дефолту"
-                },
-                3: {
-                    symbol    : "CCC-",
-                    description: "Близки к дефолту"
-                },
-                4: {
-                    symbol    : "CCC",
-                    description: "Крайне высокий кредитный риск"
-                },
-                5: {
-                    symbol    : "CCC+",
-                    description: "Очень высокий кредитный риск"
-                },
-                6: {
-                    symbol    : "B-",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                7: {
-                    symbol    : "B",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                8: {
-                    symbol    : "B+",
-                    description: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                9: {
-                    symbol    : "BB-",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                10: {
-                    symbol    : "BB",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                11: {
-                    symbol    : "BB+",
-                    description: "Рискованные обязательства с чертами спекулятивных"
-                },
-                12: {
-                    symbol    : "BBB-",
-                    description: "Надежность ниже среднего"
-                },
-                13: {
-                    symbol    : "BBB",
-                    description: "Надежность ниже среднего"
-                },
-                14: {
-                    symbol    : "BBB+",
-                    description: "Надежность ниже среднего"
-                },
-                15: {
-                    symbol    : "A-",
-                    description: "Надежность выше среднего"
-                },
-                16: {
-                    symbol    : "A",
-                    description: "Надежность выше среднего"
-                },
-                17: {
-                    symbol    : "A+",
-                    description: "Надежность выше среднего"
-                },
-                18: {
-                    symbol    : "AA-",
-                    description: "Высокая надежность"
-                },
-                19: {
-                    symbol    : "AA",
-                    description: "Высокая надежность"
-                },
-                20: {
-                    symbol    : "AA+",
-                    description: "Высокая надежность",
-                    imageSrc  : "./image/AAplus.jpg"
-                },
-                21: {
-                    symbol    : "AAA",
-                    description: "Наивысшая надежность",
-                    imageSrc  : "./image/AAA.jpg"
-                },
-                22: {
-                    symbol    : "AAA+",
-                    description: "Наивысшая надежность",
-                    imageSrc  : "./image/AAAplus.jpg"
-                }
-            };
-
-            return ratingForInt[int] || defaultRating;
+            switch (true) {
+                case int <= 2:
+                    return {
+                        symbol    : "AA+",
+                        description: "high",
+                        imageSrc  : "./image/rating/AAplus.jpg",
+                        color: "lightgreen"
+                    };
+                case int <= 4:
+                    return {
+                        symbol    : "AAA",
+                        description: "higher",
+                        imageSrc  : "./image/rating/AAA.jpg",
+                        color: "green"
+                    };
+                case int > 4:
+                    return {
+                        symbol    : "AAA+",
+                        description: "highest",
+                        imageSrc  : "./image/rating/AAAplus.jpg",
+                        color: "darkgreen"
+                    };
+                default:
+                    return {
+                        symbol: "?",
+                        description: "unknown",
+                        imageSrc  : "./image/rating/unknown.jpg",
+                        color: "gray"
+                    };
+            }
         },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
             API.getTransaction(transactionHash).done(function (transactionInfo) {
