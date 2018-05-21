@@ -148,8 +148,8 @@ sap.ui.define([
         },
 
         onIconPress: function(oEvent) {
-            var website = oEvent.getSource().data(website);
-            sap.m.URLHelper.redirect(website, true);
+            var url = oEvent.getSource().data("url");
+            sap.m.URLHelper.redirect(url, true);
         }
     });
 });

@@ -144,7 +144,7 @@
                                 icon="sap-icon://hello-world"
                                 press="onIconPress"
                                 size="2rem"
-                                app:href="{path: 'icModel>website'}"
+                                app:url="{path: 'icModel>url'}"
                         />
                     </cells>
                 </ColumnListItem>
