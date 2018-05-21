@@ -5,15 +5,8 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function monthDiff(d1, d2) {
-        if (d2 < d1) {
-            return -1;
-        }
-        var months;
-        months = (d2.getFullYear() - d1.getFullYear()) * 12;
-        months -= d1.getMonth() + 1;
-        months += d2.getMonth();
-        return months <= 0 ? 0 : months;
+    function daysDiff(d1, d2) {
+        return (d2 - d1) / 1000 / 60 / 60 / 24;
     }
 
     return {
@@ -137,22 +130,22 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(monthsDoExpire) {
-                if (!monthsDoExpire || monthsDoExpire <= 1) {
+            function color(daysDoExpire) {
+                if (!daysDoExpire || daysDoExpire <= 0) {
                     return 'red';
                 }
-                if (monthsDoExpire <= 3) {
+                if (daysDoExpire <= 14) {
                     return 'yellow';
                 }
                 return 'green';
             }
 
             var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
-            var monthsToExpire = lastInsuranceDataTo ?
-                monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
+            var daysToExpire = lastInsuranceDataTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
 
-            var bgColor = color(monthsToExpire);
+            var bgColor = color(daysToExpire);
             return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
         },
 
