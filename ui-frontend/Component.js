@@ -40,6 +40,7 @@ sap.ui.define([
             var oPersonModel = this.getModel("personModel");
             var oOperationsModel = this.getModel("operationsModel");
             var userId = oPersonModel.getProperty("/id");
+            Utils.saveLastUserId(userId);
             var self = this;
             return API.getPersonOperations(userId)
                 .then(function(operations) {
