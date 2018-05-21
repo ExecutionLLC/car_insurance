@@ -1,10 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
     "personal/account/formatter/formatter",
     "personal/account/util/Const",
     "personal/account/util/Utils",
     "personal/account/util/API"
-], function (Controller, formatter, Const, Utils, API) {
+], function (Controller, MessageBox, formatter, Const, Utils, API) {
     "use strict";
 
     return Controller.extend("personal.account.controller.TabBarControllers.InsuranceCompany", {
@@ -90,8 +91,12 @@ sap.ui.define([
         },
 
         onSelectButton: function () {
-            var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
-            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", true);
+        },
+
+        onCancelSelectButton: function () {
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
         },
 
         onSelectInsuranceCompanyTableItem: function (oEvent) {
@@ -137,6 +142,10 @@ sap.ui.define([
                         self.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
                         self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessage", "");
                         self.oTechModel.setProperty("/tech/insuranceCompanyTab/changeInsuranceCompanyMessageIsPending", false);
+                        var sErrorText = self.getOwnerComponent().getModel("i18n")
+                            .getResourceBundle()
+                            .getText("msg.box.error");
+                        MessageBox.error(sErrorText);
                     });
             }
         },

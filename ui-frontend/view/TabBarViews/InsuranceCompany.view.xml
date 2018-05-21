@@ -92,6 +92,16 @@
                     press="onSelectButton"
                     text="{i18n>insuranceCompany.chooseInsuranceCompany}"
                     enabled="{techModel>/tech/insuranceCompanyTab/isSelectButtonEnabled}"
+                    visible="{=!${techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible} &amp;&amp; !${techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}}"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>
+                </layoutData>
+            </Button>
+            <Button width="100%"
+                    press="onCancelSelectButton"
+                    text="{i18n>insuranceCompany.cancelInsuranceCompany}"
+                    visible="{=${techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible} || ${techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}}"
             >
                 <layoutData>
                     <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>

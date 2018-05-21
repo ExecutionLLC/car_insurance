@@ -5,7 +5,7 @@ sap.ui.define([
     "sap/m/MessageBox",
     "personal/account/util/Const",
     "personal/account/util/Utils",
-    "personal/account/util/API",
+    "personal/account/util/API"
 ], function (UIComponent, JSONModel, Model, MessageBox, Const, Utils, API) {
     "use strict";
 
@@ -24,6 +24,7 @@ sap.ui.define([
             this.setModel(new JSONModel(Model.modelStructure), "techModel");
             this.setModel(new JSONModel(), "icModel");
             this.setModel(new JSONModel(), "operationsModel");
+            this.setModel(new JSONModel(), "policiesModel");
 
             this.setLanguages();
 

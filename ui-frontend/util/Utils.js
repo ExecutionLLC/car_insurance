@@ -124,6 +124,42 @@ sap.ui.define([
             });
             var newOperations = operationsArray.concat(pendingOperations);
             operationsModel.setData(newOperations);
+        },
+
+        findLastActiveInsurance: function(insurances) {
+            if (!insurances || !insurances.length) {
+                return null;
+            }
+            return insurances.reduce(
+                function(lastInsurance, insurance) {
+                    if (insurance.isManuallyDeactivated) {
+                        return lastInsurance;
+                    }
+                    if (!lastInsurance) {
+                        return insurance;
+                    }
+                    return lastInsurance.dateTo > insurance.dateTo ?
+                        lastInsurance :
+                        insurance;
+                },
+                null
+            );
+        },
+
+        findLastActiveInsuranceDateTo: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.dateTo;
+        },
+
+        findLastActiveInsuranceNumber: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.insuranceNumber;
         }
     };
 
