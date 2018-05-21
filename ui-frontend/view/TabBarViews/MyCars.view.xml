@@ -170,9 +170,6 @@
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
             <layout:BlockLayoutRow>
-                <layout:BlockLayoutCell class="sapUiNoMarginTop sapUiNoMarginBottom">
-                </layout:BlockLayoutCell>
-
                 <layout:BlockLayoutCell>
                     <layout:VerticalLayout width="25%"/>
                     <Button
@@ -181,6 +178,7 @@
                             text="{i18n>mycars.addCar.add}"
                     />
                 </layout:BlockLayoutCell>
+                <layout:BlockLayoutCell />
             </layout:BlockLayoutRow>
         </layout:BlockLayout>
 
