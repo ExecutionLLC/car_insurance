@@ -7,7 +7,8 @@
     <Page
             showHeader="false"
     >
-        <layout:VerticalLayout width="60%" hAlign="Center">
+
+        <layout:Grid>
             <layout:BlockLayout background="Dashboard">
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
@@ -16,8 +17,8 @@
                     >
                         <Table>
                             <columns>
-                                <Column />
-                                <Column />
+                                <Column/>
+                                <Column/>
                             </columns>
                             <items>
                                 <ColumnListItem>
@@ -41,9 +42,9 @@
                                                     class="H2"/>
                                             <Image
                                                     src="{
-                                                path:'personModel>/insuranceCompanyId',
-                                                formatter:'.formatter.formatICAddressToReliabilityImage'
-                                            }"
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToReliabilityImage'
+                                                    }"
                                                     width='4rem'
                                                     height="4rem"
                                             />
@@ -135,7 +136,10 @@
                         </Table>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
+                <layout:layoutData>
+                    <layout:GridData span="L8 M10 S12" indent="L2 M1 S0"/>
+                </layout:layoutData>
             </layout:BlockLayout>
-        </layout:VerticalLayout>
+        </layout:Grid>
     </Page>
 </mvc:View>
