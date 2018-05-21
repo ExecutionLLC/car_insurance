@@ -189,21 +189,15 @@
                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
             />
         </layout:Grid>
-        <Table
+        <List
                 items="{
                     path: 'techModel>/tech/myCarsTab/cars'
                 }"
         >
-            <columns>
-                <Column
-                        hAlign="Center">
-                </Column>
-            </columns>
-            <items>
-                <ColumnListItem>
+                <CustomListItem>
                     <Panel expandable="true">
                         <headerToolbar>
-                            <Toolbar>
+                            <Toolbar width="100%">
                                 <content>
                                     <Text
                                             width="25%"
@@ -273,6 +267,7 @@
                                             items="{
                                                 path: 'techModel>operations'
                                             }"
+                                            width="100%"
                                     >
                                         <columns>
                                             <Column
@@ -358,9 +353,9 @@
                             </layout:HorizontalLayout>
                         </content>
                     </Panel>
-                </ColumnListItem>
-            </items>
-        </Table>
+                </CustomListItem>
+        </List>
+
         <layout:Grid width="100%">
             <Label
                     text="{i18n>mycars.history}"
