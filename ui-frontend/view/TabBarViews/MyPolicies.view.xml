@@ -150,7 +150,9 @@
             </columns>
             <items>
                 <CustomListItem>
-                    <Panel expandable="true">
+                    <Panel expandable="true"
+                           class="tableReport"
+                    >
                         <headerToolbar>
                             <Toolbar>
                                 <content>
@@ -230,7 +232,9 @@
             </columns>
             <items>
                 <CustomListItem>
-                    <Panel expandable="true">
+                    <Panel expandable="true"
+                           class="tableReport"
+                    >
                         <headerToolbar>
                             <Toolbar>
                                 <content>
