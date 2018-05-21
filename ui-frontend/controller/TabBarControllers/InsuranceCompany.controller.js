@@ -90,8 +90,12 @@ sap.ui.define([
         },
 
         onSelectButton: function () {
-            var isNextInsuranceCompanyTableVisible = !this.oTechModel.getProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible");
-            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", isNextInsuranceCompanyTableVisible);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", true);
+        },
+
+        onCancelSelectButton: function () {
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible", false);
+            this.oTechModel.setProperty("/tech/insuranceCompanyTab/isApplyButtonVisible", false);
         },
 
         onSelectInsuranceCompanyTableItem: function (oEvent) {
