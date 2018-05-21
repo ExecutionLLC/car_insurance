@@ -156,6 +156,13 @@ sap.ui.define([
             return '<div style="width: 100%; height: 80px; background: ' + bgColor + ';" />';
         },
 
+        formatOperationsWCount: function(operations) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("operations") + " (" + operations.length + ")";
+        },
+
         formatOperationName: function (operationType) {
             var oBundle = this.getOwnerComponent()
                 .getModel("i18n")
