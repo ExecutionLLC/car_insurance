@@ -193,6 +193,7 @@
                 items="{
                     path: 'techModel>/tech/myCarsTab/cars'
                 }"
+                class="tableReport"
         >
             <CustomListItem>
                 <Panel expandable="true">
