@@ -122,8 +122,13 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <Text
-                                                text="CARICON"/>
+                                        <Image
+                                                width="134px"
+                                                src="{
+                                                    path: 'personModel>vehicleType',
+                                                    formatter: '.formatter.formatCarTypeImage'
+                                                }"
+                                        />
                                         <ObjectIdentifier
                                                 title="{personModel>model}"
                                                 text="{personModel>numberPlate}"/>

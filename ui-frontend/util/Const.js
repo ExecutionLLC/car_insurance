@@ -28,11 +28,11 @@ sap.ui.define([
         CAR_TYPES: [
             {
                 id: 'CAR',
-                icon: 'car'
+                icon: 'car.png'
             },
             {
                 id: 'MOTORCYCLE',
-                icon: 'motorcycle'
+                icon: 'motorcycle.png'
             }
         ]
     };
