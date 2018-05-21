@@ -221,12 +221,12 @@
                                     </layout:VerticalLayout>
                                     <layout:VerticalLayout width="30%">
                                         <layout:HorizontalLayout>
-                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
+                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
                                             <Text text="{
                                                             path: 'techModel>insurances',
                                                             formatter: '.formatter.formatLastInsuranceDateTo'
                                                         }"
-                                        />
+                                            />
                                         </layout:HorizontalLayout>
                                     </layout:VerticalLayout>
                                 </content>
@@ -399,7 +399,7 @@
                                     </layout:VerticalLayout>
                                     <layout:VerticalLayout width="30%">
                                         <layout:HorizontalLayout>
-                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" />
+                                            <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
                                             <Text text="{
                                                             path: 'techModel>insurances',
                                                             formatter: '.formatter.formatLastInsuranceDateTo'
