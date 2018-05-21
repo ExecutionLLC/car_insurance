@@ -58,18 +58,6 @@
                     <layout:BlockLayoutCell
                             title="{i18n>myBonusMalus}"
                     >
-                        <HBox
-                                width="100%"
-                                height="2rem"
-                                alignItems="Center"
-                                justifyContent="SpaceAround"
-                                class="sapUiSmallMarginEnd"
-                        >
-                            <Text
-                                    text="{i18n>myBonusMalus}"
-                                    class="H2"
-                            />
-                        </HBox>
                         <Text
                                 text="{
                                     path: 'personModel>/bonusMalus',
@@ -81,12 +69,6 @@
                     <layout:BlockLayoutCell
                             title="{i18n>baseInsuranceCost}"
                     >
-                        <Text
-                                text="{i18n>baseInsuranceCost}"
-                                class="H2"
-                                textAlign="Begin"
-                                width="100%"
-                        />
                         <Text
                                 text="{
                                     parts:[
