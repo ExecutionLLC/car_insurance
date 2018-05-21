@@ -86,7 +86,7 @@
                     <Button text="{i18n>myPolicies.addNewPolicy}"
                             press="onAddPolicyPress"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
-                            width="100%"
+                            width="97%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
