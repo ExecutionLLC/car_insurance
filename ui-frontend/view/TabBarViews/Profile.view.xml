@@ -7,7 +7,8 @@
     <Page
             showHeader="false"
     >
-        <layout:VerticalLayout width="60%" hAlign="Center">
+
+        <layout:Grid>
             <layout:BlockLayout background="Dashboard">
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
@@ -16,8 +17,8 @@
                     >
                         <Table>
                             <columns>
-                                <Column />
-                                <Column />
+                                <Column/>
+                                <Column/>
                             </columns>
                             <items>
                                 <ColumnListItem>
@@ -41,9 +42,9 @@
                                                     class="H2"/>
                                             <Image
                                                     src="{
-                                                path:'personModel>/insuranceCompanyId',
-                                                formatter:'.formatter.formatICAddressToReliabilityImage'
-                                            }"
+                                                        path:'personModel>/insuranceCompanyId',
+                                                        formatter:'.formatter.formatICAddressToReliabilityImage'
+                                                    }"
                                                     width='4rem'
                                                     height="4rem"
                                             />
@@ -58,32 +59,17 @@
                     <layout:BlockLayoutCell
                             title="{i18n>myBonusMalus}"
                     >
-                        <HBox
-                                width="100%"
-                                height="2rem"
-                                alignItems="Center"
-                                justifyContent="SpaceAround"
-                                class="sapUiSmallMarginEnd"
-                        >
-                            <Text
-                                    text="{i18n>myBonusMalus}"
-                                    class="H2"
-                            />
-                        </HBox>
                         <Text
-                                text="{personModel>/bonusMalus}"
+                                text="{
+                                    path: 'personModel>/bonusMalus',
+                                    formatter: '.formatter.formatBonusMalus'
+                                }"
                                 class="sapUiTinyMarginTop H1"
                         />
                     </layout:BlockLayoutCell>
                     <layout:BlockLayoutCell
                             title="{i18n>baseInsuranceCost}"
                     >
-                        <Text
-                                text="{i18n>baseInsuranceCost}"
-                                class="H2"
-                                textAlign="Begin"
-                                width="100%"
-                        />
                         <Text
                                 text="{
                                     parts:[
@@ -103,6 +89,7 @@
                             title="{i18n>myCarsTitle}"
                     >
                         <Table
+                                class="profile-cars"
                                 items="{
                                     path: 'personModel>/cars'
                                 }"
@@ -111,13 +98,14 @@
                                 <Column/>
                                 <Column/>
                                 <Column/>
-                                <Column width="14px"/>
+                                <Column width="0px"/>
                             </columns>
                             <items>
                                 <ColumnListItem>
                                     <cells>
                                         <Image
                                                 width="134px"
+                                                height="74px"
                                                 src="{
                                                     path: 'personModel>vehicleType',
                                                     formatter: '.formatter.formatCarTypeImage'
@@ -148,7 +136,10 @@
                         </Table>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
+                <layout:layoutData>
+                    <layout:GridData span="L8 M10 S12" indent="L2 M1 S0"/>
+                </layout:layoutData>
             </layout:BlockLayout>
-        </layout:VerticalLayout>
+        </layout:Grid>
     </Page>
 </mvc:View>

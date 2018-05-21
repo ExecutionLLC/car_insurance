@@ -5,15 +5,8 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function monthDiff(d1, d2) {
-        if (d2 < d1) {
-            return -1;
-        }
-        var months;
-        months = (d2.getFullYear() - d1.getFullYear()) * 12;
-        months -= d1.getMonth() + 1;
-        months += d2.getMonth();
-        return months <= 0 ? 0 : months;
+    function daysDiff(d1, d2) {
+        return (d2 - d1) / 1000 / 60 / 60 / 24;
     }
 
     return {
@@ -22,6 +15,7 @@ sap.ui.define([
          * @description объект для форматирования валюты
          */
         oCurrencyFormat: NumberFormat.getCurrencyInstance(),
+        oBonusMalusFormat: NumberFormat.getInstance({maxFractionDigits: 2}),
 
         /**
          * @description Форматирование адреса страховой компании в имя
@@ -118,6 +112,10 @@ sap.ui.define([
             return formattedValue + " " + currencyStr;
         },
 
+        formatBonusMalus: function (value) {
+            return this.formatter.oBonusMalusFormat.format(value);
+        },
+
         formatLastInsuranceDateTo: function(insurances) {
             var date = Utils.findLastActiveInsuranceDateTo(insurances);
             if (!date) {
@@ -132,23 +130,33 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(monthsDoExpire) {
-                if (!monthsDoExpire || monthsDoExpire <= 1) {
-                    return 'red';
+            function color(daysDoExpire) {
+                if (!daysDoExpire || daysDoExpire <= 0) {
+                    return '#bb0000';
                 }
-                if (monthsDoExpire <= 3) {
-                    return 'yellow';
+                if (daysDoExpire <= 14) {
+                    return '#ffcc00';
                 }
-                return 'green';
+                return '#2b7d2b';
             }
 
             var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
-            var monthsToExpire = lastInsuranceDataTo ?
-                monthDiff(new Date(), new Date(lastInsuranceDataTo)) :
+            var daysToExpire = lastInsuranceDataTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
 
-            var bgColor = color(monthsToExpire);
-            return '<div style="width: 100%; height: 80px; background: ' + bgColor + ';" />';
+            var bgColor = color(daysToExpire);
+            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
+        },
+
+        formatOperationsWCount: function(operations) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            var countStr = operations && operations.length ?
+                " (" + operations.length + ")" :
+                "";
+            return oBundle.getText("operations") + countStr;
         },
 
         formatOperationName: function (operationType) {
