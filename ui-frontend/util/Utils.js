@@ -38,6 +38,13 @@ sap.ui.define([
 
             return result;
         },
+        dateStringToDateObject: function(dateString) {
+            var dateData = dateString.split(".").map(function(item) {
+                return parseInt(item);
+            });
+
+            return new Date(dateData[2], dateData[1] - 1, dateData[0]);
+        },
         getInsuranceObjectByAddress: function (address, model) {
             if (!address || !model) {
                 return null;
@@ -197,6 +204,43 @@ sap.ui.define([
             });
             var newOperations = operationsArray.concat(pendingOperations);
             operationsModel.setData(newOperations);
+        },
+
+        getInsurancePerYearPrice: function (oPersonModel, carVin) {
+            var basePrice = oPersonModel.getProperty("/basePrice");
+            var bonusMalus = oPersonModel.getProperty("/bonusMalus");
+
+            if (!basePrice || !bonusMalus) {
+                return null;
+            }
+
+            var cars = oPersonModel.getProperty("/cars") || [];
+            var soldCars = oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+            var car = allCars.find(function (item) {
+                return item.vin === carVin;
+            });
+
+            if (!car) {
+                return null;
+            }
+
+            var k;
+            if (car.maxPower <= 50) {
+                k = 0.6;
+            } else if (car.maxPower <= 70) {
+                k = 1.0;
+            } else if (car.maxPower <= 100) {
+                k = 1.1;
+            } else if (car.maxPower <= 120) {
+                k = 1.2;
+            } else if (car.maxPower <= 150) {
+                k = 1.4;
+            } else {
+                k = 1.6;
+            }
+
+            return bonusMalus*basePrice*k;
         },
 
         findLastActiveInsurance: function(insurances) {
