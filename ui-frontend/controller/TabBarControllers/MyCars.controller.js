@@ -39,7 +39,7 @@ sap.ui.define([
     var emptyCarInfo = {
         vin: "",
         model: "",
-        vehicleType: "",
+        vehicleType: Const.CAR_TYPES[0].id,
         numberPlate: "",
         maxPower: "",
         year: ""
