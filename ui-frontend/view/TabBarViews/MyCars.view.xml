@@ -267,6 +267,33 @@
                                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
                             />
                             <Table
+                                    showNoData="false">
+                                <columns>
+                                    <Column
+                                            width="20%"
+                                            hAlign="Center">
+                                        <Text text="{i18n>mycars.carInfo.history.date}"/>
+                                    </Column>
+                                    <Column
+                                            width="30%"
+                                            hAlign="Center">
+                                        <Text text="{i18n>mycars.carInfo.history.operation}"/>
+                                    </Column>
+                                    <Column
+                                            width="40%"
+                                            hAlign="Center">
+                                        <Text text="{i18n>mycars.carInfo.history.status}"/>
+                                    </Column>
+                                    <Column
+                                            width="10%"
+                                            hAlign="Center">
+                                        <Text text="{i18n>mycars.carInfo.history.check}"/>
+                                    </Column>
+                                </columns>
+                            </Table>
+                            
+                            
+                            <Table
                                     items="{
                                         path: 'techModel>operations'
                                     }"
@@ -296,7 +323,7 @@
                                                                 }"
                                                         />
                                                         <Text
-                                                                width="30%"
+                                                                width="40%"
                                                                 textAlign="Left"
                                                                 text="{
                                                                     path: 'techModel>operationType',
