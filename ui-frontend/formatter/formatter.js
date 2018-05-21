@@ -132,12 +132,12 @@ sap.ui.define([
 
             function color(daysDoExpire) {
                 if (!daysDoExpire || daysDoExpire <= 0) {
-                    return 'red';
+                    return '#bb0000';
                 }
                 if (daysDoExpire <= 14) {
-                    return 'yellow';
+                    return '#ffcc00';
                 }
-                return 'green';
+                return '#2b7d2b';
             }
 
             var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
