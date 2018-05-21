@@ -48,17 +48,17 @@
                         <Text text="{i18n>insuranceHistory.tab.date}"/>
                     </Column>
                     <Column
-                            width="30%"
+                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.operation}"/>
                     </Column>
                     <Column
-                            width="10%"
+                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.status}"/>
                     </Column>
                     <Column
-                            width="30%"
+                            width="20%"
                             hAlign="Center">
                         <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
                     </Column>
@@ -111,13 +111,13 @@
                                         <content>
                                             <Text
                                                     textAlign="Left"
-                                                    width="20%"
+                                                    width="10%"
                                                     text="{
                                                         path: 'operationsModel>timestamp',
                                                         formatter:'.formatter.formatDateForTable'}"
                                             />
                                             <Text
-                                                    width="30%"
+                                                    width="35%"
                                                     textAlign="Center"
                                                     text="{
                                                         path: 'operationsModel>operationType',
@@ -133,7 +133,7 @@
                                                     }"
                                             />
                                             <Text
-                                                    width="30%"
+                                                    width="35%"
                                                     textAlign="Center"
                                                     text="{operationsModel>contractor}"
                                             />
