@@ -85,3 +85,10 @@
 a.sapMLnk {
   text-decoration: underline;
 }
+
+/* car icon and color strip */
+.profile-cars td:nth-child(2),
+.profile-cars td:nth-child(5) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
