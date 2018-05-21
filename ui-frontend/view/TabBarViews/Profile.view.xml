@@ -98,7 +98,7 @@
                                 <Column/>
                                 <Column/>
                                 <Column/>
-                                <Column width="14px"/>
+                                <Column width="0px"/>
                             </columns>
                             <items>
                                 <ColumnListItem>

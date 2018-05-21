@@ -153,7 +153,7 @@ sap.ui.define([
                 -1;
 
             var bgColor = color(monthsToExpire);
-            return '<div style="width: 100%; height: 80px; background: ' + bgColor + ';" />';
+            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
         },
 
         formatOperationsWCount: function(operations) {
