@@ -169,7 +169,6 @@ sap.ui.define([
             var carTypeInfo = Const.CAR_TYPES.find(function(typeInfo) {
                 return typeInfo.id === carType;
             });
-            console.log('formatCarTypeImage', carType, carTypeInfo);
             if (carTypeInfo) {
                 return "./image/cars/" + carTypeInfo.icon;
             }
