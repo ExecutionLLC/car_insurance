@@ -69,7 +69,7 @@
                             src="./image/sap.png"/>
                     <ToolbarSpacer/>
                     <core:HTML
-                            content="{i18n>foter.copirate}"/>
+                            content="{i18n>foter.copyright}"/>
                 </content>
             </Toolbar>
         </footer>
