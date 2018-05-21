@@ -34,20 +34,20 @@
 
         <layout:BlockLayout background="Default"
                             visible="{techModel>/tech/myPoliciesTab/isNewPolicyVisible}"
-                            class="buy-policy"
+                            class="sapUiMediumMarginBegin buy-policy"
         >
             <layout:BlockLayoutRow>
                 <layout:BlockLayoutCell>
                     <Label text="{i18n>myPolicies.carModelLabel}"
                            textAlign="Left"
-                           class="sapUiMediumMarginBegin sapUiSmallMarginTop"
-                           width="20%"
+                           class="sapUiSmallMarginTop"
+                           width="25%"
                     />
                     <Select change="onPolicyCarSelected"
                             items="{personModel>/cars}"
                             selectedKey="{techModel>/tech/myPoliciesTab/nextPolicyCarVin}"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
-                            width="70%"
+                            width="75%"
                     >
                         <items>
                             <core:Item key="{personModel>vin}" text="{personModel>model}"/>
@@ -63,7 +63,7 @@
                     <DatePicker minDate="{techModel>/tech/myPoliciesTab/nextPolicyDateFrom}"
                                 value="{techModel>/tech/myPoliciesTab/nextPolicyDateToString}"
                                 enabled="{techModel>/tech/myPoliciesTab/isNextPolicyGroupEnabled}"
-                                width="60%"
+                                width="65%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -72,8 +72,8 @@
                 <layout:BlockLayoutCell>
                     <Label text="{i18n>myPolicies.priceLabel}"
                            textAlign="Left"
-                           class="sapUiMediumMarginBegin sapUiSmallMarginTop"
-                           width="20%"
+                           class="sapUiSmallMarginTop"
+                           width="25%"
                     />
                     <Text text="{
                             parts:[
@@ -83,7 +83,7 @@
                             formatter: '.formatter.formatCurrency'
                           }"
                           class="sapUiSmallMarginTop"
-                          width="70%"
+                          width="75%"
                     />
                 </layout:BlockLayoutCell>
 
@@ -92,13 +92,13 @@
                     <Button text="{i18n>myPolicies.addNewPolicy}"
                             press="onAddPolicyPress"
                             enabled="{techModel>/tech/myPoliciesTab/isNextPolicyButtonEnabled}"
-                            width="60%"
+                            width="65%"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
             <layout:BlockLayoutRow>
                 <layout:BlockLayoutCell>
-                    <ObjectStatus class="sapUiSmallMarginTop sapUiMediumMarginBegin"
+                    <ObjectStatus class="sapUiSmallMarginTop"
                                   state="{techModel>/tech/myPoliciesTab/infoTextState}"
                                   text="{techModel>/tech/myPoliciesTab/infoText}"
                     />
