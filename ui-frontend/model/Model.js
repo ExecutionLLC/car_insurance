@@ -28,10 +28,14 @@ sap.ui.define([
                     insuranceCompaniesTableData: []
                 },
                 myPoliciesTab: {
-                    isAddPolicyButtonEnabled: false,
+                    isNewPolicyVisible: false,
+                    isNextPolicyGroupEnabled: false,
+                    isNextPolicyButtonEnabled: false,
                     nextPolicyCarVin: null,
-                    nextPolicyDateTo: null,
-                    infoTextState: "Error",
+                    nextPolicyDateFrom: null,
+                    nextPolicyDateToString: null,
+                    nextPolicyPriceString: '?',
+                    infoTextState: "Warning",
                     infoText: ""
                 },
                 myCarsTab: {

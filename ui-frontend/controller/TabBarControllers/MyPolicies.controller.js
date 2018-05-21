@@ -16,11 +16,60 @@ sap.ui.define([
             this.oPersonModel = this.oComponent.getModel("personModel");
             this.oOperationsModel = this.oComponent.getModel("operationsModel");
             this.oPoliciesModel = this.oComponent.getModel("policiesModel");
+            this.oLangModel = this.oComponent.getModel("i18n");
 
+            var myPoliciesTabContext = this.oTechModel.getContext("/tech/myPoliciesTab");
+
+            var techModelBindingCarVin = this.oTechModel.bindProperty("nextPolicyCarVin", myPoliciesTabContext);
+            techModelBindingCarVin.attachChange(this.onNextPolicyCarVinChanges.bind(this));
+
+            var techModelBindingDateFrom = this.oTechModel.bindProperty("nextPolicyDateFrom", myPoliciesTabContext);
+            techModelBindingDateFrom.attachChange(this.onNextPolicyDateFromChanges.bind(this));
+
+            var techModelBindingDateTo = this.oTechModel.bindProperty("nextPolicyDateToString", myPoliciesTabContext);
+            techModelBindingDateTo.attachChange(this.onNextPolicyDateToChanges.bind(this));
+
+            var operationsContext = this.oOperationsModel.getContext("/");
             var operationsModelBinding = new sap.ui.model.Binding(
-                this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
+                this.oOperationsModel, "/", operationsContext
             );
             operationsModelBinding.attachChange(this.onOperationsChanges.bind(this));
+        },
+        updatePolicyPrice: function () {
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            if (!vin) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+            var perYearPrice = Utils.getInsurancePerYearPrice(this.oPersonModel, vin);
+            if (!perYearPrice) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+
+            var dateFrom = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateFrom");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
+            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+            if (!dateFrom || !dateTo) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+
+            var days = Math.floor((dateTo - dateFrom)/(1000*60*60*24)) + 1;
+            var nextPolicyPriceString = (perYearPrice*days/365.0).toFixed(2);
+            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", nextPolicyPriceString);
+        },
+        onNextPolicyCarVinChanges: function () {
+            this.updateNextPolicyDateFrom(true);
+            this.updateNextPolicyGroupState();
+            this.updatePolicyPrice();
+        },
+        onNextPolicyDateFromChanges: function () {
+            this.updatePolicyPrice();
+        },
+        onNextPolicyDateToChanges: function () {
+            this.updateNextPolicyGroupState();
+            this.updatePolicyPrice();
         },
         onOperationsChanges: function () {
             var operations = this.oOperationsModel.getProperty("/");
@@ -74,81 +123,111 @@ sap.ui.define([
 
             this.oPoliciesModel.setProperty("/activePolicies", activePolicies);
             this.oPoliciesModel.setProperty("/inactivePolicies", inactivePolicies);
+
+            this.updateNextPolicyDateFrom(false);
+            this.updateNextPolicyGroupState();
+        },
+        updateNextPolicyDateFrom: function (forceResetDateToString) {
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            if (!vin) {
+                return;
+            }
+
+            var dateFrom = this.getMinValidPolicyDate(vin);
+            var dateFromString = Utils.dateObjToDateString(dateFrom);
+
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
+            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+
+            if (dateTo && dateTo < dateFrom) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
+            } else {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
+                if (forceResetDateToString) {
+                    this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
+                }
+            }
+        },
+        updateNextPolicyGroupState: function () {
+            var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
+            var hasPending = activePolicies && activePolicies.find(function (item) {
+               return item.pending === true;
+            });
+            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
+
+            var langModelResources = this.oLangModel.getResourceBundle();
+            var infoText = "";
+            if (hasPending) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                infoText = langModelResources.getText("myPolicies.waitingText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
+            } else if (!vin) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                infoText = langModelResources.getText("myPolicies.carVinIsEmptyText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
+            } else if (!dateToString) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", false);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                infoText = langModelResources.getText("myPolicies.dateToIsEmptyText");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
+            } else {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyGroupEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/isNextPolicyButtonEnabled", true);
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoTextState", "Warning");
+                this.oTechModel.setProperty("/tech/myPoliciesTab/infoText", infoText);
+            }
+        },
+        getMinValidPolicyDate: function (carVin) {
+            var result = new Date();
+            result.setHours(0, 0, 0, 0);
+
+            var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
+            if (activePolicies) {
+                result = activePolicies.reduce(function (minDate, item) {
+                    if (item.pending || item.carVin !== carVin || item.dateTo <= minDate) {
+                        return minDate;
+                    }
+
+                    return item.dateTo;
+                }, result);
+            }
+
+            result.setDate(result.getDate() + 1);
+            return result;
         },
         isNotActivePolicy: function (policy) {
             var currentDate = new Date();
             var dateTo = new Date(policy.dateTo);
             return dateTo < currentDate || policy.isManuallyDeactivated;
         },
+        onHideShowNextPolicyPress: function() {
+            var isNewPolicyVisible = !this.oTechModel.getProperty("/tech/myPoliciesTab/isNewPolicyVisible");
+            this.oTechModel.setProperty("/tech/myPoliciesTab/isNewPolicyVisible", isNewPolicyVisible);
+        },
         onTransactionInfoLinkPress: function (oEvent) {
             var transactionHash = oEvent.getSource().getProperty("text");
             var langModel = this.getOwnerComponent().getModel("i18n");
             Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         },
-        getMinValidPolicyDate: function (carVin) {
-            var cars = this.oPersonModel.getProperty("/cars");
-            var soldCars = this.oPersonModel.getProperty("/soldCars");
-
-            var car = cars.concat(soldCars).find(function(item) {
-                return item.vin === carVin;
-            });
-            if (!car) {
-                return null;
-            }
-
-            var result = new Date();
-            var dateTo = Utils.findLastActiveInsuranceDateTo(car.insurances);
-            if (dateTo && result < dateTo) {
-                result = dateTo;
-            }
-            result.setDate(result.getDate() + 1);
-
-            return result;
-        },
-        updateDatePickerRange: function () {
-            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var minDate = this.getMinValidPolicyDate(vin);
-            var datePicker = this.getView().byId("policyDateTo");
-            datePicker.setValue(minDate);
-            datePicker.setMinDate(minDate);
-        },
-        updateAddPolicyState: function ()  {
-            var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateTo = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
-            if (!vin) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", false);
-                return;
-            }
-            if (!dateTo) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", false);
-                return;
-            }
-
-            this.oTechModel.setProperty("/tech/myPoliciesTab/isAddPolicyButtonEnabled", true);
-        },
-        onPolicyCarSelected: function (oEvent) {
-            var vin = oEvent.getSource().getProperty("selectedKey");
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyCarVin", vin);
-            this.updateDatePickerRange();
-            this.updateAddPolicyState();
-        },
-        onPolicyDateSelected: function (oEvent) {
-            var dateString = oEvent.getSource().getProperty("dateValue");
-            var date = new Date(dateString);
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateTo", date);
-            this.updateAddPolicyState();
-        },
         onAddPolicyPress: function (oEvent) {
             var personId = this.oPersonModel.getProperty("/id");
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
-            var dateTo = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateTo");
-            var operationsModel = this.oOperationsModel;
-            var langModel = this.getOwnerComponent().getModel("i18n");
+            var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
+            var dateTo = Utils.dateStringToDateObject(dateToString);
+
+            var self = this;
             API.addPersonInsurance(personId, vin, dateTo).done(function(operations) {
-                Utils.appendPendingOperations(operationsModel, operations);
+                Utils.appendPendingOperations(self.oOperationsModel, operations);
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.error("Cannot add insurance: textStatus = ", textStatus, "error = ", errorThrown);
-                var sErrorText = langModel.getResourceBundle().getText("msg.box.error");
+                var sErrorText = self.oLangModel.getResourceBundle().getText("msg.box.error");
                 MessageBox.error(sErrorText);
             });
         }
