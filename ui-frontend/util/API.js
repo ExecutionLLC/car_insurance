@@ -73,7 +73,14 @@ sap.ui.define([
             return $.ajax({
                 url: Const.BASE_URL + "/person/" + personId,
                 dataType: "json"
-            }).then(makePersonCarsInsurancesDatesFromToAsDate);
+            })
+                .then(function(personInfo) {
+                    if (personInfo.cars) {
+                        personInfo.cars.reverse();
+                    }
+                    return personInfo;
+                })
+                .then(makePersonCarsInsurancesDatesFromToAsDate);
         },
         getPersonOperations: function(personId) {
             return $.ajax({
