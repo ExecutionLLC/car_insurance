@@ -12,6 +12,9 @@ sap.ui.define([
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
             this.isOnTableChangeBinded = false;
+            this.oFilterSet = {
+                dateFilter: null
+            };
 
             //self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
             // var operationsModelBinding = new sap.ui.model.Binding(
@@ -48,12 +51,12 @@ sap.ui.define([
                     })
                 ];
                 // Запишем фильтр в массив фильтров
-                _oFilterSet.dateFilter = new Filter({
+                this.oFilterSet.dateFilter = new Filter({
                     filters: aFilters,
                     and: true
                 });
             } else {
-                _oFilterSet.dateFilter = null;
+                this.oFilterSet.dateFilter = null;
             }
 
             var oTable = this.getView().byId("table-insurance-history");
@@ -67,7 +70,7 @@ sap.ui.define([
                     self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
                 });
             }
-            oBinding.filter(_oFilterSet.dateFilter);
+            oBinding.filter(this.oFilterSet.dateFilter);
         },
 
         onPrint: function () {
