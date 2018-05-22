@@ -264,7 +264,9 @@
                                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
                             />
                             <Table
-                                    showNoData="false">
+                                    showNoData="false"
+                                    class="operations-table-header"
+                            >
                                 <columns>
                                     <Column
                                             width="20%"
@@ -272,17 +274,17 @@
                                         <Text text="{i18n>mycars.carInfo.history.date}"/>
                                     </Column>
                                     <Column
-                                            width="30%"
-                                            hAlign="Center">
+                                            width="40%"
+                                            hAlign="Left">
                                         <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                     </Column>
                                     <Column
-                                            width="40%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.status}"/>
                                     </Column>
                                     <Column
-                                            width="10%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.check}"/>
                                     </Column>
@@ -295,6 +297,7 @@
                                         path: 'techModel>operations'
                                     }"
                                     width="100%"
+                                    class="operations-table"
                             >
                                 <columns>
                                     <Column
@@ -312,7 +315,7 @@
                                                         width="100%">
                                                     <content>
                                                         <Text
-                                                                textAlign="Left"
+                                                                textAlign="Center"
                                                                 width="20%"
                                                                 text="{
                                                                     path: 'techModel>timestamp',
@@ -336,8 +339,7 @@
                                                                 }"
                                                         />
                                                         <Text
-                                                                width="30%"
-                                                                textAlign="Center"
+                                                                width="20%"
                                                                 text=""
                                                         />
                                                     </content>
@@ -458,7 +460,9 @@
                                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
                             />
                             <Table
-                                    showNoData="false">
+                                    showNoData="false"
+                                    class="operations-table-header"
+                            >
                                 <columns>
                                     <Column
                                             width="20%"
@@ -466,17 +470,17 @@
                                         <Text text="{i18n>mycars.carInfo.history.date}"/>
                                     </Column>
                                     <Column
-                                            width="30%"
-                                            hAlign="Center">
+                                            width="40%"
+                                            hAlign="Left">
                                         <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                     </Column>
                                     <Column
-                                            width="40%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.status}"/>
                                     </Column>
                                     <Column
-                                            width="10%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.check}"/>
                                     </Column>
@@ -489,6 +493,7 @@
                                         path: 'techModel>operations'
                                     }"
                                     width="100%"
+                                    class="operations-table"
                             >
                                 <columns>
                                     <Column
@@ -506,7 +511,7 @@
                                                         width="100%">
                                                     <content>
                                                         <Text
-                                                                textAlign="Left"
+                                                                textAlign="Center"
                                                                 width="20%"
                                                                 text="{
                                                                     path: 'techModel>timestamp',
@@ -530,8 +535,7 @@
                                                                 }"
                                                         />
                                                         <Text
-                                                                width="30%"
-                                                                textAlign="Center"
+                                                                width="20%"
                                                                 text=""
                                                         />
                                                     </content>
