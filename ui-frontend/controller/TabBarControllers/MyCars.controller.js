@@ -221,7 +221,6 @@ sap.ui.define([
         onDigitsInputLiveChange: function(event) {
             var oElement = event.getSource();
             filterInput(oElement, function(chr) {
-                console.log('c', chr);
                 if (!/\d/i.test(chr)) {
                     return '';
                 }
