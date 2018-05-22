@@ -189,32 +189,36 @@ sap.ui.define([
             oElement.applyFocusInfo(focusinfo);
         },
 
+        validate: function() {
+            var oView = this.getView();
+            var allValid = checkValidation(oView, inputIds);
+            if (!allValid) {
+                return false;
+            }
+            var vinHash = oView.getModel().getProperty("/vinHash");
+            var carInfo = oView.getModel().getProperty("/carInfo");
+            if (vinHash[carInfo.vin]) {
+                oView.byId("vinInput").setValueState("Error");
+                return false;
+            }
+            return true;
+        },
+
         onAddSelectedCar: function() {
+            if (!this.validate()) {
+                return;
+            }
 
             var oView = this.getView();
             var operationsModel = this.oOperationsModel;
             var techModel = this.oTechModel;
             var personModel = this.oPersonModel;
 
-            var allValid = checkValidation(oView, inputIds);
-            if (!allValid) {
-                return;
-            }
-
             var sErrorText = this.getOwnerComponent().getModel("i18n")
                 .getResourceBundle()
                 .getText("msg.box.error");
-
             var carInfo = oView.getModel().getProperty("/carInfo");
-
-            var vinHash = oView.getModel().getProperty("/vinHash");
-            if (vinHash[carInfo.vin]) {
-                oView.byId("vinInput").setValueState("Error");
-                return;
-            }
-
             var personId = personModel.getProperty("/id");
-
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
                     appendCar(personModel, carInfo);
