@@ -257,8 +257,7 @@
                                     width="100%"
                             />
                         </layout:VerticalLayout>
-                        <layout:VerticalLayout width="5%">
-                        </layout:VerticalLayout>
+                        <layout:VerticalLayout width="5%" />
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
@@ -452,6 +451,7 @@
                                 <Text text="{path: 'techModel>year'}" />
                             </HBox>
                         </layout:VerticalLayout>
+                        <layout:VerticalLayout width="5%" />
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
