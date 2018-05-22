@@ -206,12 +206,13 @@
 
                 <Table
                         items="{
-                            path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
-                            sorter : {
-                                path : 'timestamp',
-                                descending:true
+                            path: 'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
+                            sorter: {
+                                path: 'timestamp',
+                                descending: true
                             }
-                        }">
+                        }"
+                >
                     <columns>
                         <Column
                                 hAlign="Center">
