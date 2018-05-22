@@ -46,7 +46,9 @@
         />
 
         <Table
-                showNoData="false">
+                showNoData="false"
+                class="operations-table-header"
+        >
             <columns>
                 <Column
                         width="20%"
@@ -64,7 +66,7 @@
                     <Text text="{i18n>insuranceHistory.tab.status}"/>
                 </Column>
                 <Column
-                        width="20%"
+                        width="30%"
                         hAlign="Center">
                     <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
                 </Column>
@@ -85,23 +87,10 @@
                         descending: true
                     }
                 }"
+                class="operations-table"
         >
             <columns>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
+                <Column />
             </columns>
             <items>
                 <CustomListItem>
@@ -115,14 +104,15 @@
                                     width="100%">
                                 <content>
                                     <Text
-                                            textAlign="Left"
-                                            width="10%"
+                                            textAlign="Center"
+                                            width="20%"
                                             text="{
                                                 path: 'operationsModel>timestamp',
-                                                formatter:'.formatter.formatDateForTable'}"
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"
                                     />
                                     <Text
-                                            width="35%"
+                                            width="20%"
                                             textAlign="Center"
                                             text="{
                                                 path: 'operationsModel>operationType',
@@ -130,7 +120,7 @@
                                             }"
                                     />
                                     <core:Icon
-                                            width="10%"
+                                            width="20%"
                                             src="sap-icon://overlay"
                                             color="{
                                                 path: 'operationsModel>pending',
@@ -138,9 +128,12 @@
                                             }"
                                     />
                                     <Text
-                                            width="35%"
+                                            width="30%"
                                             textAlign="Center"
                                             text="{operationsModel>contractor}"
+                                    />
+                                    <Text
+                                            width="10%"
                                     />
                                 </content>
                             </Toolbar>
