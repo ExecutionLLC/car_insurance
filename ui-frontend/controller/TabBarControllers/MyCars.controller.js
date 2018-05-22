@@ -32,10 +32,6 @@ sap.ui.define([
         personModel.setProperty("/soldCars", newSoldCars);
     }
 
-    function trimSpaces(s) {
-        return s.replace(/^\s+/, '').replace(/\s+$/, '');
-    }
-
     var emptyCarInfo = {
         vin: "",
         model: "",
@@ -53,6 +49,8 @@ sap.ui.define([
         "yearInput",
         "numberPlateInput"
     ];
+
+    var buttonId = "addSelectedCar";
 
     function checkValidation(oView, ids) {
         var allValid = true;
@@ -77,13 +75,33 @@ sap.ui.define([
         return allValid;
     }
 
-    function resetValidation(oView, ids) {
-        var allValid = true;
-        $.each(ids, function (i, inputId) {
-            var oInput = oView.byId(inputId);
-            oInput.setValueState("None");
+    function transformFocusInfo(focusInfo, index, delta) {
+        if (focusInfo.cursorPos > index) {
+            focusInfo.cursorPos += delta;
+        }
+        if (focusInfo.selectionStart > index) {
+            focusInfo.selectionStart += delta;
+        }
+        if (focusInfo.selectionEnd > index) {
+            focusInfo.selectionEnd += delta;
+        }
+    }
+
+    function filterInput(oInput, transform) {
+        var focusInfo = oInput.getFocusInfo();
+        var value = oInput.getValue();
+
+        var newValueChars = [];
+        var valueChars = value.split('');
+        valueChars.forEach(function(chr, index) {
+            var newChr = transform(chr) || '';
+            var delta = newChr.length - chr.length;
+            transformFocusInfo(focusInfo, index, delta);
+            newValueChars.push(newChr);
         });
-        return allValid;
+
+        oInput.setValue(newValueChars.join(''));
+        oInput.applyFocusInfo(focusInfo);
     }
 
     return Controller.extend("personal.account.controller.TabBarControllers.MyCars", {
@@ -95,6 +113,7 @@ sap.ui.define([
                 carInfo: Object.assign({}, emptyCarInfo),
                 vinHash: Object.create(null)
             }));
+            this.validate();
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
@@ -113,6 +132,14 @@ sap.ui.define([
                 this.oPersonModel, "/", this.oPersonModel.getContext("/")
             );
             personModelBinding.attachChange(this.onModelChanges.bind(this));
+            var thisModelBinding = new sap.ui.model.Binding(
+                oView.getModel(), "/", oView.getModel().getContext("/")
+            );
+            thisModelBinding.attachChange(this.onThisModelChanges.bind(this));
+        },
+
+        onThisModelChanges: function() {
+            this.validate();
         },
 
         onModelChanges: function() {
@@ -162,7 +189,7 @@ sap.ui.define([
                 return oValue;
             },
             parseValue: function (oValue) {
-                return trimSpaces(oValue);
+                return oValue;
             },
             validateValue: function (oValue) {
                 return !!oValue.length;
@@ -174,46 +201,75 @@ sap.ui.define([
                 return oValue;
             },
             parseValue: function (oValue) {
-                return trimSpaces(oValue);
+                return oValue;
             },
             validateValue: function (oValue) {
                 return !!oValue.length;
             }
         }),
 
+        onCapitalizeInputLiveChange: function(event) {
+            var oElement = event.getSource();
+            filterInput(oElement, function(chr) {
+                if (!/[a-z0-9]/i.test(chr)) {
+                    return '';
+                }
+                return chr.toUpperCase();
+            });
+        },
+
+        onDigitsInputLiveChange: function(event) {
+            var oElement = event.getSource();
+            filterInput(oElement, function(chr) {
+                if (!/\d/i.test(chr)) {
+                    return '';
+                }
+                return chr.toUpperCase();
+            });
+        },
+
+        validate: function() {
+            var oButton = this.getView().byId(buttonId);
+            var oView = this.getView();
+            var allValid = checkValidation(oView, inputIds);
+            if (!allValid) {
+                oButton.setEnabled(false);
+                return false;
+            }
+            var vinHash = oView.getModel().getProperty("/vinHash");
+            var carInfo = oView.getModel().getProperty("/carInfo");
+            if (vinHash[carInfo.vin]) {
+                oView.byId("vinInput").setValueState("Error");
+                oButton.setEnabled(false);
+                return false;
+            }
+            oButton.setEnabled(true);
+            return true;
+        },
+
         onAddSelectedCar: function() {
+            if (!this.validate()) {
+                return;
+            }
 
             var oView = this.getView();
             var operationsModel = this.oOperationsModel;
             var techModel = this.oTechModel;
             var personModel = this.oPersonModel;
 
-            var allValid = checkValidation(oView, inputIds);
-            if (!allValid) {
-                return;
-            }
-
             var sErrorText = this.getOwnerComponent().getModel("i18n")
                 .getResourceBundle()
                 .getText("msg.box.error");
-
             var carInfo = oView.getModel().getProperty("/carInfo");
-
-            var vinHash = oView.getModel().getProperty("/vinHash");
-            if (vinHash[carInfo.vin]) {
-                oView.byId("vinInput").setValueState("Error");
-                return;
-            }
-
             var personId = personModel.getProperty("/id");
-
+            var self = this;
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
                     appendCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
                     oView.getModel().setProperty("/carInfo", Object.assign({}, emptyCarInfo));
-                    resetValidation(oView, inputIds);
+                    self.validate();
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot add car: textStatus = ", textStatus, "error = ", errorThrown);

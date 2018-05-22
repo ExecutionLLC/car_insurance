@@ -56,6 +56,7 @@
                                 type: '.customVINType'
                             }"
                             width="75%"
+                            liveChange="onCapitalizeInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>
@@ -74,6 +75,7 @@
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            liveChange="onCapitalizeInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -95,6 +97,7 @@
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            valueLiveUpdate="true"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>
@@ -105,16 +108,16 @@
                             class="sapUiSmallMarginTop"
                             width="25%"
                     />
-                    <MaskInput
+                    <Input
                             id="powerInput"
-                            mask="9999"
-                            placeholderSymbol=" "
+                            maxLength="4"
                             required="true"
                             value="{
                                 path: '/carInfo/maxPower',
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            liveChange="onDigitsInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -155,16 +158,16 @@
                             class="sapUiSmallMarginTop"
                             width="25%"
                     />
-                    <MaskInput
+                    <Input
                             id="yearInput"
-                            mask="9999"
-                            placeholderSymbol=" "
+                            maxLength="4"
                             required="true"
                             value="{
                                 path: '/carInfo/year',
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            liveChange="onDigitsInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -172,6 +175,7 @@
                 <layout:BlockLayoutCell>
                     <layout:VerticalLayout width="25%"/>
                     <Button
+                            id="addSelectedCar"
                             width="75%"
                             press="onAddSelectedCar"
                             text="{i18n>mycars.addCar.add}"
