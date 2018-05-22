@@ -294,7 +294,11 @@
                             
                             <Table
                                     items="{
-                                        path: 'techModel>operations'
+                                        path: 'techModel>operations',
+                                        sorter: {
+                                            path: 'timestamp',
+                                            descending: true
+                                        }
                                     }"
                                     width="100%"
                             >
@@ -487,7 +491,11 @@
 
                             <Table
                                     items="{
-                                        path: 'techModel>operations'
+                                        path: 'techModel>operations',
+                                        sorter: {
+                                            path: 'timestamp',
+                                            descending: true
+                                        }
                                     }"
                                     width="100%"
                             >
