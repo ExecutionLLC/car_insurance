@@ -184,7 +184,9 @@
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
         <!--Таблица-->
         <Table
-                showNoData="false">
+                showNoData="false"
+                class="operations-table-header"
+        >
             <columns>
                 <Column hAlign="Center">
                     <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
@@ -210,11 +212,9 @@
                         descending: true
                     }
                 }"
+                class="operations-table"
         >
             <columns>
-                <Column hAlign="Center" />
-                <Column hAlign="Center" />
-                <Column hAlign="Center" />
                 <Column hAlign="Center" />
             </columns>
             <items>
@@ -229,7 +229,7 @@
                                 <content>
                                     <Text
                                             textAlign="Center"
-                                            width="17%"
+                                            width="25%"
                                             text="{
                                                 path: 'techModel>timestamp',
                                                 formatter:'.formatter.formatDateForTable'
@@ -237,20 +237,21 @@
                                     />
                                     <Text
                                             textAlign="Center"
-                                            width="32%"
+                                            width="25%"
                                             text="{
                                                 path:'techModel>operationData/newId',
                                                 formatter:'.formatter.formatICAddressToName'
                                             }"
                                     />
                                     <core:Icon
-                                            width="17%"
+                                            width="25%"
                                             src="sap-icon://overlay"
                                             color="{
                                                 path: 'techModel>pending',
                                                 formatter: '.formatter.formatTableItemPending'
                                             }"
                                     />
+                                    <Text width="25%" />
                                 </content>
                             </Toolbar>
                         </headerToolbar>
