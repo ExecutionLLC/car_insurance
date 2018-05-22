@@ -57,6 +57,7 @@
                                 type: '.customVINType'
                             }"
                             width="75%"
+                            liveChange="onVINInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>

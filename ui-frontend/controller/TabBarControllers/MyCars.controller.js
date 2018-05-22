@@ -182,6 +182,14 @@ sap.ui.define([
             }
         }),
 
+        onVINInputLiveChange: function(event) {
+            var oElement = event.getSource();
+            var focusinfo = oElement.getFocusInfo();
+            var value = oElement.getValue();
+            oElement.setValue(value.toUpperCase());
+            oElement.applyFocusInfo(focusinfo);
+        },
+
         onAddSelectedCar: function() {
 
             var oView = this.getView();
