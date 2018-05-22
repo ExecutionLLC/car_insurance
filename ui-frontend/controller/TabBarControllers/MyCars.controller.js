@@ -149,13 +149,6 @@ sap.ui.define([
                 },
                 Object.create(null)
             );
-            vinHash = modelSoldCars.reduce(
-                function(hash, car) {
-                    hash[car.vin] = Object.assign({}, car, {isSold: true});
-                    return hash;
-                },
-                vinHash
-            );
             this.getView().getModel().setProperty("/vinHash", vinHash);
         },
 
@@ -207,7 +200,7 @@ sap.ui.define([
             var carInfo = oView.getModel().getProperty("/carInfo");
 
             var vinHash = oView.getModel().getProperty("/vinHash");
-            if (vinHash[carInfo.vin] && !vinHash[carInfo.vin].isSold) {
+            if (vinHash[carInfo.vin]) {
                 oView.byId("vinInput").setValueState("Error");
                 return;
             }
