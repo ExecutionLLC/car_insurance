@@ -11,26 +11,34 @@ sap.ui.define([
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
-            this.isOnTableChangeBinded = false;
+            this.oOperationsModel = this.oComponent.getModel("operationsModel");
+            this.oTableBinding = null;
             this.oFilterSet = {
                 dateFilter: null
             };
 
-            //self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
-            // var operationsModelBinding = new sap.ui.model.Binding(
-            //     this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
-            // );
-            // operationsModelBinding.attachChange(this.onModelChanges.bind(this));
+            this.operationsModelBinding = new sap.ui.model.Binding(
+                this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
+            );
+            this.operationsModelBinding.attachChange(this.onModelChanges.bind(this));
+        },
+
+        onModelChanges: function() {
+            if (this.oTableBinding) {
+                return;
+            }
+            var self = this;
+            var oTable = this.getView().byId("table-insurance-history");
+            this.oTableBinding = oTable.getBinding("items");
+            this.oTableBinding.attachChange(function(oEvent) {
+                self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
+            });
         },
 
         /**
          * @description Составление фильтра по датам
          */
         onDateRangeChange: function (oEvent) {
-            // Сохраним фильтры
-            var _oFilterSet = {
-                dateFilter: null
-            };
             var from = oEvent.getParameter("from");
             var to = oEvent.getParameter("to");
 
@@ -59,18 +67,7 @@ sap.ui.define([
                 this.oFilterSet.dateFilter = null;
             }
 
-            var oTable = this.getView().byId("table-insurance-history");
-            var oBinding = oTable.getBinding("items");
-            var self = this;
-            if (!this.isOnTableChangeBinded) {
-                this.isOnTableChangeBinded = true;
-                oBinding.attachChange(function(oEvent) {
-                    // TODO use it or remove it
-                    console.log("Count : " + oEvent.getSource().iLength);
-                    self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
-                });
-            }
-            oBinding.filter(this.oFilterSet.dateFilter);
+            this.oTableBinding.filter(this.oFilterSet.dateFilter);
         },
 
         onPrint: function () {
