@@ -10,6 +10,7 @@ sap.ui.define([
 
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
+            this.isOnTableChangeBinded = false;
         },
 
         /**
@@ -24,8 +25,9 @@ sap.ui.define([
             var to = oEvent.getParameter("to");
 
             if (from && to) {
-                var dateFrom = new Date(from.valueOf());
-                var dateTo = new Date(to.valueOf());
+                var dateFrom = new Date(from);
+                var dateTo = new Date(to);
+                dateTo.setDate(to.getDate() + 1);
                 var aFilters = [
                     new Filter({
                         path: "timestamp",
@@ -49,6 +51,13 @@ sap.ui.define([
 
             var oTable = this.getView().byId("table-insurance-history");
             var oBinding = oTable.getBinding("items");
+            if (!this.isOnTableChangeBinded) {
+                this.isOnTableChangeBinded = true;
+                oBinding.attachChange(function(oEvent) {
+                    // TODO use it or remove it
+                    console.log("Count : " + oEvent.getSource().iLength);
+                });
+            }
             oBinding.filter(_oFilterSet.dateFilter);
         },
 
