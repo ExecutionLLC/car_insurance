@@ -87,31 +87,39 @@
                     <layout:BlockLayoutCell
                             title="{i18n>myBonusMalus}"
                     >
-                        <Text
-                                text="{
-                                    path: 'personModel>/bonusMalus',
-                                    formatter: '.formatter.formatBonusMalus'
-                                }"
-                                class="H1"
-                                textAlign="Right"
+                        <HBox
                                 width="100%"
-                        />
+                                height="2rem"
+                                justifyContent="End"
+                        >
+                            <Text
+                                    text="{
+                                        path: 'personModel>/bonusMalus',
+                                        formatter: '.formatter.formatBonusMalus'
+                                    }"
+                                    class="H1"
+                            />
+                        </HBox>
                     </layout:BlockLayoutCell>
                     <layout:BlockLayoutCell
                             title="{i18n>baseInsuranceCost}"
                     >
-                        <Text
-                                text="{
-                                    parts:[
-                                        {path: 'personModel>/basePrice'},
-                                        {path: 'i18n>currency'}
-                                    ],
-                                    formatter: '.formatter.formatCurrency'
-                                }"
-                                textAlign="Center"
+                        <HBox
                                 width="100%"
-                                class="H1"
-                        />
+                                height="2rem"
+                                justifyContent="Center"
+                        >
+                            <Text
+                                    text="{
+                                        parts:[
+                                            {path: 'personModel>/basePrice'},
+                                            {path: 'i18n>currency'}
+                                        ],
+                                        formatter: '.formatter.formatCurrency'
+                                    }"
+                                    class="H1"
+                            />
+                        </HBox>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
                 <layout:BlockLayoutRow>
