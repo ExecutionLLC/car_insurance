@@ -276,7 +276,7 @@
                                         </Column>
                                         <Column
                                                 width="40%"
-                                                hAlign="Left">
+                                                hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                         </Column>
                                         <Column
@@ -329,7 +329,7 @@
                                                             />
                                                             <Text
                                                                     width="40%"
-                                                                    textAlign="Left"
+                                                                    textAlign="Center"
                                                                     text="{
                                                                         path: 'techModel>operationType',
                                                                         formatter: '.formatter.formatOperationName'
