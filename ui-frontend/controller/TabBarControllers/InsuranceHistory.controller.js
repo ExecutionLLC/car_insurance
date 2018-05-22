@@ -24,8 +24,9 @@ sap.ui.define([
             var to = oEvent.getParameter("to");
 
             if (from && to) {
-                var dateFrom = new Date(from.valueOf());
-                var dateTo = new Date(to.valueOf());
+                var dateFrom = new Date(from);
+                var dateTo = new Date(to);
+                dateTo.setDate(to.getDate() + 1);
                 var aFilters = [
                     new Filter({
                         path: "timestamp",
