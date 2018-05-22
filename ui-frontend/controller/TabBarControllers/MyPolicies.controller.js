@@ -89,9 +89,13 @@ sap.ui.define([
                 var policyNumber = item.insuranceNumber;
 
                 if (policiesHash[policyNumber] && item.operationType === Const.OPERATION_TYPE.INSURANCE_DEACTIVATED) {
-                    policiesHash[policyNumber].isManuallyDeactivated = 1;
+                    var policy = policiesHash[policyNumber];
+                    policy.isManuallyDeactivated = 1;
+                    var timestamp = Math.max(item.timestamp, policy.timestamp);
+                    policy.timestamp = new Date(timestamp);
                 } else {
                     var policy = Object.assign({}, item.operationData);
+                    policy.timestamp = item.timestamp;
                     policy.dateFrom = new Date(policy.dateFrom);
                     policy.dateTo = new Date(policy.dateTo);
                     policy.transactionHash = item.transactionHash;
