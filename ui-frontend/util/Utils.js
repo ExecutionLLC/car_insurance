@@ -43,7 +43,8 @@ sap.ui.define([
                 return parseInt(item);
             });
 
-            return new Date(dateData[2], dateData[1] - 1, dateData[0]);
+            var result = new Date(dateData[2], dateData[1] - 1, dateData[0]);
+            return !isNaN(result) ? result : null;
         },
         getInsuranceObjectByAddress: function (address, model) {
             if (!address || !model) {
