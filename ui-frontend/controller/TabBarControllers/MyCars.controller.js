@@ -86,6 +86,35 @@ sap.ui.define([
         return allValid;
     }
 
+    function transformFocusInfo(focusInfo, index, delta) {
+        if (focusInfo.cursorPos > index) {
+            focusInfo.cursorPos += delta;
+        }
+        if (focusInfo.selectionStart > index) {
+            focusInfo.selectionStart += delta;
+        }
+        if (focusInfo.selectionEnd > index) {
+            focusInfo.selectionEnd += delta;
+        }
+    }
+
+    function filterInput(oInput, transform) {
+        var focusInfo = oInput.getFocusInfo();
+        var value = oInput.getValue();
+
+        var newValueChars = [];
+        var valueChars = value.split('');
+        valueChars.forEach(function(chr, index) {
+            var newChr = transform(chr) || '';
+            var delta = newChr.length - chr.length;
+            transformFocusInfo(focusInfo, index, delta);
+            newValueChars.push(newChr);
+        });
+
+        oInput.setValue(newValueChars.join(''));
+        oInput.applyFocusInfo(focusInfo);
+    }
+
     return Controller.extend("personal.account.controller.TabBarControllers.MyCars", {
         formatter: formatter,
 
@@ -183,10 +212,12 @@ sap.ui.define([
 
         onCapitalizeInputLiveChange: function(event) {
             var oElement = event.getSource();
-            var focusinfo = oElement.getFocusInfo();
-            var value = oElement.getValue();
-            oElement.setValue(value.toUpperCase());
-            oElement.applyFocusInfo(focusinfo);
+            filterInput(oElement, function(chr) {
+                if (!/[a-z0-9]/i.test(chr)) {
+                    return '';
+                }
+                return chr.toUpperCase();
+            });
         },
 
         validate: function() {
