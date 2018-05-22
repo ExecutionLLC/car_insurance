@@ -2,7 +2,6 @@
           xmlns="sap.m"
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:layout="sap.ui.layout"
-          xmlns:commons="sap.ui.commons"
           xmlns:core="sap.ui.core"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
     <Page showHeader="false">
@@ -258,8 +257,7 @@
                                     width="100%"
                             />
                         </layout:VerticalLayout>
-                        <layout:VerticalLayout width="5%">
-                        </layout:VerticalLayout>
+                        <layout:VerticalLayout width="5%" />
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
@@ -267,7 +265,9 @@
                             />
                             <ScrollContainer vertical="true" horizontal="false" height="200px">
                                 <Table
-                                        showNoData="false">
+                                    showNoData="false"
+                                class="operations-table-header"
+                                >
                                     <columns>
                                         <Column
                                                 width="20%"
@@ -275,17 +275,17 @@
                                             <Text text="{i18n>mycars.carInfo.history.date}"/>
                                         </Column>
                                         <Column
-                                                width="30%"
-                                                hAlign="Center">
+                                                width="40%"
+                                                hAlign="Left">
                                             <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                         </Column>
                                         <Column
-                                                width="40%"
+                                                width="20%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.status}"/>
                                         </Column>
                                         <Column
-                                                width="10%"
+                                                width="20%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.check}"/>
                                         </Column>
@@ -298,7 +298,7 @@
                                             path: 'techModel>operations'
                                         }"
                                         width="100%"
-                                >
+                                class="operations-table">
                                     <columns>
                                         <Column
                                                 hAlign="Center">
@@ -315,7 +315,7 @@
                                                             width="100%">
                                                         <content>
                                                             <Text
-                                                                    textAlign="Left"
+                                                                    textAlign="Center"
                                                                     width="20%"
                                                                     text="{
                                                                         path: 'techModel>timestamp',
@@ -339,8 +339,7 @@
                                                                     }"
                                                             />
                                                             <Text
-                                                                    width="30%"
-                                                                    textAlign="Center"
+                                                                    width="20%"
                                                                     text=""
                                                             />
                                                         </content>
@@ -455,13 +454,16 @@
                                 <Text text="{path: 'techModel>year'}" />
                             </HBox>
                         </layout:VerticalLayout>
+                        <layout:VerticalLayout width="5%" />
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
                                     class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
                             />
                             <Table
-                                    showNoData="false">
+                                    showNoData="false"
+                                    class="operations-table-header"
+                            >
                                 <columns>
                                     <Column
                                             width="20%"
@@ -469,17 +471,17 @@
                                         <Text text="{i18n>mycars.carInfo.history.date}"/>
                                     </Column>
                                     <Column
-                                            width="30%"
-                                            hAlign="Center">
+                                            width="40%"
+                                            hAlign="Left">
                                         <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                     </Column>
                                     <Column
-                                            width="40%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.status}"/>
                                     </Column>
                                     <Column
-                                            width="10%"
+                                            width="20%"
                                             hAlign="Center">
                                         <Text text="{i18n>mycars.carInfo.history.check}"/>
                                     </Column>
@@ -492,6 +494,7 @@
                                         path: 'techModel>operations'
                                     }"
                                     width="100%"
+                                    class="operations-table"
                             >
                                 <columns>
                                     <Column
@@ -509,7 +512,7 @@
                                                         width="100%">
                                                     <content>
                                                         <Text
-                                                                textAlign="Left"
+                                                                textAlign="Center"
                                                                 width="20%"
                                                                 text="{
                                                                     path: 'techModel>timestamp',
@@ -533,8 +536,7 @@
                                                                 }"
                                                         />
                                                         <Text
-                                                                width="30%"
-                                                                textAlign="Center"
+                                                                width="20%"
                                                                 text=""
                                                         />
                                                     </content>

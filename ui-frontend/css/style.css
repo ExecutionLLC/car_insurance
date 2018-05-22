@@ -105,3 +105,17 @@ a.sapMLnk {
 .profile-dashboard .sapUiBlockLayoutBackgroundDashboard .sapUiBlockCellContent {
 	box-shadow: none;
 }
+
+.operations-table-header.operations-table-header.operations-table-header.operations-table-header .sapMListTblCell.sapMListTblHeaderCell.sapMTableTH {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.operations-table.operations-table.operations-table.operations-table .sapMPanelHeaderTB {
+	margin-left: 0;
+}
+
+.operations-table.operations-table.operations-table.operations-table .sapMIBar.sapMTB .sapMBarChild {
+	margin-left: 0;
+	margin-right: 0;
+}
