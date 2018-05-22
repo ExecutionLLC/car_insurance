@@ -212,18 +212,10 @@
                 }"
         >
             <columns>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
-                <Column
-                        hAlign="Center">
-                </Column>
+                <Column hAlign="Center" />
+                <Column hAlign="Center" />
+                <Column hAlign="Center" />
+                <Column hAlign="Center" />
             </columns>
             <items>
                 <CustomListItem>
