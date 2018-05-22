@@ -27,7 +27,7 @@ sap.ui.define([
             return;
         }
         var foundCars = modelCars.splice(foundCarIndex, 1);
-        var newSoldCars = modelSoldCars.concat(foundCars);
+        var newSoldCars = foundCars.concat(modelSoldCars);
         personModel.setProperty("/cars", modelCars);
         personModel.setProperty("/soldCars", newSoldCars);
     }
@@ -142,8 +142,7 @@ sap.ui.define([
             this.oTechModel.setProperty("/tech/myCarsTab/cars", fillCarsWithOperations(modelCars, operations));
             this.oTechModel.setProperty("/tech/myCarsTab/soldCars", fillCarsWithOperations(modelSoldCars, operations));
 
-            var allCars = modelCars.concat(modelSoldCars);
-            var vinHash = allCars.reduce(
+            var vinHash = modelCars.reduce(
                 function(hash, car) {
                     hash[car.vin] = car;
                     return hash;

@@ -78,6 +78,9 @@ sap.ui.define([
                     if (personInfo.cars) {
                         personInfo.cars.reverse();
                     }
+                    if (personInfo.soldCars) {
+                        personInfo.soldCars.reverse();
+                    }
                     return personInfo;
                 })
                 .then(makePersonCarsInsurancesDatesFromToAsDate);
