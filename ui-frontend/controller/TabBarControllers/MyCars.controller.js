@@ -11,9 +11,9 @@ sap.ui.define([
 ], function (Controller, MessageBox, SimpleType, ValidateException, formatter, API, Utils, JSONModel, Const) {
     "use strict";
 
-    function appendCar(personModel, carInfo) {
+    function prependCar(personModel, carInfo) {
         var modelCars = personModel.getProperty("/cars") || [];
-        var newCars = modelCars.concat([carInfo]);
+        var newCars = [carInfo].concat(modelCars);
         personModel.setProperty("/cars", newCars);
     }
 
@@ -265,7 +265,7 @@ sap.ui.define([
             var self = this;
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
-                    appendCar(personModel, carInfo);
+                    prependCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
                     oView.getModel().setProperty("/carInfo", Object.assign({}, emptyCarInfo));
