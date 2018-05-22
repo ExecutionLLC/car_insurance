@@ -50,6 +50,8 @@ sap.ui.define([
         "numberPlateInput"
     ];
 
+    var buttonId = "addSelectedCar";
+
     function checkValidation(oView, ids) {
         var allValid = true;
         $.each(ids, function (i, inputId) {
@@ -228,17 +230,21 @@ sap.ui.define([
         },
 
         validate: function() {
+            var oButton = this.getView().byId(buttonId);
             var oView = this.getView();
             var allValid = checkValidation(oView, inputIds);
             if (!allValid) {
+                oButton.setEnabled(false);
                 return false;
             }
             var vinHash = oView.getModel().getProperty("/vinHash");
             var carInfo = oView.getModel().getProperty("/carInfo");
             if (vinHash[carInfo.vin]) {
                 oView.byId("vinInput").setValueState("Error");
+                oButton.setEnabled(false);
                 return false;
             }
+            oButton.setEnabled(true);
             return true;
         },
 

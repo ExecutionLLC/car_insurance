@@ -175,6 +175,7 @@
                 <layout:BlockLayoutCell>
                     <layout:VerticalLayout width="25%"/>
                     <Button
+                            id="addSelectedCar"
                             width="75%"
                             press="onAddSelectedCar"
                             text="{i18n>mycars.addCar.add}"
