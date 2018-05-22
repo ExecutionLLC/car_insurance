@@ -142,6 +142,14 @@ sap.ui.define([
                 this.oPersonModel, "/", this.oPersonModel.getContext("/")
             );
             personModelBinding.attachChange(this.onModelChanges.bind(this));
+            var thisModelBinding = new sap.ui.model.Binding(
+                oView.getModel(), "/", oView.getModel().getContext("/")
+            );
+            thisModelBinding.attachChange(this.onThisModelChanges.bind(this));
+        },
+
+        onThisModelChanges: function() {
+            this.validate();
         },
 
         onModelChanges: function() {
@@ -214,6 +222,17 @@ sap.ui.define([
             var oElement = event.getSource();
             filterInput(oElement, function(chr) {
                 if (!/[a-z0-9]/i.test(chr)) {
+                    return '';
+                }
+                return chr.toUpperCase();
+            });
+        },
+
+        onDigitsInputLiveChange: function(event) {
+            var oElement = event.getSource();
+            filterInput(oElement, function(chr) {
+                console.log('c', chr);
+                if (!/\d/i.test(chr)) {
                     return '';
                 }
                 return chr.toUpperCase();

@@ -97,6 +97,7 @@
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            valueLiveUpdate="true"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>
@@ -107,16 +108,16 @@
                             class="sapUiSmallMarginTop"
                             width="25%"
                     />
-                    <MaskInput
+                    <Input
                             id="powerInput"
-                            mask="9999"
-                            placeholderSymbol=" "
+                            maxLength="4"
                             required="true"
                             value="{
                                 path: '/carInfo/maxPower',
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            liveChange="onDigitsInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
@@ -157,16 +158,16 @@
                             class="sapUiSmallMarginTop"
                             width="25%"
                     />
-                    <MaskInput
+                    <Input
                             id="yearInput"
-                            mask="9999"
-                            placeholderSymbol=" "
+                            maxLength="4"
                             required="true"
                             value="{
                                 path: '/carInfo/year',
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
+                            liveChange="onDigitsInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
             </layout:BlockLayoutRow>
