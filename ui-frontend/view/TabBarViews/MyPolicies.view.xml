@@ -139,7 +139,14 @@
                 </Column>
             </columns>
         </Table>
-        <Table items="{path: 'policiesModel>/activePolicies'}">
+        <Table items="{
+                        path: 'policiesModel>/activePolicies',
+                        sorter: {
+                            path: 'timestamp',
+                            descending: true
+                        }
+                      }"
+        >
             <columns>
                 <Column hAlign="Center"/>
                 <Column hAlign="Center"/>
@@ -221,7 +228,14 @@
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
             />
         </layout:Grid>
-        <Table items="{path: 'policiesModel>/inactivePolicies'}">
+        <Table items="{
+                        path: 'policiesModel>/inactivePolicies',
+                        sorter: {
+                            path: 'timestamp',
+                            descending: true
+                        }
+                      }"
+        >
             <columns>
                 <Column hAlign="Center"/>
                 <Column hAlign="Center"/>
