@@ -183,120 +183,115 @@
                 text="{i18n>insuranceCompany.insuranceCompanyHistory}"
                 class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
         <!--Таблица-->
-        <ScrollContainer vertical="false" horizontal="true">
-            <Table
-                    showNoData="false">
-                <columns>
-                    <Column hAlign="Center">
-                        <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
-                    </Column>
-                    <Column hAlign="Center">
-                        <Text text="{i18n>insuranceCompany.tab.insuranceCompany}"/>
-                    </Column>
-                    <Column
-                            hAlign="Center">
-                        <Text text="{i18n>insuranceCompany.tab.status}"/>
-                    </Column>
-                    <Column hAlign="Center">
-                        <Text text="{i18n>insuranceCompany.tab.check}"/>
-                    </Column>
-                </columns>
-            </Table>
-            <ScrollContainer vertical="true" horizontal="false">
+        <Table
+                showNoData="false">
+            <columns>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.insuranceCompany}"/>
+                </Column>
+                <Column
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.status}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.check}"/>
+                </Column>
+            </columns>
+        </Table>
 
-                <Table
-                        items="{
-                            path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
-                            sorter : {
-                                path : 'timestamp',
-                                descending:true
-                            }
-                        }">
-                    <columns>
-                        <Column
-                                hAlign="Center">
-                        </Column>
-                        <Column
-                                hAlign="Center">
-                        </Column>
-                        <Column
-                                hAlign="Center">
-                        </Column>
-                        <Column
-                                hAlign="Center">
-                        </Column>
-                    </columns>
-                    <items>
-                        <CustomListItem>
-                            <Panel
-                                    expandable="true"
-                                    expand="false"
-                                    width="auto">
-                                <headerToolbar>
-                                    <Toolbar
-                                            width="100%">
-                                        <content>
-                                            <Text
-                                                    textAlign="Center"
-                                                    width="17%"
-                                                    text="{
-                                                        path: 'techModel>timestamp',
-                                                        formatter:'.formatter.formatDateForTable'
-                                                    }"
-                                            />
-                                            <Text
-                                                    textAlign="Center"
-                                                    width="32%"
-                                                    text="{
-                                                        path:'techModel>operationData/newId',
-                                                        formatter:'.formatter.formatICAddressToName'
-                                                    }"
-                                            />
-                                            <core:Icon
-                                                    width="17%"
-                                                    src="sap-icon://overlay"
-                                                    color="{
-                                                        path: 'techModel>pending',
-                                                        formatter: '.formatter.formatTableItemPending'
-                                                    }"
-                                            />
-                                        </content>
-                                    </Toolbar>
-                                </headerToolbar>
+        <Table
+                items="{
+                    path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
+                    sorter : {
+                        path : 'timestamp',
+                        descending:true
+                    }
+                }">
+            <columns>
+                <Column
+                        hAlign="Center">
+                </Column>
+                <Column
+                        hAlign="Center">
+                </Column>
+                <Column
+                        hAlign="Center">
+                </Column>
+                <Column
+                        hAlign="Center">
+                </Column>
+            </columns>
+            <items>
+                <CustomListItem>
+                    <Panel
+                            expandable="true"
+                            expand="false"
+                            width="auto">
+                        <headerToolbar>
+                            <Toolbar
+                                    width="100%">
                                 <content>
-                                    <layout:VerticalLayout
-                                            class="verticalLayout_ic-margin_left">
-                                        <layout:HorizontalLayout>
-                                            <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
-                                            </Label>
-                                            <Link text="{techModel>transactionHash}" press="onLinkPress">
-                                            </Link>
-                                        </layout:HorizontalLayout>
-
-                                        <layout:HorizontalLayout>
-                                            <Label text="{i18n>insuranceCompany.tab.exp.sender}">
-                                            </Label>
-                                            <Text text="{techModel>transactionFrom}">
-                                            </Text>
-                                        </layout:HorizontalLayout>
-
-                                        <layout:HorizontalLayout width="100%">
-                                            <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
-                                            </Label>
-                                            <Text text="{
-                                                            path: 'techModel>pending',
-                                                            formatter: '.formatter.formatNumberOfConfirmations'
-                                                        }"
-                                            />
-                                        </layout:HorizontalLayout>
-                                    </layout:VerticalLayout>
+                                    <Text
+                                            textAlign="Center"
+                                            width="17%"
+                                            text="{
+                                                path: 'techModel>timestamp',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"
+                                    />
+                                    <Text
+                                            textAlign="Center"
+                                            width="32%"
+                                            text="{
+                                                path:'techModel>operationData/newId',
+                                                formatter:'.formatter.formatICAddressToName'
+                                            }"
+                                    />
+                                    <core:Icon
+                                            width="17%"
+                                            src="sap-icon://overlay"
+                                            color="{
+                                                path: 'techModel>pending',
+                                                formatter: '.formatter.formatTableItemPending'
+                                            }"
+                                    />
                                 </content>
-                            </Panel>
-                        </CustomListItem>
-                    </items>
-                </Table>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:VerticalLayout
+                                    class="verticalLayout_ic-margin_left">
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
+                                    </Label>
+                                    <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                    </Link>
+                                </layout:HorizontalLayout>
 
-            </ScrollContainer>
-        </ScrollContainer>
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceCompany.tab.exp.sender}">
+                                    </Label>
+                                    <Text text="{techModel>transactionFrom}">
+                                    </Text>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout width="100%">
+                                    <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
+                                    </Label>
+                                    <Text text="{
+                                                    path: 'techModel>pending',
+                                                    formatter: '.formatter.formatNumberOfConfirmations'
+                                                }"
+                                    />
+                                </layout:HorizontalLayout>
+                            </layout:VerticalLayout>
+                        </content>
+                    </Panel>
+                </CustomListItem>
+            </items>
+        </Table>
     </Page>
 </mvc:View>
