@@ -78,12 +78,10 @@ sap.ui.define([
     }
 
     function resetValidation(oView, ids) {
-        var allValid = true;
         $.each(ids, function (i, inputId) {
             var oInput = oView.byId(inputId);
             oInput.setValueState("None");
         });
-        return allValid;
     }
 
     function transformFocusInfo(focusInfo, index, delta) {
