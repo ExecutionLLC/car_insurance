@@ -181,7 +181,7 @@ sap.ui.define([
             }
         }),
 
-        onVINInputLiveChange: function(event) {
+        onCapitalizeInputLiveChange: function(event) {
             var oElement = event.getSource();
             var focusinfo = oElement.getFocusInfo();
             var value = oElement.getValue();
