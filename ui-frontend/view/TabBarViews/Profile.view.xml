@@ -8,7 +8,7 @@
             showHeader="false"
     >
 
-        <layout:Grid>
+        <layout:Grid class="profile-dashboard">
             <layout:BlockLayout background="Dashboard">
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
