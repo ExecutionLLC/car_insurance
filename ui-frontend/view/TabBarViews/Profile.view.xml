@@ -48,13 +48,6 @@
                                             class="H1"
                                     />
                                 </HBox>
-                                <Text
-                                        text="{
-                                            path:'mainModel>/npf',
-                                            formatter:'.formatter.formatNpfAddressToName'
-                                        }"
-                                        class="coloredText sapUiTinyMarginTop"
-                                />
                             </VBox>
 
                             <VBox
