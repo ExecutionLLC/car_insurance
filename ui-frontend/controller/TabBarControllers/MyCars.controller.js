@@ -32,10 +32,6 @@ sap.ui.define([
         personModel.setProperty("/soldCars", newSoldCars);
     }
 
-    function trimSpaces(s) {
-        return s.replace(/^\s+/, '').replace(/\s+$/, '');
-    }
-
     var emptyCarInfo = {
         vin: "",
         model: "",
@@ -77,13 +73,6 @@ sap.ui.define([
         return allValid;
     }
 
-    function resetValidation(oView, ids) {
-        $.each(ids, function (i, inputId) {
-            var oInput = oView.byId(inputId);
-            oInput.setValueState("None");
-        });
-    }
-
     function transformFocusInfo(focusInfo, index, delta) {
         if (focusInfo.cursorPos > index) {
             focusInfo.cursorPos += delta;
@@ -122,6 +111,7 @@ sap.ui.define([
                 carInfo: Object.assign({}, emptyCarInfo),
                 vinHash: Object.create(null)
             }));
+            this.validate();
             this.oComponent = this.getOwnerComponent();
             this.oTechModel = this.oComponent.getModel("techModel");
             this.oPersonModel = this.oComponent.getModel("personModel");
@@ -197,7 +187,7 @@ sap.ui.define([
                 return oValue;
             },
             parseValue: function (oValue) {
-                return trimSpaces(oValue);
+                return oValue;
             },
             validateValue: function (oValue) {
                 return !!oValue.length;
@@ -209,7 +199,7 @@ sap.ui.define([
                 return oValue;
             },
             parseValue: function (oValue) {
-                return trimSpaces(oValue);
+                return oValue;
             },
             validateValue: function (oValue) {
                 return !!oValue.length;
@@ -267,13 +257,14 @@ sap.ui.define([
                 .getText("msg.box.error");
             var carInfo = oView.getModel().getProperty("/carInfo");
             var personId = personModel.getProperty("/id");
+            var self = this;
             API.addPersonCar(personId, carInfo)
                 .then(function(addCarOperations) {
                     appendCar(personModel, carInfo);
                     Utils.appendPendingOperations(operationsModel, addCarOperations);
                     techModel.setProperty("/tech/myCarsTab/isNewCarInfoVisible", false);
                     oView.getModel().setProperty("/carInfo", Object.assign({}, emptyCarInfo));
-                    resetValidation(oView, inputIds);
+                    self.validate();
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     console.error("Cannot add car: textStatus = ", textStatus, "error = ", errorThrown);
