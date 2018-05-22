@@ -27,7 +27,7 @@ sap.ui.define([
             return;
         }
         var foundCars = modelCars.splice(foundCarIndex, 1);
-        var newSoldCars = modelSoldCars.concat(foundCars);
+        var newSoldCars = foundCars.concat(modelSoldCars);
         personModel.setProperty("/cars", modelCars);
         personModel.setProperty("/soldCars", newSoldCars);
     }
@@ -142,13 +142,19 @@ sap.ui.define([
             this.oTechModel.setProperty("/tech/myCarsTab/cars", fillCarsWithOperations(modelCars, operations));
             this.oTechModel.setProperty("/tech/myCarsTab/soldCars", fillCarsWithOperations(modelSoldCars, operations));
 
-            var allCars = modelCars.concat(modelSoldCars);
-            var vinHash = allCars.reduce(
+            var vinHash = modelCars.reduce(
                 function(hash, car) {
                     hash[car.vin] = car;
                     return hash;
                 },
                 Object.create(null)
+            );
+            vinHash = modelSoldCars.reduce(
+                function(hash, car) {
+                    hash[car.vin] = Object.assign({}, car, {isSold: true});
+                    return hash;
+                },
+                vinHash
             );
             this.getView().getModel().setProperty("/vinHash", vinHash);
         },
@@ -201,7 +207,7 @@ sap.ui.define([
             var carInfo = oView.getModel().getProperty("/carInfo");
 
             var vinHash = oView.getModel().getProperty("/vinHash");
-            if (vinHash[carInfo.vin]) {
+            if (vinHash[carInfo.vin] && !vinHash[carInfo.vin].isSold) {
                 oView.byId("vinInput").setValueState("Error");
                 return;
             }
