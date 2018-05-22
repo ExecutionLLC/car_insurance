@@ -12,6 +12,9 @@ sap.ui.define([
             //техническая модель приложения
             tech: {
                 selectedKey: "",
+                insuranceHistoryTab: {
+                    operationsFilteredCount: 0
+                },
                 insuranceCompanyTab: {
                     selectedInsuranceCompanyAddress: "",
                     selectedInsuranceCompany: "",

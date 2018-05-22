@@ -10,7 +10,14 @@ sap.ui.define([
 
         onInit: function () {
             this.oComponent = this.getOwnerComponent();
+            this.oTechModel = this.oComponent.getModel("techModel");
             this.isOnTableChangeBinded = false;
+
+            //self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
+            // var operationsModelBinding = new sap.ui.model.Binding(
+            //     this.oOperationsModel, "/", this.oOperationsModel.getContext("/")
+            // );
+            // operationsModelBinding.attachChange(this.onModelChanges.bind(this));
         },
 
         /**
@@ -51,11 +58,13 @@ sap.ui.define([
 
             var oTable = this.getView().byId("table-insurance-history");
             var oBinding = oTable.getBinding("items");
+            var self = this;
             if (!this.isOnTableChangeBinded) {
                 this.isOnTableChangeBinded = true;
                 oBinding.attachChange(function(oEvent) {
                     // TODO use it or remove it
                     console.log("Count : " + oEvent.getSource().iLength);
+                    self.oTechModel.setProperty("/tech/insuranceHistoryTab/operationsFilteredCount", oEvent.getSource().iLength);
                 });
             }
             oBinding.filter(_oFilterSet.dateFilter);
