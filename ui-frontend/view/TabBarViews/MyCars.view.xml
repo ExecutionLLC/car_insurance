@@ -195,7 +195,7 @@
                 items="{
                     path: 'techModel>/tech/myCarsTab/cars'
                 }"
-                class="tableReport"
+                class="tableReport myCars"
         >
             <CustomListItem>
                 <Panel expandable="true">
@@ -403,7 +403,7 @@
                 items="{
                     path: 'techModel>/tech/myCarsTab/soldCars'
                 }"
-                class="tableReport"
+                class="tableReport soldCars"
         >
             <CustomListItem>
                 <Panel expandable="true">
