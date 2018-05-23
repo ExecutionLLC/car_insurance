@@ -257,32 +257,6 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:VerticalLayout
-                                    class="verticalLayout_ic-margin_left">
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
-                                    </Label>
-                                    <Link text="{techModel>transactionHash}" press="onLinkPress">
-                                    </Link>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceCompany.tab.exp.sender}">
-                                    </Label>
-                                    <Text text="{techModel>transactionFrom}">
-                                    </Text>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout width="100%">
-                                    <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
-                                    </Label>
-                                    <Text text="{
-                                                    path: 'techModel>pending',
-                                                    formatter: '.formatter.formatNumberOfConfirmations'
-                                                }"
-                                    />
-                                </layout:HorizontalLayout>
-                            </layout:VerticalLayout>
                             <customControls:TransactionControl
                                     transactionHash="{techModel>transactionHash}"
                                     transactionFrom="{techModel>transactionFrom}"
