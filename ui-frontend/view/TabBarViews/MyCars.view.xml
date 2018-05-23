@@ -358,7 +358,7 @@
                                                 </headerToolbar>
                                                 <content>
                                                     <customControls:TransactionControl
-                                                            class="verticalLayout_ic-margin_left"
+                                                            class="transaction-info-big-margin-left"
                                                             transactionHash="{techModel>transactionHash}"
                                                             transactionFrom="{techModel>transactionFrom}"
                                                             pending="{techModel>pending}"
@@ -540,7 +540,7 @@
                                                 </headerToolbar>
                                                 <content>
                                                     <customControls:TransactionControl
-                                                            class="verticalLayout_ic-margin_left"
+                                                            class="transaction-info-big-margin-left"
                                                             transactionHash="{techModel>transactionHash}"
                                                             transactionFrom="{techModel>transactionFrom}"
                                                             pending="{techModel>pending}"

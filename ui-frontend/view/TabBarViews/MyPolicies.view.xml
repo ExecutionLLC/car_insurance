@@ -200,7 +200,7 @@
                         </headerToolbar>
                         <content>
                             <customControls:TransactionControl
-                                    class="verticalLayout-margin_left"
+                                    class="transaction-info-small-margin-left"
                                     transactionHash="{policiesModel>transactionHash}"
                                     transactionFrom="{policiesModel>transactionFrom}"
                                     pending="{policiesModel>pending}"
@@ -274,7 +274,7 @@
                         </headerToolbar>
                         <content>
                             <customControls:TransactionControl
-                                    class="verticalLayout-margin_left"
+                                    class="transaction-info-small-margin-left"
                                     transactionHash="{policiesModel>transactionHash}"
                                     transactionFrom="{policiesModel>transactionFrom}"
                                     pending="{policiesModel>pending}"
