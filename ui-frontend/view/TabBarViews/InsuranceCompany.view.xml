@@ -4,6 +4,7 @@
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          xmlns:customControls="personal.account.controls"
           displayBlock="true"
 >
     <Page showHeader="false">
@@ -282,6 +283,9 @@
                                     />
                                 </layout:HorizontalLayout>
                             </layout:VerticalLayout>
+                            <customControls:TransactionControl
+
+                            />
                         </content>
                     </Panel>
                 </CustomListItem>
