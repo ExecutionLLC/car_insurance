@@ -93,10 +93,14 @@ sap.ui.define([
             return oBundle.getText("InsuranceReliability." + oICRating.description);
         },
 
-        formatReliabilitySpan: function(rating) {
+        formatReliabilityText: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
-            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
-            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
+            return oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+        },
+
+        formatReliabilityColor: function(rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            return oICRating.color;
         },
 
         formatTableItemPending: function (isPending) {

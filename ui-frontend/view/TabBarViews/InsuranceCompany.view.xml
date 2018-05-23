@@ -4,6 +4,7 @@
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          xmlns:control="personal.account.control"
           displayBlock="true"
 >
     <Page showHeader="false">
@@ -144,10 +145,14 @@
                 >
                     <cells>
                         <Text text="{icModel>name}" />
-                        <core:HTML
-                                content="{
+                        <control:ColorText
+                                text="{
                                     path: 'icModel>rating',
-                                    formatter: '.formatter.formatReliabilitySpan'
+                                    formatter: '.formatter.formatReliabilityText'
+                                }"
+                                color="{
+                                    path: 'icModel>rating',
+                                    formatter: '.formatter.formatReliabilityColor'
                                 }"
                         />
                         <Button
