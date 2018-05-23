@@ -166,6 +166,56 @@ sap.ui.define([
             return oBundle.getText("operationType." + operationType);
         },
 
+        formatOperationText: function (timestamp, operationType, opertationData) {
+            switch (operationType) {
+                case Const.OPERATION_TYPE.CAR_ADDED:
+                    var carModel = opertationData.model || "?";
+                    return 'Покупка автомобиля "' + carModel + '"';
+                case Const.OPERATION_TYPE.CAR_DELETED:
+                    var carModel = opertationData.model || "?";
+                    return 'Продажа автомобиля "' + carModel + '"';
+                case Const.OPERATION_TYPE.INSURANCE_ADDED:
+                    var oPersonModel = this.getOwnerComponent().getModel("personModel");
+                    var car = Utils.getCarByVin(oPersonModel, opertationData.carVin);
+                    var carModel = car ? car.model : "?";
+
+                    var text = "Заключение страхового договора № ";
+                    text += opertationData.insuranceNumber;
+                    text += " для автомобиля";
+                    text += ' "' + carModel + '"';
+
+                    return text;
+                case Const.OPERATION_TYPE.INSURANCE_DEACTIVATED:
+                    var oPersonModel = this.getOwnerComponent().getModel("personModel");
+                    var car = Utils.getCarByVin(oPersonModel, opertationData.carVin);
+                    var carModel = car ? car.model : "?";
+
+                    var text = "Расторжение страхового договора №";
+                    text += opertationData.insuranceNumber;
+                    text += " для автомобиля";
+                    text += ' "' + carModel + '"';
+                    text += " в связи со сменой страховой компании";
+
+                    return text;
+                case Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED:
+                    var oInsuranceCompaniesModel = this.getOwnerComponent().getModel("icModel");
+
+                    var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, opertationData.oldId);
+                    var oldCompanyName = oldCompany.name || "?";
+                    var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, opertationData.newId);
+                    var newCompanyName = newCompany.name || "?";
+
+                    var text = "Смена страховой компании с";
+                    text += ' "' + oldCompanyName + '"';
+                    text += " на ";
+                    text += '"' + newCompanyName + '"';
+
+                    return text;
+            }
+
+            return "?";
+        },
+
         formatCarType: function(carType) {
             var oBundle = this.getOwnerComponent()
                 .getModel("i18n")

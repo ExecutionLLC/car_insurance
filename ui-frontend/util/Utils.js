@@ -58,7 +58,22 @@ sap.ui.define([
                 return item.id === address;
             });
         },
+        getInsuranceCompanyById: function (oInsuranceCompaniesModel, id) {
+            var companies = oInsuranceCompaniesModel.getProperty("/") || [];
 
+            return companies.find(function (item) {
+                return item.id === id;
+            }) || null;
+        },
+        getCarByVin: function (oPersonModel, vin) {
+            var cars = oPersonModel.getProperty("/cars") || [];
+            var soldCars = oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+
+            return allCars.find(function (item) {
+                return item.vin === vin;
+            }) || null;
+        },
         conversionICRating: function (int) {
             switch (true) {
                 case int <= 2:
