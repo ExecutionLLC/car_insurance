@@ -7,6 +7,7 @@
         <layout:HorizontalLayout>
             <Label
                     text="{i18n>TransactionInfo.transactionId}"
+                    class="sapUiTinyMarginEnd"
             />
             <Link
                     id="hash"
@@ -17,6 +18,7 @@
         <layout:HorizontalLayout>
             <Label
                     text="{i18n>TransactionInfo.sender}"
+                    class="sapUiTinyMarginEnd"
             />
             <Text
                     id="from"
@@ -26,6 +28,7 @@
         <layout:HorizontalLayout width="100%">
             <Label
                     text="{i18n>TransactionInfo.confirmationsNumber}"
+                    class="sapUiTinyMarginEnd"
             />
             <Text
                     id="pending"
