@@ -3,7 +3,9 @@
         xmlns="sap.m"
         xmlns:core="sap.ui.core"
         xmlns:mvc="sap.ui.core.mvc"
-        xmlns:layout="sap.ui.layout">
+        xmlns:layout="sap.ui.layout"
+        xmlns:customControls="personal.account.controls"
+>
     <Page
             showHeader="false"
             enableScrolling="true">
@@ -142,32 +144,11 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:VerticalLayout
-                                class="verticalLayout-margin_left">
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}">
-                                    </Label>
-                                    <Link text="{operationsModel>transactionHash}" press="onLinkPress">
-                                    </Link>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}">
-                                    </Label>
-                                    <Text text="{operationsModel>transactionFrom}">
-                                    </Text>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout width="100%">
-                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}">
-                                    </Label>
-                                    <Text text="{
-                                                    path: 'operationsModel>pending',
-                                                    formatter: '.formatter.formatNumberOfConfirmations'
-                                                }"
-                                    />
-                                </layout:HorizontalLayout>
-                            </layout:VerticalLayout>
+                            <customControls:TransactionControl
+                                    transactionHash="{operationsModel>transactionHash}"
+                                    transactionFrom="{operationsModel>transactionFrom}"
+                                    pending="{operationsModel>pending}"
+                            />
                         </content>
                     </Panel>
                 </CustomListItem>
