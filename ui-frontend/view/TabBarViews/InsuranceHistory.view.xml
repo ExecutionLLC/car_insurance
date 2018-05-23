@@ -145,6 +145,7 @@
                         </headerToolbar>
                         <content>
                             <customControls:TransactionControl
+                                    class="verticalLayout-margin_left"
                                     transactionHash="{operationsModel>transactionHash}"
                                     transactionFrom="{operationsModel>transactionFrom}"
                                     pending="{operationsModel>pending}"
