@@ -1,0 +1,177 @@
+<mvc:View
+        controllerName="personal.account.controller.TabBarControllers.InsuranceHistory"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:layout="sap.ui.layout">
+    <Page
+            showHeader="false"
+            enableScrolling="true">
+        <layout:Grid width="100%"
+                     class="sapUiMediumMarginTop"
+        >
+            <Label class="sapUiSmallMarginTop"
+                   text="{i18n>dateRange}">
+                <layoutData>
+                    <layout:GridData span="L3 M4 S4"
+                                     indent="L1 M1 S1"
+                    />
+                </layoutData>
+            </Label>
+            <DateRangeSelection placeholder="{i18n>dateRangePlaceholder}"
+                                change="onDateRangeChange"
+            >
+                <layoutData>
+                    <layout:GridData span="L4 M5 S4"
+                                     indent="L0 M0 S0"
+                    />
+                </layoutData>
+            </DateRangeSelection>
+            <Button width="100%"
+                    press="onPrint"
+                    icon="sap-icon://print"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M2 S2"/>
+                </layoutData>
+            </Button>
+        </layout:Grid>
+
+        <Label
+                text="{
+                    parts:[
+                        {path: 'operationsModel>/'},
+                        {path: 'techModel>/tech/insuranceHistoryTab/operationsFilteredCount'}
+                    ],
+                    formatter: '.formatter.formatOperationsWCount'
+                }"
+                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+        />
+
+        <Table
+                showNoData="false"
+                class="operations-table-header"
+        >
+            <columns>
+                <Column
+                        width="20%"
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceHistory.tab.date}"/>
+                </Column>
+                <Column
+                        width="20%"
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceHistory.tab.operation}"/>
+                </Column>
+                <Column
+                        width="20%"
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceHistory.tab.status}"/>
+                </Column>
+                <Column
+                        width="30%"
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
+                </Column>
+                <Column
+                        width="10%"
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceHistory.tab.check}"/>
+                </Column>
+            </columns>
+        </Table>
+
+        <Table
+                id="table-insurance-history"
+                items="{
+                    path: 'operationsModel>/',
+                    sorter: {
+                        path: 'timestamp',
+                        descending: true
+                    }
+                }"
+                class="operations-table"
+        >
+            <columns>
+                <Column />
+            </columns>
+            <items>
+                <CustomListItem>
+                    <Panel
+                            class="tableReport"
+                            expandable="true"
+                            expand="false"
+                            width="auto">
+                        <headerToolbar>
+                            <Toolbar
+                                    width="100%">
+                                <content>
+                                    <Text
+                                            textAlign="Center"
+                                            width="20%"
+                                            text="{
+                                                path: 'operationsModel>timestamp',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"
+                                    />
+                                    <Text
+                                            width="20%"
+                                            textAlign="Center"
+                                            text="{
+                                                path: 'operationsModel>operationType',
+                                                formatter: '.formatter.formatOperationName'
+                                            }"
+                                    />
+                                    <core:Icon
+                                            width="20%"
+                                            src="sap-icon://overlay"
+                                            color="{
+                                                path: 'operationsModel>pending',
+                                                formatter: '.formatter.formatTableItemPending'
+                                            }"
+                                    />
+                                    <Text
+                                            width="30%"
+                                            textAlign="Center"
+                                            text="{operationsModel>contractor}"
+                                    />
+                                    <Text
+                                            width="10%"
+                                    />
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:VerticalLayout
+                                class="verticalLayout-margin_left">
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}">
+                                    </Label>
+                                    <Link text="{operationsModel>transactionHash}" press="onLinkPress">
+                                    </Link>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}">
+                                    </Label>
+                                    <Text text="{operationsModel>transactionFrom}">
+                                    </Text>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout width="100%">
+                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}">
+                                    </Label>
+                                    <Text text="{
+                                                    path: 'operationsModel>pending',
+                                                    formatter: '.formatter.formatNumberOfConfirmations'
+                                                }"
+                                    />
+                                </layout:HorizontalLayout>
+                            </layout:VerticalLayout>
+                        </content>
+                    </Panel>
+                </CustomListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

@@ -4,73 +4,41 @@ sap.ui.define([
     "personal/account/util/Const"
 ], function (NumberFormat, Utils, Const) {
     "use strict";
+
+    function daysDiff(d1, d2) {
+        return (d2 - d1) / 1000 / 60 / 60 / 24;
+    }
+
     return {
 
         /**
          * @description объект для форматирования валюты
          */
         oCurrencyFormat: NumberFormat.getCurrencyInstance(),
+        oBonusMalusFormat: NumberFormat.getInstance({maxFractionDigits: 2}),
 
         /**
-         * @description Форматирование названия кнопки по щелчку, во вкладке "Получить выписку"
-         * @param {boolean] isShowHideButtonPressed - нажата ли кнопка
-         * @return {string} Показать или Спрятать
-         */
-        formatButtonName: function (isShowHideButtonPressed) {
-            var oBundle = this.getOwnerComponent()
-                    .getModel("i18n")
-                    .getResourceBundle();
-            var sHide = oBundle.getText("hideButtonLabel");
-            var sShow = oBundle.getText("showButtonLabel");
-            return isShowHideButtonPressed ? sHide : sShow
-        },
-
-        /**
-         * @description Форматирование адреса НПФ в имя
-         * @param {string} npfAddress - адрес нпф
+         * @description Форматирование адреса страховой компании в имя
+         * @param {string} icAddress - адрес с.к.
          * @return {string} - имя
          */
-        formatNpfAddressToName: function (npfAddress) {
+        formatICAddressToName: function (icAddress) {
             var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
+            var oModel = oComponent.getModel("icModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
             return item ? item.name : "?";
         },
+
         /**
-         * @description Форматирование адреса НПФ в рейтинг надежности
-         * @param {string} npfAddress - адрес НПФ
-         * @return {string} - надежность
+         * @description Форматирование адреса с.к. в рейтинг надежности
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} надежность
          */
-        formatNpfAddressToReliability: function (npfAddress) {
+        formatICAddressToReliability: function (icAddress) {
             var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.ratingOfReliability : "?";
-        },
-
-        /**
-         * @description Форматирование НПФ адреса в рейтинг доходности
-         * @param {string} npfAddress - НПФ адрес
-         * @return {string} - рейтинг доходности
-         */
-        formatNpfAddressToIncomeRate: function (npfAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("npfModel");
-            var item = Utils.getNpfObjectByAddress(npfAddress, oModel);
-
-            return item ? item.ratingOfIncomeRate : "?";
-        },
-
-        /**
-         * @description Форматирование входящего чисела миллисекнд в дату для использования в диаграмме
-         * @param {number} timestamp - число в миллисекундах
-         * @return {string} - строка в формате "мм.гггг"
-         */
-        formatDate: function (timestamp) {
-            var result = Utils.timestampToString(timestamp);
-            return result.split(".").slice(1).join(".");
+            var oModel = oComponent.getModel("icModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+            return item ? item.rating : null;
         },
 
         /**
@@ -79,91 +47,139 @@ sap.ui.define([
          * @return {string} дата в формате "дд.мм.гггг"
          */
         formatDateForTable: function (timestamp) {
-            return Utils.timestampToString(timestamp);
+            return Utils.dateObjToString(timestamp);
         },
 
         /**
-         * @description Форматирование значения зарплаты
-         * @param {number} amount - значение выплат
-         * @param {number} tariff - тариф
-         * @param {string} comment - назначение выплат
-         * @param {string} currencyCode - код валюты
-         * @return {number} - искомая зарплата с кодом валюты
+         * @description Форматирование рядов в таблице возможных с.к. для вкладки "Смена с.к." (не отображает текущий с.к. в таблице выбора)
+         * @param icAddress - адреса с.к.
+         * @param currentICAddress - текущий адрес
          */
-        formatAmountToSalary: function (amount, tariff, comment, currencyCode) {
-            if (/.*(процент)|(Interest).*/.test(comment)) {
-                return "";
-            }
-            var salary = amount/tariff*100.0;
-            return this.formatter.oCurrencyFormat.format(salary, currencyCode);
-        },
-
-        /**
-         * @description Форматирование рядов в таблице возможных НПФ для вкладки "Смена НПФ" (не отображает текущий НПФ в таблице выбора)
-         * @param npfAddress - адреса НПФ
-         * @param currentNpfAddress - текущий адрес
-         */
-        formatColumnListItem: function (npfAddress, currentNpfAddress) {
-            if (!npfAddress || !currentNpfAddress) {
+        formatICColumnListItem: function (icAddress, currentICAddress) {
+            if (!icAddress || !currentICAddress) {
                 return true;
             }
 
-            return npfAddress.toUpperCase() !== currentNpfAddress.toUpperCase();
+            return icAddress !== currentICAddress;
         },
 
         /**
-         * @description Форматирование НПФ рейтинга в символ
-         * @param npfAddress - адрес НПФ
-         * @return oNpfRating.symbol - символ
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
          */
-        formatNpfRating: function (npfAddress) {
-            var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
-            var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
-            return oNpfRating.symbol;
+        formatICAddressToReliabilityImage: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return oICRating.imageSrc;
         },
 
         /**
-         * @description Форматирование НПФ рейтинга в соответствующую картинку
-         * @param {string} npfAddress - адрес НПФ
-         * @return {string} oNpfRating.imageSrc - картинка
+         * @description Форматирование рейтинга с.к. в соответствующую картинку
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} oICRating.imageSrc - картинка
          */
-        formatNpfRatingToImage: function (npfAddress) {
-            var ratingOfReliability = this.formatter.formatNpfAddressToReliability.call(this,npfAddress);
-            var oNpfRating = Utils.conversionNpfRating(ratingOfReliability);
-            return oNpfRating.imageSrc;
+        formatICAddressToReliabilityString: function (icAddress) {
+            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oICRating = Utils.conversionICRating(ratingOfReliability);
+            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
         },
 
-        /**
-         * @description Форматирование ставки(тарифа) НПФ в картинку
-         * @param {string} npfAddress - фдресс НПФ
-         * @return {string} - картинка
-         */
-        formatNPFIncomeRateToImage: function (npfAddress) {
-            var incomeRate = this.formatter.formatNpfAddressToIncomeRate.call(this,npfAddress);
-            return Utils.conversionNpfIncomeRateToImage(incomeRate);
+        formatReliabilityDescription: function(rating) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            var oICRating = Utils.conversionICRating(rating);
+            return oBundle.getText("InsuranceReliability." + oICRating.description);
         },
 
-        /**
-         * @description Форматирование цвета статуса смены состояния
-         * @param {boolean} isFinished - закрончена ли операция
-         * @return {string} - цвет
-         */
-        formatTableItemStatus: function (isFinished) {
-            return isFinished ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
+        formatReliabilitySpan: function(rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
-        /**
-         * @description Вывод числа подтверждений
-         * @param {boolean} isFinished - выполнение запроса
-         * @return {number} - номер
-         */
-        formatNumberOfConformations: function(isFinished) {
-            return isFinished ? Const.DEFAULT_NUMBER_OF_CONFORMATIONS : 0;
+        formatTableItemPending: function (isPending) {
+            return !isPending ? Const.REQUEST_DONE_COLOR : Const.REQUEST_PENDING_COLOR;
         },
 
-        formatCurrencyByMonth: function (pensionForecast,currencyByMonth) {
-            var formatPensionForecastthis = this.formatter.oCurrencyFormat.format(pensionForecast);
-            return formatPensionForecastthis + " " + currencyByMonth
+        formatNumberOfConfirmations: function(isPending) {
+            return !isPending ? Const.DEFAULT_NUMBER_OF_CONFIRMATIONS : 0;
+        },
+
+        formatCurrency: function (value, currencyStr) {
+            var formattedValue = this.formatter.oCurrencyFormat.format(value);
+            return formattedValue + " " + currencyStr;
+        },
+
+        formatBonusMalus: function (value) {
+            return this.formatter.oBonusMalusFormat.format(value);
+        },
+
+        formatLastInsuranceDateTo: function(insurances) {
+            var date = Utils.findLastActiveInsuranceDateTo(insurances);
+            if (!date) {
+                return '';
+            }
+            return Utils.dateObjToDateString(date);
+        },
+
+        formatLastInsuranceNumber: function(insurances) {
+            return Utils.findLastActiveInsuranceNumber(insurances) || '';
+        },
+
+        formatInsuranceColorStrip: function(insurances) {
+
+            function color(daysDoExpire) {
+                if (!daysDoExpire || daysDoExpire <= 0) {
+                    return '#bb0000';
+                }
+                if (daysDoExpire <= 14) {
+                    return '#ffcc00';
+                }
+                return '#2b7d2b';
+            }
+
+            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
+            var daysToExpire = lastInsuranceDataTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
+                -1;
+
+            var bgColor = color(daysToExpire);
+            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
+        },
+
+        formatOperationsWCount: function(operations, filteredOperationsCount) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            var countStr = operations && operations.length ?
+                " (" + filteredOperationsCount + ")" :
+                "";
+            return oBundle.getText("operations") + countStr;
+        },
+
+        formatOperationName: function (operationType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("operationType." + operationType);
+        },
+
+        formatCarType: function(carType) {
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+            return oBundle.getText("CarTypes." + carType);
+        },
+
+        formatCarTypeImage: function(carType) {
+            var carTypeInfo = Const.CAR_TYPES.find(function(typeInfo) {
+                return typeInfo.id === carType;
+            });
+            if (carTypeInfo) {
+                return "./image/cars/" + carTypeInfo.icon;
+            }
         }
     }
 

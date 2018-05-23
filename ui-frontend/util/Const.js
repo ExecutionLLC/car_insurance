@@ -6,22 +6,35 @@ sap.ui.define([
     "use strict";
 
     var oModule = {
-        BASE_URL: "https://executiona4038b30e.hana.ondemand.com/PFR/pfr.xsjs",
-        LOGIN_URL: "https://executiona4038b30e.hana.ondemand.com/PFR/simple_login.xsjs",
+        BASE_URL: "https://executiona4038b30e.hana.ondemand.com/CarInsurance/car_insurance.xsjs",
         // время, через которое обновляются данные
-        ASYNC_UPDATE_TIMEOUT: 30 * 1000,
-        ASYNC_UPDATE_TIMEOUT_DEFAULT: 60 * 1000,
+        ASYNC_UPDATE_TIMEOUT: 10 * 1000,
         // время следующей смены НПФ
-        TIME_NEXT_CHANGE_NPF: 120*1000,
+        TIME_NEXT_CHANGE_INSURANCE_COMPANY: 120*1000,
         DEFAULT_NUMBER_OF_CONFORMATIONS: 7,
-        // значения ключей селекта диаграммы
-        SELECTED_LAST_YEAR : "last-year",
-        SELECTED_ALL_TIME : "all-time",
+        DEFAULT_NUMBER_OF_CONFIRMATIONS: 7,
         //цвета состояния выполнения запроса
         REQUEST_DONE_COLOR: "green",
         REQUEST_PENDING_COLOR: "#f4d742",
         // язык приложения
-        LANG: "en_US"
+        LANG: "ru_RU",
+        OPERATION_TYPE: {
+            CAR_ADDED: "CAR_ADDED",
+            CAR_DELETED: "CAR_DELETED",
+            INSURANCE_ADDED: "INSURANCE_ADDED",
+            INSURANCE_DEACTIVATED: "INSURANCE_DEACTIVATED",
+            INSURANCE_COMPANY_CHANGED: "INSURANCE_COMPANY_CHANGED"
+        },
+        CAR_TYPES: [
+            {
+                id: 'CAR',
+                icon: 'car.png'
+            },
+            {
+                id: 'MOTORCYCLE',
+                icon: 'motorcycle.png'
+            }
+        ]
     };
 
     return oModule;

@@ -1,8 +1,13 @@
 sap.ui.define([
     "sap/m/MessageBox",
-    "personal/account/util/Const"
-], function(MessageBox, Const) {
+    "personal/account/util/Const",
+    "personal/account/util/API"
+], function(MessageBox, Const, API) {
     "use strict";
+
+    var STORAGE_KEY = {
+        LAST_USERID: "LAST_USERID"
+    };
 
     var oModule = {
         _addLeadingZeroIfNeedIt: function (value) {
@@ -25,232 +30,181 @@ sap.ui.define([
 
             return oModule._addLeadingZeroIfNeedIt(hours) + ":" + oModule._addLeadingZeroIfNeedIt(minutes);
         },
-        timestampToString: function(timestamp, addTime) {
-            var date = new Date(timestamp);
-
-            var result = oModule.dateObjToDateString(date);
+        dateObjToString: function(timestamp, addTime) {
+            var result = oModule.dateObjToDateString(timestamp);
             if (addTime) {
-                result = result + " " + oModule.dateObjToTimeString(date);
+                result = result + " " + oModule.dateObjToTimeString(timestamp);
             }
 
             return result;
         },
-        getNpfObjectByAddress: function(address, model) {
+        dateStringToDateObject: function(dateString) {
+            var dateData = dateString.split(".").map(function(item) {
+                return parseInt(item);
+            });
+
+            var result = new Date(dateData[2], dateData[1] - 1, dateData[0]);
+            return !isNaN(result) ? result : null;
+        },
+        getInsuranceObjectByAddress: function (address, model) {
             if (!address || !model) {
                 return null;
             }
-
             var modelData = model.getData();
             if (!modelData || !modelData.find) {
                 return null;
             }
-            var adressUpperCase = address.toUpperCase();
-            return modelData.find(function(item) {
-                return item.address.toUpperCase() === adressUpperCase;
+            return modelData.find(function (item) {
+                return item.id === address;
             });
         },
 
-        conversionNpfRating: function (int) {
-            var defaultRating = {
-                symbol: "?",
-                descrition: "Неизвестен"
-            };
-            var ratingForInt = {
-                0: {
-                    symbol    : "D",
-                    descrition: "В состоянии дефолта"
-                },
-                1: {
-                    symbol    : "C",
-                    descrition: "Близки к дефолту"
-                },
-                2: {
-                    symbol    : "CC",
-                    descrition: "Близки к дефолту"
-                },
-                3: {
-                    symbol    : "CCC-",
-                    descrition: "Близки к дефолту"
-                },
-                4: {
-                    symbol    : "CCC",
-                    descrition: "Крайне высокий кредитный риск"
-                },
-                5: {
-                    symbol    : "CCC+",
-                    descrition: "Очень высокий кредитный риск"
-                },
-                6: {
-                    symbol    : "B-",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                7: {
-                    symbol    : "B",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                8: {
-                    symbol    : "B+",
-                    descrition: "Рискованные обязательства в высокой степени спекулятивные"
-                },
-                9: {
-                    symbol    : "BB-",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
-                },
-                10: {
-                    symbol    : "BB",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
-                },
-                11: {
-                    symbol    : "BB+",
-                    descrition: "Рискованные обязательства с чертами спекулятивных"
-                },
-                12: {
-                    symbol    : "BBB-",
-                    descrition: "Надежность ниже среднего"
-                },
-                13: {
-                    symbol    : "BBB",
-                    descrition: "Надежность ниже среднего"
-                },
-                14: {
-                    symbol    : "BBB+",
-                    descrition: "Надежность ниже среднего"
-                },
-                15: {
-                    symbol    : "A-",
-                    descrition: "Надежность выше среднего"
-                },
-                16: {
-                    symbol    : "A",
-                    descrition: "Надежность выше среднего"
-                },
-                17: {
-                    symbol    : "A+",
-                    descrition: "Надежность выше среднего"
-                },
-                18: {
-                    symbol    : "AA-",
-                    descrition: "Высокая надежность"
-                },
-                19: {
-                    symbol    : "AA",
-                    descrition: "Высокая надежность"
-                },
-                20: {
-                    symbol    : "AA+",
-                    descrition: "Высокая надежность",
-                    imageSrc  : "./image/AAplus.jpg"
-                },
-                21: {
-                    symbol    : "AAA",
-                    descrition: "Наивысшая надежность",
-                    imageSrc  : "./image/AAA.jpg"
-                },
-                22: {
-                    symbol    : "AAA+",
-                    descrition: "Наивысшая надежность",
-                    imageSrc  : "./image/AAAplus.jpg"
-                }
-            };
-
-            return ratingForInt[int] || defaultRating;
-        },
-        conversionNpfIncomeRateToImage: function (incomeRate) {
-            var sImageSrc;
-            switch (incomeRate){
-                case 7:
-                    sImageSrc = "./image/7.jpg";
-                    break;
-                case 8:
-                    sImageSrc = "./image/8.jpg";
-                    break;
-                case 9:
-                    sImageSrc = "./image/9.jpg";
-                    break;
+        conversionICRating: function (int) {
+            switch (true) {
+                case int <= 2:
+                    return {
+                        symbol    : "AA+",
+                        description: "high",
+                        imageSrc  : "./image/rating/AAplus.jpg",
+                        color: "lightgreen"
+                    };
+                case int <= 4:
+                    return {
+                        symbol    : "AAA",
+                        description: "higher",
+                        imageSrc  : "./image/rating/AAA.jpg",
+                        color: "green"
+                    };
+                case int > 4:
+                    return {
+                        symbol    : "AAA+",
+                        description: "highest",
+                        imageSrc  : "./image/rating/AAAplus.jpg",
+                        color: "darkgreen"
+                    };
+                default:
+                    return {
+                        symbol: "?",
+                        description: "unknown",
+                        imageSrc  : "./image/rating/unknown.jpg",
+                        color: "gray"
+                    };
             }
-            return sImageSrc;
         },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
-            $.ajax({
-                url: oModule.getTransactionInfoUrl(transactionHash),
-                dataType: "json"
-            }).done(function (hashInfo) {
-                if (hashInfo && hashInfo.input) {
-                    delete hashInfo.input;
-                }
-                var transactionInfo = JSON.stringify(hashInfo, null, 4)
-                    .replace(/[" {},]/g, "")
-                    .replace(/[:]/g, " = ");
-
-                MessageBox.information(transactionInfo);
+            API.getTransaction(transactionHash).done(function (transactionInfo) {
+                delete transactionInfo.timestamp;
+                var text = JSON.stringify(transactionInfo, null, 4);
+                var formatedText = text.replace(/[" {},]/g, "").replace(/[:]/g, " = ");
+                MessageBox.information(formatedText);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Cannot get transaction info: textStatus = ", textStatus, "error = ", errorThrown);
                 var sErrorText = langModel.getResourceBundle().getText("msg.box.error");
                 MessageBox.error(sErrorText);
             });
         },
-        onNavigateToTab: function (router, tabName) {
-            router.navTo("menuPage", {
-                query: {
-                    tab: tabName
-                }
-            }, true);
+        navigateToMenuPageTab: function (router, tabName) {
+            var navToOptions =
+                tabName ?
+                    {
+                        query: {
+                            tab: tabName
+                        }
+                    } :
+                    {};
+            router.navTo("menuPage", navToOptions, true);
         },
-        getLoginUrl: function () {
-            var url = Const.LOGIN_URL;
-            return oModule.addRegionParameter(url);
+        getLastUserId: function () {
+            var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+            return storage.get(STORAGE_KEY.LAST_USERID);
         },
-        getPersonInfoUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils;
-            return oModule.addRegionParameter(url);
+        saveLastUserId: function (userId) {
+            var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+            storage.put(STORAGE_KEY.LAST_USERID, userId);
         },
-        getNpfsUrl: function () {
-            var url = Const.BASE_URL + "/npfs";
-            return oModule.addRegionParameter(url);
+        appendPendingOperations: function(operationsModel, operations) {
+            var modelOperations = operationsModel.getData();
+            var operationsArray = modelOperations.length ?
+                modelOperations :
+                [];
+            var pendingOperations = operations.map(function(operation) {
+                return Object.assign({}, operation, {pending: true});
+            });
+            var newOperations = operationsArray.concat(pendingOperations);
+            operationsModel.setData(newOperations);
         },
-        getChangeNpfUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/npf";
-            return oModule.addRegionParameter(url);
-        },
-        getChangeTariffUrl: function (snils) {
-            var url = Const.BASE_URL + "/person/" + snils + "/tariff";
-            return oModule.addRegionParameter(url);
-        },
-        getTransactionInfoUrl: function(transactionHash) {
-            var url = Const.BASE_URL + "/transaction/" + transactionHash;
-            return oModule.addRegionParameter(url);
-        },
-        getRegion: function () {
-            var region = Const.LANG;
-            if (!region) {
-                region = sap.ui.getCore().getConfiguration().getLanguage();
-            }
-            if (region.length > 2) {
-                region = region.slice(0, 2);
+
+        getInsurancePerYearPrice: function (oPersonModel, carVin) {
+            var basePrice = oPersonModel.getProperty("/basePrice");
+            var bonusMalus = oPersonModel.getProperty("/bonusMalus");
+
+            if (!basePrice || !bonusMalus) {
+                return null;
             }
 
-            return region.toLowerCase();
-        },
-        addRegionParameter: function (url) {
-            var region = oModule.getRegion();
-            if (!region) {
-                // server will use default region
-                return url;
+            var cars = oPersonModel.getProperty("/cars") || [];
+            var soldCars = oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+            var car = allCars.find(function (item) {
+                return item.vin === carVin;
+            });
+
+            if (!car) {
+                return null;
             }
 
-            return url + "?region=" + region.toLowerCase();
-        },
-        getLastSnils: function () {
-            var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            if (storage.get("LAST_REGION") !== oModule.getRegion()) {
-                return;
+            var k;
+            if (car.maxPower <= 50) {
+                k = 0.6;
+            } else if (car.maxPower <= 70) {
+                k = 1.0;
+            } else if (car.maxPower <= 100) {
+                k = 1.1;
+            } else if (car.maxPower <= 120) {
+                k = 1.2;
+            } else if (car.maxPower <= 150) {
+                k = 1.4;
+            } else {
+                k = 1.6;
             }
-            return storage.get("LAST_SNILS");
+
+            return bonusMalus*basePrice*k;
         },
-        saveLastSnils: function (snils) {
-            var storage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-            storage.put("LAST_SNILS", snils);
-            storage.put("LAST_REGION", oModule.getRegion());
+
+        findLastActiveInsurance: function(insurances) {
+            if (!insurances || !insurances.length) {
+                return null;
+            }
+            return insurances.reduce(
+                function(lastInsurance, insurance) {
+                    if (insurance.isManuallyDeactivated) {
+                        return lastInsurance;
+                    }
+                    if (!lastInsurance) {
+                        return insurance;
+                    }
+                    return lastInsurance.dateTo > insurance.dateTo ?
+                        lastInsurance :
+                        insurance;
+                },
+                null
+            );
+        },
+
+        findLastActiveInsuranceDateTo: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.dateTo;
+        },
+
+        findLastActiveInsuranceNumber: function(insurances) {
+            var lastInsurance = this.findLastActiveInsurance(insurances);
+            if (!lastInsurance) {
+                return null;
+            }
+            return lastInsurance.insuranceNumber;
         }
     };
 

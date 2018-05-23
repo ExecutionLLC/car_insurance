@@ -1,0 +1,291 @@
+<mvc:View controllerName="personal.account.controller.TabBarControllers.InsuranceCompany"
+          xmlns="sap.m"
+          xmlns:mvc="sap.ui.core.mvc"
+          xmlns:core="sap.ui.core"
+          xmlns:layout="sap.ui.layout"
+          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          displayBlock="true"
+>
+    <Page showHeader="false">
+        <layout:Grid width="100%">
+            <Label class="sapUiSmallMarginTop"
+                   text="{i18n>insuranceCompany.currentInsuranceCompany}">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
+                </layoutData>
+            </Label>
+            <Text
+                    class="sapUiSmallMarginTop text-bold"
+                    text="{
+                        path:'personModel>/insuranceCompanyId',
+                        formatter:'.formatter.formatICAddressToName'
+                    }"
+            >
+                <layoutData>
+                    <layout:GridData span="L4 M4 S4"/>
+                </layoutData>
+            </Text>
+            <Label
+                    class="sapUiSmallMarginTop"
+                    text="{i18n>insuranceCompany.ratingOfReliability}">
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4"/>
+                </layoutData>
+            </Label>
+            <Image
+                    src="{
+                        path:'personModel>/insuranceCompanyId',
+                        formatter:'.formatter.formatICAddressToReliabilityImage'
+                    }"
+                    width='4rem'
+                    height="4rem"
+            >
+                <layoutData>
+                    <layout:GridData
+                            span="L1 M4 S4" indent="L1 M1 S1"/>
+                </layoutData>
+            </Image>
+        </layout:Grid>
+        <layout:Grid width="100%">
+            <Label class="sapUiSmallMarginTop"
+                   text="{i18n>insuranceCompany.newInsuranceCompany}"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4" indent="L1 M1 S1"/>
+                </layoutData>
+            </Label>
+            <Text class="sapUiSmallMarginTop text-bold"
+                  text="{techModel>/tech/insuranceCompanyTab/selectedInsuranceCompany}"
+            >
+                <layoutData>
+                    <layout:GridData span="L4 M4 S4"/>
+                </layoutData>
+            </Text>
+            <Label
+                    class="sapUiSmallMarginTop"
+                    text="{i18n>insuranceCompany.possibleDate}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isNextMinTimeForChangeLabelVisible}"
+            >
+                <layoutData>
+                    <layout:GridData span="L3 M4 S4"/>
+                </layoutData>
+            </Label>
+            <Text class="sapUiSmallMarginTop"
+                  text="{techModel>/tech/insuranceCompanyTab/nextMinTimeForChangeMessage}"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M4 S4"/>
+                </layoutData>
+            </Text>
+        </layout:Grid>
+        <layout:Grid width="100%">
+            <ObjectStatus
+                    class="sapUiSmallMarginTop"
+                    text="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessage}"
+                    state="{techModel>/tech/insuranceCompanyTab/changeInsuranceCompanyMessageType}">
+                <layoutData>
+                    <layout:GridData
+                            span="L5 M3 S7"
+                            indent="L1 M8 S8"/>
+                </layoutData>
+            </ObjectStatus>
+            <Button width="100%"
+                    press="onSelectButton"
+                    text="{i18n>insuranceCompany.chooseInsuranceCompany}"
+                    enabled="{techModel>/tech/insuranceCompanyTab/isSelectButtonEnabled}"
+                    visible="{=!${techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible} &amp;&amp; !${techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}}"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>
+                </layoutData>
+            </Button>
+            <Button width="100%"
+                    press="onCancelSelectButton"
+                    text="{i18n>insuranceCompany.cancelInsuranceCompany}"
+                    visible="{=${techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible} || ${techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}}"
+            >
+                <layoutData>
+                    <layout:GridData span="L2 M3 S7" indent="L4 M1 S1"/>
+                </layoutData>
+            </Button>
+        </layout:Grid>
+
+
+        <!--Таблица для выбора новой с.к.-->
+        <Table
+                visible="{techModel>/tech/insuranceCompanyTab/isNextInsuranceCompanyTableVisible}"
+                items="{
+                    path:'icModel>/'
+                }"
+        >
+            <columns>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.chg.tab.insuranceCompany}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.chg.tab.reliabilityRating}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.chg.tab.website}"/>
+                </Column>
+            </columns>
+
+            <items>
+                <ColumnListItem
+                        visible="{
+                            parts: [
+                                {path: 'icModel>id'},
+                                {path: 'personModel>/insuranceCompanyId'}
+                            ],
+                            formatter: '.formatter.formatICColumnListItem'
+                        }"
+                        type="Active"
+                        press="onSelectInsuranceCompanyTableItem"
+                >
+                    <cells>
+                        <Text text="{icModel>name}" />
+                        <core:HTML
+                                content="{
+                                    path: 'icModel>rating',
+                                    formatter: '.formatter.formatReliabilitySpan'
+                                }"
+                        />
+                        <Button
+                                icon="sap-icon://hello-world"
+                                press="onIconPress"
+                                size="2rem"
+                                app:url="{path: 'icModel>url'}"
+                        />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+        <!--конец-->
+
+        <!--доп контейнер подтверждения смены с.к.-->
+        <layout:Grid>
+
+            <Button
+                    width="100%"
+                    press="onApplyButton"
+                    text="{techModel>/tech/insuranceCompanyTab/applyButtonText}"
+                    visible="{techModel>/tech/insuranceCompanyTab/isApplyButtonVisible}">
+                <layoutData>
+                    <layout:GridData
+                            span="L2 M3 S7"
+                            indent="L10 M8 S8"/>
+                </layoutData>
+            </Button>
+        </layout:Grid>
+        <!--конец-->
+        <Label
+                text="{i18n>insuranceCompany.insuranceCompanyHistory}"
+                class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"/>
+        <!--Таблица-->
+        <Table
+                showNoData="false"
+                class="operations-table-header"
+        >
+            <columns>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.operationDate}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.insuranceCompany}"/>
+                </Column>
+                <Column
+                        hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.status}"/>
+                </Column>
+                <Column hAlign="Center">
+                    <Text text="{i18n>insuranceCompany.tab.check}"/>
+                </Column>
+            </columns>
+        </Table>
+
+        <Table
+                items="{
+                    path:'techModel>/tech/insuranceCompanyTab/insuranceCompaniesTableData',
+                    sorter: {
+                        path: 'timestamp',
+                        descending: true
+                    }
+                }"
+                class="operations-table"
+        >
+            <columns>
+                <Column hAlign="Center" />
+            </columns>
+            <items>
+                <CustomListItem>
+                    <Panel
+                            expandable="true"
+                            expand="false"
+                            width="auto">
+                        <headerToolbar>
+                            <Toolbar
+                                    width="100%">
+                                <content>
+                                    <Text
+                                            textAlign="Center"
+                                            width="25%"
+                                            text="{
+                                                path: 'techModel>timestamp',
+                                                formatter:'.formatter.formatDateForTable'
+                                            }"
+                                    />
+                                    <Text
+                                            textAlign="Center"
+                                            width="25%"
+                                            text="{
+                                                path:'techModel>operationData/newId',
+                                                formatter:'.formatter.formatICAddressToName'
+                                            }"
+                                    />
+                                    <core:Icon
+                                            width="25%"
+                                            src="sap-icon://overlay"
+                                            color="{
+                                                path: 'techModel>pending',
+                                                formatter: '.formatter.formatTableItemPending'
+                                            }"
+                                    />
+                                    <Text width="25%" />
+                                </content>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <layout:VerticalLayout
+                                    class="verticalLayout_ic-margin_left">
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
+                                    </Label>
+                                    <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                    </Link>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout>
+                                    <Label text="{i18n>insuranceCompany.tab.exp.sender}">
+                                    </Label>
+                                    <Text text="{techModel>transactionFrom}">
+                                    </Text>
+                                </layout:HorizontalLayout>
+
+                                <layout:HorizontalLayout width="100%">
+                                    <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
+                                    </Label>
+                                    <Text text="{
+                                                    path: 'techModel>pending',
+                                                    formatter: '.formatter.formatNumberOfConfirmations'
+                                                }"
+                                    />
+                                </layout:HorizontalLayout>
+                            </layout:VerticalLayout>
+                        </content>
+                    </Panel>
+                </CustomListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

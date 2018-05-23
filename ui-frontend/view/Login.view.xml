@@ -1,15 +1,15 @@
 <mvc:View
-    controllerName="personal.account.controller.Login"
-    xmlns="sap.m"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:layout="sap.ui.layout"
-    xmlns:core="sap.ui.core"
-    xmlns:form="sap.ui.layout.form"
-    displayBlock="true">
+        controllerName="personal.account.controller.Login"
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:layout="sap.ui.layout"
+        xmlns:core="sap.ui.core"
+        xmlns:form="sap.ui.layout.form"
+        displayBlock="true">
     <Page
-        showHeader="false">
+            showHeader="false">
         <form:Form
-                width = "40%"
+                width="40%"
                 editable="true"
                 class="form-margin">
             <form:formContainers>
@@ -23,65 +23,50 @@
                         <Label
                                 text="{i18n>label.enter}"/>
                         <HBox>
-                            <Link
+                            <Text
                                     text="{i18n>link.login}"
                                     class="sapUiSmallMarginEnd"/>
-                            <Text
-                                    class="visited"
+                            <Link
                                     text="{i18n>link.snils}"/>
                         </HBox>
                     </form:FormElement>
                     <form:FormElement>
-                        <MaskInput
-                                id="loginInput"
-                                mask = "999-999-999 99"
-                                placeholderSymbol = "_"
-                                placeholder = "{i18n>placeholder.snils}">
-                                <layoutData>
-                                    <layout:GridData
-                                            span="L8 M8 S8"/>
-                                </layoutData>
-                        </MaskInput>
-
-                        <!--todo потом переделать
                         <Input
                                 id="loginInput"
+                                type="Email"
                                 placeholder="{i18n>placeholder.mail}"
-                                type = "Text"
-                                submit = "onButtonOk">
+                                submit="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L8 M8 S8"/>
                             </layoutData>
-                        </Input>-->
+                        </Input>
                     </form:FormElement>
                     <form:FormElement>
                         <Input
                                 id="passwordInput"
                                 placeholder="{i18n>placeholder.password}"
-                                type = "Password"
-                                submit = "onEnter">
+                                type="Password"
+                                submit="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L8 M8 S8"/>
                             </layoutData>
                         </Input>
                         <Link
-                                emphasized="true"
                                 text="{i18n>link.forgotPassword}"/>
                     </form:FormElement>
                     <form:FormElement>
                         <Button
                                 text="{i18n>button.enter}"
                                 type="Emphasized"
-                                press = "onEnter">
+                                press="onEnter">
                             <layoutData>
                                 <layout:GridData
                                         span="L6 M6 S4"/>
                             </layoutData>
                         </Button>
                         <Link
-                                emphasized="true"
                                 text="{i18n>link.reg}">
                             <layoutData>
                                 <layout:GridData
@@ -99,7 +84,7 @@
             </form:layout>
         </form:Form>
         <form:Form
-                width = "40%"
+                width="40%"
                 editable="true"
                 class="form-margin">
             <form:formContainers>
@@ -142,6 +127,7 @@
                         columnsS="1"/>
             </form:layout>
         </form:Form>
+
         <footer>
             <Toolbar>
                 <content>
@@ -151,9 +137,7 @@
                             src="./image/sap.png"/>
                     <ToolbarSpacer/>
                     <core:HTML
-                        content="{i18n>foter.copirate}"/>
-                    <!--для отсупа справа(класс не добавляется почему то)-->
-                    <Text></Text>
+                            content="{i18n>foter.copyright}"/>
                 </content>
             </Toolbar>
         </footer>
