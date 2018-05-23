@@ -284,7 +284,9 @@
                                 </layout:HorizontalLayout>
                             </layout:VerticalLayout>
                             <customControls:TransactionControl
-
+                                    transactionHash="{techModel>transactionHash}"
+                                    transactionFrom="{techModel>transactionFrom}"
+                                    pending="{techModel>pending}"
                             />
                         </content>
                     </Panel>

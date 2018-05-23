@@ -142,6 +142,10 @@ sap.ui.define([
 
         renderer: function(oRenderManager, oControl) {
 
+        	if (oControl.beforeRenderer) {
+                oControl.beforeRenderer();
+			}
+
             // return immediately if control is invisible, do not render any HTML
             if (!oControl.getVisible()) {
                 return;
