@@ -8,7 +8,7 @@
     >
         <layout:HorizontalLayout>
             <Label
-                    text="{i18n>mycars.carInfo.history.transactionId}"
+                    text="{i18n>TransactionInfo.transactionId}"
             />
             <Link
                     id="hash"
@@ -18,7 +18,7 @@
 
         <layout:HorizontalLayout>
             <Label
-                    text="{i18n>mycars.carInfo.history.sender}"
+                    text="{i18n>TransactionInfo.sender}"
             />
             <Text
                     id="from"
@@ -27,7 +27,7 @@
 
         <layout:HorizontalLayout width="100%">
             <Label
-                    text="{i18n>mycars.carInfo.history.confirmationsNumber}"
+                    text="{i18n>TransactionInfo.confirmationsNumber}"
             />
             <Text
                     id="pending"
