@@ -35,6 +35,12 @@ sap.ui.define([
             this.byId("pending").setText(this.formatter.formatNumberOfConfirmations(this.getPending()));
         },
 
+        onLinkPress: function (oEvent) {
+            var transactionHash = oEvent.getSource().getProperty("text");
+            var langModel = this.getModel("i18n");
+            Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
+        },
+
         renderer: {}
     });
 
