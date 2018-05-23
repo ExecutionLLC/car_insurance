@@ -23,22 +23,6 @@ sap.ui.define([
 
             properties: {
 
-                /**
-                 * Width
-                 */
-                width: {
-                    type: "sap.ui.core.CSSSize",
-                    defaultValue: "100%"
-                },
-
-                /**
-                 * Height
-                 */
-                height: {
-                    type: "sap.ui.core.CSSSize",
-                    defaultValue: "auto"
-                },
-
 				/**
 				 * Fragment controls
 				 * @private
@@ -159,11 +143,6 @@ sap.ui.define([
 
             // write classes
             oRenderManager.writeClasses();
-
-            // write styles
-            oRenderManager.addStyle("width", oControl.getWidth());
-            oRenderManager.addStyle("height", oControl.getHeight());
-            oRenderManager.writeStyles();
 
             // end opening tag
             oRenderManager.write(">");
