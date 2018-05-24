@@ -130,11 +130,11 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(daysDoExpire) {
-                if (!daysDoExpire || daysDoExpire <= 0) {
+            function color(daysToExpire) {
+                if (!daysToExpire || daysToExpire <= 0) {
                     return '#bb0000';
                 }
-                if (daysDoExpire <= 14) {
+                if (daysToExpire <= 14) {
                     return '#ffcc00';
                 }
                 return '#2b7d2b';
