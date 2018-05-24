@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(Text) {
     "use strict";
 
-    return Text.extend("ColoreText", {
+    return Text.extend("ColorText", {
         metadata: {
             properties : {
                 "color" : "sap.ui.core.CSSColor"
