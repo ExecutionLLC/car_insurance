@@ -102,6 +102,13 @@ sap.ui.define([
             }
 
             var expirationType = Utils.calcInsuranceExpirationType(insurances);
+
+            /**
+             * Dirty hack: place this element before that one what must be stylized
+             * because there's no simple way to set element's class
+             * See styles, '.car-header-expiration' selector
+             */
+
             return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
         },
 

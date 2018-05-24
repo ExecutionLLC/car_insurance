@@ -139,6 +139,10 @@ a.sapMLnk {
 	border-right-color: #2b7d2b;
 }
 
+/**
+ * '.car-header-expiration' placed before highlighted element
+ * See also formatCarHeaderExpirationColorPrefix comment
+ */
 .car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb {
 	background-color: #ffcccc;
 }
