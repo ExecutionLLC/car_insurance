@@ -138,3 +138,15 @@ a.sapMLnk {
 .profile-car-expiration.ok {
 	border-right-color: #2b7d2b;
 }
+
+.car-header-expiration.expired + .sapMPanel {
+	background-color: #ffcccc;
+}
+
+.car-header-expiration.soon + .sapMPanel {
+	background-color: #fff5cc;
+}
+
+.car-header-expiration.ok + .sapMPanel {
+	background-color: #ccffcc;
+}

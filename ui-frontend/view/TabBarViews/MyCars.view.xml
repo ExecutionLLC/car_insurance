@@ -198,6 +198,12 @@
                 class="tableReport"
         >
             <CustomListItem>
+                <core:HTML
+                        content="{
+                                    path: 'techModel>insurances',
+                                    formatter: '.formatter.formatCarHeaderExpirationColorPrefix'
+                                }"
+                />
                 <Panel expandable="true">
                     <headerToolbar>
                         <Toolbar width="100%">
