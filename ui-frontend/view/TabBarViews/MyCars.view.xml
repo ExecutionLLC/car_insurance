@@ -206,16 +206,16 @@
                                         width="25%"
                                         text="{techModel>model}"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceNumber'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyNumber'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                        }"
+                                        width="30%"
+                                />
                                 <layout:VerticalLayout width="30%">
                                     <layout:HorizontalLayout>
                                         <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
@@ -414,16 +414,16 @@
                                         width="25%"
                                         text="{techModel>model}"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceNumber'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyNumber'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                        }"
+                                        width="30%"
+                                />
                                 <layout:VerticalLayout width="30%">
                                     <layout:HorizontalLayout>
                                         <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />

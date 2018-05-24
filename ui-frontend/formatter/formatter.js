@@ -124,8 +124,8 @@ sap.ui.define([
             return Utils.dateObjToDateString(date);
         },
 
-        formatLastInsuranceNumber: function(insurances) {
-            return Utils.findLastActiveInsuranceNumber(insurances) || '';
+        formatLastInsuranceNumber: function(templateStr, insurances) {
+            return $.sap.formatMessage(templateStr, [Utils.findLastActiveInsuranceNumber(insurances) || '']);
         },
 
         formatInsuranceColorStrip: function(insurances) {
