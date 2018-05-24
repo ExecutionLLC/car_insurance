@@ -157,7 +157,6 @@ sap.ui.define([
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
             var dateTo = dateToString ? Utils.dateStringToAlignedDateObject(dateToString) : null;
 
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", null);
             if (dateTo && dateTo <= dateFrom) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
