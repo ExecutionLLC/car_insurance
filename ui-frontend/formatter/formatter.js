@@ -130,14 +130,14 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(daysToExpire) {
+            function expirationClass(daysToExpire) {
                 if (!daysToExpire || daysToExpire <= 0) {
-                    return '#bb0000';
+                    return "expired";
                 }
                 if (daysToExpire <= 14) {
-                    return '#ffcc00';
+                    return "soon";
                 }
-                return '#2b7d2b';
+                return "ok";
             }
 
             var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
@@ -145,8 +145,7 @@ sap.ui.define([
                 daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
 
-            var bgColor = color(daysToExpire);
-            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
+            return '<div class="profile-car-expiration ' + expirationClass(daysToExpire) + '" />';
         },
 
         formatOperationsWCount: function(operations, filteredOperationsCount) {
