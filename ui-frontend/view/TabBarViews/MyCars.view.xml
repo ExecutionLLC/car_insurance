@@ -198,6 +198,12 @@
                 class="tableReport"
         >
             <CustomListItem>
+                <core:HTML
+                        content="{
+                                    path: 'techModel>insurances',
+                                    formatter: '.formatter.formatCarHeaderExpirationColorPrefix'
+                                }"
+                />
                 <Panel expandable="true">
                     <headerToolbar>
                         <Toolbar width="100%">
@@ -265,7 +271,7 @@
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
-                                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    class="sapUiLargeMarginBegin label-font_style"
                             />
                             <ScrollContainer vertical="true" horizontal="false" height="200px">
                                 <Table
@@ -467,7 +473,7 @@
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
-                                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    class="sapUiLargeMarginBegin label-font_style"
                             />
                             <ScrollContainer vertical="true" horizontal="false" height="200px">
                                 <Table
@@ -482,7 +488,7 @@
                                         </Column>
                                         <Column
                                                 width="40%"
-                                                hAlign="Left">
+                                                hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                         </Column>
                                         <Column
@@ -535,7 +541,7 @@
                                                             />
                                                             <Text
                                                                     width="40%"
-                                                                    textAlign="Left"
+                                                                    textAlign="Center"
                                                                     text="{
                                                                         path: 'techModel>operationType',
                                                                         formatter: '.formatter.formatOperationName'

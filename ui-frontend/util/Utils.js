@@ -205,6 +205,29 @@ sap.ui.define([
                 return null;
             }
             return lastInsurance.insuranceNumber;
+        },
+
+        calcInsuranceExpirationType: function(insurances) {
+
+            function daysDiff(d1, d2) {
+                return (d2 - d1) / 1000 / 60 / 60 / 24;
+            }
+
+            function expirationType(daysToExpire) {
+                if (!daysToExpire || daysToExpire <= 0) {
+                    return Const.INSURANCE_EXPIRATION.EXPIRED;
+                }
+                if (daysToExpire <= 14) {
+                    return Const.INSURANCE_EXPIRATION.SOON;
+                }
+                return Const.INSURANCE_EXPIRATION.OK;
+            }
+
+            var lastInsuranceDataTo = this.findLastActiveInsuranceDateTo(insurances);
+            var daysToExpire = lastInsuranceDataTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
+                -1;
+            return expirationType(daysToExpire);
         }
     };
 

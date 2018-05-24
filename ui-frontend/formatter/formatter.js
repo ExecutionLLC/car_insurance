@@ -5,10 +5,6 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function daysDiff(d1, d2) {
-        return (d2 - d1) / 1000 / 60 / 60 / 24;
-    }
-
     return {
 
         /**
@@ -93,6 +89,29 @@ sap.ui.define([
             return oBundle.getText("InsuranceReliability." + oICRating.description);
         },
 
+        formatCarHeaderExpirationColorPrefix: function(insurances) {
+
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+                    return "expired";
+                }
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+                    return "soon";
+                }
+                return "ok";
+            }
+
+            var expirationType = Utils.calcInsuranceExpirationType(insurances);
+
+            /**
+             * Dirty hack: place this element before that one what must be stylized
+             * because there's no simple way to set element's class
+             * See styles, '.car-header-expiration' selector
+             */
+
+            return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
+        },
+
         formatReliabilitySpan: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
             var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
@@ -130,23 +149,18 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(daysDoExpire) {
-                if (!daysDoExpire || daysDoExpire <= 0) {
-                    return '#bb0000';
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+                    return "expired";
                 }
-                if (daysDoExpire <= 14) {
-                    return '#ffcc00';
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+                    return "soon";
                 }
-                return '#2b7d2b';
+                return "ok";
             }
 
-            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
-            var daysToExpire = lastInsuranceDataTo ?
-                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
-                -1;
-
-            var bgColor = color(daysToExpire);
-            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
+            var expirationType = Utils.calcInsuranceExpirationType(insurances);
+            return '<div class="profile-car-expiration ' + expirationClass(expirationType) + '" />';
         },
 
         formatOperationsWCount: function(operations, filteredOperationsCount) {

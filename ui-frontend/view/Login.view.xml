@@ -17,18 +17,8 @@
                     <form:FormElement>
                         <Label
                                 class="label-position"
-                                text="{i18n>login.login}"/>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                text="{i18n>label.enter}"/>
-                        <HBox>
-                            <Text
-                                    text="{i18n>link.login}"
-                                    class="sapUiSmallMarginEnd"/>
-                            <Link
-                                    text="{i18n>link.snils}"/>
-                        </HBox>
+                                text="{i18n>login.login}"
+                        />
                     </form:FormElement>
                     <form:FormElement>
                         <Input
@@ -73,50 +63,6 @@
                                         span="L2 M2 S4"/>
                             </layoutData>
                         </Link>
-                    </form:FormElement>
-                </form:FormContainer>
-            </form:formContainers>
-            <form:layout>
-                <form:ResponsiveGridLayout
-                        columnsL="1"
-                        columnsM="1"
-                        columnsS="1"/>
-            </form:layout>
-        </form:Form>
-        <form:Form
-                width="40%"
-                editable="true"
-                class="form-margin">
-            <form:formContainers>
-                <form:FormContainer>
-                    <form:FormElement>
-                        <Label
-                                text="{i18n>label.enterWith}"/>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <VBox>
-                            <Link
-                                    text="{i18n>gosuslugi}"/>
-                            <Link
-                                    text="{i18n>signature}"/>
-                        </VBox>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                class="sapUiSmallMarginTop"
-                                text="{i18n>label.enterBySocial}"/>
-                        <HBox>
-                            <Image
-                                    class="sapUiSmallMarginEnd image-pointer"
-                                    src="./image/vk.jpg"/>
-                            <Image
-                                    class="sapUiSmallMarginEnd image-pointer"
-                                    src="./image/facebook.jpg"/>
-                            <Image
-                                    class="image-pointer
-"
-                                    src="./image/twitter.jpg"/>
-                        </HBox>
                     </form:FormElement>
                 </form:FormContainer>
             </form:formContainers>

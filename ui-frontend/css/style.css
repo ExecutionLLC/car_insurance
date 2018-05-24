@@ -120,3 +120,37 @@ a.sapMLnk {
 	margin-left: 0;
 	margin-right: 0;
 }
+
+.profile-car-expiration {
+	border-right: 14px solid;
+	width: 100%;
+	height: 80px;
+}
+
+.profile-car-expiration.expired {
+	border-right-color: #bb0000;
+}
+
+.profile-car-expiration.soon {
+	border-right-color: #ffcc00;
+}
+
+.profile-car-expiration.ok {
+	border-right-color: #2b7d2b;
+}
+
+/**
+ * '.car-header-expiration' placed before highlighted element
+ * See also formatCarHeaderExpirationColorPrefix comment
+ */
+.car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb {
+	background-color: #ffcccc;
+}
+
+.car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb {
+	background-color: #fff5cc;
+}
+
+.car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb {
+	background-color: #ccffcc;
+}
