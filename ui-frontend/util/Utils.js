@@ -216,7 +216,6 @@ sap.ui.define([
                 null
             );
         },
-
         findLastActiveInsuranceDateTo: function(insurances) {
             var lastInsurance = this.findLastActiveInsurance(insurances);
             if (!lastInsurance) {
@@ -224,7 +223,6 @@ sap.ui.define([
             }
             return lastInsurance.dateTo;
         },
-
         findLastActiveInsuranceNumber: function(insurances) {
             var lastInsurance = this.findLastActiveInsurance(insurances);
             if (!lastInsurance) {
