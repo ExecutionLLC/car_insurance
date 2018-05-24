@@ -9,6 +9,17 @@ sap.ui.define([
         return (d2 - d1) / 1000 / 60 / 60 / 24;
     }
 
+    function getICAddressReliability(icModel, icAddress) {
+        var item = Utils.getInsuranceObjectByAddress(icAddress, icModel);
+        return item ? item.rating : null;
+    }
+
+    function getReliabilityDescription(i18nModel, rating) {
+        var oBundle = i18nModel.getResourceBundle();
+        var oICRating = Utils.conversionICRating(rating);
+        return oBundle.getText("InsuranceReliability." + oICRating.description);
+    }
+
     return {
 
         /**
@@ -27,18 +38,6 @@ sap.ui.define([
             var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
             return item ? item.name : "?";
-        },
-
-        /**
-         * @description Форматирование адреса с.к. в рейтинг надежности
-         * @param {string} icAddress - адрес с.к.
-         * @return {string} надежность
-         */
-        formatICAddressToReliability: function (icAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("icModel");
-            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
-            return item ? item.rating : null;
         },
 
         /**
@@ -69,33 +68,17 @@ sap.ui.define([
          * @return {string} oICRating.imageSrc - картинка
          */
         formatICAddressToReliabilityImage: function (icAddress) {
-            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oComponent = this.getOwnerComponent();
+            var icModel = oComponent.getModel("icModel");
+            var ratingOfReliability = getICAddressReliability(icModel, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
             return oICRating.imageSrc;
         },
 
-        /**
-         * @description Форматирование рейтинга с.к. в соответствующую картинку
-         * @param {string} icAddress - адрес с.к.
-         * @return {string} oICRating.imageSrc - картинка
-         */
-        formatICAddressToReliabilityString: function (icAddress) {
-            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
-            var oICRating = Utils.conversionICRating(ratingOfReliability);
-            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
-        },
-
-        formatReliabilityDescription: function(rating) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            var oICRating = Utils.conversionICRating(rating);
-            return oBundle.getText("InsuranceReliability." + oICRating.description);
-        },
-
         formatReliabilitySpan: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
-            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+            var i18nModel = this.getOwnerComponent().getModel("i18n");
+            var text = oICRating.symbol + ' (' + getReliabilityDescription(i18nModel, rating) + ')';
             return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
