@@ -149,14 +149,12 @@ sap.ui.define([
             return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
         },
 
-        formatOperationsWCount: function(operations, filteredOperationsCount) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            var countStr = operations && operations.length ?
-                " (" + filteredOperationsCount + ")" :
-                "";
-            return oBundle.getText("operations") + countStr;
+        formatOperationsWCount: function(operationsStr, templateStrWCount, operations, filteredOperationsCount) {
+            if (operations && operations.length) {
+                return $.sap.formatMessage(templateStrWCount, [filteredOperationsCount]);
+            } else {
+                return operationsStr;
+            }
         },
 
         formatOperationName: function (operationType) {

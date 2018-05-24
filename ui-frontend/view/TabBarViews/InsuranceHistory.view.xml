@@ -40,6 +40,8 @@
         <Label
                 text="{
                     parts:[
+                        {path: 'i18n>operations'},
+                        {path: 'i18n>operationsWCount'},
                         {path: 'operationsModel>/'},
                         {path: 'techModel>/tech/insuranceHistoryTab/operationsFilteredCount'}
                     ],
