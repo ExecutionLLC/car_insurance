@@ -118,11 +118,7 @@
                                             width="45%"
                                             textAlign="Left"
                                             text="{
-                                                parts: [
-                                                    {path: 'operationsModel>timestamp'},
-                                                    {path: 'operationsModel>operationType'},
-                                                    {path: 'operationsModel>operationData'}
-                                                ],
+                                                path: 'operationsModel>',
                                                 formatter: '.formatter.formatOperationText'
                                             }"
                                     />

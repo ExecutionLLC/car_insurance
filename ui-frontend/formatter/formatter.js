@@ -166,49 +166,58 @@ sap.ui.define([
             return oBundle.getText("operationType." + operationType);
         },
 
-        formatOperationText: function (timestamp, operationType, opertationData) {
+        formatOperationText: function (operation) {
+            var operationType = operation.operationType;
+            var operationData = operation.operationData;
             switch (operationType) {
                 case Const.OPERATION_TYPE.CAR_ADDED:
-                    var carModel = opertationData.model || "?";
-                    return 'Покупка автомобиля "' + carModel + '"';
+                    var carModel = operationData.model || "?";
+                    return 'Покупка автомобиля "' + carModel + '".';
                 case Const.OPERATION_TYPE.CAR_DELETED:
-                    var carModel = opertationData.model || "?";
-                    return 'Продажа автомобиля "' + carModel + '"';
+                    var carModel = operationData.model || "?";
+                    return 'Продажа автомобиля "' + carModel + '".';
                 case Const.OPERATION_TYPE.INSURANCE_ADDED:
                     var oPersonModel = this.getOwnerComponent().getModel("personModel");
-                    var car = Utils.getCarByVin(oPersonModel, opertationData.carVin);
+                    var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
                     var carModel = car ? car.model : "?";
+                    var priceString = operationData.price ? operationData.price.toFixed(2) : "?";
 
                     var text = "Заключение страхового договора № ";
-                    text += opertationData.insuranceNumber;
+                    text += operationData.insuranceNumber;
                     text += " для автомобиля";
                     text += ' "' + carModel + '"';
+                    text += " на сумму " + priceString + ".";
 
                     return text;
                 case Const.OPERATION_TYPE.INSURANCE_DEACTIVATED:
                     var oPersonModel = this.getOwnerComponent().getModel("personModel");
-                    var car = Utils.getCarByVin(oPersonModel, opertationData.carVin);
+                    var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
                     var carModel = car ? car.model : "?";
+                    var refundString = operationData.refund ? operationData.refund.toFixed(2) : "?";
 
                     var text = "Расторжение страхового договора №";
-                    text += opertationData.insuranceNumber;
+                    text += operationData.insuranceNumber;
                     text += " для автомобиля";
                     text += ' "' + carModel + '"';
-                    text += " в связи со сменой страховой компании";
+                    if (operationData.deactivationReason === Const.OPERATION_TYPE.CAR_DELETED) {
+                        text += " в связи с продажей автомобиля.";
+                    } else if (operationData.deactivationReason === Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED) {
+                        text += " в связи со сменой страховой компании.";
+                    }
+                    text += " Сумма к возврату " + refundString + ".";
 
                     return text;
                 case Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED:
                     var oInsuranceCompaniesModel = this.getOwnerComponent().getModel("icModel");
-
-                    var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, opertationData.oldId);
+                    var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.oldId);
                     var oldCompanyName = oldCompany.name || "?";
-                    var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, opertationData.newId);
+                    var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.newId);
                     var newCompanyName = newCompany.name || "?";
 
                     var text = "Смена страховой компании с";
                     text += ' "' + oldCompanyName + '"';
                     text += " на ";
-                    text += '"' + newCompanyName + '"';
+                    text += '"' + newCompanyName + '".';
 
                     return text;
             }
@@ -230,6 +239,10 @@ sap.ui.define([
             if (carTypeInfo) {
                 return "./image/cars/" + carTypeInfo.icon;
             }
+        },
+        formatJSON: function(o) {
+            console.log('ooo', JSON.stringify(o));
+            return '';
         }
     }
 
