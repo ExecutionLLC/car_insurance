@@ -139,14 +139,14 @@ a.sapMLnk {
 	border-right-color: #2b7d2b;
 }
 
-.car-header-expiration.expired + .sapMPanel {
+.car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb {
 	background-color: #ffcccc;
 }
 
-.car-header-expiration.soon + .sapMPanel {
+.car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb {
 	background-color: #fff5cc;
 }
 
-.car-header-expiration.ok + .sapMPanel {
+.car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb {
 	background-color: #ccffcc;
 }
