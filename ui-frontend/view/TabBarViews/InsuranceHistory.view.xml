@@ -110,8 +110,11 @@
                                             textAlign="Center"
                                             width="20%"
                                             text="{
-                                                path: 'operationsModel>timestamp',
-                                                formatter:'.formatter.formatDateForTable'
+                                                parts: [
+                                                    'operationsModel>timestamp',
+                                                    'operationsModel>timestamp'
+                                                ],
+                                                formatter:'.formatter.formatTest'
                                             }"
                                     />
                                     <Text

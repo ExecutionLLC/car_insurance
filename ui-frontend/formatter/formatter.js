@@ -180,6 +180,14 @@ sap.ui.define([
             if (carTypeInfo) {
                 return "./image/cars/" + carTypeInfo.icon;
             }
+        },
+
+        formatTest: function(ts, ts2) {
+            if (+ts !== +ts2) {
+                debugger;
+            }
+            console.log(+ts === +ts2, +ts, +ts2);
+            return '' + (+ts === +ts2);
         }
     }
 
