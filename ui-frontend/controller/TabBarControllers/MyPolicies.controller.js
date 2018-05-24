@@ -88,12 +88,7 @@ sap.ui.define([
                 var pending = item.pending;
                 var policyNumber = item.insuranceNumber;
 
-                if (policiesHash[policyNumber] && item.operationType === Const.OPERATION_TYPE.INSURANCE_DEACTIVATED) {
-                    var policy = policiesHash[policyNumber];
-                    policy.isManuallyDeactivated = 1;
-                    var timestamp = Math.max(item.timestamp, policy.timestamp);
-                    policy.timestamp = new Date(timestamp);
-                } else {
+                if (!policiesHash[policyNumber] || policiesHash[policyNumber].timestamp < item.timestamp) {
                     var policy = Object.assign({}, item.operationData);
                     policy.timestamp = item.timestamp;
                     policy.dateFrom = new Date(policy.dateFrom);
