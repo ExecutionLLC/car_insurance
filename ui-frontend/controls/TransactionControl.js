@@ -1,5 +1,5 @@
 sap.ui.define([
-    "personal/account/controller/FragmentControl",
+    "personal/account/controls/FragmentControl",
     "personal/account/util/Utils",
     "personal/account/formatter/formatter"
 ], function(FragmentControl, Utils, formatter) {
