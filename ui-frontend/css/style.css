@@ -120,10 +120,3 @@ a.sapMLnk {
 	margin-left: 0;
 	margin-right: 0;
 }
-
-.myCars.tableReport .sapMPanelWrappingDivTbExpanded,
-.soldCars.tableReport .sapMPanelWrappingDivTbExpanded,
-.myCars.tableReport .sapMPanelContent,
-.soldCars.tableReport .sapMPanelContent {
-	background: lightgray;
-}
