@@ -216,16 +216,16 @@
                                         }"
                                         width="30%"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyDateTo'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                        }"
+                                        width="30%"
+                                />
                             </content>
                         </Toolbar>
                     </headerToolbar>
@@ -424,16 +424,16 @@
                                         }"
                                         width="30%"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyDateTo'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                        }"
+                                        width="30%"
+                                />
                             </content>
                         </Toolbar>
                     </headerToolbar>

@@ -116,12 +116,12 @@ sap.ui.define([
             return this.formatter.oBonusMalusFormat.format(value);
         },
 
-        formatLastInsuranceDateTo: function(insurances) {
+        formatLastInsuranceDateTo: function(templateStr, insurances) {
             var date = Utils.findLastActiveInsuranceDateTo(insurances);
-            if (!date) {
-                return '';
-            }
-            return Utils.dateObjToDateString(date);
+            var dateStr = date ?
+                Utils.dateObjToDateString(date) :
+                '';
+            return $.sap.formatMessage(templateStr, [dateStr]);
         },
 
         formatLastInsuranceNumber: function(templateStr, insurances) {
