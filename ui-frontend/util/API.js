@@ -63,6 +63,18 @@ sap.ui.define([
                 data: JSON.stringify({email: email, password: password})
             });
         },
+        calculatePolicyPrice: function(personId, carMaxPower, dateFrom, dateTo) {
+            var params = {
+                carMaxPower: carMaxPower,
+                dateFrom: dateFrom.toJSON(),
+                dateTo: dateTo.toJSON()
+            };
+            return $.ajax({
+                url: Const.BASE_URL + "/person/" + personId + "/insuranceprice",
+                data: params,
+                dataType: "json"
+            });
+        },
         getTransaction: function(hash) {
             return $.ajax({
                 url: Const.BASE_URL + "/transaction/" + hash,
