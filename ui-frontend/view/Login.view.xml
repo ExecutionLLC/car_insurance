@@ -18,7 +18,7 @@
                         <Text text=""/>
                     </form:FormElement>
                     <form:FormElement>
-                        <Label
+                        <Text
                                 class="label-position"
                                 text="{i18n>login.login}"
                         />
