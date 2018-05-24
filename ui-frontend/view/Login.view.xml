@@ -15,6 +15,9 @@
             <form:formContainers>
                 <form:FormContainer>
                     <form:FormElement>
+                        <Text text=""/>
+                    </form:FormElement>
+                    <form:FormElement>
                         <Label
                                 class="label-position"
                                 text="{i18n>login.login}"
@@ -26,10 +29,6 @@
                                 type="Email"
                                 placeholder="{i18n>placeholder.mail}"
                                 submit="onEnter">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L8 M8 S8"/>
-                            </layoutData>
                         </Input>
                     </form:FormElement>
                     <form:FormElement>
@@ -38,10 +37,6 @@
                                 placeholder="{i18n>placeholder.password}"
                                 type="Password"
                                 submit="onEnter">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L8 M8 S8"/>
-                            </layoutData>
                         </Input>
                         <Link
                                 text="{i18n>link.forgotPassword}"/>
@@ -53,14 +48,14 @@
                                 press="onEnter">
                             <layoutData>
                                 <layout:GridData
-                                        span="L6 M6 S4"/>
+                                        span="L6 M6 S6"/>
                             </layoutData>
                         </Button>
                         <Link
                                 text="{i18n>link.reg}">
                             <layoutData>
                                 <layout:GridData
-                                        span="L2 M2 S4"/>
+                                        span="L6 M6 S6"/>
                             </layoutData>
                         </Link>
                     </form:FormElement>
