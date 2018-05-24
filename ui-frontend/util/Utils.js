@@ -17,6 +17,16 @@ sap.ui.define([
 
             return value;
         },
+        getAlignedCurrantDate: function () {
+            var result = new Date();
+            result.setUTCHours(-3, 0, 0, 0);
+            return result;
+        },
+        getDatePlusDays: function (date, days) {
+            var result = new Date(date.valueOf());
+            result.setDate(result.getDate() + 1);
+            return result;
+        },
         dateObjToDateString: function(date) {
             var day = String(date.getDate());
             var month = String(date.getMonth() + 1);
@@ -38,12 +48,15 @@ sap.ui.define([
 
             return result;
         },
-        dateStringToDateObject: function(dateString) {
+        dateStringToAlignedDateObject: function(dateString) {
             var dateData = dateString.split(".").map(function(item) {
                 return parseInt(item);
             });
 
-            var result = new Date(dateData[2], dateData[1] - 1, dateData[0]);
+            var result = new Date();
+            result.setUTCHours(-3, 0, 0, 0);
+            result.setUTCFullYear(dateData[2], dateData[1] - 1, dateData[0]);
+
             return !isNaN(result) ? result : null;
         },
         getInsuranceObjectByAddress: function (address, model) {
@@ -148,7 +161,6 @@ sap.ui.define([
             var newOperations = operationsArray.concat(pendingOperations);
             operationsModel.setData(newOperations);
         },
-
         getInsurancePerYearPrice: function (oPersonModel, carVin) {
             var basePrice = oPersonModel.getProperty("/basePrice");
             var bonusMalus = oPersonModel.getProperty("/bonusMalus");
@@ -185,7 +197,6 @@ sap.ui.define([
 
             return bonusMalus*basePrice*k;
         },
-
         findLastActiveInsurance: function(insurances) {
             if (!insurances || !insurances.length) {
                 return null;

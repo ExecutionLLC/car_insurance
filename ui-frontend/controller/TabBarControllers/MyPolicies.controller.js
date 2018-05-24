@@ -10,6 +10,8 @@ sap.ui.define([
     return Controller.extend("personal.account.controller.TabBarControllers.MyPolicies", {
         formatter: formatter,
         onInit: function () {
+            this.calculatePriceRequestNumber = 0;
+
             this.oComponent = this.getOwnerComponent();
 
             this.oTechModel = this.oComponent.getModel("techModel");
@@ -41,23 +43,40 @@ sap.ui.define([
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
                 return;
             }
-            var perYearPrice = Utils.getInsurancePerYearPrice(this.oPersonModel, vin);
-            if (!perYearPrice) {
-                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
-                return;
-            }
 
             var dateFrom = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateFrom");
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
-            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+            var dateTo = dateToString ? Utils.dateStringToAlignedDateObject(dateToString) : null;
             if (!dateFrom || !dateTo) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
                 return;
             }
 
-            var days = Math.floor((dateTo - dateFrom)/(1000*60*60*24)) + 1;
-            var nextPolicyPriceString = (perYearPrice*days/365.0).toFixed(2);
-            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", nextPolicyPriceString);
+            var personId = this.oPersonModel.getProperty("/id");
+            var cars = this.oPersonModel.getProperty("/cars") || [];
+            var soldCars = this.oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+            var car = allCars.find(function (item) {
+                return item.vin === vin;
+            });
+            if (!car) {
+                this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                return;
+            }
+
+            var self = this;
+            var currentCalculatePriceRequestNumber = ++(this.calculatePriceRequestNumber);
+            API.calculatePolicyPrice(personId, car.maxPower, dateFrom, dateTo).done(function(data) {
+                if (currentCalculatePriceRequestNumber === self.calculatePriceRequestNumber) {
+                    var nextPolicyPriceString = data.toFixed(2);
+                    self.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", nextPolicyPriceString);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Cannot get policy price: textStatus = ", textStatus, "error = ", errorThrown);
+                if (currentCalculatePriceRequestNumber === self.calculatePriceRequestNumber) {
+                    self.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyPriceString", "?");
+                }
+            });
         },
         onNextPolicyCarVinChanges: function () {
             this.updateNextPolicyDateFrom(true);
@@ -136,9 +155,10 @@ sap.ui.define([
             var dateFromString = Utils.dateObjToDateString(dateFrom);
 
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
-            var dateTo = dateToString ? Utils.dateStringToDateObject(dateToString) : null;
+            var dateTo = dateToString ? Utils.dateStringToAlignedDateObject(dateToString) : null;
 
-            if (dateTo && dateTo < dateFrom) {
+            this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", null);
+            if (dateTo && dateTo <= dateFrom) {
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateToString", dateFromString);
                 this.oTechModel.setProperty("/tech/myPoliciesTab/nextPolicyDateFrom", dateFrom);
             } else {
@@ -184,8 +204,7 @@ sap.ui.define([
             }
         },
         getMinValidPolicyDate: function (carVin) {
-            var result = new Date();
-            result.setHours(0, 0, 0, 0);
+            var result = Utils.getAlignedCurrantDate();
 
             var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
             if (activePolicies) {
@@ -198,11 +217,11 @@ sap.ui.define([
                 }, result);
             }
 
-            result.setDate(result.getDate() + 1);
-            return result;
+            return Utils.getDatePlusDays(result, 1);
         },
         isNotActivePolicy: function (policy) {
-            var currentDate = new Date();
+            var currentDate = Utils.getAlignedCurrantDate();
+
             var dateTo = new Date(policy.dateTo);
             return dateTo < currentDate || policy.isManuallyDeactivated;
         },
@@ -219,7 +238,7 @@ sap.ui.define([
             var personId = this.oPersonModel.getProperty("/id");
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");
             var dateToString = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyDateToString");
-            var dateTo = Utils.dateStringToDateObject(dateToString);
+            var dateTo = Utils.dateStringToAlignedDateObject(dateToString);
 
             var self = this;
             API.addPersonInsurance(personId, vin, dateTo).done(function(operations) {

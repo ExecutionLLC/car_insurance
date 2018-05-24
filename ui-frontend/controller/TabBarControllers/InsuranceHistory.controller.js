@@ -44,8 +44,7 @@ sap.ui.define([
 
             if (from && to) {
                 var dateFrom = new Date(from);
-                var dateTo = new Date(to);
-                dateTo.setDate(to.getDate() + 1);
+                var dateTo = Utils.getDatePlusDays(new Date(to), 1);
                 var aFilters = [
                     new Filter({
                         path: "timestamp",
