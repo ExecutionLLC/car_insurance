@@ -5,10 +5,6 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function daysDiff(d1, d2) {
-        return (d2 - d1) / 1000 / 60 / 60 / 24;
-    }
-
     return {
 
         /**
@@ -130,22 +126,18 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function expirationClass(daysToExpire) {
-                if (!daysToExpire || daysToExpire <= 0) {
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
                     return "expired";
                 }
-                if (daysToExpire <= 14) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
                     return "soon";
                 }
                 return "ok";
             }
 
-            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
-            var daysToExpire = lastInsuranceDataTo ?
-                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
-                -1;
-
-            return '<div class="profile-car-expiration ' + expirationClass(daysToExpire) + '" />';
+            var expirationType = Utils.calcInsuranceExpirationType(insurances);
+            return '<div class="profile-car-expiration ' + expirationClass(expirationType) + '" />';
         },
 
         formatOperationsWCount: function(operations, filteredOperationsCount) {
