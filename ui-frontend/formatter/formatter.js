@@ -107,9 +107,9 @@ sap.ui.define([
             return !isPending ? Const.DEFAULT_NUMBER_OF_CONFIRMATIONS : 0;
         },
 
-        formatCurrency: function (value, currencyStr) {
+        formatCurrency: function (value, templateCurrency) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
-            return formattedValue + " " + currencyStr;
+            return $.sap.formatMessage(templateCurrency, formattedValue);
         },
 
         formatBonusMalus: function (value) {
