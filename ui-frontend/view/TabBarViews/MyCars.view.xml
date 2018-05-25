@@ -339,10 +339,10 @@
                                                             />
                                                             <Text
                                                                     width="40%"
-                                                                    textAlign="Center"
+                                                                    textAlign="Left"
                                                                     text="{
-                                                                        path: 'techModel>operationType',
-                                                                        formatter: '.formatter.formatOperationName'
+                                                                        path: 'techModel>',
+                                                                        formatter: '.formatter.formatOperationText'
                                                                     }"
                                                             />
                                                             <core:Icon
@@ -541,10 +541,10 @@
                                                             />
                                                             <Text
                                                                     width="40%"
-                                                                    textAlign="Center"
+                                                                    textAlign="Left"
                                                                     text="{
-                                                                        path: 'techModel>operationType',
-                                                                        formatter: '.formatter.formatOperationName'
+                                                                        path: 'techModel>',
+                                                                        formatter: '.formatter.formatOperationText'
                                                                     }"
                                                             />
                                                             <core:Icon

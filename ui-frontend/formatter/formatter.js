@@ -173,13 +173,6 @@ sap.ui.define([
             return oBundle.getText("operations") + countStr;
         },
 
-        formatOperationName: function (operationType) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            return oBundle.getText("operationType." + operationType);
-        },
-
         formatOperationText: function (operation) {
             var operationType = operation.operationType;
             var operationData = operation.operationData;
