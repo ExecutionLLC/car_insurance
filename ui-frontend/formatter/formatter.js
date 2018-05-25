@@ -5,10 +5,6 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
-    function daysDiff(d1, d2) {
-        return (d2 - d1) / 1000 / 60 / 60 / 24;
-    }
-
     return {
 
         /**
@@ -93,14 +89,43 @@ sap.ui.define([
             return oBundle.getText("InsuranceReliability." + oICRating.description);
         },
 
-        formatReliabilityText: function(rating) {
+        formatCarHeaderExpirationColorPrefix: function(insurances) {
+
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+                    return "expired";
+                }
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+                    return "soon";
+                }
+                return "ok";
+            }
+
+            var expirationType = Utils.calcInsuranceExpirationType(insurances);
+
+            /**
+             * Dirty hack: place this element before that one what must be stylized
+             * because there's no simple way to set element's class
+             * See styles, '.car-header-expiration' selector
+             */
+
+            return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
+        },
+
+        formatReliabilityText: function(rating) { // TODO check usage
             var oICRating = Utils.conversionICRating(rating);
             return oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
         },
 
-        formatReliabilityColor: function(rating) {
+        formatReliabilityColor: function(rating) { // TODO check usage
             var oICRating = Utils.conversionICRating(rating);
             return oICRating.color;
+        },
+
+        formatReliabilitySpan: function(rating) { // TODO check usage
+            var oICRating = Utils.conversionICRating(rating);
+            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
         formatTableItemPending: function (isPending) {
@@ -134,23 +159,18 @@ sap.ui.define([
 
         formatInsuranceColorStrip: function(insurances) {
 
-            function color(daysDoExpire) {
-                if (!daysDoExpire || daysDoExpire <= 0) {
-                    return '#bb0000';
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+                    return "expired";
                 }
-                if (daysDoExpire <= 14) {
-                    return '#ffcc00';
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+                    return "soon";
                 }
-                return '#2b7d2b';
+                return "ok";
             }
 
-            var lastInsuranceDataTo = Utils.findLastActiveInsuranceDateTo(insurances);
-            var daysToExpire = lastInsuranceDataTo ?
-                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
-                -1;
-
-            var bgColor = color(daysToExpire);
-            return '<div style="width: 100%; height: 80px; border-right: 14px solid ' + bgColor + ';" />';
+            var expirationType = Utils.calcInsuranceExpirationType(insurances);
+            return '<div class="profile-car-expiration ' + expirationClass(expirationType) + '" />';
         },
 
         formatOperationsWCount: function(operations, filteredOperationsCount) {
@@ -163,11 +183,67 @@ sap.ui.define([
             return oBundle.getText("operations") + countStr;
         },
 
-        formatOperationName: function (operationType) {
+        formatOperationText: function (operation) {
+            var operationType = operation.operationType;
+            var operationData = operation.operationData;
             var oBundle = this.getOwnerComponent()
                 .getModel("i18n")
                 .getResourceBundle();
-            return oBundle.getText("operationType." + operationType);
+
+            function formatStr(strId, params) {
+                return Utils.i18nFormatStr(oBundle, strId, params);
+            }
+
+            switch (operationType) {
+                case Const.OPERATION_TYPE.CAR_ADDED:
+                    var carModel = operationData.model || "?";
+                    return formatStr('Operations.buyCar', [carModel]);
+                case Const.OPERATION_TYPE.CAR_DELETED:
+                    var carModel = operationData.model || "?";
+                    return formatStr('Operations.sellCar', [carModel]);
+                case Const.OPERATION_TYPE.INSURANCE_ADDED:
+                    var oPersonModel = this.getOwnerComponent().getModel("personModel");
+                    var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
+                    var carModel = car ? car.model : "?";
+                    var priceString = operationData.price ? operationData.price.toFixed(2) : "?";
+                    return formatStr(
+                        'Operations.insuranceContraction',
+                        [operationData.insuranceNumber, carModel, priceString]
+                    );
+                case Const.OPERATION_TYPE.INSURANCE_DEACTIVATED:
+                    var oPersonModel = this.getOwnerComponent().getModel("personModel");
+                    var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
+                    var carModel = car ? car.model : "?";
+                    var refundString = operationData.refund ? operationData.refund.toFixed(2) : "?";
+                    if (operationData.deactivationReason === Const.OPERATION_TYPE.CAR_DELETED) {
+                        return formatStr(
+                            'Operations.insuranceAvoidationDueCarSell',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
+                    } else if (operationData.deactivationReason === Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED) {
+                        return formatStr(
+                            'Operations.insuranceAvoidationDueCompanyChange',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
+                    } else {
+                        return formatStr(
+                            'Operations.insuranceAvoidation',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
+                    }
+                case Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED:
+                    var oInsuranceCompaniesModel = this.getOwnerComponent().getModel("icModel");
+                    var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.oldId);
+                    var oldCompanyName = oldCompany.name || "?";
+                    var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.newId);
+                    var newCompanyName = newCompany.name || "?";
+                    return formatStr(
+                        'Operations.insuranceCompanyChange',
+                        [oldCompanyName, newCompanyName]
+                    );
+            }
+
+            return "?";
         },
 
         formatCarType: function(carType) {
