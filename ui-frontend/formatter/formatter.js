@@ -5,6 +5,17 @@ sap.ui.define([
 ], function (NumberFormat, Utils, Const) {
     "use strict";
 
+    function getICAddressReliability(icModel, icAddress) {
+        var item = Utils.getInsuranceObjectByAddress(icAddress, icModel);
+        return item ? item.rating : null;
+    }
+
+    function getReliabilityDescription(i18nModel, rating) {
+        var oBundle = i18nModel.getResourceBundle();
+        var oICRating = Utils.conversionICRating(rating);
+        return oBundle.getText("InsuranceReliability." + oICRating.description);
+    }
+
     return {
 
         /**
@@ -23,18 +34,6 @@ sap.ui.define([
             var oModel = oComponent.getModel("icModel");
             var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
             return item ? item.name : "?";
-        },
-
-        /**
-         * @description Форматирование адреса с.к. в рейтинг надежности
-         * @param {string} icAddress - адрес с.к.
-         * @return {string} надежность
-         */
-        formatICAddressToReliability: function (icAddress) {
-            var oComponent = this.getOwnerComponent();
-            var oModel = oComponent.getModel("icModel");
-            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
-            return item ? item.rating : null;
         },
 
         /**
@@ -65,28 +64,11 @@ sap.ui.define([
          * @return {string} oICRating.imageSrc - картинка
          */
         formatICAddressToReliabilityImage: function (icAddress) {
-            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
+            var oComponent = this.getOwnerComponent();
+            var icModel = oComponent.getModel("icModel");
+            var ratingOfReliability = getICAddressReliability(icModel, icAddress);
             var oICRating = Utils.conversionICRating(ratingOfReliability);
             return oICRating.imageSrc;
-        },
-
-        /**
-         * @description Форматирование рейтинга с.к. в соответствующую картинку
-         * @param {string} icAddress - адрес с.к.
-         * @return {string} oICRating.imageSrc - картинка
-         */
-        formatICAddressToReliabilityString: function (icAddress) {
-            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
-            var oICRating = Utils.conversionICRating(ratingOfReliability);
-            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
-        },
-
-        formatReliabilityDescription: function(rating) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            var oICRating = Utils.conversionICRating(rating);
-            return oBundle.getText("InsuranceReliability." + oICRating.description);
         },
 
         formatCarHeaderExpirationColorPrefix: function(insurances) {
@@ -114,7 +96,8 @@ sap.ui.define([
 
         formatReliabilitySpan: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
-            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
+            var i18nModel = this.getOwnerComponent().getModel("i18n");
+            var text = oICRating.symbol + ' (' + getReliabilityDescription(i18nModel, rating) + ')';
             return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
@@ -126,25 +109,25 @@ sap.ui.define([
             return !isPending ? Const.DEFAULT_NUMBER_OF_CONFIRMATIONS : 0;
         },
 
-        formatCurrency: function (value, currencyStr) {
+        formatCurrency: function (value, templateCurrency) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
-            return formattedValue + " " + currencyStr;
+            return $.sap.formatMessage(templateCurrency, [formattedValue]);
         },
 
         formatBonusMalus: function (value) {
             return this.formatter.oBonusMalusFormat.format(value);
         },
 
-        formatLastInsuranceDateTo: function(insurances) {
+        formatLastInsuranceDateTo: function(templateStr, insurances) {
             var date = Utils.findLastActiveInsuranceDateTo(insurances);
-            if (!date) {
-                return '';
-            }
-            return Utils.dateObjToDateString(date);
+            var dateStr = date ?
+                Utils.dateObjToDateString(date) :
+                '';
+            return $.sap.formatMessage(templateStr, [dateStr]);
         },
 
-        formatLastInsuranceNumber: function(insurances) {
-            return Utils.findLastActiveInsuranceNumber(insurances) || '';
+        formatLastInsuranceNumber: function(templateStr, insurances) {
+            return $.sap.formatMessage(templateStr, [Utils.findLastActiveInsuranceNumber(insurances) || '']);
         },
 
         formatInsuranceColorStrip: function(insurances) {
@@ -163,14 +146,12 @@ sap.ui.define([
             return '<div class="profile-car-expiration ' + expirationClass(expirationType) + '" />';
         },
 
-        formatOperationsWCount: function(operations, filteredOperationsCount) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            var countStr = operations && operations.length ?
-                " (" + filteredOperationsCount + ")" :
-                "";
-            return oBundle.getText("operations") + countStr;
+        formatOperationsWCount: function(operationsStr, templateStrWCount, operations, filteredOperationsCount) {
+            if (operations && operations.length) {
+                return $.sap.formatMessage(templateStrWCount, [filteredOperationsCount]);
+            } else {
+                return operationsStr;
+            }
         },
 
         formatOperationText: function (operation) {
