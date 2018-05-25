@@ -56,22 +56,22 @@
         >
             <columns>
                 <Column
-                        width="20%"
+                        width="15%"
                         hAlign="Center">
                     <Text text="{i18n>insuranceHistory.tab.date}"/>
                 </Column>
                 <Column
-                        width="20%"
+                        width="45%"
                         hAlign="Center">
                     <Text text="{i18n>insuranceHistory.tab.operation}"/>
                 </Column>
                 <Column
-                        width="20%"
+                        width="10%"
                         hAlign="Center">
                     <Text text="{i18n>insuranceHistory.tab.status}"/>
                 </Column>
                 <Column
-                        width="30%"
+                        width="20%"
                         hAlign="Center">
                     <Text text="{i18n>insuranceHistory.tab.contrAgent}"/>
                 </Column>
@@ -110,22 +110,22 @@
                                 <content>
                                     <Text
                                             textAlign="Center"
-                                            width="20%"
+                                            width="15%"
                                             text="{
                                                 path: 'operationsModel>timestamp',
                                                 formatter:'.formatter.formatDateForTable'
                                             }"
                                     />
                                     <Text
-                                            width="20%"
-                                            textAlign="Center"
+                                            width="45%"
+                                            textAlign="Left"
                                             text="{
-                                                path: 'operationsModel>operationType',
-                                                formatter: '.formatter.formatOperationName'
+                                                path: 'operationsModel>',
+                                                formatter: '.formatter.formatOperationText'
                                             }"
                                     />
                                     <core:Icon
-                                            width="20%"
+                                            width="10%"
                                             src="sap-icon://overlay"
                                             color="{
                                                 path: 'operationsModel>pending',
@@ -133,7 +133,7 @@
                                             }"
                                     />
                                     <Text
-                                            width="30%"
+                                            width="20%"
                                             textAlign="Center"
                                             text="{operationsModel>contractor}"
                                     />

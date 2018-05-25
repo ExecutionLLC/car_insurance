@@ -8,6 +8,7 @@ sap.ui.define([
     var STORAGE_KEY = {
         LAST_USERID: "LAST_USERID"
     };
+    var HOURS_SHIFT = -3;
 
     var oModule = {
         _addLeadingZeroIfNeedIt: function (value) {
@@ -16,6 +17,16 @@ sap.ui.define([
             }
 
             return value;
+        },
+        getAlignedCurrentDate: function () {
+            var result = new Date();
+            result.setUTCHours(HOURS_SHIFT, 0, 0, 0);
+            return result;
+        },
+        getDatePlusDays: function (date, days) {
+            var result = new Date(date.valueOf());
+            result.setDate(result.getDate() + days);
+            return result;
         },
         dateObjToDateString: function(date) {
             var day = String(date.getDate());
@@ -38,12 +49,15 @@ sap.ui.define([
 
             return result;
         },
-        dateStringToDateObject: function(dateString) {
+        dateStringToAlignedDateObject: function(dateString) {
             var dateData = dateString.split(".").map(function(item) {
                 return parseInt(item);
             });
 
-            var result = new Date(dateData[2], dateData[1] - 1, dateData[0]);
+            var result = new Date();
+            result.setUTCHours(HOURS_SHIFT, 0, 0, 0);
+            result.setUTCFullYear(dateData[2], dateData[1] - 1, dateData[0]);
+
             return !isNaN(result) ? result : null;
         },
         getInsuranceObjectByAddress: function (address, model) {
@@ -58,7 +72,22 @@ sap.ui.define([
                 return item.id === address;
             });
         },
+        getInsuranceCompanyById: function (oInsuranceCompaniesModel, id) {
+            var companies = oInsuranceCompaniesModel.getProperty("/") || [];
 
+            return companies.find(function (item) {
+                return item.id === id;
+            }) || null;
+        },
+        getCarByVin: function (oPersonModel, vin) {
+            var cars = oPersonModel.getProperty("/cars") || [];
+            var soldCars = oPersonModel.getProperty("/soldCars") || [];
+            var allCars = cars.concat(soldCars);
+
+            return allCars.find(function (item) {
+                return item.vin === vin;
+            }) || null;
+        },
         conversionICRating: function (int) {
             switch (true) {
                 case int <= 2:
@@ -133,7 +162,6 @@ sap.ui.define([
             var newOperations = operationsArray.concat(pendingOperations);
             operationsModel.setData(newOperations);
         },
-
         getInsurancePerYearPrice: function (oPersonModel, carVin) {
             var basePrice = oPersonModel.getProperty("/basePrice");
             var bonusMalus = oPersonModel.getProperty("/bonusMalus");
@@ -170,7 +198,6 @@ sap.ui.define([
 
             return bonusMalus*basePrice*k;
         },
-
         findLastActiveInsurance: function(insurances) {
             if (!insurances || !insurances.length) {
                 return null;
@@ -190,7 +217,6 @@ sap.ui.define([
                 null
             );
         },
-
         findLastActiveInsuranceDateTo: function(insurances) {
             var lastInsurance = this.findLastActiveInsurance(insurances);
             if (!lastInsurance) {
@@ -198,13 +224,40 @@ sap.ui.define([
             }
             return lastInsurance.dateTo;
         },
-
         findLastActiveInsuranceNumber: function(insurances) {
             var lastInsurance = this.findLastActiveInsurance(insurances);
             if (!lastInsurance) {
                 return null;
             }
             return lastInsurance.insuranceNumber;
+        },
+
+        calcInsuranceExpirationType: function(insurances) {
+
+            function daysDiff(d1, d2) {
+                return (d2 - d1) / 1000 / 60 / 60 / 24;
+            }
+
+            function expirationType(daysToExpire) {
+                if (!daysToExpire || daysToExpire <= 0) {
+                    return Const.INSURANCE_EXPIRATION.EXPIRED;
+                }
+                if (daysToExpire <= 14) {
+                    return Const.INSURANCE_EXPIRATION.SOON;
+                }
+                return Const.INSURANCE_EXPIRATION.OK;
+            }
+
+            var lastInsuranceDataTo = this.findLastActiveInsuranceDateTo(insurances);
+            var daysToExpire = lastInsuranceDataTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
+                -1;
+            return expirationType(daysToExpire);
+        },
+
+        i18nFormatStr(oBundle, templateId, params) {
+            var templateStr = oBundle.getText(templateId);
+            return $.sap.formatMessage(templateStr, params);
         }
     };
 
