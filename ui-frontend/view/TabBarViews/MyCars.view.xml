@@ -4,7 +4,6 @@
           xmlns:layout="sap.ui.layout"
           xmlns:core="sap.ui.core"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-          xmlns:customControls="personal.account.controls"
 >
     <Page showHeader="false">
         <layout:Grid width="100%">
@@ -363,12 +362,32 @@
                                                     </Toolbar>
                                                 </headerToolbar>
                                                 <content>
-                                                    <customControls:TransactionControl
-                                                            class="transaction-info-big-margin-left"
-                                                            transactionHash="{techModel>transactionHash}"
-                                                            transactionFrom="{techModel>transactionFrom}"
-                                                            pending="{techModel>pending}"
-                                                    />
+                                                    <layout:VerticalLayout
+                                                            class="transaction-info-big-margin-left">
+                                                        <layout:HorizontalLayout>
+                                                            <Label text="{i18n>TransactionInfo.transactionId}">
+                                                            </Label>
+                                                            <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                                            </Link>
+                                                        </layout:HorizontalLayout>
+
+                                                        <layout:HorizontalLayout>
+                                                            <Label text="{i18n>TransactionInfo.sender}">
+                                                            </Label>
+                                                            <Text text="{techModel>transactionFrom}">
+                                                            </Text>
+                                                        </layout:HorizontalLayout>
+
+                                                        <layout:HorizontalLayout width="100%">
+                                                            <Label text="{i18n>TransactionInfo.confirmationsNumber}">
+                                                            </Label>
+                                                            <Text text="{
+                                                                            path: 'techModel>pending',
+                                                                            formatter: '.formatter.formatNumberOfConfirmations'
+                                                                        }"
+                                                            />
+                                                        </layout:HorizontalLayout>
+                                                    </layout:VerticalLayout>
                                                 </content>
                                             </Panel>
                                         </CustomListItem>
@@ -545,12 +564,32 @@
                                                     </Toolbar>
                                                 </headerToolbar>
                                                 <content>
-                                                    <customControls:TransactionControl
-                                                            class="transaction-info-big-margin-left"
-                                                            transactionHash="{techModel>transactionHash}"
-                                                            transactionFrom="{techModel>transactionFrom}"
-                                                            pending="{techModel>pending}"
-                                                    />
+                                                    <layout:VerticalLayout
+                                                            class="transaction-info-big-margin-left">
+                                                        <layout:HorizontalLayout>
+                                                            <Label text="{i18n>TransactionInfo.transactionId}">
+                                                            </Label>
+                                                            <Link text="{techModel>transactionHash}" press="onLinkPress">
+                                                            </Link>
+                                                        </layout:HorizontalLayout>
+
+                                                        <layout:HorizontalLayout>
+                                                            <Label text="{i18n>TransactionInfo.sender}">
+                                                            </Label>
+                                                            <Text text="{techModel>transactionFrom}">
+                                                            </Text>
+                                                        </layout:HorizontalLayout>
+
+                                                        <layout:HorizontalLayout width="100%">
+                                                            <Label text="{i18n>TransactionInfo.confirmationsNumber}">
+                                                            </Label>
+                                                            <Text text="{
+                                                                            path: 'techModel>pending',
+                                                                            formatter: '.formatter.formatNumberOfConfirmations'
+                                                                        }"
+                                                            />
+                                                        </layout:HorizontalLayout>
+                                                    </layout:VerticalLayout>
                                                 </content>
                                             </Panel>
                                         </CustomListItem>

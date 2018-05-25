@@ -71,6 +71,16 @@ sap.ui.define([
 
         onPrint: function () {
             print();
+        },
+
+        /**
+         * @description Переход по ссылке хэша
+         * @param oEvent
+         */
+        onLinkPress: function (oEvent) {
+            var transactionHash = oEvent.getSource().getProperty("text");
+            var langModel = this.getOwnerComponent().getModel("i18n");
+            Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         }
     });
 });
