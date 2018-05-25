@@ -18,7 +18,7 @@ sap.ui.define([
 
             return value;
         },
-        getAlignedCurrantDate: function () {
+        getAlignedCurrentDate: function () {
             var result = new Date();
             result.setUTCHours(HOURS_SHIFT, 0, 0, 0);
             return result;

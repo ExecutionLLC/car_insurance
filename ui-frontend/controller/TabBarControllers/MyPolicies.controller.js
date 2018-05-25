@@ -203,7 +203,7 @@ sap.ui.define([
             }
         },
         getMinValidPolicyDate: function (carVin) {
-            var result = Utils.getAlignedCurrantDate();
+            var result = Utils.getAlignedCurrentDate();
 
             var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
             if (activePolicies) {
@@ -219,7 +219,7 @@ sap.ui.define([
             return Utils.getDatePlusDays(result, 1);
         },
         isNotActivePolicy: function (policy) {
-            var currentDate = Utils.getAlignedCurrantDate();
+            var currentDate = Utils.getAlignedCurrentDate();
 
             var dateTo = new Date(policy.dateTo);
             return dateTo < currentDate || policy.isManuallyDeactivated;
