@@ -15,9 +15,6 @@
             <form:formContainers>
                 <form:FormContainer>
                     <form:FormElement>
-                        <Text text=""/>
-                    </form:FormElement>
-                    <form:FormElement>
                         <Label
                                 class="label-position"
                                 text="{i18n>login.login}"
@@ -52,7 +49,10 @@
                             </layoutData>
                         </Button>
                         <Link
-                                text="{i18n>link.reg}">
+                                textAlign="Center"
+                                width="100%"
+                                text="{i18n>link.reg}"
+                        >
                             <layoutData>
                                 <layout:GridData
                                         span="L6 M6 S6"/>
