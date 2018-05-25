@@ -294,12 +294,6 @@ sap.ui.define([
                     console.error("Cannot sale car: textStatus = ", textStatus, "error = ", errorThrown);
                     MessageBox.error(sErrorText);
                 });
-        },
-
-        onLinkPress: function (oEvent) {
-            var transactionHash = oEvent.getSource().getProperty("text");
-            var langModel = this.getOwnerComponent().getModel("i18n");
-            Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
         }
     });
 });
