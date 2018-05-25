@@ -8,6 +8,7 @@ sap.ui.define([
     var STORAGE_KEY = {
         LAST_USERID: "LAST_USERID"
     };
+    var HOURS_SHIFT = -3;
 
     var oModule = {
         _addLeadingZeroIfNeedIt: function (value) {
@@ -19,12 +20,12 @@ sap.ui.define([
         },
         getAlignedCurrantDate: function () {
             var result = new Date();
-            result.setUTCHours(-3, 0, 0, 0);
+            result.setUTCHours(HOURS_SHIFT, 0, 0, 0);
             return result;
         },
         getDatePlusDays: function (date, days) {
             var result = new Date(date.valueOf());
-            result.setDate(result.getDate() + 1);
+            result.setDate(result.getDate() + days);
             return result;
         },
         dateObjToDateString: function(date) {
@@ -54,7 +55,7 @@ sap.ui.define([
             });
 
             var result = new Date();
-            result.setUTCHours(-3, 0, 0, 0);
+            result.setUTCHours(HOURS_SHIFT, 0, 0, 0);
             result.setUTCFullYear(dateData[2], dateData[1] - 1, dateData[0]);
 
             return !isNaN(result) ? result : null;
