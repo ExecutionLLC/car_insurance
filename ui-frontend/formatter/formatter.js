@@ -37,6 +37,18 @@ sap.ui.define([
         },
 
         /**
+         * @description Форматирование адреса с.к. в рейтинг надежности
+         * @param {string} icAddress - адрес с.к.
+         * @return {string} надежность
+         */
+        formatICAddressToReliability: function (icAddress) {
+            var oComponent = this.getOwnerComponent();
+            var oModel = oComponent.getModel("icModel");
+            var item = Utils.getInsuranceObjectByAddress(icAddress, oModel);
+            return item ? item.rating : null;
+        },
+
+        /**
          * @description Форматирование входящих чисел в дату для использования в таблице
          * @param {number} timestamp - число в миллисекундах
          * @return {string} дата в формате "дд.мм.гггг"
@@ -94,11 +106,15 @@ sap.ui.define([
             return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
         },
 
-        formatReliabilitySpan: function(rating) {
+        formatReliabilityText: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
             var i18nModel = this.getOwnerComponent().getModel("i18n");
-            var text = oICRating.symbol + ' (' + getReliabilityDescription(i18nModel, rating) + ')';
-            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
+            return oICRating.symbol + ' (' + getReliabilityDescription(i18nModel, rating) + ')';
+        },
+
+        formatReliabilityColor: function(rating) {
+            var oICRating = Utils.conversionICRating(rating);
+            return oICRating.color;
         },
 
         formatTableItemPending: function (isPending) {

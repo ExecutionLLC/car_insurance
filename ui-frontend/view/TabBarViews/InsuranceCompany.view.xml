@@ -145,10 +145,14 @@
                 >
                     <cells>
                         <Text text="{icModel>name}" />
-                        <core:HTML
-                                content="{
+                        <customControls:ColorText
+                                text="{
                                     path: 'icModel>rating',
-                                    formatter: '.formatter.formatReliabilitySpan'
+                                    formatter: '.formatter.formatReliabilityText'
+                                }"
+                                color="{
+                                    path: 'icModel>rating',
+                                    formatter: '.formatter.formatReliabilityColor'
                                 }"
                         />
                         <Button
