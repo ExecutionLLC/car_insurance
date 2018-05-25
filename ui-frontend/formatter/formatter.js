@@ -71,25 +71,6 @@ sap.ui.define([
             return oICRating.imageSrc;
         },
 
-        /**
-         * @description Форматирование рейтинга с.к. в соответствующую картинку
-         * @param {string} icAddress - адрес с.к.
-         * @return {string} oICRating.imageSrc - картинка
-         */
-        formatICAddressToReliabilityString: function (icAddress) { // TODO check usage
-            var ratingOfReliability = this.formatter.formatICAddressToReliability.call(this, icAddress);
-            var oICRating = Utils.conversionICRating(ratingOfReliability);
-            return this.formatter.formatReliabilityDescription.call(this, ratingOfReliability) + ' (' + oICRating.symbol + ')';
-        },
-
-        formatReliabilityDescription: function(rating) { // TODO check usage
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            var oICRating = Utils.conversionICRating(rating);
-            return oBundle.getText("InsuranceReliability." + oICRating.description);
-        },
-
         formatCarHeaderExpirationColorPrefix: function(insurances) {
 
             function expirationClass(expirationType) {
