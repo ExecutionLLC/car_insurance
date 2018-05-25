@@ -111,7 +111,7 @@ sap.ui.define([
 
         formatCurrency: function (value, templateCurrency) {
             var formattedValue = this.formatter.oCurrencyFormat.format(value);
-            return $.sap.formatMessage(templateCurrency, formattedValue);
+            return $.sap.formatMessage(templateCurrency, [formattedValue]);
         },
 
         formatBonusMalus: function (value) {
