@@ -204,19 +204,20 @@ sap.ui.define([
         },
         getMinValidPolicyDate: function (carVin) {
             var result = Utils.getAlignedCurrentDate();
+            var isUpdated = false;
 
             var activePolicies = this.oPoliciesModel.getProperty("/activePolicies");
-            if (activePolicies) {
+            if (activePolicies && activePolicies.length) {
                 result = activePolicies.reduce(function (minDate, item) {
-                    if (item.pending || item.carVin !== carVin || item.dateTo <= minDate) {
+                    if (item.pending || item.carVin !== carVin || item.dateTo < minDate) {
                         return minDate;
                     }
-
+                    isUpdated = true;
                     return item.dateTo;
                 }, result);
             }
 
-            return Utils.getDatePlusDays(result, 2);
+            return Utils.getDatePlusDays(result, isUpdated ? 2 : 1);
         },
         isNotActivePolicy: function (policy) {
             var currentDate = Utils.getAlignedCurrentDate();
