@@ -151,3 +151,9 @@ a.sapMLnk {
 .car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb {
 	background-color: #ccffcc;
 }
+
+.my-cars-table .operations-table .sapMPanelHeaderTB,
+.sold-cars-table .operations-table .sapMPanelHeaderTB {
+	min-height: 3rem;
+	height: auto;
+}

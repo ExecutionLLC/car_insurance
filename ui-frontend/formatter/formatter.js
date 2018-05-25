@@ -173,67 +173,64 @@ sap.ui.define([
             return oBundle.getText("operations") + countStr;
         },
 
-        formatOperationName: function (operationType) {
-            var oBundle = this.getOwnerComponent()
-                .getModel("i18n")
-                .getResourceBundle();
-            return oBundle.getText("operationType." + operationType);
-        },
-
         formatOperationText: function (operation) {
             var operationType = operation.operationType;
             var operationData = operation.operationData;
+            var oBundle = this.getOwnerComponent()
+                .getModel("i18n")
+                .getResourceBundle();
+
+            function formatStr(strId, params) {
+                return Utils.i18nFormatStr(oBundle, strId, params);
+            }
+
             switch (operationType) {
                 case Const.OPERATION_TYPE.CAR_ADDED:
                     var carModel = operationData.model || "?";
-                    return 'Покупка автомобиля "' + carModel + '".';
+                    return formatStr('Operations.buyCar', [carModel]);
                 case Const.OPERATION_TYPE.CAR_DELETED:
                     var carModel = operationData.model || "?";
-                    return 'Продажа автомобиля "' + carModel + '".';
+                    return formatStr('Operations.sellCar', [carModel]);
                 case Const.OPERATION_TYPE.INSURANCE_ADDED:
                     var oPersonModel = this.getOwnerComponent().getModel("personModel");
                     var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
                     var carModel = car ? car.model : "?";
                     var priceString = operationData.price ? operationData.price.toFixed(2) : "?";
-
-                    var text = "Заключение страхового договора № ";
-                    text += operationData.insuranceNumber;
-                    text += " для автомобиля";
-                    text += ' "' + carModel + '"';
-                    text += " на сумму " + priceString + ".";
-
-                    return text;
+                    return formatStr(
+                        'Operations.insuranceContraction',
+                        [operationData.insuranceNumber, carModel, priceString]
+                    );
                 case Const.OPERATION_TYPE.INSURANCE_DEACTIVATED:
                     var oPersonModel = this.getOwnerComponent().getModel("personModel");
                     var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
                     var carModel = car ? car.model : "?";
                     var refundString = operationData.refund ? operationData.refund.toFixed(2) : "?";
-
-                    var text = "Расторжение страхового договора №";
-                    text += operationData.insuranceNumber;
-                    text += " для автомобиля";
-                    text += ' "' + carModel + '"';
                     if (operationData.deactivationReason === Const.OPERATION_TYPE.CAR_DELETED) {
-                        text += " в связи с продажей автомобиля.";
+                        return formatStr(
+                            'Operations.insuranceAvoidationDueCarSell',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
                     } else if (operationData.deactivationReason === Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED) {
-                        text += " в связи со сменой страховой компании.";
+                        return formatStr(
+                            'Operations.insuranceAvoidationDueCompanyChange',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
+                    } else {
+                        return formatStr(
+                            'Operations.insuranceAvoidation',
+                            [operationData.insuranceNumber, carModel, refundString]
+                        );
                     }
-                    text += " Сумма к возврату " + refundString + ".";
-
-                    return text;
                 case Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED:
                     var oInsuranceCompaniesModel = this.getOwnerComponent().getModel("icModel");
                     var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.oldId);
                     var oldCompanyName = oldCompany.name || "?";
                     var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.newId);
                     var newCompanyName = newCompany.name || "?";
-
-                    var text = "Смена страховой компании с";
-                    text += ' "' + oldCompanyName + '"';
-                    text += " на ";
-                    text += '"' + newCompanyName + '".';
-
-                    return text;
+                    return formatStr(
+                        'Operations.insuranceCompanyChange',
+                        [oldCompanyName, newCompanyName]
+                    );
             }
 
             return "?";
