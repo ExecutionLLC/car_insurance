@@ -4,7 +4,7 @@
         xmlns:mvc="sap.ui.core.mvc"
         xmlns:layout="sap.ui.layout"
         xmlns:core="sap.ui.core"
-        xmlns:form="sap.ui.layout.form"
+        xmlns:customControls="personal.account.controls"
 >
     <Page showHeader="false">
         <layout:Grid width="100%">
@@ -199,27 +199,12 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:VerticalLayout class="verticalLayout-margin_left">
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
-                                    <Link text="{policiesModel>transactionHash}"
-                                          press="onTransactionInfoLinkPress"
-                                    />
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}"/>
-                                    <Text text="{policiesModel>transactionFrom}"/>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout width="100%">
-                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}"/>
-                                    <Text text="{
-                                        path: 'policiesModel>pending',
-                                        formatter: '.formatter.formatNumberOfConfirmations'
-                                    }"/>
-                                </layout:HorizontalLayout>
-                            </layout:VerticalLayout>
+                            <customControls:TransactionControl
+                                    class="transaction-info-small-margin-left"
+                                    transactionHash="{policiesModel>transactionHash}"
+                                    transactionFrom="{policiesModel>transactionFrom}"
+                                    pending="{policiesModel>pending}"
+                            />
                         </content>
                     </Panel>
                 </CustomListItem>
@@ -288,28 +273,12 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:VerticalLayout class="verticalLayout-margin_left">
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.transactionId}"/>
-                                    <Link
-                                            text="{policiesModel>transactionHash}"
-                                            press="onTransactionInfoLinkPress"
-                                    />
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceHistory.tab.exp.sender}"/>
-                                    <Text text="{policiesModel>transactionFrom}"/>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout width="100%">
-                                    <Label text="{i18n>insuranceHistory.tab.exp.confirmationsNumber}"/>
-                                    <Text text="{
-                                        path: 'policiesModel>pending',
-                                        formatter: '.formatter.formatNumberOfConfirmations'
-                                    }"/>
-                                </layout:HorizontalLayout>
-                            </layout:VerticalLayout>
+                            <customControls:TransactionControl
+                                    class="transaction-info-small-margin-left"
+                                    transactionHash="{policiesModel>transactionHash}"
+                                    transactionFrom="{policiesModel>transactionFrom}"
+                                    pending="{policiesModel>pending}"
+                            />
                         </content>
                     </Panel>
                 </CustomListItem>

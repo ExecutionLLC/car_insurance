@@ -228,11 +228,6 @@ sap.ui.define([
             var isNewPolicyVisible = !this.oTechModel.getProperty("/tech/myPoliciesTab/isNewPolicyVisible");
             this.oTechModel.setProperty("/tech/myPoliciesTab/isNewPolicyVisible", isNewPolicyVisible);
         },
-        onTransactionInfoLinkPress: function (oEvent) {
-            var transactionHash = oEvent.getSource().getProperty("text");
-            var langModel = this.getOwnerComponent().getModel("i18n");
-            Utils.showMessageBoxTransactionInfo(transactionHash, langModel);
-        },
         onAddPolicyPress: function (oEvent) {
             var personId = this.oPersonModel.getProperty("/id");
             var vin = this.oTechModel.getProperty("/tech/myPoliciesTab/nextPolicyCarVin");

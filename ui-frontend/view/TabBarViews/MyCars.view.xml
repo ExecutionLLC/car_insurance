@@ -3,7 +3,9 @@
           xmlns:mvc="sap.ui.core.mvc"
           xmlns:layout="sap.ui.layout"
           xmlns:core="sap.ui.core"
-          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+          xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          xmlns:customControls="personal.account.controls"
+>
     <Page showHeader="false">
         <layout:Grid width="100%">
             <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd sapUiMediumMarginTop">
@@ -212,26 +214,26 @@
                                         width="25%"
                                         text="{techModel>model}"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceNumber'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyNumber'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                        }"
+                                        width="30%"
+                                />
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.policyDateTo'},
+                                                {path: 'techModel>insurances'}
+                                            ],
+                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                        }"
+                                        width="30%"
+                                />
                             </content>
                         </Toolbar>
                     </headerToolbar>
@@ -361,32 +363,12 @@
                                                     </Toolbar>
                                                 </headerToolbar>
                                                 <content>
-                                                    <layout:VerticalLayout
-                                                            class="verticalLayout_ic-margin_left">
-                                                        <layout:HorizontalLayout>
-                                                            <Label text="{i18n>mycars.carInfo.history.transactionId}">
-                                                            </Label>
-                                                            <Link text="{techModel>transactionHash}" press="onLinkPress">
-                                                            </Link>
-                                                        </layout:HorizontalLayout>
-
-                                                        <layout:HorizontalLayout>
-                                                            <Label text="{i18n>mycars.carInfo.history.sender}">
-                                                            </Label>
-                                                            <Text text="{techModel>transactionFrom}">
-                                                            </Text>
-                                                        </layout:HorizontalLayout>
-
-                                                        <layout:HorizontalLayout width="100%">
-                                                            <Label text="{i18n>mycars.carInfo.history.confirmationsNumber}">
-                                                            </Label>
-                                                            <Text text="{
-                                                                            path: 'techModel>pending',
-                                                                            formatter: '.formatter.formatNumberOfConfirmations'
-                                                                        }"
-                                                            />
-                                                        </layout:HorizontalLayout>
-                                                    </layout:VerticalLayout>
+                                                    <customControls:TransactionControl
+                                                            class="transaction-info-big-margin-left"
+                                                            transactionHash="{techModel>transactionHash}"
+                                                            transactionFrom="{techModel>transactionFrom}"
+                                                            pending="{techModel>pending}"
+                                                    />
                                                 </content>
                                             </Panel>
                                         </CustomListItem>
@@ -420,26 +402,26 @@
                                         width="25%"
                                         text="{techModel>model}"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceNumber'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.boughtAt'},
+                                                {path: 'techModel>operations'}
+                                            ],
+                                            formatter: '.formatter.formatCarBuyDate'
+                                        }"
+                                        width="30%"
+                                />
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.soldAt'},
+                                                {path: 'techModel>operations'}
+                                            ],
+                                            formatter: '.formatter.formatCarSaleDate'
+                                        }"
+                                        width="30%"
+                                />
                             </content>
                         </Toolbar>
                     </headerToolbar>
@@ -563,32 +545,12 @@
                                                     </Toolbar>
                                                 </headerToolbar>
                                                 <content>
-                                                    <layout:VerticalLayout
-                                                            class="verticalLayout_ic-margin_left">
-                                                        <layout:HorizontalLayout>
-                                                            <Label text="{i18n>mycars.carInfo.history.transactionId}">
-                                                            </Label>
-                                                            <Link text="{techModel>transactionHash}" press="onLinkPress">
-                                                            </Link>
-                                                        </layout:HorizontalLayout>
-
-                                                        <layout:HorizontalLayout>
-                                                            <Label text="{i18n>mycars.carInfo.history.sender}">
-                                                            </Label>
-                                                            <Text text="{techModel>transactionFrom}">
-                                                            </Text>
-                                                        </layout:HorizontalLayout>
-
-                                                        <layout:HorizontalLayout width="100%">
-                                                            <Label text="{i18n>mycars.carInfo.history.confirmationsNumber}">
-                                                            </Label>
-                                                            <Text text="{
-                                                                            path: 'techModel>pending',
-                                                                            formatter: '.formatter.formatNumberOfConfirmations'
-                                                                        }"
-                                                            />
-                                                        </layout:HorizontalLayout>
-                                                    </layout:VerticalLayout>
+                                                    <customControls:TransactionControl
+                                                            class="transaction-info-big-margin-left"
+                                                            transactionHash="{techModel>transactionHash}"
+                                                            transactionFrom="{techModel>transactionFrom}"
+                                                            pending="{techModel>pending}"
+                                                    />
                                                 </content>
                                             </Panel>
                                         </CustomListItem>
