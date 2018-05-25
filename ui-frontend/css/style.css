@@ -1,14 +1,3 @@
-.form-margin {
-  margin: 0 auto;
-	height: 100%;
-	display: table;
-}
-
-.form-margin > * {
-	display: table-cell;
-	vertical-align: middle;
-}
-
 .label-position {
 	font-size: x-large;
 	margin-bottom: 10%;
