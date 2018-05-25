@@ -5,12 +5,7 @@ sap.ui.define([
 ], function(FragmentControl, Utils, formatter) {
     "use strict";
 
-    /**
-     * My class
-     *
-     * @public
-     * @extends sap.ui.FragmentControl
-     */
+
     var TransactionControl = FragmentControl.extend("sap.ui.TransactionControl", {
         formatter: formatter,
 
