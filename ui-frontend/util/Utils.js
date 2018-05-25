@@ -232,6 +232,29 @@ sap.ui.define([
             return lastInsurance.insuranceNumber;
         },
 
+        findLastTimestampedObject: function(arr) {
+            return arr.reduce(
+                function(lastItem, item) {
+                    if (!lastItem) {
+                        return item;
+                    }
+                    return lastItem.timestamp > item.timestamp ?
+                        lastItem :
+                        item;
+                },
+                null
+            );
+        },
+        findLastOperation: function(operations, type) {
+            if (!operations || !operations.length) {
+                return null;
+            }
+            var filteredOperations = operations.filter(function(operation) {
+                return operation.operationType === type;
+            });
+            return this.findLastTimestampedObject(filteredOperations);
+        },
+
         calcInsuranceExpirationType: function(insurances) {
 
             function daysDiff(d1, d2) {

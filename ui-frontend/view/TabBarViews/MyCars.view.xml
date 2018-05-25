@@ -420,26 +420,26 @@
                                         width="25%"
                                         text="{techModel>model}"
                                 />
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyNumber}" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceNumber'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
-                                <layout:VerticalLayout width="30%">
-                                    <layout:HorizontalLayout>
-                                        <Text text="{i18n>mycars.mycarsTable.policyDateTo}" class="text-space-after" />
-                                        <Text text="{
-                                                        path: 'techModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                        />
-                                    </layout:HorizontalLayout>
-                                </layout:VerticalLayout>
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.boughtAt'},
+                                                {path: 'techModel>operations'}
+                                            ],
+                                            formatter: '.formatter.formatCarBuyDate'
+                                        }"
+                                        width="30%"
+                                />
+                                <Text
+                                        text="{
+                                            parts: [
+                                                {path: 'i18n>mycars.mycarsTable.soldAt'},
+                                                {path: 'techModel>operations'}
+                                            ],
+                                            formatter: '.formatter.formatCarSaleDate'
+                                        }"
+                                        width="30%"
+                                />
                             </content>
                         </Toolbar>
                     </headerToolbar>

@@ -250,6 +250,22 @@ sap.ui.define([
             if (carTypeInfo) {
                 return "./image/cars/" + carTypeInfo.icon;
             }
+        },
+
+        formatCarBuyDate: function(templateStr, operations) {
+            var lastBuyOperation = Utils.findLastOperation(operations, Const.OPERATION_TYPE.CAR_ADDED);
+            var dateStr = lastBuyOperation ?
+                Utils.dateObjToString(lastBuyOperation.timestamp) :
+                '';
+            return $.sap.formatMessage(templateStr, [dateStr]);
+        },
+
+        formatCarSaleDate: function(templateStr, operations) {
+            var lastSellOperation = Utils.findLastOperation(operations, Const.OPERATION_TYPE.CAR_DELETED);
+            var dateStr = lastSellOperation ?
+                Utils.dateObjToString(lastSellOperation.timestamp) :
+                '';
+            return $.sap.formatMessage(templateStr, [dateStr]);
         }
     }
 
