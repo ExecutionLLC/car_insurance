@@ -253,10 +253,6 @@ sap.ui.define([
             if (carTypeInfo) {
                 return "./image/cars/" + carTypeInfo.icon;
             }
-        },
-        formatJSON: function(o) {
-            console.log('ooo', JSON.stringify(o));
-            return '';
         }
     }
 
