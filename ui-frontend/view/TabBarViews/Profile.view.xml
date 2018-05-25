@@ -152,16 +152,15 @@
                                         <ObjectIdentifier
                                                 title="{personModel>model}"
                                                 text="{personModel>numberPlate}"/>
-                                        <layout:VerticalLayout>
-                                            <Text
-                                                    text="{i18n>insurancedTo}"/>
-                                            <Text
-                                                    text="{
-                                                        path: 'personModel>insurances',
-                                                        formatter: '.formatter.formatLastInsuranceDateTo'
-                                                    }"
-                                            />
-                                        </layout:VerticalLayout>
+                                        <Text
+                                                text="{
+                                                    parts: [
+                                                        {path: 'i18n>insurancedTo'},
+                                                        {path: 'personModel>insurances'}
+                                                    ],
+                                                    formatter: '.formatter.formatLastInsuranceDateTo'
+                                                }"
+                                        />
                                         <core:HTML
                                                 content="{
                                                     path: 'personModel>insurances',

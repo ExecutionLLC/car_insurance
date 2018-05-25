@@ -60,10 +60,10 @@
 .image-pointer{
 	cursor: pointer;
 }
-.verticalLayout-margin_left{
+.transaction-info-small-margin-left {
 	margin-left: 2rem;
 }
-.verticalLayout_ic-margin_left{
+.transaction-info-big-margin-left {
 	margin-left: 6.5rem;
 }
 
@@ -89,10 +89,6 @@ a.sapMLnk {
 .buy-car.buy-car.buy-car .sapUiBlockCellContent,
 .buy-policy.buy-policy.buy-policy .sapUiBlockCellContent {
 	padding: 0.25rem 1rem;
-}
-
-.text-space-after {
-	margin-right: 0.5em;
 }
 
 .footer-copyright {
