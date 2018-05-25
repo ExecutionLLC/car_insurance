@@ -216,7 +216,7 @@ sap.ui.define([
                 }, result);
             }
 
-            return Utils.getDatePlusDays(result, 1);
+            return Utils.getDatePlusDays(result, 2);
         },
         isNotActivePolicy: function (policy) {
             var currentDate = Utils.getAlignedCurrentDate();
