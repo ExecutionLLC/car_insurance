@@ -112,20 +112,14 @@ sap.ui.define([
             return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
         },
 
-        formatReliabilityText: function(rating) { // TODO check usage
+        formatReliabilityText: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
             return oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
         },
 
-        formatReliabilityColor: function(rating) { // TODO check usage
+        formatReliabilityColor: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
             return oICRating.color;
-        },
-
-        formatReliabilitySpan: function(rating) { // TODO check usage
-            var oICRating = Utils.conversionICRating(rating);
-            var text = oICRating.symbol + ' (' + this.formatter.formatReliabilityDescription.call(this, rating) + ')';
-            return '<span style="color: ' + oICRating.color + ';">' + text + '</span>';
         },
 
         formatTableItemPending: function (isPending) {
