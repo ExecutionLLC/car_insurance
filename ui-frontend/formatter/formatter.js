@@ -204,7 +204,7 @@ sap.ui.define([
                     var oPersonModel = this.getOwnerComponent().getModel("personModel");
                     var car = Utils.getCarByVin(oPersonModel, operationData.carVin);
                     var carModel = car ? car.model : "?";
-                    var refundString = operationData.refund ? operationData.refund.toFixed(2) : "?";
+                    var refundString = operationData.refund != undefined ? operationData.refund.toFixed(2) : "?";
                     if (operationData.deactivationReason === Const.OPERATION_TYPE.CAR_DELETED) {
                         return formatStr(
                             'Operations.insuranceAvoidationDueCarSell',
