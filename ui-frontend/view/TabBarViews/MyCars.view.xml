@@ -197,9 +197,15 @@
                 items="{
                     path: 'techModel>/tech/myCarsTab/cars'
                 }"
-                class="tableReport"
+                class="tableReport my-cars-table"
         >
             <CustomListItem>
+                <core:HTML
+                        content="{
+                                    path: 'techModel>insurances',
+                                    formatter: '.formatter.formatCarHeaderExpirationColorPrefix'
+                                }"
+                />
                 <Panel expandable="true">
                     <headerToolbar>
                         <Toolbar width="100%">
@@ -267,7 +273,7 @@
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
-                                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    class="sapUiLargeMarginBegin label-font_style"
                             />
                             <ScrollContainer vertical="true" horizontal="false" height="200px">
                                 <Table
@@ -281,17 +287,17 @@
                                             <Text text="{i18n>mycars.carInfo.history.date}"/>
                                         </Column>
                                         <Column
-                                                width="40%"
+                                                width="55%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                         </Column>
                                         <Column
-                                                width="20%"
+                                                width="10%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.status}"/>
                                         </Column>
                                         <Column
-                                                width="20%"
+                                                width="15%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.check}"/>
                                         </Column>
@@ -334,15 +340,15 @@
                                                                     }"
                                                             />
                                                             <Text
-                                                                    width="40%"
-                                                                    textAlign="Center"
+                                                                    width="55%"
+                                                                    textAlign="Left"
                                                                     text="{
-                                                                        path: 'techModel>operationType',
-                                                                        formatter: '.formatter.formatOperationName'
+                                                                        path: 'techModel>',
+                                                                        formatter: '.formatter.formatOperationText'
                                                                     }"
                                                             />
                                                             <core:Icon
-                                                                    width="20%"
+                                                                    width="10%"
                                                                     src="sap-icon://overlay"
                                                                     color="{
                                                                         path: 'techModel>pending',
@@ -350,7 +356,7 @@
                                                                     }"
                                                             />
                                                             <Text
-                                                                    width="20%"
+                                                                    width="15%"
                                                                     text=""
                                                             />
                                                         </content>
@@ -385,7 +391,7 @@
                 items="{
                     path: 'techModel>/tech/myCarsTab/soldCars'
                 }"
-                class="tableReport"
+                class="tableReport sold-cars-table"
         >
             <CustomListItem>
                 <Panel expandable="true">
@@ -449,7 +455,7 @@
                         <layout:VerticalLayout width="75%">
                             <Label
                                     text="{i18n>mycars.carInfo.history}"
-                                    class="sapUiLargeMarginBegin sapUiLargeMarginTop label-font_style"
+                                    class="sapUiLargeMarginBegin label-font_style"
                             />
                             <ScrollContainer vertical="true" horizontal="false" height="200px">
                                 <Table
@@ -463,17 +469,17 @@
                                             <Text text="{i18n>mycars.carInfo.history.date}"/>
                                         </Column>
                                         <Column
-                                                width="40%"
-                                                hAlign="Left">
+                                                width="55%"
+                                                hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.operation}"/>
                                         </Column>
                                         <Column
-                                                width="20%"
+                                                width="10%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.status}"/>
                                         </Column>
                                         <Column
-                                                width="20%"
+                                                width="15%"
                                                 hAlign="Center">
                                             <Text text="{i18n>mycars.carInfo.history.check}"/>
                                         </Column>
@@ -516,15 +522,15 @@
                                                                     }"
                                                             />
                                                             <Text
-                                                                    width="40%"
+                                                                    width="55%"
                                                                     textAlign="Left"
                                                                     text="{
-                                                                        path: 'techModel>operationType',
-                                                                        formatter: '.formatter.formatOperationName'
+                                                                        path: 'techModel>',
+                                                                        formatter: '.formatter.formatOperationText'
                                                                     }"
                                                             />
                                                             <core:Icon
-                                                                    width="20%"
+                                                                    width="10%"
                                                                     src="sap-icon://overlay"
                                                                     color="{
                                                                         path: 'techModel>pending',
@@ -532,7 +538,7 @@
                                                                     }"
                                                             />
                                                             <Text
-                                                                    width="20%"
+                                                                    width="15%"
                                                                     text=""
                                                             />
                                                         </content>

@@ -8,125 +8,71 @@
         displayBlock="true">
     <Page
             showHeader="false">
-        <form:Form
-                width="40%"
-                editable="true"
-                class="form-margin">
-            <form:formContainers>
-                <form:FormContainer>
-                    <form:FormElement>
-                        <Label
-                                class="label-position"
-                                text="{i18n>login.login}"/>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                text="{i18n>label.enter}"/>
-                        <HBox>
+        <FlexBox
+                height="100%"
+                alignItems="Center"
+                justifyContent="Center"
+        >
+            <form:Form
+                    editable="true"
+            >
+                <form:formContainers>
+                    <form:FormContainer>
+                        <form:FormElement>
                             <Text
-                                    text="{i18n>link.login}"
-                                    class="sapUiSmallMarginEnd"/>
+                                    class="label-position"
+                                    text="{i18n>login.login}"
+                            />
+                        </form:FormElement>
+                        <form:FormElement>
+                            <Input
+                                    id="loginInput"
+                                    type="Email"
+                                    placeholder="{i18n>placeholder.mail}"
+                                    submit="onEnter">
+                            </Input>
+                        </form:FormElement>
+                        <form:FormElement>
+                            <Input
+                                    id="passwordInput"
+                                    placeholder="{i18n>placeholder.password}"
+                                    type="Password"
+                                    submit="onEnter">
+                            </Input>
                             <Link
-                                    text="{i18n>link.snils}"/>
-                        </HBox>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Input
-                                id="loginInput"
-                                type="Email"
-                                placeholder="{i18n>placeholder.mail}"
-                                submit="onEnter">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L8 M8 S8"/>
-                            </layoutData>
-                        </Input>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Input
-                                id="passwordInput"
-                                placeholder="{i18n>placeholder.password}"
-                                type="Password"
-                                submit="onEnter">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L8 M8 S8"/>
-                            </layoutData>
-                        </Input>
-                        <Link
-                                text="{i18n>link.forgotPassword}"/>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Button
-                                text="{i18n>button.enter}"
-                                type="Emphasized"
-                                press="onEnter">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L6 M6 S4"/>
-                            </layoutData>
-                        </Button>
-                        <Link
-                                text="{i18n>link.reg}">
-                            <layoutData>
-                                <layout:GridData
-                                        span="L2 M2 S4"/>
-                            </layoutData>
-                        </Link>
-                    </form:FormElement>
-                </form:FormContainer>
-            </form:formContainers>
-            <form:layout>
-                <form:ResponsiveGridLayout
-                        columnsL="1"
-                        columnsM="1"
-                        columnsS="1"/>
-            </form:layout>
-        </form:Form>
-        <form:Form
-                width="40%"
-                editable="true"
-                class="form-margin">
-            <form:formContainers>
-                <form:FormContainer>
-                    <form:FormElement>
-                        <Label
-                                text="{i18n>label.enterWith}"/>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <VBox>
+                                    text="{i18n>link.forgotPassword}"/>
+                        </form:FormElement>
+                        <form:FormElement>
+                            <Button
+                                    text="{i18n>button.enter}"
+                                    type="Emphasized"
+                                    press="onEnter">
+                                <layoutData>
+                                    <layout:GridData
+                                            span="L6 M6 S6"/>
+                                </layoutData>
+                            </Button>
                             <Link
-                                    text="{i18n>gosuslugi}"/>
-                            <Link
-                                    text="{i18n>signature}"/>
-                        </VBox>
-                    </form:FormElement>
-                    <form:FormElement>
-                        <Label
-                                class="sapUiSmallMarginTop"
-                                text="{i18n>label.enterBySocial}"/>
-                        <HBox>
-                            <Image
-                                    class="sapUiSmallMarginEnd image-pointer"
-                                    src="./image/vk.jpg"/>
-                            <Image
-                                    class="sapUiSmallMarginEnd image-pointer"
-                                    src="./image/facebook.jpg"/>
-                            <Image
-                                    class="image-pointer
-"
-                                    src="./image/twitter.jpg"/>
-                        </HBox>
-                    </form:FormElement>
-                </form:FormContainer>
-            </form:formContainers>
-            <form:layout>
-                <form:ResponsiveGridLayout
-                        columnsL="1"
-                        columnsM="1"
-                        columnsS="1"/>
-            </form:layout>
-        </form:Form>
+                                    textAlign="Center"
+                                    width="100%"
+                                    text="{i18n>link.reg}"
+                            >
+                                <layoutData>
+                                    <layout:GridData
+                                            span="L6 M6 S6"/>
+                                </layoutData>
+                            </Link>
+                        </form:FormElement>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+                    <form:ResponsiveGridLayout
+                            columnsL="1"
+                            columnsM="1"
+                            columnsS="1"/>
+                </form:layout>
+            </form:Form>
+        </FlexBox>
 
         <footer>
             <Toolbar>

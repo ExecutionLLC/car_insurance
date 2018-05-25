@@ -34,7 +34,12 @@ sap.ui.define([
                 id: 'MOTORCYCLE',
                 icon: 'motorcycle.png'
             }
-        ]
+        ],
+        INSURANCE_EXPIRATION: {
+            EXPIRED: 'EXPIRED',
+            SOON: 'SOON',
+            OK: 'OK'
+        }
     };
 
     return oModule;
