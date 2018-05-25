@@ -4,6 +4,7 @@
           xmlns:core="sap.ui.core"
           xmlns:layout="sap.ui.layout"
           xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+          xmlns:customControls="personal.account.controls"
           displayBlock="true"
 >
     <Page showHeader="false">
@@ -256,32 +257,12 @@
                             </Toolbar>
                         </headerToolbar>
                         <content>
-                            <layout:VerticalLayout
-                                    class="verticalLayout_ic-margin_left">
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceCompany.tab.exp.transactionId}">
-                                    </Label>
-                                    <Link text="{techModel>transactionHash}" press="onLinkPress">
-                                    </Link>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout>
-                                    <Label text="{i18n>insuranceCompany.tab.exp.sender}">
-                                    </Label>
-                                    <Text text="{techModel>transactionFrom}">
-                                    </Text>
-                                </layout:HorizontalLayout>
-
-                                <layout:HorizontalLayout width="100%">
-                                    <Label text="{i18n>insuranceCompany.tab.exp.confirmationsNumber}">
-                                    </Label>
-                                    <Text text="{
-                                                    path: 'techModel>pending',
-                                                    formatter: '.formatter.formatNumberOfConfirmations'
-                                                }"
-                                    />
-                                </layout:HorizontalLayout>
-                            </layout:VerticalLayout>
+                            <customControls:TransactionControl
+                                    class="transaction-info-big-margin-left"
+                                    transactionHash="{techModel>transactionHash}"
+                                    transactionFrom="{techModel>transactionFrom}"
+                                    pending="{techModel>pending}"
+                            />
                         </content>
                     </Panel>
                 </CustomListItem>
