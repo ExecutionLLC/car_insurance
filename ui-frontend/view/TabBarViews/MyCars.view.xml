@@ -405,20 +405,20 @@
                                 <Text
                                         text="{
                                             parts: [
-                                                {path: 'i18n>mycars.mycarsTable.policyNumber'},
-                                                {path: 'techModel>insurances'}
+                                                {path: 'i18n>mycars.mycarsTable.boughtAt'},
+                                                {path: 'techModel>operations'}
                                             ],
-                                            formatter: '.formatter.formatLastInsuranceNumber'
+                                            formatter: '.formatter.formatCarBuyDate'
                                         }"
                                         width="30%"
                                 />
                                 <Text
                                         text="{
                                             parts: [
-                                                {path: 'i18n>mycars.mycarsTable.policyDateTo'},
-                                                {path: 'techModel>insurances'}
+                                                {path: 'i18n>mycars.mycarsTable.soldAt'},
+                                                {path: 'techModel>operations'}
                                             ],
-                                            formatter: '.formatter.formatLastInsuranceDateTo'
+                                            formatter: '.formatter.formatCarSaleDate'
                                         }"
                                         width="30%"
                                 />
