@@ -224,9 +224,9 @@ sap.ui.define([
                 case Const.OPERATION_TYPE.INSURANCE_COMPANY_CHANGED:
                     var oInsuranceCompaniesModel = this.getOwnerComponent().getModel("icModel");
                     var oldCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.oldId);
-                    var oldCompanyName = oldCompany.name || "?";
+                    var oldCompanyName = oldCompany && oldCompany.name || "?";
                     var newCompany = Utils.getInsuranceCompanyById(oInsuranceCompaniesModel, operationData.newId);
-                    var newCompanyName = newCompany.name || "?";
+                    var newCompanyName = oldCompany && newCompany.name || "?";
                     return formatStr(
                         'Operations.insuranceCompanyChange',
                         [oldCompanyName, newCompanyName]
