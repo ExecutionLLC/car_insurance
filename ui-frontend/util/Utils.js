@@ -253,6 +253,11 @@ sap.ui.define([
                 daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
                 -1;
             return expirationType(daysToExpire);
+        },
+
+        i18nFormatStr(oBundle, templateId, params) {
+            var templateStr = oBundle.getText(templateId);
+            return $.sap.formatMessage(templateStr, params);
         }
     };
 

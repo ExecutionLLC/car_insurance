@@ -181,8 +181,7 @@ sap.ui.define([
                 .getResourceBundle();
 
             function formatStr(strId, params) {
-                var templateStr = oBundle.getText(strId);
-                return $.sap.formatMessage(templateStr, params);
+                return Utils.i18nFormatStr(oBundle, strId, params);
             }
 
             switch (operationType) {
