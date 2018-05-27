@@ -90,7 +90,7 @@
                         <HBox
                                 width="100%"
                                 height="2rem"
-                                justifyContent="End"
+                                justifyContent="Center"
                         >
                             <Text
                                     text="{
