@@ -120,6 +120,24 @@ sap.ui.define([
                     };
             }
         },
+        getBonusMalusClassByCoefficient: function (k) {
+            if (k >= 2.45) {
+                return "M";
+            }
+            if (k >= 2.3) {
+                return "0";
+            }
+            if (k >= 1.55) {
+                return "1";
+            }
+            if (k >= 1.4) {
+                return "2";
+            }
+
+            var result = 23 - Math.round(k/0.05);
+            result = Math.min(result, 13);
+            return result.toString();
+        },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
             API.getTransaction(transactionHash).done(function (transactionInfo) {
                 delete transactionInfo.timestamp;
@@ -278,7 +296,7 @@ sap.ui.define([
             return expirationType(daysToExpire);
         },
 
-        i18nFormatStr(oBundle, templateId, params) {
+        i18nFormatStr: function (oBundle, templateId, params) {
             var templateStr = oBundle.getText(templateId);
             return $.sap.formatMessage(templateStr, params);
         }
