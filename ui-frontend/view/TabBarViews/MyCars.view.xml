@@ -101,7 +101,7 @@
                                 type: '.customNonemptyType'
                             }"
                             width="75%"
-                            valueLiveUpdate="true"
+                            liveChange="onModelInputLiveChange"
                     />
                 </layout:BlockLayoutCell>
                 <layout:BlockLayoutCell>

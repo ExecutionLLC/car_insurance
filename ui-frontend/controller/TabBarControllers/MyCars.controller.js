@@ -32,6 +32,10 @@ sap.ui.define([
         personModel.setProperty("/soldCars", newSoldCars);
     }
 
+    function trimSpaces(s) {
+        return s.replace(/^\s+/, '').replace(/\s+$/, '').replace(/\s+/, ' ');
+    }
+
     var emptyCarInfo = {
         vin: "",
         model: "",
@@ -92,12 +96,14 @@ sap.ui.define([
         var value = oInput.getValue();
 
         var newValueChars = [];
+        var newLength = 0;
         var valueChars = value.split('');
         valueChars.forEach(function(chr, index) {
-            var newChr = transform(chr) || '';
+            var newChr = transform(chr, index, newLength) || '';
             var delta = newChr.length - chr.length;
             transformFocusInfo(focusInfo, index, delta);
             newValueChars.push(newChr);
+            newLength += newChr.length;
         });
 
         oInput.setValue(newValueChars.join(''));
@@ -204,7 +210,7 @@ sap.ui.define([
                 return oValue;
             },
             validateValue: function (oValue) {
-                return !!oValue.length;
+                return !!trimSpaces(oValue).length;
             }
         }),
 
@@ -225,6 +231,16 @@ sap.ui.define([
                     return '';
                 }
                 return chr.toUpperCase();
+            });
+        },
+
+        onModelInputLiveChange: function(event) {
+            var oElement = event.getSource();
+            filterInput(oElement, function(chr, i, outLen) {
+                if (/\s/i.test(chr) && !outLen) {
+                    return '';
+                }
+                return chr;
             });
         },
 
@@ -260,7 +276,14 @@ sap.ui.define([
             var sErrorText = this.getOwnerComponent().getModel("i18n")
                 .getResourceBundle()
                 .getText("msg.box.error");
-            var carInfo = oView.getModel().getProperty("/carInfo");
+            var carInfoInputs = oView.getModel().getProperty("/carInfo");
+            var carInfo = Object.assign(
+                {},
+                carInfoInputs,
+                {
+                    model: trimSpaces(carInfoInputs.model)
+                }
+            );
             var personId = personModel.getProperty("/id");
             var self = this;
             API.addPersonCar(personId, carInfo)
