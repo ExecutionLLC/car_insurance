@@ -125,7 +125,8 @@ sap.ui.define([
                 dataType: "json",
                 type: "POST",
                 jsonp: false,
-                data: postDataString
+                data: postDataString,
+                contentType: 'application/json'
             }).then(makeArrayTimestampsAsDate);
         },
         salePersonCar: function(personId, carVin) {
