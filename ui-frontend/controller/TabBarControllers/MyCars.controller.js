@@ -240,6 +240,9 @@ sap.ui.define([
                 if (/\s/i.test(chr) && !outLen) {
                     return '';
                 }
+                if (chr === '%') {
+                    return '';
+                }
                 return chr;
             });
         },
