@@ -136,7 +136,6 @@ sap.ui.define([
 
             var result = 23 - Math.round(k/0.05);
             result = Math.min(result, 13);
-            console.log(Math.round(k/0.05))
             return result.toString();
         },
         showMessageBoxTransactionInfo: function (transactionHash, langModel) {
