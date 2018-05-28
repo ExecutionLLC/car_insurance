@@ -60,6 +60,7 @@ sap.ui.define([
                 dataType: "json",
                 type: "POST",
                 jsonp: false,
+                contentType: 'application/json',
                 data: JSON.stringify({email: email, password: password})
             });
         },
@@ -125,8 +126,8 @@ sap.ui.define([
                 dataType: "json",
                 type: "POST",
                 jsonp: false,
-                data: postDataString,
-                contentType: 'application/json'
+                contentType: 'application/json',
+                data: postDataString
             }).then(makeArrayTimestampsAsDate);
         },
         salePersonCar: function(personId, carVin) {
@@ -146,6 +147,7 @@ sap.ui.define([
                 dataType: "json",
                 type: "PUT",
                 jsonp: false,
+                contentType: 'application/json',
                 data: putDataString
             }).then(makeArrayTimestampsAsDate);
         },
@@ -158,6 +160,7 @@ sap.ui.define([
                 dataType: "json",
                 type: "POST",
                 jsonp: false,
+                contentType: 'application/json',
                 data: postDataString
             }).then(makeArrayTimestampsAsDate);
         }
