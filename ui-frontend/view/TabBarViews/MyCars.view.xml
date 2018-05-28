@@ -52,6 +52,7 @@
                     <Input
                             id="vinInput"
                             required="true"
+                            maxLength="255"
                             value="{
                                 path: '/carInfo/vin',
                                 type: '.customVINType'
@@ -71,6 +72,7 @@
                     <Input
                             id="numberPlateInput"
                             required="true"
+                            maxLength="255"
                             value="{
                                 path: '/carInfo/numberPlate',
                                 type: '.customNonemptyType'
@@ -93,6 +95,7 @@
                     <Input
                             id="modelInput"
                             required="true"
+                            maxLength="255"
                             value="{
                                 path: '/carInfo/model',
                                 type: '.customNonemptyType'
