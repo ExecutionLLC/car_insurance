@@ -228,6 +228,25 @@ sap.ui.define([
                         'Operations.insuranceCompanyChange',
                         [oldCompanyName, newCompanyName]
                     );
+                case Const.OPERATION_TYPE.BASE_PRICE_CHANGED:
+                    return formatStr(
+                        'Operations.basePriceChange',
+                        [operationData.oldBasePrice, operationData.newBasePrice]
+                    );
+                case Const.OPERATION_TYPE.BONUS_MALUS_CHANGED:
+                    var bonusMalusCoefficient = operationData.newBonusMalus;
+                    var bonusMalusClass = Utils.getBonusMalusClassByCoefficient(bonusMalusCoefficient);
+                    return formatStr(
+                        'Operations.bonusMalusChange',
+                        [bonusMalusClass, bonusMalusCoefficient]
+                    );
+                case Const.OPERATION_TYPE.TRAFFIC_ACCIDENT:
+                    var model = operationData.model;
+                    var payout = operationData.payout;
+                    return formatStr(
+                        'Operations.trafficAccident',
+                        [model, payout]
+                    );
             }
 
             return "?";
