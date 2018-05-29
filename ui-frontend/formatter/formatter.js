@@ -106,6 +106,27 @@ sap.ui.define([
             return '<span class="car-header-expiration ' + expirationClass(expirationType) + '" />';
         },
 
+        formatInsuranceExpirationColorPrefix: function(dateTo) {
+
+            function expirationClass(expirationType) {
+                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+                    return "expired";
+                }
+                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+                    return "soon";
+                }
+                return "ok";
+            }
+
+            var expirationType = Utils.calcInsuranceDateToExpirationType(dateTo);
+
+            /**
+             * Dirty hack: same as formatCarHeaderExpirationColorPrefix
+             */
+
+            return '<span class="insurance-header-expiration ' + expirationClass(expirationType) + '" />';
+        },
+
         formatReliabilityText: function(rating) {
             var oICRating = Utils.conversionICRating(rating);
             var i18nModel = this.getOwnerComponent().getModel("i18n");

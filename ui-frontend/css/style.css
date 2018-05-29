@@ -115,20 +115,23 @@ a.sapMLnk {
 }
 
 /**
- * '.car-header-expiration' placed before highlighted element
- * See also formatCarHeaderExpirationColorPrefix comment
+ * '.car-header-expiration' and '..car-header-expiration' placed before highlighted element
+ * See also formatCarHeaderExpirationColorPrefix and formatInsuranceExpirationColorPrefix comments
  */
 .car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb,
+.insurance-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.expired + .profile-car {
 	background-color: #ffcccc;
 }
 
 .car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb,
+.insurance-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.soon + .profile-car {
 	background-color: #fff5cc;
 }
 
 .car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb,
+.insurance-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.ok + .profile-car {
 	background-color: #ccffcc;
 }

@@ -156,6 +156,12 @@
             </columns>
             <items>
                 <CustomListItem>
+                    <core:HTML
+                            content="{
+                                path: 'policiesModel>dateTo',
+                                formatter: '.formatter.formatInsuranceExpirationColorPrefix'
+                            }"
+                    />
                     <Panel expandable="true"
                            class="tableReport"
                     >
