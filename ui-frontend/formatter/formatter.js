@@ -16,6 +16,16 @@ sap.ui.define([
         return oBundle.getText("InsuranceReliability." + oICRating.description);
     }
 
+    function expirationClass(expirationType) {
+        if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
+            return "expired";
+        }
+        if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
+            return "soon";
+        }
+        return "ok";
+    }
+
     return {
 
         /**
@@ -85,16 +95,6 @@ sap.ui.define([
 
         formatCarHeaderExpirationColorPrefix: function(insurances) {
 
-            function expirationClass(expirationType) {
-                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
-                    return "expired";
-                }
-                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
-                    return "soon";
-                }
-                return "ok";
-            }
-
             var expirationType = Utils.calcInsuranceExpirationType(insurances);
 
             /**
@@ -107,16 +107,6 @@ sap.ui.define([
         },
 
         formatInsuranceExpirationColorPrefix: function(dateTo) {
-
-            function expirationClass(expirationType) {
-                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
-                    return "expired";
-                }
-                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
-                    return "soon";
-                }
-                return "ok";
-            }
 
             var expirationType = Utils.calcInsuranceDateToExpirationType(dateTo);
 
