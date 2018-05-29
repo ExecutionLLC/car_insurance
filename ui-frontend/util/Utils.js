@@ -273,7 +273,7 @@ sap.ui.define([
             return this.findLastTimestampedObject(filteredOperations);
         },
 
-        calcInsuranceExpirationType: function(insurances) {
+        calcInsuranceDateToExpirationType: function(dateTo) {
 
             function daysDiff(d1, d2) {
                 return (d2 - d1) / 1000 / 60 / 60 / 24;
@@ -289,11 +289,15 @@ sap.ui.define([
                 return Const.INSURANCE_EXPIRATION.OK;
             }
 
-            var lastInsuranceDateTo = this.findLastActiveInsuranceDateTo(insurances);
-            var daysToExpire = lastInsuranceDateTo ?
-                daysDiff(new Date(), new Date(lastInsuranceDateTo)) :
+            var daysToExpire = dateTo ?
+                daysDiff(new Date(), new Date(dateTo)) :
                 -1;
             return expirationType(daysToExpire);
+        },
+
+        calcInsuranceExpirationType: function(insurances) {
+            var lastInsuranceDateTo = this.findLastActiveInsuranceDateTo(insurances);
+            return this.calcInsuranceDateToExpirationType(lastInsuranceDateTo);
         },
 
         i18nFormatStr: function (oBundle, templateId, params) {
