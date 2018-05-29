@@ -13,7 +13,6 @@
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
                             width="2"
-                            title1="{i18n>myInsuranceCompany}"
                     >
                         <HBox
                                 height="7rem"
@@ -22,7 +21,7 @@
                             <VBox
                                     height="7rem"
                                     alignItems="Left"
-                                    width="60%"
+                                    width="68%"
                                     class="right-border"
                             >
                                 <Text text="{i18n>myInsuranceCompany}" class="sapUiBlockCellTitle"
@@ -45,7 +44,7 @@
                                                 path:'personModel>/insuranceCompanyId',
                                                 formatter:'.formatter.formatICAddressToName'
                                             }"
-                                            class="H1"
+                                            class="H1 profile-insurance-company-name"
                                     />
                                 </HBox>
                             </VBox>
@@ -53,12 +52,12 @@
                             <VBox
                                     height="7rem"
                                     alignItems="Center"
-                                    width="5%"
+                                    width="2%"
                             />
 
                             <VBox
                                     height="7rem"
-                                    width="35%"
+                                    width="30%"
                             >
                                 <HBox
                                         class="sapUiSmallMarginTop"
@@ -67,7 +66,7 @@
                                 >
                                     <Text
                                             text="{i18n>ratingOfReliability}"
-                                            class="sapUiBlockCellTitle"
+                                            class="sapUiBlockCellTitle profile-insurance-rating-title"
                                     />
                                     <Image
                                             src="{
@@ -126,21 +125,16 @@
                     <layout:BlockLayoutCell
                             title="{i18n>myCarsTitle}"
                     >
-                        <Table
-                                class="profile-cars"
+                        <List
                                 items="{
                                     path: 'personModel>/cars'
                                 }"
                         >
-                            <columns>
-                                <Column/>
-                                <Column/>
-                                <Column/>
-                                <Column width="0px"/>
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
+                            <CustomListItem>
+                                <FlexBox
+                                        renderType="Div"
+                                >
+                                    <items>
                                         <Image
                                                 width="134px"
                                                 height="74px"
@@ -151,7 +145,13 @@
                                         />
                                         <ObjectIdentifier
                                                 title="{personModel>model}"
-                                                text="{personModel>numberPlate}"/>
+                                                text="{personModel>numberPlate}"
+                                                class="sapUiLargeMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTopBottom"
+                                        >
+                                            <layoutData>
+                                                <FlexItemData growFactor="0" width="50%" minWidth="50%" maxWidth="50%"/>
+                                            </layoutData>
+                                        </ObjectIdentifier>
                                         <Text
                                                 text="{
                                                     parts: [
@@ -160,17 +160,22 @@
                                                     ],
                                                     formatter: '.formatter.formatLastInsuranceDateTo'
                                                 }"
-                                        />
+                                                class="sapUiSmallMarginTopBottom"
+                                        >
+                                            <layoutData>
+                                                <FlexItemData growFactor="1"/>
+                                            </layoutData>
+                                        </Text>
                                         <core:HTML
                                                 content="{
                                                     path: 'personModel>insurances',
                                                     formatter: '.formatter.formatInsuranceColorStrip'
                                                 }"
                                         />
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                                    </items>
+                                </FlexBox>
+                            </CustomListItem>
+                        </List>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
                 <layout:layoutData>
