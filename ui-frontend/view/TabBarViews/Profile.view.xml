@@ -22,7 +22,7 @@
                             <VBox
                                     height="7rem"
                                     alignItems="Left"
-                                    width="60%"
+                                    width="68%"
                                     class="right-border"
                             >
                                 <Text text="{i18n>myInsuranceCompany}" class="sapUiBlockCellTitle"
@@ -45,7 +45,7 @@
                                                 path:'personModel>/insuranceCompanyId',
                                                 formatter:'.formatter.formatICAddressToName'
                                             }"
-                                            class="H1"
+                                            class="H1 profile-insurance-company-name"
                                     />
                                 </HBox>
                             </VBox>
@@ -53,12 +53,12 @@
                             <VBox
                                     height="7rem"
                                     alignItems="Center"
-                                    width="5%"
+                                    width="2%"
                             />
 
                             <VBox
                                     height="7rem"
-                                    width="35%"
+                                    width="30%"
                             >
                                 <HBox
                                         class="sapUiSmallMarginTop"
@@ -67,7 +67,7 @@
                                 >
                                     <Text
                                             text="{i18n>ratingOfReliability}"
-                                            class="sapUiBlockCellTitle"
+                                            class="sapUiBlockCellTitle profile-insurance-rating-title"
                                     />
                                     <Image
                                             src="{

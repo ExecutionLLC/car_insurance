@@ -153,3 +153,8 @@ a.sapMLnk {
 	min-height: 3rem;
 	height: auto;
 }
+
+.profile-insurance-company-name,
+.profile-insurance-rating-title {
+	word-break: break-all;
+}
