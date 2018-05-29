@@ -121,19 +121,19 @@ a.sapMLnk {
 .car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb,
 .insurance-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.expired + .profile-car {
-	background-color: #ffcccc;
+	background-color: #ffd9d9;
 }
 
 .car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb,
 .insurance-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.soon + .profile-car {
-	background-color: #fff5cc;
+	background-color: #ffffcc;
 }
 
 .car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb,
 .insurance-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb,
 .car-header-expiration.ok + .profile-car {
-	background-color: #ccffcc;
+	background-color: #e0ffcc;
 }
 
 .my-cars-table .operations-table .sapMPanelHeaderTB,
