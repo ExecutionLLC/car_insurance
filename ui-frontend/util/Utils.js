@@ -289,9 +289,9 @@ sap.ui.define([
                 return Const.INSURANCE_EXPIRATION.OK;
             }
 
-            var lastInsuranceDataTo = this.findLastActiveInsuranceDateTo(insurances);
-            var daysToExpire = lastInsuranceDataTo ?
-                daysDiff(new Date(), new Date(lastInsuranceDataTo)) :
+            var lastInsuranceDateTo = this.findLastActiveInsuranceDateTo(insurances);
+            var daysToExpire = lastInsuranceDateTo ?
+                daysDiff(new Date(), new Date(lastInsuranceDateTo)) :
                 -1;
             return expirationType(daysToExpire);
         },
