@@ -13,7 +13,6 @@
                 <layout:BlockLayoutRow>
                     <layout:BlockLayoutCell
                             width="2"
-                            title1="{i18n>myInsuranceCompany}"
                     >
                         <HBox
                                 height="7rem"
