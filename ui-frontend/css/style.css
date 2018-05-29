@@ -114,37 +114,22 @@ a.sapMLnk {
 	margin-right: 0;
 }
 
-.profile-car-expiration {
-	border-right: 14px solid;
-	width: 14px;
-	height: 100%;
-}
-
-.profile-car-expiration.expired {
-	border-right-color: #bb0000;
-}
-
-.profile-car-expiration.soon {
-	border-right-color: #ffcc00;
-}
-
-.profile-car-expiration.ok {
-	border-right-color: #2b7d2b;
-}
-
 /**
  * '.car-header-expiration' placed before highlighted element
  * See also formatCarHeaderExpirationColorPrefix comment
  */
-.car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb {
+.car-header-expiration.expired + .sapMPanel > .sapMPanelWrappingDivTb,
+.car-header-expiration.expired + .profile-car {
 	background-color: #ffcccc;
 }
 
-.car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb {
+.car-header-expiration.soon + .sapMPanel > .sapMPanelWrappingDivTb,
+.car-header-expiration.soon + .profile-car {
 	background-color: #fff5cc;
 }
 
-.car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb {
+.car-header-expiration.ok + .sapMPanel > .sapMPanelWrappingDivTb,
+.car-header-expiration.ok + .profile-car {
 	background-color: #ccffcc;
 }
 

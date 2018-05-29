@@ -146,22 +146,6 @@ sap.ui.define([
             return $.sap.formatMessage(templateStr, [Utils.findLastActiveInsuranceNumber(insurances) || '']);
         },
 
-        formatInsuranceColorStrip: function(insurances) {
-
-            function expirationClass(expirationType) {
-                if (expirationType === Const.INSURANCE_EXPIRATION.EXPIRED) {
-                    return "expired";
-                }
-                if (expirationType === Const.INSURANCE_EXPIRATION.SOON) {
-                    return "soon";
-                }
-                return "ok";
-            }
-
-            var expirationType = Utils.calcInsuranceExpirationType(insurances);
-            return '<div class="profile-car-expiration ' + expirationClass(expirationType) + '" />';
-        },
-
         formatOperationsWCount: function(operationsStr, templateStrWCount, operations, filteredOperationsCount) {
             if (operations && operations.length) {
                 return $.sap.formatMessage(templateStrWCount, [filteredOperationsCount]);

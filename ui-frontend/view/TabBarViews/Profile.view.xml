@@ -131,8 +131,15 @@
                                 }"
                         >
                             <CustomListItem>
+                                <core:HTML
+                                        content="{
+                                            path: 'personModel>insurances',
+                                            formatter: '.formatter.formatCarHeaderExpirationColorPrefix'
+                                        }"
+                                />
                                 <FlexBox
                                         renderType="Div"
+                                        class="profile-car"
                                 >
                                     <items>
                                         <Image
@@ -166,12 +173,6 @@
                                                 <FlexItemData growFactor="1"/>
                                             </layoutData>
                                         </Text>
-                                        <core:HTML
-                                                content="{
-                                                    path: 'personModel>insurances',
-                                                    formatter: '.formatter.formatInsuranceColorStrip'
-                                                }"
-                                        />
                                     </items>
                                 </FlexBox>
                             </CustomListItem>
