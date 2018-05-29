@@ -126,21 +126,16 @@
                     <layout:BlockLayoutCell
                             title="{i18n>myCarsTitle}"
                     >
-                        <Table
-                                class="profile-cars"
+                        <List
                                 items="{
                                     path: 'personModel>/cars'
                                 }"
                         >
-                            <columns>
-                                <Column/>
-                                <Column/>
-                                <Column/>
-                                <Column width="0px"/>
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
+                            <CustomListItem>
+                                <FlexBox
+                                        renderType="Div"
+                                >
+                                    <items>
                                         <Image
                                                 width="134px"
                                                 height="74px"
@@ -151,7 +146,13 @@
                                         />
                                         <ObjectIdentifier
                                                 title="{personModel>model}"
-                                                text="{personModel>numberPlate}"/>
+                                                text="{personModel>numberPlate}"
+                                                class="sapUiLargeMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTopBottom"
+                                        >
+                                            <layoutData>
+                                                <FlexItemData growFactor="0" width="50%" minWidth="50%" maxWidth="50%"/>
+                                            </layoutData>
+                                        </ObjectIdentifier>
                                         <Text
                                                 text="{
                                                     parts: [
@@ -160,17 +161,22 @@
                                                     ],
                                                     formatter: '.formatter.formatLastInsuranceDateTo'
                                                 }"
-                                        />
+                                                class="sapUiSmallMarginTopBottom"
+                                        >
+                                            <layoutData>
+                                                <FlexItemData growFactor="1"/>
+                                            </layoutData>
+                                        </Text>
                                         <core:HTML
                                                 content="{
                                                     path: 'personModel>insurances',
                                                     formatter: '.formatter.formatInsuranceColorStrip'
                                                 }"
                                         />
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                                    </items>
+                                </FlexBox>
+                            </CustomListItem>
+                        </List>
                     </layout:BlockLayoutCell>
                 </layout:BlockLayoutRow>
                 <layout:layoutData>
