@@ -143,3 +143,7 @@ a.sapMLnk {
 .profile-insurance-rating-title {
 	word-break: break-all;
 }
+
+.profile-car-item {
+	border: 1px lightgray solid;
+}

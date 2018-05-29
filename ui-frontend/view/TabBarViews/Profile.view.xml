@@ -130,7 +130,7 @@
                                     path: 'personModel>/cars'
                                 }"
                         >
-                            <CustomListItem>
+                            <CustomListItem class="profile-car-item">
                                 <core:HTML
                                         content="{
                                             path: 'personModel>insurances',
