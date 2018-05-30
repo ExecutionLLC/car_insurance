@@ -13,6 +13,31 @@ sap.ui.define([
         metadata: {
             manifest: "json"
         },
+
+        updateError: {
+            retriesLeft: Const.ASYNC_UPDATE_RETRIES,
+            isShown: false
+        },
+
+        showUpdateErrorMessage: function(onDone) {
+            var thisUpdateError = this.updateError;
+            if (thisUpdateError.isShown) {
+                return;
+            }
+            var sErrorText = this.getModel("i18n")
+                .getResourceBundle()
+                .getText("msg.box.error");
+            thisUpdateError.isShown = true;
+            MessageBox.error(
+                sErrorText,
+                {
+                    onClose: function() {
+                        thisUpdateError.isShown = false;
+                        onDone();
+                    }
+                }
+            );
+        },
         showNetworkErrorMessage: function() {
             var sErrorText = this.getModel("i18n")
                 .getResourceBundle()
@@ -36,7 +61,7 @@ sap.ui.define([
                 this.initModels(lastUserId);
             }
         },
-        receiveOperations: function() {
+        receiveOperations: function(dontShowError) {
             var oPersonModel = this.getModel("personModel");
             var oOperationsModel = this.getModel("operationsModel");
             var userId = oPersonModel.getProperty("/id");
@@ -48,7 +73,9 @@ sap.ui.define([
                 })
                 .fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Cannot get operations: textStatus = ", textStatus, ", error = ", errorThrown);
-                    self.showNetworkErrorMessage();
+                    if (!dontShowError) {
+                        self.showNetworkErrorMessage();
+                    }
                 });
         },
         initModels: function (userId) {
@@ -86,15 +113,26 @@ sap.ui.define([
             var oPersonModel = this.getModel("personModel");
             var userId = oPersonModel.getProperty("/id");
             var self = this;
+            var scheduleNextUpdate = this.scheduleNextModelsUpdate.bind(this);
             jQuery.when(
                 API.getPerson(userId),
-                this.receiveOperations.bind(this)()
+                this.receiveOperations.bind(this, true)()
             ).then(function(personInfo) {
+                self.updateError.retriesLeft = Const.ASYNC_UPDATE_RETRIES;
                 oPersonModel.setData(personInfo);
+                scheduleNextUpdate();
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown);
-                self.showNetworkErrorMessage();
-            }).always(this.scheduleNextModelsUpdate.bind(this));
+                console.error("Cannot update model data: textStatus = ", textStatus, ", error = ", errorThrown, ", retries left = ", self.updateError.retriesLeft);
+                self.updateError.retriesLeft--;
+                if (self.updateError.retriesLeft <= 0) {
+                    self.showUpdateErrorMessage(function() {
+                        self.updateError.retriesLeft = Const.ASYNC_UPDATE_RETRIES;
+                        self.updateModels();
+                    });
+                } else {
+                    scheduleNextUpdate();
+                }
+            });
         },
         scheduleNextModelsUpdate: function () {
             this.updateTimeoutId = setTimeout(this.updateModels.bind(this), Const.ASYNC_UPDATE_TIMEOUT);
