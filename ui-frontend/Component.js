@@ -9,15 +9,13 @@ sap.ui.define([
 ], function (UIComponent, JSONModel, Model, MessageBox, Const, Utils, API) {
     "use strict";
 
-    var UPDATE_RETRIES = 3;
-
     return UIComponent.extend("personal.account.Component", {
         metadata: {
             manifest: "json"
         },
 
         updateError: {
-            retriesLeft: UPDATE_RETRIES,
+            retriesLeft: Const.ASYNC_UPDATE_RETRIES,
             isShown: false
         },
 
@@ -120,7 +118,7 @@ sap.ui.define([
                 API.getPerson(userId),
                 this.receiveOperations.bind(this, true)()
             ).then(function(personInfo) {
-                self.updateError.retriesLeft = UPDATE_RETRIES;
+                self.updateError.retriesLeft = Const.ASYNC_UPDATE_RETRIES;
                 oPersonModel.setData(personInfo);
                 scheduleNextUpdate();
             }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -128,7 +126,7 @@ sap.ui.define([
                 self.updateError.retriesLeft--;
                 if (self.updateError.retriesLeft <= 0) {
                     self.showUpdateErrorMessage(function() {
-                        self.updateError.retriesLeft = UPDATE_RETRIES;
+                        self.updateError.retriesLeft = Const.ASYNC_UPDATE_RETRIES;
                         self.updateModels();
                     });
                 } else {
